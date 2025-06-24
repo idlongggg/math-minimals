@@ -1,6 +1,8 @@
 'use client';
 
+import 'katex/dist/katex.min.css';
 import { useCallback, useState } from 'react';
+import { InlineMath } from 'react-katex';
 
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
@@ -44,6 +46,16 @@ export function CommonDenominatorView() {
     convertedFractions: Fraction[];
   } | null>(null);
   const [error, setError] = useState('');
+  const [history, setHistory] = useState<
+    Array<{
+      id: string;
+      inputFractions: string[];
+      lcm: number;
+      fractions: Fraction[];
+      convertedFractions: Fraction[];
+      timestamp: Date;
+    }>
+  >([]);
 
   const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
     setCurrentTab(newValue);
@@ -148,12 +160,42 @@ export function CommonDenominatorView() {
       fractions,
       convertedFractions,
     });
+
+    // Add to history
+    const historyItem = {
+      id: Date.now().toString(),
+      inputFractions: validInputs,
+      lcm: commonDenominator,
+      fractions,
+      convertedFractions,
+      timestamp: new Date(),
+    };
+    setHistory((prev) => [historyItem, ...prev.slice(0, 49)]); // Keep max 50 items
   }, [fractionInputs]);
 
   const handleReset = useCallback(() => {
     setFractionInputs(['', '']);
     setResult(null);
     setError('');
+  }, []);
+
+  const handleHistoryItemClick = useCallback((item: (typeof history)[0]) => {
+    const newInputs = [...item.inputFractions];
+    while (newInputs.length < 6) {
+      newInputs.push('');
+    }
+    setFractionInputs(newInputs);
+    setResult({
+      lcm: item.lcm,
+      fractions: item.fractions,
+      convertedFractions: item.convertedFractions,
+    });
+    setError('');
+    setCurrentTab('calculator');
+  }, []);
+
+  const handleClearHistory = useCallback(() => {
+    setHistory([]);
   }, []);
 
   const handleQuickExample = useCallback((example: (typeof QUICK_EXAMPLES)[0]) => {
@@ -190,6 +232,17 @@ export function CommonDenominatorView() {
           convertedFractions,
         });
         setError('');
+
+        // Add to history
+        const historyItem = {
+          id: Date.now().toString(),
+          inputFractions: example.fractions,
+          lcm: commonDenominator,
+          fractions,
+          convertedFractions,
+          timestamp: new Date(),
+        };
+        setHistory((prev) => [historyItem, ...prev.slice(0, 49)]); // Keep max 50 items
       }
     }, 100);
   }, []);
@@ -315,29 +368,31 @@ export function CommonDenominatorView() {
                         sx={{
                           minWidth: 80,
                           textAlign: 'center',
-                          fontFamily: 'monospace',
-                          fontSize: '1.1rem',
+                          fontSize: '1.2rem',
                           p: 1,
                           bgcolor: 'grey.100',
                           borderRadius: 1,
                         }}
                       >
-                        {formatFraction(original)}
+                        <InlineMath
+                          math={`\\frac{${original.numerator}}{${original.denominator}}`}
+                        />
                       </Box>
                       <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
                       <Box
                         sx={{
                           minWidth: 100,
                           textAlign: 'center',
-                          fontFamily: 'monospace',
-                          fontSize: '1.1rem',
+                          fontSize: '1.2rem',
                           p: 1,
                           bgcolor: 'primary.lighter',
                           borderRadius: 1,
                           fontWeight: 'bold',
                         }}
                       >
-                        {formatFraction(result.convertedFractions[index])}
+                        <InlineMath
+                          math={`\\frac{${result.convertedFractions[index].numerator}}{${result.convertedFractions[index].denominator}}`}
+                        />
                       </Box>
                       <Typography variant="body2" color="text.secondary">
                         (nhân {result.lcm / original.denominator})
@@ -382,9 +437,28 @@ export function CommonDenominatorView() {
                 <Typography variant="subtitle1" fontWeight="bold">
                   {example.description}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {example.fractions.join(', ')}
-                </Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 0.5,
+                    justifyContent: 'center',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  {example.fractions.map((fraction, index) => (
+                    <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                      <InlineMath
+                        math={`\\frac{${fraction.split('/')[0]}}{${fraction.split('/')[1] || '1'}}`}
+                      />
+                      {index < example.fractions.length - 1 && (
+                        <Typography variant="body2" color="text.secondary" sx={{ mx: 0.5 }}>
+                          ,
+                        </Typography>
+                      )}
+                    </Box>
+                  ))}
+                </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
                   <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
                 </Box>
@@ -416,24 +490,33 @@ export function CommonDenominatorView() {
                   { f1: '3/8', f2: '5/12', lcm: 24, r1: '9/24', r2: '10/24' },
                 ].map((row, index) => (
                   <tr key={index}>
-                    <td style={{ padding: 8, textAlign: 'center', fontFamily: 'monospace' }}>
-                      {row.f1}
+                    <td style={{ padding: 8, textAlign: 'center' }}>
+                      <InlineMath
+                        math={`\\frac{${row.f1.split('/')[0]}}{${row.f1.split('/')[1]}}`}
+                      />
                     </td>
-                    <td style={{ padding: 8, textAlign: 'center', fontFamily: 'monospace' }}>
-                      {row.f2}
+                    <td style={{ padding: 8, textAlign: 'center' }}>
+                      <InlineMath
+                        math={`\\frac{${row.f2.split('/')[0]}}{${row.f2.split('/')[1]}}`}
+                      />
                     </td>
                     <td
                       style={{
                         padding: 8,
                         textAlign: 'center',
-                        fontFamily: 'monospace',
                         fontWeight: 'bold',
                       }}
                     >
-                      {row.lcm}
+                      <InlineMath math={row.lcm.toString()} />
                     </td>
-                    <td style={{ padding: 8, textAlign: 'center', fontFamily: 'monospace' }}>
-                      {row.r1}, {row.r2}
+                    <td style={{ padding: 8, textAlign: 'center' }}>
+                      <InlineMath
+                        math={`\\frac{${row.r1.split('/')[0]}}{${row.r1.split('/')[1]}}`}
+                      />
+                      ,{' '}
+                      <InlineMath
+                        math={`\\frac{${row.r2.split('/')[0]}}{${row.r2.split('/')[1]}}`}
+                      />
                     </td>
                   </tr>
                 ))}
@@ -442,6 +525,137 @@ export function CommonDenominatorView() {
           </Box>
         </CardContent>
       </Card>
+    </Box>
+  );
+
+  const renderHistory = () => (
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h6">Lịch sử tính toán</Typography>
+        {history.length > 0 && (
+          <Button
+            variant="outlined"
+            size="small"
+            color="error"
+            onClick={handleClearHistory}
+            startIcon={<Iconify icon="solar:trash-bin-trash-bold" />}
+          >
+            Xóa lịch sử
+          </Button>
+        )}
+      </Box>
+
+      {history.length === 0 ? (
+        <Card>
+          <CardContent sx={{ textAlign: 'center', py: 6 }}>
+            <Iconify
+              icon="solar:clock-circle-bold"
+              sx={{ width: 64, height: 64, color: 'text.disabled', mb: 2 }}
+            />
+            <Typography variant="h6" color="text.secondary">
+              Chưa có lịch sử tính toán
+            </Typography>
+            <Typography variant="body2" color="text.disabled">
+              Thực hiện tính toán mẫu số chung để xem lịch sử tại đây
+            </Typography>
+          </CardContent>
+        </Card>
+      ) : (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+          {history.map((item) => (
+            <Card
+              key={item.id}
+              sx={{
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  bgcolor: 'primary.lighter',
+                  borderColor: 'primary.main',
+                },
+              }}
+              onClick={() => handleHistoryItemClick(item)}
+            >
+              <CardContent sx={{ py: 2 }}>
+                <Box
+                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1.5,
+                        fontFamily: 'monospace',
+                        fontSize: '0.9rem',
+                      }}
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        {item.inputFractions.map((fraction, index) => (
+                          <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <Box component="span" sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
+                              <InlineMath
+                                math={`\\frac{${item.fractions[index].numerator}}{${item.fractions[index].denominator}}`}
+                              />
+                            </Box>
+                            {index < item.inputFractions.length - 1 && (
+                              <Typography variant="body2" color="text.secondary">
+                                ,
+                              </Typography>
+                            )}
+                          </Box>
+                        ))}
+                      </Box>
+                      <Iconify
+                        icon="eva:arrow-forward-fill"
+                        sx={{ color: 'text.secondary', mx: 1 }}
+                      />
+                      <Chip
+                        label={`LCM: ${item.lcm}`}
+                        size="small"
+                        color="primary"
+                        sx={{ fontWeight: 'bold' }}
+                      />
+                    </Box>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Typography variant="caption" color="text.secondary">
+                      {item.timestamp.toLocaleTimeString('vi-VN')}
+                    </Typography>
+                    <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.disabled' }} />
+                  </Box>
+                </Box>
+
+                {/* Show converted fractions */}
+                <Box sx={{ mt: 2, pt: 1, borderTop: '1px solid', borderColor: 'divider' }}>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    sx={{ mb: 1, display: 'block' }}
+                  >
+                    Kết quả chuyển đổi:
+                  </Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+                    {item.convertedFractions.map((converted, index) => (
+                      <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        <Box component="span" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                          <InlineMath
+                            math={`\\frac{${converted.numerator}}{${converted.denominator}}`}
+                          />
+                        </Box>
+                        {index < item.convertedFractions.length - 1 && (
+                          <Typography variant="body2" color="text.secondary">
+                            ,
+                          </Typography>
+                        )}
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 
@@ -505,16 +719,28 @@ export function CommonDenominatorView() {
               p: 2,
               bgcolor: 'grey.100',
               borderRadius: 1,
-              fontFamily: 'monospace',
               '& .MuiTypography-root': { fontFamily: 'monospace' },
             }}
           >
-            <Typography variant="body2">Tìm mẫu số chung của 1/6 và 1/8:</Typography>
-            <Typography variant="body2">6 = 2 × 3</Typography>
-            <Typography variant="body2">8 = 2³</Typography>
-            <Typography variant="body2">LCM = 2³ × 3 = 24</Typography>
-            <Typography variant="body2">1/6 = 4/24 (nhân với 4)</Typography>
-            <Typography variant="body2">1/8 = 3/24 (nhân với 3)</Typography>
+            <Typography variant="body2">
+              Tìm mẫu số chung của <InlineMath math="\\frac{1}{6}" /> và{' '}
+              <InlineMath math="\\frac{1}{8}" />:
+            </Typography>
+            <Typography variant="body2">
+              <InlineMath math="6 = 2 \times 3" />
+            </Typography>
+            <Typography variant="body2">
+              <InlineMath math="8 = 2^3" />
+            </Typography>
+            <Typography variant="body2">
+              <InlineMath math="LCM = 2^3 \times 3 = 24" />
+            </Typography>
+            <Typography variant="body2">
+              <InlineMath math="\\frac{1}{6}" /> = <InlineMath math="\\frac{4}{24}" /> (nhân với 4)
+            </Typography>
+            <Typography variant="body2">
+              <InlineMath math="\\frac{1}{8}" /> = <InlineMath math="\\frac{3}{24}" /> (nhân với 3)
+            </Typography>
           </Box>
 
           <Typography variant="h6" sx={{ mt: 3 }} gutterBottom>
@@ -527,7 +753,8 @@ export function CommonDenominatorView() {
             </Typography>
             <Typography variant="body1">• Với 2 số nguyên tố, MSCNN = tích của 2 số đó</Typography>
             <Typography variant="body1">
-              • Có thể sử dụng công thức: LCM(a,b) = (a × b) / GCD(a,b)
+              • Có thể sử dụng công thức:{' '}
+              <InlineMath math="LCM(a,b) = \frac{a \times b}{GCD(a,b)}" />
             </Typography>
           </Box>
         </CardContent>
@@ -565,6 +792,11 @@ export function CommonDenominatorView() {
               icon={<Iconify icon="custom:flash-outline" />}
             />
             <Tab
+              value="history"
+              label={`Lịch sử (${history.length})`}
+              icon={<Iconify icon="solar:clock-circle-bold" />}
+            />
+            <Tab
               value="guide"
               label="Hướng dẫn"
               icon={<Iconify icon="solar:notebook-bold-duotone" />}
@@ -583,6 +815,7 @@ export function CommonDenominatorView() {
         >
           {currentTab === 'calculator' && renderCalculator()}
           {currentTab === 'quick-tools' && renderQuickTools()}
+          {currentTab === 'history' && renderHistory()}
           {currentTab === 'guide' && renderGuide()}
         </Box>
       </Box>
