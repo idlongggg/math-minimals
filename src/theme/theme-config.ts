@@ -1,7 +1,7 @@
 import type { CommonColors } from '@mui/material/styles';
 
 import type { PaletteColorNoChannels } from './core/palette';
-import type { ThemeDirection, ThemeColorScheme, ThemeCssVariables } from './types';
+import type { ThemeColorScheme, ThemeCssVariables, ThemeDirection } from './types';
 
 // ----------------------------------------------------------------------
 
@@ -38,8 +38,8 @@ export const themeConfig: ThemeConfig = {
    * Typography
    *************************************** */
   fontFamily: {
-    primary: 'Public Sans Variable',
-    secondary: 'Barlow',
+    primary: 'Nunito',
+    secondary: 'Nunito',
   },
   /** **************************************
    * Palette
