@@ -1,6 +1,8 @@
 'use client';
 
+import 'katex/dist/katex.min.css';
 import { useCallback, useState } from 'react';
+import { BlockMath, InlineMath } from 'react-katex';
 
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
@@ -46,6 +48,21 @@ const BASE_NAMES = {
   9: 'Cửu phân (Nonary)',
   11: 'Thập nhất phân (Undecimal)',
   12: 'Thập nhị phân (Duodecimal)',
+};
+
+const BASE_LATEX_NOTATION: Record<number, string> = {
+  2: '_{(2)}',
+  8: '_{(8)}',
+  10: '_{(10)}',
+  16: '_{(16)}',
+  3: '_{(3)}',
+  4: '_{(4)}',
+  5: '_{(5)}',
+  6: '_{(6)}',
+  7: '_{(7)}',
+  9: '_{(9)}',
+  11: '_{(11)}',
+  12: '_{(12)}',
 };
 
 // ----------------------------------------------------------------------
@@ -250,7 +267,15 @@ export function BaseConversionView() {
                   label="Nhập số cần chuyển đổi"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value.toUpperCase())}
-                  placeholder={`Ví dụ: ${fromBase === 16 ? 'FF' : fromBase === 2 ? '1010' : '123'}`}
+                  placeholder={`Ví dụ: ${fromBase === 16 ? 'FF' : fromBase === 2 ? '1010' : fromBase === 8 ? '377' : '123'}`}
+                  helperText={
+                    inputValue && (
+                      <Box component="span">
+                        Bạn đang nhập:{' '}
+                        <InlineMath math={`${inputValue}_{${BASE_LATEX_NOTATION[fromBase]}}`} />
+                      </Box>
+                    )
+                  }
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -303,6 +328,28 @@ export function BaseConversionView() {
                     },
                   }}
                 />
+
+                {result && (
+                  <Box
+                    sx={{
+                      p: 2,
+                      bgcolor: 'primary.lighter',
+                      borderRadius: 1,
+                      border: '1px solid',
+                      borderColor: 'primary.main',
+                      textAlign: 'center',
+                    }}
+                  >
+                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                      Kết quả chuyển đổi:
+                    </Typography>
+                    <Box component="div" sx={{ fontSize: '1.2rem' }}>
+                      <InlineMath
+                        math={`${inputValue || '?'}_{${BASE_LATEX_NOTATION[fromBase]}} = ${result}_{${BASE_LATEX_NOTATION[toBase]}}`}
+                      />
+                    </Box>
+                  </Box>
+                )}
               </Box>
             </CardContent>
           </Card>
@@ -367,9 +414,21 @@ export function BaseConversionView() {
                 <Typography variant="subtitle1" fontWeight="bold">
                   {quickConv.label}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Ví dụ: {quickConv.example}
-                </Typography>
+                <Box
+                  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}
+                >
+                  <Typography variant="body2" color="text.secondary">
+                    Ví dụ:
+                  </Typography>
+                  <InlineMath
+                    math={`${quickConv.example}_{${BASE_LATEX_NOTATION[quickConv.from]}}`}
+                  />
+                  <Iconify
+                    icon="eva:arrow-forward-fill"
+                    sx={{ color: 'primary.main', fontSize: 16 }}
+                  />
+                  <InlineMath math={`?_{${BASE_LATEX_NOTATION[quickConv.to]}}`} />
+                </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
                   <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
                 </Box>
@@ -386,25 +445,61 @@ export function BaseConversionView() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr>
-                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>Thập phân</th>
-                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>Nhị phân</th>
-                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>Bát phân</th>
-                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>Thập lục phân</th>
+                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                    <InlineMath math="N_{(10)}" />
+                  </th>
+                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                    <InlineMath math="N_{(2)}" />
+                  </th>
+                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                    <InlineMath math="N_{(8)}" />
+                  </th>
+                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                    <InlineMath math="N_{(16)}" />
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {Array.from({ length: 16 }, (_, i) => (
-                  <tr key={i}>
-                    <td style={{ padding: 8, textAlign: 'center', fontFamily: 'monospace' }}>
+                  <tr key={i} style={{ backgroundColor: i % 2 === 0 ? '#f9f9f9' : 'white' }}>
+                    <td
+                      style={{
+                        padding: 8,
+                        textAlign: 'center',
+                        fontFamily: 'monospace',
+                        fontSize: '1.1rem',
+                      }}
+                    >
                       {i}
                     </td>
-                    <td style={{ padding: 8, textAlign: 'center', fontFamily: 'monospace' }}>
+                    <td
+                      style={{
+                        padding: 8,
+                        textAlign: 'center',
+                        fontFamily: 'monospace',
+                        fontSize: '1.1rem',
+                      }}
+                    >
                       {i.toString(2)}
                     </td>
-                    <td style={{ padding: 8, textAlign: 'center', fontFamily: 'monospace' }}>
+                    <td
+                      style={{
+                        padding: 8,
+                        textAlign: 'center',
+                        fontFamily: 'monospace',
+                        fontSize: '1.1rem',
+                      }}
+                    >
                       {i.toString(8)}
                     </td>
-                    <td style={{ padding: 8, textAlign: 'center', fontFamily: 'monospace' }}>
+                    <td
+                      style={{
+                        padding: 8,
+                        textAlign: 'center',
+                        fontFamily: 'monospace',
+                        fontSize: '1.1rem',
+                      }}
+                    >
                       {i.toString(16).toUpperCase()}
                     </td>
                   </tr>
@@ -473,20 +568,22 @@ export function BaseConversionView() {
                       sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 1,
+                        gap: 1.5,
                         fontFamily: 'monospace',
                         fontSize: '0.9rem',
                       }}
                     >
                       <Chip label={`Base ${item.fromBase}`} size="small" variant="outlined" />
-                      <Typography variant="body1" fontWeight="bold">
-                        {item.input}
-                      </Typography>
+                      <Box component="span" sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
+                        <InlineMath
+                          math={`${item.input}_{${BASE_LATEX_NOTATION[item.fromBase]}}`}
+                        />
+                      </Box>
                       <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.secondary' }} />
                       <Chip label={`Base ${item.toBase}`} size="small" color="primary" />
-                      <Typography variant="body1" fontWeight="bold" color="primary.main">
-                        {item.result}
-                      </Typography>
+                      <Box component="span" sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
+                        <InlineMath math={`${item.result}_{${BASE_LATEX_NOTATION[item.toBase]}}`} />
+                      </Box>
                     </Box>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -513,59 +610,126 @@ export function BaseConversionView() {
             Các hệ cơ số phổ biến:
           </Typography>
 
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, ml: 2 }}>
-            <Typography variant="body1">
-              • <strong>Nhị phân (Base 2):</strong> Chỉ sử dụng các chữ số 0, 1
-            </Typography>
-            <Typography variant="body1">
-              • <strong>Bát phân (Base 8):</strong> Sử dụng các chữ số 0-7
-            </Typography>
-            <Typography variant="body1">
-              • <strong>Thập phân (Base 10):</strong> Sử dụng các chữ số 0-9 (hệ thông thường)
-            </Typography>
-            <Typography variant="body1">
-              • <strong>Thập lục phân (Base 16):</strong> Sử dụng 0-9 và A-F
-            </Typography>
-          </Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <Typography variant="h6">Các hệ cơ số phổ biến:</Typography>
 
-          <Typography variant="h6" sx={{ mt: 3 }} gutterBottom>
-            Cách chuyển đổi:
-          </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}>
+              <Box>
+                <Typography variant="body1" component="div">
+                  • <strong>Nhị phân (Base 2):</strong> Chỉ sử dụng các chữ số{' '}
+                  <InlineMath math="\{0, 1\}" />
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                  Ví dụ: <InlineMath math="1010_{(2)} = 10_{(10)}" />
+                </Typography>
+              </Box>
 
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, ml: 2 }}>
-            <Typography variant="body1">
-              1. <strong>Từ bất kỳ hệ nào sang thập phân:</strong> Nhân mỗi chữ số với lũy thừa
-              tương ứng của cơ số
-            </Typography>
-            <Typography variant="body1">
-              2. <strong>Từ thập phân sang hệ khác:</strong> Chia liên tục cho cơ số đích và lấy
-              phần dư
-            </Typography>
-            <Typography variant="body1">
-              3. <strong>Giữa các hệ khác nhau:</strong> Chuyển về thập phân trước, sau đó chuyển
-              sang hệ đích
-            </Typography>
-          </Box>
+              <Box>
+                <Typography variant="body1" component="div">
+                  • <strong>Bát phân (Base 8):</strong> Sử dụng các chữ số{' '}
+                  <InlineMath math="\{0, 1, 2, 3, 4, 5, 6, 7\}" />
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                  Ví dụ: <InlineMath math="377_{(8)} = 255_{(10)}" />
+                </Typography>
+              </Box>
 
-          <Typography variant="h6" sx={{ mt: 3 }} gutterBottom>
-            Ví dụ:
-          </Typography>
+              <Box>
+                <Typography variant="body1" component="div">
+                  • <strong>Thập phân (Base 10):</strong> Sử dụng các chữ số{' '}
+                  <InlineMath math="\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}" /> (hệ thông thường)
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                  Ví dụ: <InlineMath math="255_{(10)}" />
+                </Typography>
+              </Box>
 
-          <Box
-            sx={{
-              p: 2,
-              bgcolor: 'grey.100',
-              borderRadius: 1,
-              fontFamily: 'monospace',
-              '& .MuiTypography-root': { fontFamily: 'monospace' },
-            }}
-          >
-            <Typography variant="body2">Chuyển 255₁₀ sang nhị phân:</Typography>
-            <Typography variant="body2">255 ÷ 2 = 127 dư 1</Typography>
-            <Typography variant="body2">127 ÷ 2 = 63 dư 1</Typography>
-            <Typography variant="body2">63 ÷ 2 = 31 dư 1</Typography>
-            <Typography variant="body2">...</Typography>
-            <Typography variant="body2">Kết quả: 11111111₂</Typography>
+              <Box>
+                <Typography variant="body1" component="div">
+                  • <strong>Thập lục phân (Base 16):</strong> Sử dụng{' '}
+                  <InlineMath math="\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F\}" />
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                  Ví dụ: <InlineMath math="FF_{(16)} = 255_{(10)}" />
+                </Typography>
+              </Box>
+            </Box>
+
+            <Typography variant="h6" sx={{ mt: 3 }} gutterBottom>
+              Công thức chuyển đổi:
+            </Typography>
+
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}>
+              <Box>
+                <Typography variant="body1" gutterBottom>
+                  <strong>1. Từ hệ cơ số b sang thập phân:</strong>
+                </Typography>
+                <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+                  <BlockMath math="N_{(b)} = \sum_{i=0}^{n-1} d_i \times b^i" />
+                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                    Trong đó: <InlineMath math="d_i" /> là chữ số thứ i từ phải sang trái,{' '}
+                    <InlineMath math="b" /> là cơ số
+                  </Typography>
+                </Box>
+              </Box>
+
+              <Box>
+                <Typography variant="body1" gutterBottom>
+                  <strong>2. Từ thập phân sang hệ cơ số b:</strong>
+                </Typography>
+                <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+                  <Typography variant="body2" sx={{ mb: 1 }}>
+                    Thuật toán chia liên tục:
+                  </Typography>
+                  <BlockMath math="N_{(10)} \div b = q_1 \text{ dư } r_1" />
+                  <BlockMath math="q_1 \div b = q_2 \text{ dư } r_2" />
+                  <BlockMath math="\vdots" />
+                  <BlockMath math="q_{n-1} \div b = 0 \text{ dư } r_n" />
+                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                    Kết quả: <InlineMath math="r_n r_{n-1} \ldots r_2 r_1" />
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+
+            <Typography variant="h6" sx={{ mt: 3 }} gutterBottom>
+              Ví dụ chi tiết:
+            </Typography>
+
+            <Box
+              sx={{
+                p: 3,
+                bgcolor: 'grey.50',
+                borderRadius: 2,
+                border: '1px solid',
+                borderColor: 'grey.200',
+              }}
+            >
+              <Typography variant="body1" gutterBottom>
+                <strong>Chuyển đổi từ nhị phân sang thập phân:</strong>
+              </Typography>
+              <Box sx={{ ml: 2 }}>
+                <BlockMath math="1101_{(2)} = 1 \times 2^3 + 1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0" />
+                <BlockMath math="= 1 \times 8 + 1 \times 4 + 0 \times 2 + 1 \times 1" />
+                <BlockMath math="= 8 + 4 + 0 + 1 = 13_{(10)}" />
+              </Box>
+
+              <Typography variant="body1" gutterBottom sx={{ mt: 3 }}>
+                <strong>Chuyển đổi từ thập phân sang nhị phân:</strong>
+              </Typography>
+              <Box sx={{ ml: 2 }}>
+                <Typography variant="body2" sx={{ fontFamily: 'monospace', mb: 1 }}>
+                  Chuyển 13₁₀ sang nhị phân:
+                </Typography>
+                <BlockMath math="13 \div 2 = 6 \text{ dư } 1" />
+                <BlockMath math="6 \div 2 = 3 \text{ dư } 0" />
+                <BlockMath math="3 \div 2 = 1 \text{ dư } 1" />
+                <BlockMath math="1 \div 2 = 0 \text{ dư } 1" />
+                <Typography variant="body2" color="primary.main" sx={{ mt: 1 }}>
+                  Đọc từ dưới lên: <InlineMath math="13_{(10)} = 1101_{(2)}" />
+                </Typography>
+              </Box>
+            </Box>
           </Box>
         </CardContent>
       </Card>
