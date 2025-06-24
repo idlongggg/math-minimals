@@ -1,4 +1,4 @@
-import type { Theme, Components, ComponentsVariants } from '@mui/material/styles';
+import type { Components, ComponentsVariants, Theme } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -61,7 +61,7 @@ const MuiAvatar: Components<Theme>['MuiAvatar'] = {
    *************************************** */
   styleOverrides: {
     root: { variants: [avatarColors.defaultColor, avatarColors.colors].flat() },
-    rounded: ({ theme }) => ({ borderRadius: theme.shape.borderRadius * 1.5 }),
+    rounded: ({ theme }) => ({ borderRadius: theme.shape.borderRadius }),
     colorDefault: ({ ownerState, theme }) => {
       const color = colorByName(ownerState.alt);
 

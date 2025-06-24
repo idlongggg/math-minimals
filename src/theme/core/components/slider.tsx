@@ -1,4 +1,4 @@
-import type { Theme, Components } from '@mui/material/styles';
+import type { Components, Theme } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -102,7 +102,7 @@ const MuiSlider: Components<Theme>['MuiSlider'] = {
       color: theme.vars.palette.text.disabled,
     }),
     valueLabel: ({ theme }) => ({
-      borderRadius: 8,
+      borderRadius: 6,
       backgroundColor: theme.vars.palette.grey[800],
       ...theme.applyStyles('dark', {
         backgroundColor: theme.vars.palette.grey[700],

@@ -1,15 +1,15 @@
-import Box from '@mui/material/Box';
 import { SvgIcon } from '@mui/material';
-import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
-import ListItemText from '@mui/material/ListItemText';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 
 import { fToNow } from 'src/utils/format-time';
 
-import { Label } from 'src/components/label';
 import { FileThumbnail } from 'src/components/file-thumbnail';
+import { Label } from 'src/components/label';
 
 import { notificationIcons } from './icons';
 
@@ -131,7 +131,7 @@ export function NotificationItem({ notification }: NotificationItemProps) {
         sx={{
           p: 1.5,
           my: 1.5,
-          borderRadius: 1.5,
+          borderRadius: 1,
           color: 'text.secondary',
           bgcolor: 'background.neutral',
         }}
@@ -154,7 +154,7 @@ export function NotificationItem({ notification }: NotificationItemProps) {
         gap: 1,
         mt: 1.5,
         display: 'flex',
-        borderRadius: 1.5,
+        borderRadius: 1,
         bgcolor: 'background.neutral',
       })}
     >

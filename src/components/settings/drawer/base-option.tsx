@@ -2,10 +2,10 @@ import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 
 import { varAlpha } from 'minimal-shared/utils';
 
+import ButtonBase from '@mui/material/ButtonBase';
 import Switch from '@mui/material/Switch';
 import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
-import ButtonBase from '@mui/material/ButtonBase';
 
 import { Iconify } from '../../iconify';
 
@@ -65,7 +65,7 @@ const ItemRoot = styled(ButtonBase, {
   flexDirection: 'column',
   alignItems: 'flex-start',
   padding: theme.spacing(2, 2.5),
-  borderRadius: theme.shape.borderRadius * 2,
+  borderRadius: theme.shape.borderRadius,
   border: `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.12)}`,
   '&:hover': {
     backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.08),

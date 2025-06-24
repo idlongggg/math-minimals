@@ -1,4 +1,4 @@
-import type { Theme, Components } from '@mui/material/styles';
+import type { Components, Theme } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -42,7 +42,7 @@ const MuiSwitch: Components<Theme>['MuiSwitch'] = {
     }),
     track: ({ theme }) => ({
       opacity: 1,
-      borderRadius: 10,
+      borderRadius: 6,
       backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.48),
     }),
     thumb: ({ theme }) => ({ color: theme.vars.palette.common.white }),

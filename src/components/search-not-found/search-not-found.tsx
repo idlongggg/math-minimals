@@ -1,5 +1,5 @@
 import type { BoxProps } from '@mui/material/Box';
-import type { Theme, SxProps } from '@mui/material/styles';
+import type { SxProps, Theme } from '@mui/material/styles';
 import type { TypographyProps } from '@mui/material/Typography';
 
 import Box from '@mui/material/Box';
@@ -31,7 +31,7 @@ export function SearchNotFound({ query, sx, slotProps, ...other }: SearchNotFoun
         {
           gap: 1,
           display: 'flex',
-          borderRadius: 1.5,
+          borderRadius: 1,
           textAlign: 'center',
           flexDirection: 'column',
         },

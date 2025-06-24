@@ -1,6 +1,6 @@
 'use client';
 
-import type { Theme, SxProps } from '@mui/material/styles';
+import type { SxProps, Theme } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -24,7 +24,7 @@ export function BlankView({ title = 'Blank', sx }: Props) {
           mt: 5,
           width: 1,
           height: 320,
-          borderRadius: 2,
+          borderRadius: 1,
           border: `dashed 1px ${theme.vars.palette.divider}`,
           bgcolor: varAlpha(theme.vars.palette.grey['500Channel'], 0.04),
         }),

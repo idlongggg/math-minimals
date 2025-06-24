@@ -2,9 +2,9 @@ import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 
 import { varAlpha } from 'minimal-shared/utils';
 
+import ButtonBase from '@mui/material/ButtonBase';
 import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
-import ButtonBase from '@mui/material/ButtonBase';
 
 import { Iconify } from '../../iconify';
 
@@ -22,14 +22,14 @@ const LargeBlockRoot = styled('div')(({ theme }) => ({
   position: 'relative',
   flexDirection: 'column',
   padding: theme.spacing(4, 2, 2, 2),
-  borderRadius: theme.shape.borderRadius * 2,
+  borderRadius: theme.shape.borderRadius,
   border: `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.12)}`,
 }));
 
 const LargeLabel = styled('span')(({ theme }) => ({
   top: -12,
   lineHeight: '22px',
-  borderRadius: '22px',
+  borderRadius: '8px',
   position: 'absolute',
   alignItems: 'center',
   display: 'inline-flex',
@@ -144,7 +144,7 @@ export function OptionButton({ selected, sx, children, ...other }: OptionButtonP
       sx={[
         (theme) => ({
           width: 1,
-          borderRadius: 1.5,
+          borderRadius: 1,
           lineHeight: '18px',
           color: 'text.disabled',
           border: `solid 1px transparent`,

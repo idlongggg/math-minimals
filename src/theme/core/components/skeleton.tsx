@@ -1,4 +1,4 @@
-import type { Theme, Components } from '@mui/material/styles';
+import type { Components, Theme } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -17,7 +17,7 @@ const MuiSkeleton: Components<Theme>['MuiSkeleton'] = {
     root: ({ theme }) => ({
       backgroundColor: varAlpha(theme.vars.palette.grey['400Channel'], 0.12),
     }),
-    rounded: ({ theme }) => ({ borderRadius: theme.shape.borderRadius * 2 }),
+    rounded: ({ theme }) => ({ borderRadius: theme.shape.borderRadius }),
   },
 };
 
