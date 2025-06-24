@@ -553,8 +553,8 @@ export function BaseConversionView() {
                 cursor: 'pointer',
                 transition: 'all 0.2s',
                 '&:hover': {
-                  transform: 'translateX(4px)',
-                  boxShadow: (theme) => theme.vars.customShadows.z4,
+                  bgcolor: 'primary.lighter',
+                  borderColor: 'primary.main',
                 },
               }}
               onClick={() => handleHistoryItemClick(item)}
