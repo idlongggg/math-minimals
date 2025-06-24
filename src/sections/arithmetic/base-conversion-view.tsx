@@ -606,10 +606,6 @@ export function BaseConversionView() {
       <Card>
         <CardHeader title="Hướng dẫn chuyển đổi cơ số" />
         <CardContent>
-          <Typography variant="h6" gutterBottom>
-            Các hệ cơ số phổ biến:
-          </Typography>
-
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             <Typography variant="h6">Các hệ cơ số phổ biến:</Typography>
 
