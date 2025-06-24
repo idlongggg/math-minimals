@@ -17,8 +17,6 @@ import Typography from '@mui/material/Typography';
 
 import { useWorkspaceContext } from 'src/contexts/workspace-context';
 
-import { CONFIG } from 'src/global-config';
-
 import { CustomPopover } from 'src/components/custom-popover';
 import { Iconify } from 'src/components/iconify';
 import { Label } from 'src/components/label';
@@ -89,16 +87,32 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
       ]}
       {...other}
     >
-      <Box
-        component="img"
-        alt={isAllTools ? 'Tất cả công cụ toán học' : currentWorkspace?.name}
-        src={
-          isAllTools
-            ? `${CONFIG.assetsDir}/assets/icons/workspaces/logo-1.webp`
-            : currentWorkspace?.logo
-        }
-        sx={{ width: 24, height: 24, borderRadius: '50%' }}
-      />
+      {isAllTools ? (
+        <Box
+          sx={{
+            width: 24,
+            height: 24,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '50%',
+            bgcolor: 'primary.main',
+          }}
+        >
+          <Iconify
+            width={14}
+            icon="mingcute:dot-grid-fill"
+            sx={{ color: 'primary.contrastText' }}
+          />
+        </Box>
+      ) : (
+        <Box
+          component="img"
+          alt={currentWorkspace?.name}
+          src={currentWorkspace?.logo}
+          sx={{ width: 24, height: 24, borderRadius: '50%' }}
+        />
+      )}
 
       <Box
         component="span"
