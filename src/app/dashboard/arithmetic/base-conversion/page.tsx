@@ -1,11 +1,11 @@
 import { CONFIG } from 'src/global-config';
 
-import { BlankView } from 'src/sections/blank/view';
+import { BaseConversionView } from 'src/sections/arithmetic';
 
 // ----------------------------------------------------------------------
 
 export const metadata = { title: `Chuyển đổi hệ cơ số - ${CONFIG.appName}` };
 
 export default function Page() {
-  return <BlankView title="Chuyển đổi hệ cơ số" />;
+  return <BaseConversionView />;
 }
