@@ -1,4 +1,4 @@
-import type { Theme, Components } from '@mui/material/styles';
+import type { Components, Theme } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ const MuiDialog: Components<Theme>['MuiDialog'] = {
   styleOverrides: {
     paper: ({ ownerState, theme }) => ({
       boxShadow: theme.vars.customShadows.dialog,
-      borderRadius: theme.shape.borderRadius * 2,
+      borderRadius: theme.shape.borderRadius * 1.25,
       ...(!ownerState.fullScreen && { margin: theme.spacing(2) }),
     }),
     paperFullScreen: { borderRadius: 0 },

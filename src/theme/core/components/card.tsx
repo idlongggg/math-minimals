@@ -1,4 +1,4 @@
-import type { Theme, Components } from '@mui/material/styles';
+import type { Components, Theme } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ const MuiCard: Components<Theme>['MuiCard'] = {
     root: ({ theme }) => ({
       position: 'relative',
       boxShadow: theme.vars.customShadows.card,
-      borderRadius: theme.shape.borderRadius * 2,
+      borderRadius: theme.shape.borderRadius * 1.25,
       zIndex: 0, // Fix Safari overflow: hidden with border radius
     }),
   },

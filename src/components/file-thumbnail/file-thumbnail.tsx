@@ -5,9 +5,9 @@ import { mergeClasses } from 'minimal-shared/utils';
 import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 
+import { DownloadButton, RemoveButton } from './action-buttons';
 import { fileThumbnailClasses } from './classes';
-import { fileData, fileThumb, fileFormat } from './utils';
-import { RemoveButton, DownloadButton } from './action-buttons';
+import { fileData, fileFormat, fileThumb } from './utils';
 
 import type { FileThumbnailProps } from './types';
 
@@ -95,7 +95,7 @@ const ItemRoot = styled('span')(({ theme }) => ({
   position: 'relative',
   display: 'inline-flex',
   justifyContent: 'center',
-  borderRadius: theme.shape.borderRadius * 1.25,
+  borderRadius: theme.shape.borderRadius,
 }));
 
 const ItemIcon = styled('img')(() => ({

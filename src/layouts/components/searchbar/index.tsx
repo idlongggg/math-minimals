@@ -4,24 +4,24 @@ import type { BoxProps } from '@mui/material/Box';
 import type { Breakpoint } from '@mui/material/styles';
 import type { NavSectionProps } from 'src/components/nav-section';
 
-import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import { varAlpha } from 'minimal-shared/utils';
+import parse from 'autosuggest-highlight/parse';
 import { useBoolean } from 'minimal-shared/hooks';
-import { useState, useEffect, useCallback } from 'react';
+import { varAlpha } from 'minimal-shared/utils';
+import { useCallback, useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
+import Dialog, { dialogClasses } from '@mui/material/Dialog';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
+import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import InputAdornment from '@mui/material/InputAdornment';
-import Dialog, { dialogClasses } from '@mui/material/Dialog';
-import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
-import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
 
-import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
+import { Label } from 'src/components/label';
 import { Scrollbar } from 'src/components/scrollbar';
 import { SearchNotFound } from 'src/components/search-not-found';
 
@@ -88,7 +88,7 @@ export function Searchbar({ data: navItems = [], sx, ...other }: SearchbarProps)
           alignItems: 'center',
           [theme.breakpoints.up(breakpoint)]: {
             pr: 1,
-            borderRadius: 1.5,
+            borderRadius: 1,
             cursor: 'pointer',
             bgcolor: varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
             transition: theme.transitions.create('background-color', {

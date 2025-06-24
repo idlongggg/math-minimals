@@ -1,11 +1,11 @@
 import type { ChipProps } from '@mui/material/Chip';
 import type { SvgIconProps } from '@mui/material/SvgIcon';
-import type { Theme, CSSObject, Components, ComponentsVariants } from '@mui/material/styles';
+import type { CSSObject, Components, ComponentsVariants, Theme } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
-import SvgIcon from '@mui/material/SvgIcon';
 import { chipClasses } from '@mui/material/Chip';
+import SvgIcon from '@mui/material/SvgIcon';
 
 // ----------------------------------------------------------------------
 
@@ -137,8 +137,8 @@ const MuiChip: Components<Theme>['MuiChip'] = {
     /**
      * @sizes
      */
-    sizeMedium: ({ theme }) => ({ borderRadius: theme.shape.borderRadius * 1.25 }),
-    sizeSmall: ({ theme }) => ({ borderRadius: theme.shape.borderRadius }),
+    sizeMedium: ({ theme }) => ({ borderRadius: theme.shape.borderRadius }),
+    sizeSmall: ({ theme }) => ({ borderRadius: theme.shape.borderRadius * 0.75 }),
     /**
      * @variant filled
      */

@@ -1,5 +1,5 @@
 import type { LinearProgressProps } from '@mui/material/LinearProgress';
-import type { Theme, CSSObject, Components } from '@mui/material/styles';
+import type { CSSObject, Components, Theme } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -40,7 +40,7 @@ const MuiLinearProgress: Components<Theme>['MuiLinearProgress'] = {
         },
       };
       return {
-        borderRadius: 4,
+        borderRadius: 3,
         ...(ownerState.variant !== 'buffer' && { ...styled.inheritColor, ...styled.colors }),
       };
     },

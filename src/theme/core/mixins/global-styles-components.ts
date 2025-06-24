@@ -1,11 +1,11 @@
-import type { Theme, CSSObject } from '@mui/material/styles';
+import type { CSSObject, Theme } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
-import { dividerClasses } from '@mui/material/Divider';
-import { checkboxClasses } from '@mui/material/Checkbox';
-import { menuItemClasses } from '@mui/material/MenuItem';
 import { autocompleteClasses } from '@mui/material/Autocomplete';
+import { checkboxClasses } from '@mui/material/Checkbox';
+import { dividerClasses } from '@mui/material/Divider';
+import { menuItemClasses } from '@mui/material/MenuItem';
 
 // ----------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ export function menuItemStyles(theme: Theme): CSSObject {
   return {
     ...theme.typography.body2,
     padding: theme.spacing(0.75, 1),
-    borderRadius: theme.shape.borderRadius * 0.75,
+    borderRadius: theme.shape.borderRadius * 0.5,
     '&:not(:last-of-type)': {
       marginBottom: 4,
     },
@@ -91,7 +91,7 @@ export function paperStyles(theme: Theme, options?: PaperStyleOptions): CSSObjec
     ...(dropdown && {
       padding: theme.spacing(0.5),
       boxShadow: theme.vars.customShadows.dropdown,
-      borderRadius: `${theme.shape.borderRadius * 1.25}px`,
+      borderRadius: `${theme.shape.borderRadius}px`,
     }),
   };
 }
