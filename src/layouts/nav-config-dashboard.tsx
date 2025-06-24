@@ -46,6 +46,11 @@ export const navData: NavSectionProps['data'] = [
     subheader: 'Công cụ toán học',
     items: [
       {
+        title: 'Test Scroll',
+        path: '/dashboard/test-scroll',
+        icon: ICONS.tools,
+      },
+      {
         title: 'Máy tính',
         path: paths.dashboard.tools.calculators.root,
         icon: ICONS.calculator,

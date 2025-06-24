@@ -1,11 +1,11 @@
 'use client';
 
-import type { Theme, SxProps, CSSObject } from '@mui/material/styles';
+import type { CSSObject, SxProps, Theme } from '@mui/material/styles';
 
 import { mergeClasses } from 'minimal-shared/utils';
 
-import { styled } from '@mui/material/styles';
 import GlobalStyles from '@mui/material/GlobalStyles';
+import { styled } from '@mui/material/styles';
 
 import { layoutClasses } from './classes';
 import { layoutSectionVars } from './css-vars';
@@ -68,10 +68,19 @@ export function LayoutSection({
 
 // ----------------------------------------------------------------------
 
-const LayoutRoot = styled('div')``;
+const LayoutRoot = styled('div')(() => ({
+  display: 'flex',
+  flex: '1 1 auto',
+  height: '100vh',
+  maxHeight: '100vh',
+  overflow: 'hidden',
+  flexDirection: 'column',
+}));
 
 const LayoutSidebarContainer = styled('div')(() => ({
   display: 'flex',
   flex: '1 1 auto',
   flexDirection: 'column',
+  height: '100%',
+  overflow: 'hidden',
 }));
