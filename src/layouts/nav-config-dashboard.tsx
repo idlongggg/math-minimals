@@ -4,7 +4,6 @@ import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/global-config';
 
-import { Label } from 'src/components/label';
 import { SvgColor } from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -40,41 +39,210 @@ const ICONS = {
   analytics: icon('ic-analytics'),
   dashboard: icon('ic-dashboard'),
   parameter: icon('ic-parameter'),
+  // Math icons
+  algebra: icon('ic-course'), // Using course icon for algebra
+  statistics: icon('ic-analytics'), // Using analytics icon for statistics
+  geometry: icon('ic-parameter'), // Using parameter icon for geometry
+  chart: icon('ic-ecommerce'), // Using ecommerce icon for charts
+  probability: icon('ic-dashboard'), // Using dashboard icon for probability
+  arithmetic: icon('ic-calculator'), // Using calculator icon for arithmetic
+  vector: icon('ic-vector'), // Using vector icon for vector
+  advanced: icon('ic-advanced'), // Using advanced icon for advanced functions
+  calculus: icon('ic-function'), // Using function icon for calculus
 };
 
 // ----------------------------------------------------------------------
 
 export const navData: NavSectionProps['data'] = [
   /**
-   * Overview
+   * Số học cơ bản và đại số
    */
   {
-    subheader: 'Overview',
+    subheader: 'Số học cơ bản và đại số',
     items: [
       {
-        title: 'One',
-        path: paths.dashboard.root,
-        icon: ICONS.dashboard,
-        info: <Label>v{CONFIG.appVersion}</Label>,
+        title: 'Số học cơ bản',
+        path: paths.dashboard.algebra.algebraCore.root,
+        icon: ICONS.arithmetic,
+        children: [
+          { title: 'Chuyển đổi cơ số', path: paths.dashboard.algebra.algebraCore.baseConversion },
+          {
+            title: 'Phép chia và số dư',
+            path: paths.dashboard.algebra.algebraCore.divisionRemainder,
+          },
+          {
+            title: 'Ước số và bội số',
+            path: paths.dashboard.algebra.algebraCore.divisorsMultiples,
+          },
+          { title: 'Số nguyên tố', path: paths.dashboard.algebra.algebraCore.primeNumbers },
+          {
+            title: 'Thừa số và số vô tỷ',
+            path: paths.dashboard.algebra.algebraCore.factorsIrrationals,
+          },
+          { title: 'Mẫu số chung', path: paths.dashboard.algebra.algebraCore.commonDenominator },
+        ],
       },
-      { title: 'Two', path: paths.dashboard.two, icon: ICONS.ecommerce },
-      { title: 'Three', path: paths.dashboard.three, icon: ICONS.analytics },
+      {
+        title: 'Phương trình và đại số',
+        path: paths.dashboard.algebra.root,
+        icon: ICONS.algebra,
+        children: [
+          { title: 'Giải phương trình', path: paths.dashboard.algebra.algebraCore.solveEquations },
+          {
+            title: 'Triển khai phương trình',
+            path: paths.dashboard.algebra.algebraCore.expandEquations,
+          },
+        ],
+      },
     ],
   },
   /**
-   * Management
+   * Hình học và đo lường
    */
   {
-    subheader: 'Management',
+    subheader: 'Hình học và đo lường',
     items: [
       {
-        title: 'Group',
-        path: paths.dashboard.group.root,
-        icon: ICONS.user,
+        title: 'Hình học mặt phẳng',
+        path: paths.dashboard.geometry.plane.root,
+        icon: ICONS.geometry,
         children: [
-          { title: 'Four', path: paths.dashboard.group.root },
-          { title: 'Five', path: paths.dashboard.group.five },
-          { title: 'Six', path: paths.dashboard.group.six },
+          { title: 'Điểm và đoạn thẳng', path: paths.dashboard.geometry.plane.pointsSegments },
+          { title: 'Các dạng đường thẳng', path: paths.dashboard.geometry.plane.lines },
+          { title: 'Góc và phép quay', path: paths.dashboard.geometry.plane.angles },
+          { title: 'Hình tam giác', path: paths.dashboard.geometry.plane.triangles },
+          { title: 'Hình vuông', path: paths.dashboard.geometry.plane.squares },
+          { title: 'Hình chữ nhật', path: paths.dashboard.geometry.plane.rectangles },
+          { title: 'Hình bình hành', path: paths.dashboard.geometry.plane.parallelograms },
+          { title: 'Hình thoi', path: paths.dashboard.geometry.plane.rhombuses },
+          { title: 'Đa giác', path: paths.dashboard.geometry.plane.polygons },
+          { title: 'Đường tròn', path: paths.dashboard.geometry.plane.circles },
+        ],
+      },
+      {
+        title: 'Hình học không gian',
+        path: paths.dashboard.geometry.spatial.root,
+        icon: ICONS.geometry,
+        children: [
+          { title: 'Hình lập phương', path: paths.dashboard.geometry.spatial.cubes },
+          { title: 'Hình hộp chữ nhật', path: paths.dashboard.geometry.spatial.rectangularPrisms },
+          { title: 'Hình trụ', path: paths.dashboard.geometry.spatial.cylinders },
+          { title: 'Hình nón', path: paths.dashboard.geometry.spatial.cones },
+          { title: 'Hình chóp', path: paths.dashboard.geometry.spatial.pyramids },
+          { title: 'Hình cầu', path: paths.dashboard.geometry.spatial.spheres },
+        ],
+      },
+      {
+        title: 'Vector và lượng giác',
+        path: paths.dashboard.algebra.algebraCore.vectorProduct,
+        icon: ICONS.vector,
+        children: [
+          { title: 'Tích vector', path: paths.dashboard.algebra.algebraCore.vectorProduct },
+        ],
+      },
+    ],
+  },
+  /**
+   * Hàm số và đồ thị
+   */
+  {
+    subheader: 'Hàm số và đồ thị',
+    items: [
+      {
+        title: 'Hàm số cơ bản',
+        path: paths.dashboard.algebra.graphs.root,
+        icon: ICONS.chart,
+        children: [
+          { title: 'Hàm số tuyến tính', path: paths.dashboard.algebra.graphs.linear },
+          { title: 'Hàm số bậc hai', path: paths.dashboard.algebra.graphs.quadratic },
+          { title: 'Hàm số bậc ba', path: paths.dashboard.algebra.graphs.cubic },
+          { title: 'Hàm số căn bậc', path: paths.dashboard.algebra.graphs.radical },
+          { title: 'Hàm số giá trị tuyệt đối', path: paths.dashboard.algebra.graphs.modulus },
+        ],
+      },
+      {
+        title: 'Hàm số nâng cao',
+        path: paths.dashboard.algebra.graphs.exponential,
+        icon: ICONS.advanced,
+        children: [
+          { title: 'Hàm số mũ', path: paths.dashboard.algebra.graphs.exponential },
+          { title: 'Hàm số logarit', path: paths.dashboard.algebra.graphs.logarithmic },
+          { title: 'Hàm số lượng giác', path: paths.dashboard.algebra.graphs.trigonometric },
+          { title: 'Hàm số giới hạn', path: paths.dashboard.algebra.graphs.limit },
+        ],
+      },
+    ],
+  },
+  /**
+   * Thống kê và xác suất
+   */
+  {
+    subheader: 'Thống kê và xác suất',
+    items: [
+      {
+        title: 'Biểu đồ và dữ liệu',
+        path: paths.dashboard.statistics.charts.root,
+        icon: ICONS.chart,
+        children: [
+          { title: 'Bảng tần số', path: paths.dashboard.statistics.charts.frequencyTable },
+          { title: 'Biểu đồ cột đơn', path: paths.dashboard.statistics.charts.singleColumn },
+          { title: 'Biểu đồ cột kép', path: paths.dashboard.statistics.charts.doubleColumn },
+          { title: 'Biểu đồ cột chồng', path: paths.dashboard.statistics.charts.stackedColumn },
+          { title: 'Biểu đồ đường', path: paths.dashboard.statistics.charts.line },
+          { title: 'Biểu đồ quạt', path: paths.dashboard.statistics.charts.pie },
+          { title: 'Biểu đồ miền', path: paths.dashboard.statistics.charts.area },
+          { title: 'Biểu đồ tranh', path: paths.dashboard.statistics.charts.pictograph },
+        ],
+      },
+      {
+        title: 'Thống kê mô tả',
+        path: paths.dashboard.statistics.stats.root,
+        icon: ICONS.analytics,
+        children: [
+          { title: 'Trung bình và trung vị', path: paths.dashboard.statistics.stats.meanMedian },
+          { title: 'Độ lệch chuẩn', path: paths.dashboard.statistics.stats.standardDeviation },
+          { title: 'Mẫu và phương sai', path: paths.dashboard.statistics.stats.sampleVariance },
+          { title: 'Hệ số tương quan', path: paths.dashboard.statistics.stats.correlation },
+          { title: 'Đường hồi quy', path: paths.dashboard.statistics.stats.regression },
+          { title: 'Hồi quy phân tích', path: paths.dashboard.statistics.stats.regressionAnalysis },
+        ],
+      },
+      {
+        title: 'Xác suất cơ bản',
+        path: paths.dashboard.statistics.probability.root,
+        icon: ICONS.probability,
+        children: [
+          { title: 'Phân phối nhị thức', path: paths.dashboard.statistics.probability.binomial },
+          { title: 'Phân phối chuẩn', path: paths.dashboard.statistics.probability.normal },
+          { title: 'Phân phối Poisson', path: paths.dashboard.statistics.probability.poisson },
+        ],
+      },
+      {
+        title: 'Phân phối nâng cao',
+        path: paths.dashboard.statistics.probability.student,
+        icon: ICONS.probability,
+        children: [
+          { title: 'Phân phối Student', path: paths.dashboard.statistics.probability.student },
+          { title: 'Phân phối Gamma', path: paths.dashboard.statistics.probability.gamma },
+          { title: 'Phân phối Weibull', path: paths.dashboard.statistics.probability.weibull },
+          { title: 'Phân phối Log-normal', path: paths.dashboard.statistics.probability.logNormal },
+          { title: 'Phân phối Logistic', path: paths.dashboard.statistics.probability.logistic },
+          { title: 'Phân phối Pascal', path: paths.dashboard.statistics.probability.pascal },
+          { title: 'Phân phối Cauchy', path: paths.dashboard.statistics.probability.cauchy },
+          {
+            title: 'Phân phối siêu bội',
+            path: paths.dashboard.statistics.probability.hypergeometric,
+          },
+        ],
+      },
+      {
+        title: 'Thống kê nâng cao',
+        path: paths.dashboard.statistics.stats.interpolation,
+        icon: ICONS.analytics,
+        children: [
+          { title: 'Đa thức nội suy', path: paths.dashboard.statistics.stats.interpolation },
+          { title: 'Kiểm định thống kê', path: paths.dashboard.statistics.stats.testing },
+          { title: 'Phân tích sigma', path: paths.dashboard.statistics.stats.sigma },
         ],
       },
     ],
