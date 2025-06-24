@@ -149,6 +149,14 @@ export function BaseConversionView() {
     }
   }, [inputValue, fromBase, toBase, convertBase]);
 
+  const handleReset = useCallback(() => {
+    setInputValue('');
+    setFromBase(10);
+    setToBase(2);
+    setResult('');
+    setError('');
+  }, []);
+
   const handleQuickConversion = useCallback(
     (quickConv: (typeof QUICK_CONVERSIONS)[0]) => {
       setFromBase(quickConv.from);
@@ -258,7 +266,7 @@ export function BaseConversionView() {
         </Box>
       </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
         <Button
           variant="contained"
           size="large"
@@ -267,6 +275,9 @@ export function BaseConversionView() {
           sx={{ minWidth: 200 }}
         >
           Chuyển đổi
+        </Button>
+        <Button variant="outlined" size="large" onClick={handleReset} sx={{ minWidth: 120 }}>
+          Reset
         </Button>
       </Box>
 
