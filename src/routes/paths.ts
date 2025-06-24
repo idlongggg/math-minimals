@@ -80,14 +80,12 @@ export const paths = {
       charts: {
         root: `${ROOTS.DASHBOARD}/statistics/charts`,
         pictograph: `${ROOTS.DASHBOARD}/statistics/charts/pictograph`,
-        lineSegment: `${ROOTS.DASHBOARD}/statistics/charts/line-segment`,
         line: `${ROOTS.DASHBOARD}/statistics/charts/line`,
         area: `${ROOTS.DASHBOARD}/statistics/charts/area`,
         singleColumn: `${ROOTS.DASHBOARD}/statistics/charts/single-column`,
         doubleColumn: `${ROOTS.DASHBOARD}/statistics/charts/double-column`,
         stackedColumn: `${ROOTS.DASHBOARD}/statistics/charts/stacked-column`,
         pie: `${ROOTS.DASHBOARD}/statistics/charts/pie`,
-        areaChart: `${ROOTS.DASHBOARD}/statistics/charts/area-chart`,
         frequencyTable: `${ROOTS.DASHBOARD}/statistics/charts/frequency-table`,
       },
       // Thống kê
@@ -135,12 +133,10 @@ export const paths = {
         squares: `${ROOTS.DASHBOARD}/geometry/plane/squares`,
         polygons: `${ROOTS.DASHBOARD}/geometry/plane/polygons`,
         circles: `${ROOTS.DASHBOARD}/geometry/plane/circles`,
-        circularShapes: `${ROOTS.DASHBOARD}/geometry/plane/circular-shapes`,
       },
       // Hình học không gian
       spatial: {
         root: `${ROOTS.DASHBOARD}/geometry/spatial`,
-        planes: `${ROOTS.DASHBOARD}/geometry/spatial/planes`,
         cubes: `${ROOTS.DASHBOARD}/geometry/spatial/cubes`,
         rectangularPrisms: `${ROOTS.DASHBOARD}/geometry/spatial/rectangular-prisms`,
         cylinders: `${ROOTS.DASHBOARD}/geometry/spatial/cylinders`,
