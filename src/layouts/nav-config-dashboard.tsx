@@ -39,16 +39,20 @@ const ICONS = {
   analytics: icon('ic-analytics'),
   dashboard: icon('ic-dashboard'),
   parameter: icon('ic-parameter'),
-  // Math icons
-  algebra: icon('ic-course'), // Using course icon for algebra
-  statistics: icon('ic-analytics'), // Using analytics icon for statistics
-  geometry: icon('ic-parameter'), // Using parameter icon for geometry
-  chart: icon('ic-ecommerce'), // Using ecommerce icon for charts
-  probability: icon('ic-dashboard'), // Using dashboard icon for probability
-  arithmetic: icon('ic-calculator'), // Using calculator icon for arithmetic
-  vector: icon('ic-vector'), // Using vector icon for vector
-  advanced: icon('ic-advanced'), // Using advanced icon for advanced functions
-  calculus: icon('ic-function'), // Using function icon for calculus
+  // Math icons - Updated with appropriate Iconify icons
+  arithmetic: icon('ic-calculator'), // Calculator for basic arithmetic
+  algebra: icon('ic-function'), // Function symbol for algebra
+  geometry: icon('ic-geometry'), // Geometry shapes
+  statistics: icon('ic-chart-bar'), // Bar chart for statistics
+  chart: icon('ic-chart-line'), // Line chart for graphs
+  probability: icon('ic-dice'), // Dice for probability
+  vector: icon('ic-vector'), // Vector arrows
+  advanced: icon('ic-sigma'), // Sigma symbol for advanced math
+  calculus: icon('ic-integral'), // Integral symbol for calculus
+  trigonometry: icon('ic-triangle'), // Triangle for trigonometry
+  plane: icon('ic-square'), // Square for plane geometry
+  spatial: icon('ic-cube'), // Cube for spatial geometry
+  distribution: icon('ic-bell-curve'), // Bell curve for distributions
 };
 
 // ----------------------------------------------------------------------
@@ -105,7 +109,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Hình học mặt phẳng',
         path: paths.dashboard.geometry.plane.root,
-        icon: ICONS.geometry,
+        icon: ICONS.plane,
         children: [
           { title: 'Điểm và đoạn thẳng', path: paths.dashboard.geometry.plane.pointsSegments },
           { title: 'Các dạng đường thẳng', path: paths.dashboard.geometry.plane.lines },
@@ -122,7 +126,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Hình học không gian',
         path: paths.dashboard.geometry.spatial.root,
-        icon: ICONS.geometry,
+        icon: ICONS.spatial,
         children: [
           { title: 'Hình lập phương', path: paths.dashboard.geometry.spatial.cubes },
           { title: 'Hình hộp chữ nhật', path: paths.dashboard.geometry.spatial.rectangularPrisms },
@@ -135,7 +139,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Vector và lượng giác',
         path: paths.dashboard.algebra.algebraCore.vectorProduct,
-        icon: ICONS.vector,
+        icon: ICONS.trigonometry,
         children: [
           { title: 'Tích vector', path: paths.dashboard.algebra.algebraCore.vectorProduct },
         ],
@@ -163,7 +167,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Hàm số nâng cao',
         path: paths.dashboard.algebra.graphs.exponential,
-        icon: ICONS.advanced,
+        icon: ICONS.calculus,
         children: [
           { title: 'Hàm số mũ', path: paths.dashboard.algebra.graphs.exponential },
           { title: 'Hàm số logarit', path: paths.dashboard.algebra.graphs.logarithmic },
@@ -197,7 +201,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Thống kê mô tả',
         path: paths.dashboard.statistics.stats.root,
-        icon: ICONS.analytics,
+        icon: ICONS.statistics,
         children: [
           { title: 'Trung bình và trung vị', path: paths.dashboard.statistics.stats.meanMedian },
           { title: 'Độ lệch chuẩn', path: paths.dashboard.statistics.stats.standardDeviation },
@@ -220,7 +224,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Phân phối nâng cao',
         path: paths.dashboard.statistics.probability.student,
-        icon: ICONS.probability,
+        icon: ICONS.distribution,
         children: [
           { title: 'Phân phối Student', path: paths.dashboard.statistics.probability.student },
           { title: 'Phân phối Gamma', path: paths.dashboard.statistics.probability.gamma },
@@ -238,7 +242,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Thống kê nâng cao',
         path: paths.dashboard.statistics.stats.interpolation,
-        icon: ICONS.analytics,
+        icon: ICONS.advanced,
         children: [
           { title: 'Đa thức nội suy', path: paths.dashboard.statistics.stats.interpolation },
           { title: 'Kiểm định thống kê', path: paths.dashboard.statistics.stats.testing },
