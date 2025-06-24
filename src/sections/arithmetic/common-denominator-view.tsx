@@ -214,7 +214,7 @@ export function CommonDenominatorView() {
   };
 
   const renderCalculator = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
       <Card>
         <CardHeader
           title="Nhập các phân số"
@@ -354,7 +354,7 @@ export function CommonDenominatorView() {
   );
 
   const renderQuickTools = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
       <Typography variant="h6">Ví dụ nhanh</Typography>
 
       <Box
@@ -446,7 +446,7 @@ export function CommonDenominatorView() {
   );
 
   const renderGuide = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
       <Card>
         <CardHeader title="Hướng dẫn tìm mẫu số chung" />
         <CardContent>
@@ -537,26 +537,54 @@ export function CommonDenominatorView() {
 
   return (
     <DashboardContent maxWidth="xl">
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-        <Typography variant="h4">Tìm mẫu số chung</Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height:
+            'calc(100vh - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
+          minHeight: 600,
+        }}
+      >
+        {/* Fixed Header */}
+        <Box sx={{ flexShrink: 0, mb: 3 }}>
+          <Typography variant="h4">Tìm mẫu số chung</Typography>
+        </Box>
 
-        <CustomTabs value={currentTab} onChange={handleTabChange}>
-          <Tab value="calculator" label="Tính toán" icon={<Iconify icon="solar:restart-bold" />} />
-          <Tab
-            value="quick-tools"
-            label="Ví dụ nhanh"
-            icon={<Iconify icon="custom:flash-outline" />}
-          />
-          <Tab
-            value="guide"
-            label="Hướng dẫn"
-            icon={<Iconify icon="solar:notebook-bold-duotone" />}
-          />
-        </CustomTabs>
+        {/* Fixed Tabs */}
+        <Box sx={{ flexShrink: 0, mb: 3 }}>
+          <CustomTabs value={currentTab} onChange={handleTabChange}>
+            <Tab
+              value="calculator"
+              label="Tính toán"
+              icon={<Iconify icon="solar:restart-bold" />}
+            />
+            <Tab
+              value="quick-tools"
+              label="Ví dụ nhanh"
+              icon={<Iconify icon="custom:flash-outline" />}
+            />
+            <Tab
+              value="guide"
+              label="Hướng dẫn"
+              icon={<Iconify icon="solar:notebook-bold-duotone" />}
+            />
+          </CustomTabs>
+        </Box>
 
-        {currentTab === 'calculator' && renderCalculator()}
-        {currentTab === 'quick-tools' && renderQuickTools()}
-        {currentTab === 'guide' && renderGuide()}
+        {/* Scrollable Content */}
+        <Box
+          sx={{
+            flex: 1,
+            overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {currentTab === 'calculator' && renderCalculator()}
+          {currentTab === 'quick-tools' && renderQuickTools()}
+          {currentTab === 'guide' && renderGuide()}
+        </Box>
       </Box>
     </DashboardContent>
   );

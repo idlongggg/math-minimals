@@ -1,12 +1,12 @@
 'use client';
 
-import type { Breakpoint } from '@mui/material/styles';
 import type { ContainerProps } from '@mui/material/Container';
+import type { Breakpoint } from '@mui/material/styles';
 
 import { mergeClasses } from 'minimal-shared/utils';
 
-import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
+import { styled } from '@mui/material/styles';
 
 import { useSettingsContext } from 'src/components/settings';
 
@@ -41,6 +41,7 @@ export function DashboardContent({
           display: 'flex',
           flex: '1 1 auto',
           flexDirection: 'column',
+          height: '100%',
           pt: 'var(--layout-dashboard-content-pt)',
           pb: 'var(--layout-dashboard-content-pb)',
           [theme.breakpoints.up(layoutQuery)]: {

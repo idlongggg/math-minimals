@@ -240,7 +240,7 @@ export function BaseConversionView() {
   );
 
   const renderConverter = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
       <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
         <Box sx={{ flex: 1 }}>
           <Card>
@@ -386,7 +386,7 @@ export function BaseConversionView() {
   );
 
   const renderQuickTools = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
       <Typography variant="h6">Chuyển đổi nhanh</Typography>
 
       <Box
@@ -513,7 +513,7 @@ export function BaseConversionView() {
   );
 
   const renderHistory = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h6">Lịch sử chuyển đổi</Typography>
         {history.length > 0 && (
@@ -602,7 +602,7 @@ export function BaseConversionView() {
   );
 
   const renderGuide = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
       <Card>
         <CardHeader title="Hướng dẫn chuyển đổi cơ số" />
         <CardContent>
@@ -738,32 +738,60 @@ export function BaseConversionView() {
 
   return (
     <DashboardContent maxWidth="xl">
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-        <Typography variant="h4">Chuyển đổi hệ cơ số</Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height:
+            'calc(100vh - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
+          minHeight: 600,
+        }}
+      >
+        {/* Fixed Header */}
+        <Box sx={{ flexShrink: 0, mb: 3 }}>
+          <Typography variant="h4">Chuyển đổi hệ cơ số</Typography>
+        </Box>
 
-        <CustomTabs value={currentTab} onChange={handleTabChange}>
-          <Tab value="converter" label="Chuyển đổi" icon={<Iconify icon="solar:restart-bold" />} />
-          <Tab
-            value="quick-tools"
-            label="Công cụ nhanh"
-            icon={<Iconify icon="custom:flash-outline" />}
-          />
-          <Tab
-            value="history"
-            label={`Lịch sử (${history.length})`}
-            icon={<Iconify icon="solar:clock-circle-bold" />}
-          />
-          <Tab
-            value="guide"
-            label="Hướng dẫn"
-            icon={<Iconify icon="solar:notebook-bold-duotone" />}
-          />
-        </CustomTabs>
+        {/* Fixed Tabs */}
+        <Box sx={{ flexShrink: 0, mb: 3 }}>
+          <CustomTabs value={currentTab} onChange={handleTabChange}>
+            <Tab
+              value="converter"
+              label="Chuyển đổi"
+              icon={<Iconify icon="solar:restart-bold" />}
+            />
+            <Tab
+              value="quick-tools"
+              label="Công cụ nhanh"
+              icon={<Iconify icon="custom:flash-outline" />}
+            />
+            <Tab
+              value="history"
+              label={`Lịch sử (${history.length})`}
+              icon={<Iconify icon="solar:clock-circle-bold" />}
+            />
+            <Tab
+              value="guide"
+              label="Hướng dẫn"
+              icon={<Iconify icon="solar:notebook-bold-duotone" />}
+            />
+          </CustomTabs>
+        </Box>
 
-        {currentTab === 'converter' && renderConverter()}
-        {currentTab === 'quick-tools' && renderQuickTools()}
-        {currentTab === 'history' && renderHistory()}
-        {currentTab === 'guide' && renderGuide()}
+        {/* Scrollable Content */}
+        <Box
+          sx={{
+            flex: 1,
+            overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {currentTab === 'converter' && renderConverter()}
+          {currentTab === 'quick-tools' && renderQuickTools()}
+          {currentTab === 'history' && renderHistory()}
+          {currentTab === 'guide' && renderGuide()}
+        </Box>
       </Box>
     </DashboardContent>
   );
