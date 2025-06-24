@@ -66,29 +66,29 @@ export const navData: NavSectionProps['data'] = [
     items: [
       {
         title: 'Số học cơ bản',
-        path: paths.dashboard.algebra.algebraCore.root,
+        path: paths.dashboard.algebra.arithmetic.root,
         icon: ICONS.arithmetic,
         children: [
-          { title: 'Chuyển đổi cơ số', path: paths.dashboard.algebra.algebraCore.baseConversion },
+          { title: 'Chuyển đổi cơ số', path: paths.dashboard.algebra.arithmetic.baseConversion },
           {
             title: 'Phép chia và số dư',
-            path: paths.dashboard.algebra.algebraCore.divisionRemainder,
+            path: paths.dashboard.algebra.arithmetic.divisionRemainder,
           },
           {
             title: 'Ước số và bội số',
-            path: paths.dashboard.algebra.algebraCore.divisorsMultiples,
+            path: paths.dashboard.algebra.arithmetic.divisorsMultiples,
           },
-          { title: 'Số nguyên tố', path: paths.dashboard.algebra.algebraCore.primeNumbers },
+          { title: 'Số nguyên tố', path: paths.dashboard.algebra.arithmetic.primeNumbers },
           {
             title: 'Thừa số và số vô tỷ',
-            path: paths.dashboard.algebra.algebraCore.factorsIrrationals,
+            path: paths.dashboard.algebra.arithmetic.factorsIrrationals,
           },
-          { title: 'Mẫu số chung', path: paths.dashboard.algebra.algebraCore.commonDenominator },
+          { title: 'Mẫu số chung', path: paths.dashboard.algebra.arithmetic.commonDenominator },
         ],
       },
       {
         title: 'Phương trình và đại số',
-        path: paths.dashboard.algebra.root,
+        path: paths.dashboard.algebra.algebraCore.root,
         icon: ICONS.algebra,
         children: [
           { title: 'Giải phương trình', path: paths.dashboard.algebra.algebraCore.solveEquations },
@@ -209,6 +209,15 @@ export const navData: NavSectionProps['data'] = [
           { title: 'Hệ số tương quan', path: paths.dashboard.statistics.stats.correlation },
           { title: 'Đường hồi quy', path: paths.dashboard.statistics.stats.regression },
           { title: 'Hồi quy phân tích', path: paths.dashboard.statistics.stats.regressionAnalysis },
+          {
+            title: 'Thống kê nâng cao',
+            path: paths.dashboard.statistics.stats.interpolation,
+            children: [
+              { title: 'Đa thức nội suy', path: paths.dashboard.statistics.stats.interpolation },
+              { title: 'Kiểm định thống kê', path: paths.dashboard.statistics.stats.testing },
+              { title: 'Phân tích sigma', path: paths.dashboard.statistics.stats.sigma },
+            ],
+          },
         ],
       },
       {
@@ -219,34 +228,29 @@ export const navData: NavSectionProps['data'] = [
           { title: 'Phân phối nhị thức', path: paths.dashboard.statistics.probability.binomial },
           { title: 'Phân phối chuẩn', path: paths.dashboard.statistics.probability.normal },
           { title: 'Phân phối Poisson', path: paths.dashboard.statistics.probability.poisson },
-        ],
-      },
-      {
-        title: 'Phân phối nâng cao',
-        path: paths.dashboard.statistics.probability.student,
-        icon: ICONS.distribution,
-        children: [
-          { title: 'Phân phối Student', path: paths.dashboard.statistics.probability.student },
-          { title: 'Phân phối Gamma', path: paths.dashboard.statistics.probability.gamma },
-          { title: 'Phân phối Weibull', path: paths.dashboard.statistics.probability.weibull },
-          { title: 'Phân phối Log-normal', path: paths.dashboard.statistics.probability.logNormal },
-          { title: 'Phân phối Logistic', path: paths.dashboard.statistics.probability.logistic },
-          { title: 'Phân phối Pascal', path: paths.dashboard.statistics.probability.pascal },
-          { title: 'Phân phối Cauchy', path: paths.dashboard.statistics.probability.cauchy },
           {
-            title: 'Phân phối siêu bội',
-            path: paths.dashboard.statistics.probability.hypergeometric,
+            title: 'Phân phối nâng cao',
+            path: paths.dashboard.statistics.probability.student,
+            children: [
+              { title: 'Phân phối Student', path: paths.dashboard.statistics.probability.student },
+              { title: 'Phân phối Gamma', path: paths.dashboard.statistics.probability.gamma },
+              { title: 'Phân phối Weibull', path: paths.dashboard.statistics.probability.weibull },
+              {
+                title: 'Phân phối Log-normal',
+                path: paths.dashboard.statistics.probability.logNormal,
+              },
+              {
+                title: 'Phân phối Logistic',
+                path: paths.dashboard.statistics.probability.logistic,
+              },
+              { title: 'Phân phối Pascal', path: paths.dashboard.statistics.probability.pascal },
+              { title: 'Phân phối Cauchy', path: paths.dashboard.statistics.probability.cauchy },
+              {
+                title: 'Phân phối siêu bội',
+                path: paths.dashboard.statistics.probability.hypergeometric,
+              },
+            ],
           },
-        ],
-      },
-      {
-        title: 'Thống kê nâng cao',
-        path: paths.dashboard.statistics.stats.interpolation,
-        icon: ICONS.advanced,
-        children: [
-          { title: 'Đa thức nội suy', path: paths.dashboard.statistics.stats.interpolation },
-          { title: 'Kiểm định thống kê', path: paths.dashboard.statistics.stats.testing },
-          { title: 'Phân tích sigma', path: paths.dashboard.statistics.stats.sigma },
         ],
       },
     ],

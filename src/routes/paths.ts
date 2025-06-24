@@ -46,18 +46,22 @@ export const paths = {
     // Đại số và giải tích
     algebra: {
       root: `${ROOTS.DASHBOARD}/algebra`,
+      // Số học cơ bản
+      arithmetic: {
+        root: `${ROOTS.DASHBOARD}/arithmetic`,
+        baseConversion: `${ROOTS.DASHBOARD}/arithmetic/base-conversion`,
+        commonDenominator: `${ROOTS.DASHBOARD}/arithmetic/common-denominator`,
+        divisionRemainder: `${ROOTS.DASHBOARD}/arithmetic/division-remainder`,
+        primeNumbers: `${ROOTS.DASHBOARD}/arithmetic/prime-numbers`,
+        factorsIrrationals: `${ROOTS.DASHBOARD}/arithmetic/factors-irrationals`,
+        divisorsMultiples: `${ROOTS.DASHBOARD}/arithmetic/divisors-multiples`,
+      },
       // Đại số
       algebraCore: {
         root: `${ROOTS.DASHBOARD}/algebra/core`,
-        baseConversion: `${ROOTS.DASHBOARD}/algebra/core/base-conversion`,
         solveEquations: `${ROOTS.DASHBOARD}/algebra/core/solve-equations`,
         expandEquations: `${ROOTS.DASHBOARD}/algebra/core/expand-equations`,
-        commonDenominator: `${ROOTS.DASHBOARD}/algebra/core/common-denominator`,
-        divisionRemainder: `${ROOTS.DASHBOARD}/algebra/core/division-remainder`,
-        primeNumbers: `${ROOTS.DASHBOARD}/algebra/core/prime-numbers`,
         vectorProduct: `${ROOTS.DASHBOARD}/algebra/core/vector-product`,
-        factorsIrrationals: `${ROOTS.DASHBOARD}/algebra/core/factors-irrationals`,
-        divisorsMultiples: `${ROOTS.DASHBOARD}/algebra/core/divisors-multiples`,
       },
       // Đồ thị
       graphs: {
