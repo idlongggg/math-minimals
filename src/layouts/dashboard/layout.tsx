@@ -18,6 +18,8 @@ import { useSettingsContext } from 'src/components/settings';
 
 import { useMockedUser } from 'src/auth/hooks';
 
+import { useNavigationData } from 'src/hooks/use-navigation-data';
+
 import { AccountDrawer } from '../components/account-drawer';
 import { ContactsPopover } from '../components/contacts-popover';
 import { LanguagePopover } from '../components/language-popover';
@@ -75,7 +77,8 @@ export function DashboardLayout({
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
-  const navData = slotProps?.nav?.data ?? dashboardNavData;
+  const baseNavData = slotProps?.nav?.data ?? dashboardNavData;
+  const navData = useNavigationData(baseNavData);
 
   const isNavMini = settings.state.navLayout === 'mini';
   const isNavHorizontal = settings.state.navLayout === 'horizontal';

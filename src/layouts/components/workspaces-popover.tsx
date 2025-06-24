@@ -4,7 +4,7 @@ import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 import type { SxProps, Theme } from '@mui/material/styles';
 
 import { usePopover } from 'minimal-shared/hooks';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -14,6 +14,10 @@ import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Typography from '@mui/material/Typography';
+
+import { useWorkspaceContext } from 'src/contexts/workspace-context';
+
+import { CONFIG } from 'src/global-config';
 
 import { CustomPopover } from 'src/components/custom-popover';
 import { Iconify } from 'src/components/iconify';
@@ -35,16 +39,20 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
   const mediaQuery = 'sm';
 
   const { open, anchorEl, onClose, onOpen } = usePopover();
-
-  const [workspace, setWorkspace] = useState(data[0]);
+  const { currentWorkspace, setWorkspace, isAllTools } = useWorkspaceContext();
 
   const handleChangeWorkspace = useCallback(
     (newValue: (typeof data)[0]) => {
       setWorkspace(newValue);
       onClose();
     },
-    [onClose]
+    [onClose, setWorkspace]
   );
+
+  const handleSelectAllTools = useCallback(() => {
+    setWorkspace(null);
+    onClose();
+  }, [onClose, setWorkspace]);
 
   const buttonBg: SxProps<Theme> = {
     height: 1,
@@ -83,8 +91,12 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
     >
       <Box
         component="img"
-        alt={workspace?.name}
-        src={workspace?.logo}
+        alt={isAllTools ? 'Tất cả công cụ toán học' : currentWorkspace?.name}
+        src={
+          isAllTools
+            ? `${CONFIG.assetsDir}/assets/icons/workspaces/logo-1.webp`
+            : currentWorkspace?.logo
+        }
         sx={{ width: 24, height: 24, borderRadius: '50%' }}
       />
 
@@ -92,18 +104,18 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
         component="span"
         sx={{ typography: 'subtitle2', display: { xs: 'none', [mediaQuery]: 'inline-flex' } }}
       >
-        {workspace?.name}
+        {isAllTools ? 'Tất cả công cụ toán học' : currentWorkspace?.name}
       </Box>
 
       <Label
-        color={workspace?.plan === 'Free' ? 'default' : 'info'}
+        color={isAllTools ? 'primary' : currentWorkspace?.plan === 'Free' ? 'default' : 'info'}
         sx={{
           height: 22,
           cursor: 'inherit',
           display: { xs: 'none', [mediaQuery]: 'inline-flex' },
         }}
       >
-        {workspace?.plan}
+        {isAllTools ? 'All' : currentWorkspace?.plan}
       </Label>
 
       <Iconify width={16} icon="carbon:chevron-sort" sx={{ color: 'text.disabled' }} />
@@ -123,13 +135,12 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
       <Button
         fullWidth
         startIcon={<Iconify width={18} icon="mingcute:dot-grid-fill" />}
-        onClick={() => {
-          onClose();
-        }}
+        onClick={handleSelectAllTools}
         sx={{
           gap: 2,
           justifyContent: 'flex-start',
           fontWeight: 'fontWeightMedium',
+          bgcolor: isAllTools ? 'action.selected' : 'transparent',
           [`& .${buttonClasses.startIcon}`]: {
             m: 0,
             width: 24,
@@ -150,7 +161,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
           {data.map((option) => (
             <MenuItem
               key={option.id}
-              selected={option.id === workspace?.id}
+              selected={option.id === currentWorkspace?.id}
               onClick={() => handleChangeWorkspace(option)}
               sx={{ height: 48 }}
             >
