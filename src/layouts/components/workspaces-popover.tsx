@@ -121,16 +121,18 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
         {isAllTools ? 'Tất cả công cụ toán học' : currentWorkspace?.name}
       </Box>
 
-      <Label
-        color={isAllTools ? 'primary' : currentWorkspace?.plan === 'Free' ? 'default' : 'info'}
-        sx={{
-          height: 22,
-          cursor: 'inherit',
-          display: { xs: 'none', [mediaQuery]: 'inline-flex' },
-        }}
-      >
-        {isAllTools ? 'All' : currentWorkspace?.plan}
-      </Label>
+      {!isAllTools && (
+        <Label
+          color={currentWorkspace?.plan === 'Chưa có' ? 'default' : 'info'}
+          sx={{
+            height: 22,
+            cursor: 'inherit',
+            display: { xs: 'none', [mediaQuery]: 'inline-flex' },
+          }}
+        >
+          {currentWorkspace?.plan}
+        </Label>
+      )}
 
       <Iconify width={16} icon="carbon:chevron-sort" sx={{ color: 'text.disabled' }} />
     </ButtonBase>
@@ -190,7 +192,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
                 {option.name}
               </Typography>
 
-              <Label color={option.plan === 'Free' ? 'default' : 'info'}>{option.plan}</Label>
+              <Label color={option.plan === 'Chưa có' ? 'default' : 'info'}>{option.plan}</Label>
             </MenuItem>
           ))}
         </MenuList>
