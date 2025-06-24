@@ -57,6 +57,16 @@ export function BaseConversionView() {
   const [toBase, setToBase] = useState(2);
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
+  const [history, setHistory] = useState<
+    Array<{
+      id: string;
+      input: string;
+      fromBase: number;
+      toBase: number;
+      result: string;
+      timestamp: Date;
+    }>
+  >([]);
 
   const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
     setCurrentTab(newValue);
@@ -143,6 +153,17 @@ export function BaseConversionView() {
     try {
       const converted = convertBase(inputValue.trim(), fromBase, toBase);
       setResult(converted);
+
+      // Add to history
+      const historyItem = {
+        id: Date.now().toString(),
+        input: inputValue.trim(),
+        fromBase,
+        toBase,
+        result: converted,
+        timestamp: new Date(),
+      };
+      setHistory((prev) => [historyItem, ...prev.slice(0, 49)]); // Keep max 50 items
     } catch (err) {
       setError('Có lỗi xảy ra khi chuyển đổi');
       setResult('');
@@ -157,19 +178,41 @@ export function BaseConversionView() {
     setError('');
   }, []);
 
+  const handleHistoryItemClick = useCallback((item: (typeof history)[0]) => {
+    setInputValue(item.input);
+    setFromBase(item.fromBase);
+    setToBase(item.toBase);
+    setResult(item.result);
+    setError('');
+    setCurrentTab('converter');
+  }, []);
+
+  const handleClearHistory = useCallback(() => {
+    setHistory([]);
+  }, []);
+
   const handleQuickConversion = useCallback(
     (quickConv: (typeof QUICK_CONVERSIONS)[0]) => {
       setFromBase(quickConv.from);
       setToBase(quickConv.to);
       setInputValue(quickConv.example);
-      setCurrentTab('converter');
-
-      // Convert immediately
+      setCurrentTab('converter'); // Convert immediately
       setTimeout(() => {
         try {
           const converted = convertBase(quickConv.example, quickConv.from, quickConv.to);
           setResult(converted);
           setError('');
+
+          // Add to history
+          const historyItem = {
+            id: Date.now().toString(),
+            input: quickConv.example,
+            fromBase: quickConv.from,
+            toBase: quickConv.to,
+            result: converted,
+            timestamp: new Date(),
+          };
+          setHistory((prev) => [historyItem, ...prev.slice(0, 49)]);
         } catch (err) {
           setError('Có lỗi xảy ra khi chuyển đổi');
           setResult('');
@@ -276,7 +319,13 @@ export function BaseConversionView() {
         >
           Chuyển đổi
         </Button>
-        <Button variant="outlined" size="large" onClick={handleReset} sx={{ minWidth: 120 }}>
+        <Button
+          variant="outlined"
+          size="large"
+          onClick={handleReset}
+          startIcon={<Iconify icon="solar:eraser-bold" />}
+          sx={{ minWidth: 120 }}
+        >
           Reset
         </Button>
       </Box>
@@ -368,6 +417,93 @@ export function BaseConversionView() {
     </Box>
   );
 
+  const renderHistory = () => (
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h6">Lịch sử chuyển đổi</Typography>
+        {history.length > 0 && (
+          <Button
+            variant="outlined"
+            size="small"
+            color="error"
+            onClick={handleClearHistory}
+            startIcon={<Iconify icon="solar:trash-bin-trash-bold" />}
+          >
+            Xóa lịch sử
+          </Button>
+        )}
+      </Box>
+
+      {history.length === 0 ? (
+        <Card>
+          <CardContent sx={{ textAlign: 'center', py: 6 }}>
+            <Iconify
+              icon="solar:clock-circle-bold"
+              sx={{ width: 64, height: 64, color: 'text.disabled', mb: 2 }}
+            />
+            <Typography variant="h6" color="text.secondary">
+              Chưa có lịch sử chuyển đổi
+            </Typography>
+            <Typography variant="body2" color="text.disabled">
+              Thực hiện chuyển đổi để xem lịch sử tại đây
+            </Typography>
+          </CardContent>
+        </Card>
+      ) : (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+          {history.map((item) => (
+            <Card
+              key={item.id}
+              sx={{
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  transform: 'translateX(4px)',
+                  boxShadow: (theme) => theme.vars.customShadows.z4,
+                },
+              }}
+              onClick={() => handleHistoryItemClick(item)}
+            >
+              <CardContent sx={{ py: 2 }}>
+                <Box
+                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1,
+                        fontFamily: 'monospace',
+                        fontSize: '0.9rem',
+                      }}
+                    >
+                      <Chip label={`Base ${item.fromBase}`} size="small" variant="outlined" />
+                      <Typography variant="body1" fontWeight="bold">
+                        {item.input}
+                      </Typography>
+                      <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.secondary' }} />
+                      <Chip label={`Base ${item.toBase}`} size="small" color="primary" />
+                      <Typography variant="body1" fontWeight="bold" color="primary.main">
+                        {item.result}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Typography variant="caption" color="text.secondary">
+                      {item.timestamp.toLocaleTimeString('vi-VN')}
+                    </Typography>
+                    <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.disabled' }} />
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      )}
+    </Box>
+  );
+
   const renderGuide = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
       <Card>
@@ -449,6 +585,11 @@ export function BaseConversionView() {
             icon={<Iconify icon="custom:flash-outline" />}
           />
           <Tab
+            value="history"
+            label={`Lịch sử (${history.length})`}
+            icon={<Iconify icon="solar:clock-circle-bold" />}
+          />
+          <Tab
             value="guide"
             label="Hướng dẫn"
             icon={<Iconify icon="solar:notebook-bold-duotone" />}
@@ -457,6 +598,7 @@ export function BaseConversionView() {
 
         {currentTab === 'converter' && renderConverter()}
         {currentTab === 'quick-tools' && renderQuickTools()}
+        {currentTab === 'history' && renderHistory()}
         {currentTab === 'guide' && renderGuide()}
       </Box>
     </DashboardContent>
