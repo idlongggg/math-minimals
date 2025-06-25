@@ -18,6 +18,25 @@ npm i
 npm run dev
 ```
 
+## Configuration
+
+### Environment Variables
+
+Copy the example environment file and configure it:
+
+```sh
+cp .env.example .env.local
+```
+
+### Skip Authentication (Development)
+
+For development purposes, you can skip authentication and access the dashboard directly:
+
+1. Set `NEXT_PUBLIC_SKIP_AUTH=true` in your `.env.local` file
+2. Restart your development server
+
+**Note:** This should only be used in development environments. Never enable this in production.
+
 ## Build
 
 ```sh
