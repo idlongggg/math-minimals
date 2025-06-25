@@ -132,11 +132,11 @@ export const navData: NavSectionProps['data'] = [
       },
       {
         title: 'Đại số tuyến tính',
-        path: paths.dashboard.tools.calculators.root,
+        path: paths.dashboard.algebra.linear.root,
         icon: ICONS.solver,
         children: [
-          { title: 'Máy tính ma trận', path: paths.dashboard.tools.calculators.matrix },
-          { title: 'Hệ phương trình', path: paths.dashboard.tools.solvers.system },
+          { title: 'Máy tính ma trận', path: paths.dashboard.algebra.linear.matrix },
+          { title: 'Hệ phương trình', path: paths.dashboard.algebra.linear.system },
         ],
       },
       {
@@ -158,13 +158,13 @@ export const navData: NavSectionProps['data'] = [
     items: [
       {
         title: 'Công cụ giải tích',
-        path: paths.dashboard.tools.calculators.root,
+        path: paths.dashboard.calculus.root,
         icon: ICONS.calculator,
         children: [
-          { title: 'Đạo hàm', path: paths.dashboard.tools.calculators.derivative },
-          { title: 'Tích phân', path: paths.dashboard.tools.calculators.integral },
-          { title: 'Giới hạn', path: paths.dashboard.tools.calculators.limit },
-          { title: 'Dãy số', path: paths.dashboard.tools.calculators.sequence },
+          { title: 'Đạo hàm', path: paths.dashboard.calculus.derivative },
+          { title: 'Tích phân', path: paths.dashboard.calculus.integral },
+          { title: 'Giới hạn', path: paths.dashboard.calculus.limit },
+          { title: 'Dãy số', path: paths.dashboard.calculus.sequence },
         ],
       },
     ],
