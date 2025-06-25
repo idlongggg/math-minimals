@@ -1,11 +1,11 @@
 import { CONFIG } from 'src/global-config';
 
-import { BlankView } from 'src/sections/blank/view';
+import { ScientificCalculatorView } from 'src/sections/calculator';
 
 // ----------------------------------------------------------------------
 
 export const metadata = { title: `Máy tính khoa học - ${CONFIG.appName}` };
 
 export default function Page() {
-  return <BlankView title="Máy tính khoa học" />;
+  return <ScientificCalculatorView />;
 }
