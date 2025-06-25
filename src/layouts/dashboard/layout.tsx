@@ -41,6 +41,7 @@ import { NavHorizontal } from './nav-horizontal';
 import { NavMobile } from './nav-mobile';
 import { NavVertical } from './nav-vertical';
 
+import { MathFabButtonConnected, MathInputProvider } from 'src/components/math-keyboard';
 import type { HeaderSectionProps } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';
 import type { MainSectionProps } from '../core/main-section';
@@ -212,42 +213,49 @@ export function DashboardLayout({
 
   const renderFooter = () => null;
 
-  const renderMain = () => <MainSection {...slotProps?.main}>{children}</MainSection>;
+  const renderMain = () => (
+    <MainSection {...slotProps?.main}>
+      {children}
+      <MathFabButtonConnected />
+    </MainSection>
+  );
 
   return (
-    <LayoutSection
-      /** **************************************
-       * @Header
-       *************************************** */
-      headerSection={renderHeader()}
-      /** **************************************
-       * @Sidebar
-       *************************************** */
-      sidebarSection={isNavHorizontal ? null : renderSidebar()}
-      /** **************************************
-       * @Footer
-       *************************************** */
-      footerSection={renderFooter()}
-      /** **************************************
-       * @Styles
-       *************************************** */
-      cssVars={{ ...dashboardLayoutVars(theme), ...navVars.layout, ...cssVars }}
-      sx={[
-        {
-          [`& .${layoutClasses.sidebarContainer}`]: {
-            [theme.breakpoints.up(layoutQuery)]: {
-              pl: isNavMini ? 'var(--layout-nav-mini-width)' : 'var(--layout-nav-vertical-width)',
-              transition: theme.transitions.create(['padding-left'], {
-                easing: 'var(--layout-transition-easing)',
-                duration: 'var(--layout-transition-duration)',
-              }),
+    <MathInputProvider>
+      <LayoutSection
+        /** **************************************
+         * @Header
+         *************************************** */
+        headerSection={renderHeader()}
+        /** **************************************
+         * @Sidebar
+         *************************************** */
+        sidebarSection={isNavHorizontal ? null : renderSidebar()}
+        /** **************************************
+         * @Footer
+         *************************************** */
+        footerSection={renderFooter()}
+        /** **************************************
+         * @Styles
+         *************************************** */
+        cssVars={{ ...dashboardLayoutVars(theme), ...navVars.layout, ...cssVars }}
+        sx={[
+          {
+            [`& .${layoutClasses.sidebarContainer}`]: {
+              [theme.breakpoints.up(layoutQuery)]: {
+                pl: isNavMini ? 'var(--layout-nav-mini-width)' : 'var(--layout-nav-vertical-width)',
+                transition: theme.transitions.create(['padding-left'], {
+                  easing: 'var(--layout-transition-easing)',
+                  duration: 'var(--layout-transition-duration)',
+                }),
+              },
             },
           },
-        },
-        ...(Array.isArray(sx) ? sx : [sx]),
-      ]}
-    >
-      {renderMain()}
-    </LayoutSection>
+          ...(Array.isArray(sx) ? sx : [sx]),
+        ]}
+      >
+        {renderMain()}
+      </LayoutSection>
+    </MathInputProvider>
   );
 }

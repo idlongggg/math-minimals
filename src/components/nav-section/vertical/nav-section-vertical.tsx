@@ -1,12 +1,14 @@
+'use client';
+
 import { useBoolean } from 'minimal-shared/hooks';
 import { mergeClasses } from 'minimal-shared/utils';
 
 import Collapse from '@mui/material/Collapse';
 import { useTheme } from '@mui/material/styles';
 
-import { NavList } from './nav-list';
-import { Nav, NavUl, NavLi, NavSubheader } from '../components';
+import { Nav, NavLi, NavSubheader, NavUl } from '../components';
 import { navSectionClasses, navSectionCssVars } from '../styles';
+import { NavList } from './nav-list';
 
 import type { NavGroupProps, NavSectionProps } from '../types';
 
