@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import { usePathname, useRouter } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
-import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/global-config';
 
@@ -40,6 +40,12 @@ export function AuthGuard({ children }: AuthGuardProps) {
 
   const checkPermissions = async (): Promise<void> => {
     if (loading) {
+      return;
+    }
+
+    // Check if authentication is skipped via config
+    if (CONFIG.auth.skipAuth) {
+      setIsChecking(false);
       return;
     }
 
