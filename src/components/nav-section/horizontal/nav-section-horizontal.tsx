@@ -1,11 +1,13 @@
+'use client';
+
 import { mergeClasses } from 'minimal-shared/utils';
 
 import { useTheme } from '@mui/material/styles';
 
-import { NavList } from './nav-list';
 import { Scrollbar } from '../../scrollbar';
-import { Nav, NavUl, NavLi } from '../components';
+import { Nav, NavLi, NavUl } from '../components';
 import { navSectionClasses, navSectionCssVars } from '../styles';
+import { NavList } from './nav-list';
 
 import type { NavGroupProps, NavSectionProps } from '../types';
 
