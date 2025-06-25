@@ -40,10 +40,10 @@ const ICONS = {
 
 export const navData: NavSectionProps['data'] = [
   /**
-   * Công cụ toán học
+   * Công cụ toán học cơ bản
    */
   {
-    subheader: 'Công cụ toán học',
+    subheader: 'Công cụ toán học cơ bản',
     items: [
       {
         title: 'Test Scroll',
@@ -51,19 +51,14 @@ export const navData: NavSectionProps['data'] = [
         icon: ICONS.tools,
       },
       {
-        title: 'Máy tính',
+        title: 'Máy tính cơ bản',
         path: paths.dashboard.tools.calculators.root,
         icon: ICONS.calculator,
         children: [
           { title: 'Máy tính cơ bản', path: paths.dashboard.tools.calculators.basic },
           { title: 'Máy tính khoa học', path: paths.dashboard.tools.calculators.scientific },
           { title: 'Máy tính đồ thị', path: paths.dashboard.tools.calculators.graphing },
-          { title: 'Máy tính ma trận', path: paths.dashboard.tools.calculators.matrix },
           { title: 'Số phức', path: paths.dashboard.tools.calculators.complex },
-          { title: 'Đạo hàm', path: paths.dashboard.tools.calculators.derivative },
-          { title: 'Tích phân', path: paths.dashboard.tools.calculators.integral },
-          { title: 'Giới hạn', path: paths.dashboard.tools.calculators.limit },
-          { title: 'Dãy số', path: paths.dashboard.tools.calculators.sequence },
         ],
       },
       {
@@ -71,16 +66,6 @@ export const navData: NavSectionProps['data'] = [
         path: paths.dashboard.tools.converters.root,
         icon: ICONS.converter,
         children: [{ title: 'Chuyển đổi đơn vị', path: paths.dashboard.tools.converters.units }],
-      },
-      {
-        title: 'Giải phương trình nâng cao',
-        path: paths.dashboard.tools.solvers.root,
-        icon: ICONS.solver,
-        children: [
-          { title: 'Hệ phương trình', path: paths.dashboard.tools.solvers.system },
-          { title: 'Phương trình vi phân', path: paths.dashboard.tools.solvers.differential },
-          { title: 'Tối ưu hóa', path: paths.dashboard.tools.solvers.optimization },
-        ],
       },
       {
         title: 'Trình tạo',
@@ -95,10 +80,10 @@ export const navData: NavSectionProps['data'] = [
     ],
   },
   /**
-   * Toán học cơ bản
+   * Số học và Đại số cơ bản
    */
   {
-    subheader: 'Toán học cơ bản',
+    subheader: 'Số học và Đại số cơ bản',
     items: [
       {
         title: 'Số học cơ bản',
@@ -126,6 +111,14 @@ export const navData: NavSectionProps['data'] = [
           { title: 'Đa thức', path: paths.dashboard.algebra.basic.polynomials },
         ],
       },
+    ],
+  },
+  /**
+   * Hàm số và Đại số nâng cao
+   */
+  {
+    subheader: 'Hàm số và Đại số nâng cao',
+    items: [
       {
         title: 'Hàm số và đồ thị',
         path: paths.dashboard.algebra.functions.root,
@@ -140,6 +133,43 @@ export const navData: NavSectionProps['data'] = [
           { title: 'Hàm lượng giác', path: paths.dashboard.algebra.functions.trigonometric },
           { title: 'Hàm ngược', path: paths.dashboard.algebra.functions.inverse },
           { title: 'Hàm hợp', path: paths.dashboard.algebra.functions.composite },
+        ],
+      },
+      {
+        title: 'Đại số tuyến tính',
+        path: paths.dashboard.tools.calculators.root,
+        icon: ICONS.solver,
+        children: [
+          { title: 'Máy tính ma trận', path: paths.dashboard.tools.calculators.matrix },
+          { title: 'Hệ phương trình', path: paths.dashboard.tools.solvers.system },
+        ],
+      },
+      {
+        title: 'Giải phương trình nâng cao',
+        path: paths.dashboard.tools.solvers.root,
+        icon: ICONS.solver,
+        children: [
+          { title: 'Phương trình vi phân', path: paths.dashboard.tools.solvers.differential },
+          { title: 'Tối ưu hóa', path: paths.dashboard.tools.solvers.optimization },
+        ],
+      },
+    ],
+  },
+  /**
+   * Giải tích
+   */
+  {
+    subheader: 'Giải tích',
+    items: [
+      {
+        title: 'Công cụ giải tích',
+        path: paths.dashboard.tools.calculators.root,
+        icon: ICONS.calculator,
+        children: [
+          { title: 'Đạo hàm', path: paths.dashboard.tools.calculators.derivative },
+          { title: 'Tích phân', path: paths.dashboard.tools.calculators.integral },
+          { title: 'Giới hạn', path: paths.dashboard.tools.calculators.limit },
+          { title: 'Dãy số', path: paths.dashboard.tools.calculators.sequence },
         ],
       },
     ],
