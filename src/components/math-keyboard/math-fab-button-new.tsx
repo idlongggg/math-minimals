@@ -8,7 +8,6 @@ import { useCallback, useState } from 'react';
 import Fab from '@mui/material/Fab';
 import { styled } from '@mui/material/styles';
 
-import { transitionTap, varHover, varTap } from 'src/components/animate';
 import { Iconify } from 'src/components/iconify';
 
 import { MathKeyboard } from './math-keyboard';
@@ -27,15 +26,17 @@ const StyledFab = styled(Fab)(({ theme }) => ({
   bottom: 24,
   right: 24,
   zIndex: theme.zIndex.speedDial,
-  background: `linear-gradient(135deg, ${theme.vars.palette.primary.main} 0%, ${theme.vars.palette.primary.dark} 100%)`,
+  backgroundColor: theme.vars.palette.primary.main,
   color: theme.vars.palette.primary.contrastText,
-  boxShadow: theme.customShadows?.primary || theme.shadows[12],
+  boxShadow: theme.customShadows?.primary || theme.shadows[8],
   '&:hover': {
-    background: `linear-gradient(135deg, ${theme.vars.palette.primary.dark} 0%, ${theme.vars.palette.primary.main} 100%)`,
-    boxShadow: theme.customShadows?.primary || theme.shadows[16],
+    backgroundColor: theme.vars.palette.primary.dark,
+    boxShadow: theme.customShadows?.primary || theme.shadows[12],
+    transform: 'scale(1.05)',
   },
   '&:active': {
-    transform: 'scale(0.95)',
+    backgroundColor: theme.vars.palette.primary.darker || theme.vars.palette.primary.dark,
+    transform: 'scale(1.02)',
   },
 }));
 
@@ -62,24 +63,22 @@ export function MathFabButton({ onInsert, sx }: MathFabButtonProps) {
 
   return (
     <>
-      <m.div whileTap={varTap(0.96)} whileHover={varHover(1.02)} transition={transitionTap()}>
-        <StyledFab onClick={handleToggleKeyboard} aria-label="Math keyboard" sx={sx}>
-          <AnimatePresence mode="wait">
-            <m.div
-              key={keyboardOpen ? 'close' : 'math'}
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Iconify
-                icon={keyboardOpen ? 'mingcute:close-line' : 'solar:settings-bold'}
-                width={28}
-              />
-            </m.div>
-          </AnimatePresence>
-        </StyledFab>
-      </m.div>
+      <StyledFab onClick={handleToggleKeyboard} aria-label="Math keyboard" sx={sx}>
+        <AnimatePresence mode="wait">
+          <m.div
+            key={keyboardOpen ? 'close' : 'math'}
+            initial={{ rotate: -90, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            exit={{ rotate: 90, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Iconify
+              icon={keyboardOpen ? 'mingcute:close-line' : 'solar:settings-bold'}
+              width={28}
+            />
+          </m.div>
+        </AnimatePresence>
+      </StyledFab>
 
       <AnimatePresence>
         {keyboardOpen && (

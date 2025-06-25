@@ -179,7 +179,7 @@ export function MathKeyboard({ open, onClose, onInsert, sx }: MathKeyboardProps)
         backdrop: { invisible: true },
         paper: {
           sx: [
-            {
+            (theme) => ({
               height: '60vh',
               maxHeight: 500,
               borderTopLeftRadius: 16,
@@ -188,10 +188,21 @@ export function MathKeyboard({ open, onClose, onInsert, sx }: MathKeyboardProps)
               flexDirection: 'column',
               overflow: 'hidden',
               right: { xs: 0, md: 16 },
-              left: { xs: 0, md: 'auto' },
-              width: { xs: '100%', md: 480 },
-              maxWidth: { xs: '100%', md: 480 },
-            },
+              left: {
+                xs: 0,
+                md: 'max(var(--layout-nav-vertical-width, 300px), var(--layout-nav-mini-width, 88px))',
+              },
+              width: {
+                xs: '100%',
+                md: 'calc(100% - max(var(--layout-nav-vertical-width, 300px), var(--layout-nav-mini-width, 88px)) - 32px)',
+              },
+              maxWidth: '100%',
+              [theme.breakpoints.up('md')]: {
+                left: 'max(var(--layout-nav-vertical-width, 300px), var(--layout-nav-mini-width, 88px))',
+                width:
+                  'calc(100% - max(var(--layout-nav-vertical-width, 300px), var(--layout-nav-mini-width, 88px)) - 32px)',
+              },
+            }),
             ...(Array.isArray(sx) ? sx : [sx]),
           ],
         },
