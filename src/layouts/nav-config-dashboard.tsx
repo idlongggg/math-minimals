@@ -121,9 +121,7 @@ export const navData: NavSectionProps['data'] = [
           { title: 'Số nguyên tố', path: paths.dashboard.arithmetic.primeNumbers },
           { title: 'Thừa số và số vô tỷ', path: paths.dashboard.arithmetic.factorsIrrationals },
           { title: 'Ước số và bội số', path: paths.dashboard.arithmetic.divisorsMultiples },
-          { title: 'Phân số', path: paths.dashboard.arithmetic.fractions },
-          { title: 'Số thập phân', path: paths.dashboard.arithmetic.decimals },
-          { title: 'Phần trăm', path: paths.dashboard.arithmetic.percentages },
+          { title: 'Phân số & Chuyển đổi', path: paths.dashboard.arithmetic.fractions },
         ],
       },
       {
