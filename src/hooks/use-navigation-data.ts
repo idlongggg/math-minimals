@@ -10,8 +10,10 @@ export function useNavigationData(baseNavData: NavSectionProps['data']) {
   const { currentWorkspace, isAllTools } = useWorkspaceContext();
 
   return useMemo(() => {
-    // Luôn hiển thị phần "Công cụ toán học"
-    const toolsSection = baseNavData.find((section) => section.subheader === 'Công cụ toán học');
+    // Luôn hiển thị phần "Công cụ toán học cơ bản"
+    const toolsSection = baseNavData.find(
+      (section) => section.subheader === 'Công cụ toán học cơ bản'
+    );
 
     if (isAllTools) {
       // Hiển thị toàn bộ menu khi chọn "Tất cả công cụ toán học"
@@ -21,7 +23,7 @@ export function useNavigationData(baseNavData: NavSectionProps['data']) {
     // Filter dựa trên workspace hiện tại
     const filteredData: NavSectionProps['data'] = [];
 
-    // Luôn thêm "Công cụ toán học"
+    // Luôn thêm "Công cụ toán học cơ bản"
     if (toolsSection) {
       filteredData.push(toolsSection);
     }
@@ -30,12 +32,23 @@ export function useNavigationData(baseNavData: NavSectionProps['data']) {
     if (currentWorkspace) {
       switch (currentWorkspace.id) {
         case 'algebra-analysis':
-          // Hiển thị "Toán học cơ bản" cho workspace "Đại số và Giải tích"
-          const basicMathSection = baseNavData.find(
-            (section) => section.subheader === 'Toán học cơ bản'
+          // Hiển thị các section liên quan đến đại số và giải tích
+          const arithmeticAlgebraSection = baseNavData.find(
+            (section) => section.subheader === 'Số học và Đại số cơ bản'
           );
-          if (basicMathSection) {
-            filteredData.push(basicMathSection);
+          const functionsAlgebraSection = baseNavData.find(
+            (section) => section.subheader === 'Hàm số và Đại số nâng cao'
+          );
+          const analysisSection = baseNavData.find((section) => section.subheader === 'Giải tích');
+
+          if (arithmeticAlgebraSection) {
+            filteredData.push(arithmeticAlgebraSection);
+          }
+          if (functionsAlgebraSection) {
+            filteredData.push(functionsAlgebraSection);
+          }
+          if (analysisSection) {
+            filteredData.push(analysisSection);
           }
           break;
 
