@@ -2,17 +2,17 @@
 
 import { Fab, Tooltip, Zoom } from '@mui/material';
 import { Iconify } from 'src/components/iconify';
-import { useMathKeyboard } from 'src/contexts/math-keyboard-context';
+import { useBottomDrawer } from 'src/contexts/bottom-drawer-context';
 
 // ----------------------------------------------------------------------
 
-export interface MathKeyboardFabProps {
+export interface BottomDrawerFabProps {
   onClick?: () => void;
   sx?: object;
 }
 
-export function MathKeyboardFab({ onClick, sx, ...other }: MathKeyboardFabProps) {
-  const { isVisible, onToggle } = useMathKeyboard();
+export function BottomDrawerFab({ onClick, sx, ...other }: BottomDrawerFabProps) {
+  const { isVisible, onToggle } = useBottomDrawer();
 
   const handleClick = () => {
     onToggle();
@@ -23,10 +23,10 @@ export function MathKeyboardFab({ onClick, sx, ...other }: MathKeyboardFabProps)
 
   return (
     <Zoom in={isVisible}>
-      <Tooltip title="Bàn Phím Toán Học" placement="left">
+      <Tooltip title="Mở Drawer" placement="left">
         <Fab
           color="primary"
-          aria-label="bàn phím toán học"
+          aria-label="mở drawer"
           onClick={handleClick}
           sx={{
             position: 'fixed',

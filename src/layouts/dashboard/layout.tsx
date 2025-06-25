@@ -13,13 +13,13 @@ import { useTheme } from '@mui/material/styles';
 
 import { _contacts, _notifications } from 'src/_mock';
 
+import { BottomDrawer, BottomDrawerFab } from 'src/components/bottom-drawer-fab';
 import { Logo } from 'src/components/logo';
-import { MathKeyboardDialog, MathKeyboardFab } from 'src/components/math-keyboard-fab';
 import { useSettingsContext } from 'src/components/settings';
 
 import { useMockedUser } from 'src/auth/hooks';
 
-import { MathKeyboardProvider } from 'src/contexts/math-keyboard-context';
+import { BottomDrawerProvider } from 'src/contexts/bottom-drawer-context';
 import { useNavigationData } from 'src/hooks/use-navigation-data';
 
 import { AccountDrawer } from '../components/account-drawer';
@@ -217,7 +217,7 @@ export function DashboardLayout({
   const renderMain = () => <MainSection {...slotProps?.main}>{children}</MainSection>;
 
   return (
-    <MathKeyboardProvider>
+    <BottomDrawerProvider>
       <LayoutSection
         /** **************************************
          * @Header
@@ -251,9 +251,9 @@ export function DashboardLayout({
         ]}
       >
         {renderMain()}
-        <MathKeyboardFab />
-        <MathKeyboardDialog />
+        <BottomDrawerFab />
+        <BottomDrawer />
       </LayoutSection>
-    </MathKeyboardProvider>
+    </BottomDrawerProvider>
   );
 }
