@@ -716,31 +716,108 @@ export function CommonDenominatorView() {
 
           <Box
             sx={{
-              p: 2,
-              bgcolor: 'grey.100',
-              borderRadius: 1,
-              '& .MuiTypography-root': { fontFamily: 'monospace' },
+              p: 3,
+              bgcolor: 'primary.lighter',
+              borderRadius: 2,
+              border: '1px solid',
+              borderColor: 'primary.main',
             }}
           >
-            <Typography variant="body2">
-              Tìm mẫu số chung của <InlineMath math="\\frac{1}{6}" /> và{' '}
-              <InlineMath math="\\frac{1}{8}" />:
+            <Typography variant="body1" sx={{ fontWeight: 'bold', mb: 2 }}>
+              Tìm mẫu số chung nhỏ nhất của <InlineMath math="\frac{1}{6}" /> và{' '}
+              <InlineMath math="\frac{1}{8}" />
             </Typography>
-            <Typography variant="body2">
-              <InlineMath math="6 = 2 \times 3" />
+
+            <Typography variant="body1" sx={{ mb: 1 }}>
+              <strong>Bước 1:</strong> Phân tích các mẫu số thành thừa số nguyên tố
             </Typography>
-            <Typography variant="body2">
-              <InlineMath math="8 = 2^3" />
+            <Box sx={{ ml: 2, mb: 2 }}>
+              <Typography variant="body1">
+                <InlineMath math="6 = 2 \times 3" />
+              </Typography>
+              <Typography variant="body1">
+                <InlineMath math="8 = 2^3" />
+              </Typography>
+            </Box>
+
+            <Typography variant="body1" sx={{ mb: 1 }}>
+              <strong>Bước 2:</strong> Tìm LCM bằng cách lấy tích các thừa số với lũy thừa cao nhất
             </Typography>
-            <Typography variant="body2">
-              <InlineMath math="LCM = 2^3 \times 3 = 24" />
+            <Box sx={{ ml: 2, mb: 2 }}>
+              <Typography variant="body1">
+                <InlineMath math="\text{LCM} = 2^3 \times 3^1 = 8 \times 3 = 24" />
+              </Typography>
+            </Box>
+
+            <Typography variant="body1" sx={{ mb: 1 }}>
+              <strong>Bước 3:</strong> Chuyển đổi các phân số về mẫu số chung
             </Typography>
-            <Typography variant="body2">
-              <InlineMath math="\\frac{1}{6}" /> = <InlineMath math="\\frac{4}{24}" /> (nhân với 4)
+            <Box sx={{ ml: 2 }}>
+              <Typography variant="body1">
+                <InlineMath math="\frac{1}{6} = \frac{1 \times 4}{6 \times 4} = \frac{4}{24}" />
+              </Typography>
+              <Typography variant="body1">
+                <InlineMath math="\frac{1}{8} = \frac{1 \times 3}{8 \times 3} = \frac{3}{24}" />
+              </Typography>
+            </Box>
+
+            <Box sx={{ mt: 2, p: 2, bgcolor: 'success.lighter', borderRadius: 1 }}>
+              <Typography variant="body1" sx={{ fontWeight: 'bold', color: 'success.dark' }}>
+                Kết quả: <InlineMath math="\frac{1}{6} = \frac{4}{24}" /> và{' '}
+                <InlineMath math="\frac{1}{8} = \frac{3}{24}" />
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              p: 3,
+              bgcolor: 'secondary.lighter',
+              borderRadius: 2,
+              border: '1px solid',
+              borderColor: 'secondary.main',
+              mt: 2,
+            }}
+          >
+            <Typography variant="body1" sx={{ fontWeight: 'bold', mb: 2 }}>
+              Ví dụ nâng cao: Tìm mẫu số chung của <InlineMath math="\frac{1}{4}" />,{' '}
+              <InlineMath math="\frac{1}{6}" /> và <InlineMath math="\frac{1}{8}" />
             </Typography>
-            <Typography variant="body2">
-              <InlineMath math="\\frac{1}{8}" /> = <InlineMath math="\\frac{3}{24}" /> (nhân với 3)
+
+            <Typography variant="body1" sx={{ mb: 1 }}>
+              <strong>Bước 1:</strong> Phân tích các mẫu số
             </Typography>
+            <Box sx={{ ml: 2, mb: 2 }}>
+              <Typography variant="body1">
+                <InlineMath math="4 = 2^2" />
+              </Typography>
+              <Typography variant="body1">
+                <InlineMath math="6 = 2 \times 3" />
+              </Typography>
+              <Typography variant="body1">
+                <InlineMath math="8 = 2^3" />
+              </Typography>
+            </Box>
+
+            <Typography variant="body1" sx={{ mb: 1 }}>
+              <strong>Bước 2:</strong> Tìm LCM
+            </Typography>
+            <Box sx={{ ml: 2, mb: 2 }}>
+              <Typography variant="body1">
+                <InlineMath math="\text{LCM} = 2^3 \times 3^1 = 8 \times 3 = 24" />
+              </Typography>
+            </Box>
+
+            <Typography variant="body1" sx={{ mb: 1 }}>
+              <strong>Bước 3:</strong> Chuyển đổi tất cả phân số
+            </Typography>
+            <Box sx={{ ml: 2 }}>
+              <Typography variant="body1">
+                <InlineMath math="\frac{1}{4} = \frac{6}{24}" />,{' '}
+                <InlineMath math="\frac{1}{6} = \frac{4}{24}" />,{' '}
+                <InlineMath math="\frac{1}{8} = \frac{3}{24}" />
+              </Typography>
+            </Box>
           </Box>
 
           <Typography variant="h6" sx={{ mt: 3 }} gutterBottom>
@@ -754,7 +831,11 @@ export function CommonDenominatorView() {
             <Typography variant="body1">• Với 2 số nguyên tố, MSCNN = tích của 2 số đó</Typography>
             <Typography variant="body1">
               • Có thể sử dụng công thức:{' '}
-              <InlineMath math="LCM(a,b) = \frac{a \times b}{GCD(a,b)}" />
+              <InlineMath math="\text{LCM}(a,b) = \frac{a \times b}{\text{GCD}(a,b)}" />
+            </Typography>
+            <Typography variant="body1">
+              • Với nhiều số:{' '}
+              <InlineMath math="\text{LCM}(a,b,c) = \text{LCM}(\text{LCM}(a,b),c)" />
             </Typography>
           </Box>
         </CardContent>
