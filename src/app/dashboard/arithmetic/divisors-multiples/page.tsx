@@ -1,11 +1,11 @@
 import { CONFIG } from 'src/global-config';
 
-import { BlankView } from 'src/sections/blank/view';
+import { DivisorsMultiplesView } from 'src/sections/arithmetic';
 
 // ----------------------------------------------------------------------
 
-export const metadata = { title: `Ước và bội - ${CONFIG.appName}` };
+export const metadata = { title: `Ước số và bội số - ${CONFIG.appName}` };
 
 export default function Page() {
-  return <BlankView title="Ước và bội" />;
+  return <DivisorsMultiplesView />;
 }
