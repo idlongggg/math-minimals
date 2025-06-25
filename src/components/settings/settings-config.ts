@@ -11,7 +11,7 @@ export const defaultSettings: SettingsState = {
   colorScheme: themeConfig.defaultMode,
   direction: themeConfig.direction,
   contrast: 'default',
-  navLayout: 'horizontal',
+  navLayout: 'vertical',
   primaryColor: 'preset1',
   navColor: 'apparent',
   compactLayout: false,

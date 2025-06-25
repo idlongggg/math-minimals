@@ -24,16 +24,14 @@ export const _appRelated = [
   price: [2, 4].includes(index) ? _mock.number.price(index) : 0,
 }));
 
-export const _appInstalled = ['Germany', 'England', 'France', 'Korean', 'USA'].map(
-  (country, index) => ({
-    id: _mock.id(index),
-    countryName: country,
-    android: _mock.number.nativeL(index),
-    windows: _mock.number.nativeL(index + 1),
-    apple: _mock.number.nativeL(index + 2),
-    countryCode: ['de', 'gb', 'fr', 'kr', 'us'][index],
-  })
-);
+export const _appInstalled = ['Vietnam', 'China', 'England'].map((country, index) => ({
+  id: _mock.id(index),
+  countryName: country,
+  android: _mock.number.nativeL(index),
+  windows: _mock.number.nativeL(index + 1),
+  apple: _mock.number.nativeL(index + 2),
+  countryCode: ['vn', 'cn', 'gb'][index],
+}));
 
 export const _appAuthors = Array.from({ length: 3 }, (_, index) => ({
   id: _mock.id(index),
