@@ -1,11 +1,11 @@
 import { CONFIG } from 'src/global-config';
 
-import { BlankView } from 'src/sections/blank/view';
+import { PrimeNumbersView } from 'src/sections/arithmetic';
 
 // ----------------------------------------------------------------------
 
 export const metadata = { title: `Số nguyên tố - ${CONFIG.appName}` };
 
 export default function Page() {
-  return <BlankView title="Số nguyên tố" />;
+  return <PrimeNumbersView />;
 }
