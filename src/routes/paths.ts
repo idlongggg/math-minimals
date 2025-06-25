@@ -92,7 +92,7 @@ export const paths = {
       root: `${ROOTS.DASHBOARD}/arithmetic`,
       baseConversion: `${ROOTS.DASHBOARD}/arithmetic/base-conversion`,
       commonDenominator: `${ROOTS.DASHBOARD}/arithmetic/common-denominator`,
-      divisionRemainder: `${ROOTS.DASHBOARD}/arithmetic/division-remainder`,
+      divisionRemainder: `${ROOTS.DASHBOARD}/arithmetic/division-with-remainder`,
       primeNumbers: `${ROOTS.DASHBOARD}/arithmetic/prime-numbers`,
       factorsIrrationals: `${ROOTS.DASHBOARD}/arithmetic/factors-irrationals`,
       divisorsMultiples: `${ROOTS.DASHBOARD}/arithmetic/divisors-multiples`,
