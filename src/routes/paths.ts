@@ -52,12 +52,7 @@ export const paths = {
         basic: `${ROOTS.DASHBOARD}/tools/calculators/basic`,
         scientific: `${ROOTS.DASHBOARD}/tools/calculators/scientific`,
         graphing: `${ROOTS.DASHBOARD}/tools/calculators/graphing`,
-        matrix: `${ROOTS.DASHBOARD}/tools/calculators/matrix`,
         complex: `${ROOTS.DASHBOARD}/tools/calculators/complex`,
-        derivative: `${ROOTS.DASHBOARD}/tools/calculators/derivative`,
-        integral: `${ROOTS.DASHBOARD}/tools/calculators/integral`,
-        limit: `${ROOTS.DASHBOARD}/tools/calculators/limit`,
-        sequence: `${ROOTS.DASHBOARD}/tools/calculators/sequence`,
       },
       // Công cụ chuyển đổi
       converters: {
@@ -121,6 +116,20 @@ export const paths = {
         inverse: `${ROOTS.DASHBOARD}/algebra/functions/inverse`,
         composite: `${ROOTS.DASHBOARD}/algebra/functions/composite`,
       },
+      // Đại số tuyến tính
+      linear: {
+        root: `${ROOTS.DASHBOARD}/algebra/linear`,
+        matrix: `${ROOTS.DASHBOARD}/algebra/linear/matrix`,
+        system: `${ROOTS.DASHBOARD}/algebra/linear/system`,
+      },
+    },
+    // Giải tích
+    calculus: {
+      root: `${ROOTS.DASHBOARD}/calculus`,
+      derivative: `${ROOTS.DASHBOARD}/calculus/derivative`,
+      integral: `${ROOTS.DASHBOARD}/calculus/integral`,
+      limit: `${ROOTS.DASHBOARD}/calculus/limit`,
+      sequence: `${ROOTS.DASHBOARD}/calculus/sequence`,
     },
     // Hình học và đo lường
     geometry: {
