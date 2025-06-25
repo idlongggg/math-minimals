@@ -63,8 +63,6 @@ export const paths = {
       converters: {
         root: `${ROOTS.DASHBOARD}/tools/converters`,
         units: `${ROOTS.DASHBOARD}/tools/converters/units`,
-        base: `${ROOTS.DASHBOARD}/tools/converters/base`,
-        fraction: `${ROOTS.DASHBOARD}/tools/converters/fraction`,
         coordinates: `${ROOTS.DASHBOARD}/tools/converters/coordinates`,
         angle: `${ROOTS.DASHBOARD}/tools/converters/angle`,
       },
