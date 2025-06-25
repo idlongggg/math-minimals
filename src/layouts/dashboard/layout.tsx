@@ -14,10 +14,12 @@ import { useTheme } from '@mui/material/styles';
 import { _contacts, _notifications } from 'src/_mock';
 
 import { Logo } from 'src/components/logo';
+import { MathKeyboardDialog, MathKeyboardFab } from 'src/components/math-keyboard-fab';
 import { useSettingsContext } from 'src/components/settings';
 
 import { useMockedUser } from 'src/auth/hooks';
 
+import { MathKeyboardProvider } from 'src/contexts/math-keyboard-context';
 import { useNavigationData } from 'src/hooks/use-navigation-data';
 
 import { AccountDrawer } from '../components/account-drawer';
@@ -41,7 +43,6 @@ import { NavHorizontal } from './nav-horizontal';
 import { NavMobile } from './nav-mobile';
 import { NavVertical } from './nav-vertical';
 
-import { MathFabButtonConnected, MathInputProvider } from 'src/components/math-keyboard';
 import type { HeaderSectionProps } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';
 import type { MainSectionProps } from '../core/main-section';
@@ -213,15 +214,10 @@ export function DashboardLayout({
 
   const renderFooter = () => null;
 
-  const renderMain = () => (
-    <MainSection {...slotProps?.main}>
-      {children}
-      <MathFabButtonConnected />
-    </MainSection>
-  );
+  const renderMain = () => <MainSection {...slotProps?.main}>{children}</MainSection>;
 
   return (
-    <MathInputProvider>
+    <MathKeyboardProvider>
       <LayoutSection
         /** **************************************
          * @Header
@@ -255,7 +251,9 @@ export function DashboardLayout({
         ]}
       >
         {renderMain()}
+        <MathKeyboardFab />
+        <MathKeyboardDialog />
       </LayoutSection>
-    </MathInputProvider>
+    </MathKeyboardProvider>
   );
 }
