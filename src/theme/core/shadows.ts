@@ -2,43 +2,56 @@ import type { Shadows } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
-import { grey, common } from './palette';
+import { common, grey } from './palette';
 
 import type { ThemeColorScheme } from '../types';
 
 // ----------------------------------------------------------------------
 
 function createShadows(colorChannel: string): Shadows {
-  const color1 = varAlpha(colorChannel, 0.2);
-  const color2 = varAlpha(colorChannel, 0.14);
-  const color3 = varAlpha(colorChannel, 0.12);
+  // Windows 11 Fluent Design shadow system
+  // Uses softer, more layered shadows with directional lighting from top-left
+  const ambientShadow = varAlpha(colorChannel, 0.06); // Very subtle ambient shadow
+  const keyLight = varAlpha(colorChannel, 0.12); // Primary light source shadow
+  const directionalShadow = varAlpha(colorChannel, 0.08); // Directional shadow for depth
 
   return [
     'none',
-    `0px 2px 1px -1px ${color1},0px 1px 1px 0px ${color2},0px 1px 3px 0px ${color3}`,
-    `0px 3px 1px -2px ${color1},0px 2px 2px 0px ${color2},0px 1px 5px 0px ${color3}`,
-    `0px 3px 3px -2px ${color1},0px 3px 4px 0px ${color2},0px 1px 8px 0px ${color3}`,
-    `0px 2px 4px -1px ${color1},0px 4px 5px 0px ${color2},0px 1px 10px 0px ${color3}`,
-    `0px 3px 5px -1px ${color1},0px 5px 8px 0px ${color2},0px 1px 14px 0px ${color3}`,
-    `0px 3px 5px -1px ${color1},0px 6px 10px 0px ${color2},0px 1px 18px 0px ${color3}`,
-    `0px 4px 5px -2px ${color1},0px 7px 10px 1px ${color2},0px 2px 16px 1px ${color3}`,
-    `0px 5px 5px -3px ${color1},0px 8px 10px 1px ${color2},0px 3px 14px 2px ${color3}`,
-    `0px 5px 6px -3px ${color1},0px 9px 12px 1px ${color2},0px 3px 16px 2px ${color3}`,
-    `0px 6px 6px -3px ${color1},0px 10px 14px 1px ${color2},0px 4px 18px 3px ${color3}`,
-    `0px 6px 7px -4px ${color1},0px 11px 15px 1px ${color2},0px 4px 20px 3px ${color3}`,
-    `0px 7px 8px -4px ${color1},0px 12px 17px 2px ${color2},0px 5px 22px 4px ${color3}`,
-    `0px 7px 8px -4px ${color1},0px 13px 19px 2px ${color2},0px 5px 24px 4px ${color3}`,
-    `0px 7px 9px -4px ${color1},0px 14px 21px 2px ${color2},0px 5px 26px 4px ${color3}`,
-    `0px 8px 9px -5px ${color1},0px 15px 22px 2px ${color2},0px 6px 28px 5px ${color3}`,
-    `0px 8px 10px -5px ${color1},0px 16px 24px 2px ${color2},0px 6px 30px 5px ${color3}`,
-    `0px 8px 11px -5px ${color1},0px 17px 26px 2px ${color2},0px 6px 32px 5px ${color3}`,
-    `0px 9px 11px -5px ${color1},0px 18px 28px 2px ${color2},0px 7px 34px 6px ${color3}`,
-    `0px 9px 12px -6px ${color1},0px 19px 29px 2px ${color2},0px 7px 36px 6px ${color3}`,
-    `0px 10px 13px -6px ${color1},0px 20px 31px 3px ${color2},0px 8px 38px 7px ${color3}`,
-    `0px 10px 13px -6px ${color1},0px 21px 33px 3px ${color2},0px 8px 40px 7px ${color3}`,
-    `0px 10px 14px -6px ${color1},0px 22px 35px 3px ${color2},0px 8px 42px 7px ${color3}`,
-    `0px 11px 14px -7px ${color1},0px 23px 36px 3px ${color2},0px 9px 44px 8px ${color3}`,
-    `0px 11px 15px -7px ${color1},0px 24px 38px 3px ${color2},0px 9px 46px 8px ${color3}`,
+    // Elevation 1: Cards at rest
+    `0 1px 2px 0 ${ambientShadow}, 0 1px 3px 1px ${keyLight}`,
+    // Elevation 2: Raised buttons, snackbars
+    `0 1px 3px 0 ${ambientShadow}, 0 2px 6px 2px ${keyLight}`,
+    // Elevation 3: Refresh indicator, search bar (active state)
+    `0 1px 4px 0 ${ambientShadow}, 0 4px 8px 3px ${keyLight}`,
+    // Elevation 4: App bar
+    `0 2px 4px 0 ${ambientShadow}, 0 4px 12px 4px ${keyLight}`,
+    // Elevation 6: FAB (Resting state)
+    `0 2px 6px 0 ${ambientShadow}, 0 6px 16px 4px ${keyLight}`,
+    // Elevation 8: Bottom sheets, navigation drawer
+    `0 3px 8px 0 ${ambientShadow}, 0 8px 20px 6px ${keyLight}`,
+    // Elevation 9: FAB (Pressed state)
+    `0 3px 9px 0 ${ambientShadow}, 0 9px 22px 6px ${keyLight}`,
+    // Elevation 12: Dialog
+    `0 4px 12px 0 ${ambientShadow}, 0 12px 28px 8px ${keyLight}`,
+    // Elevation 16: Navigation drawer (modal)
+    `0 5px 16px 0 ${ambientShadow}, 0 16px 32px 8px ${keyLight}`,
+    // Elevation 24: Date picker, time picker
+    `0 6px 24px 0 ${ambientShadow}, 0 20px 40px 12px ${keyLight}`,
+    // Additional elevations for Windows 11 Fluent Design
+    `0 6px 20px 0 ${ambientShadow}, 0 16px 36px 8px ${keyLight}`,
+    `0 7px 24px 0 ${ambientShadow}, 0 20px 44px 12px ${keyLight}`,
+    `0 8px 28px 0 ${ambientShadow}, 0 24px 48px 12px ${keyLight}`,
+    `0 9px 32px 0 ${ambientShadow}, 0 28px 52px 16px ${keyLight}`,
+    `0 10px 36px 0 ${ambientShadow}, 0 32px 56px 16px ${keyLight}`,
+    `0 11px 40px 0 ${ambientShadow}, 0 36px 60px 20px ${keyLight}`,
+    `0 12px 44px 0 ${ambientShadow}, 0 40px 64px 20px ${keyLight}`,
+    `0 13px 48px 0 ${ambientShadow}, 0 44px 68px 24px ${keyLight}`,
+    `0 14px 52px 0 ${ambientShadow}, 0 48px 72px 24px ${keyLight}`,
+    `0 15px 56px 0 ${ambientShadow}, 0 52px 76px 28px ${keyLight}`,
+    `0 16px 60px 0 ${ambientShadow}, 0 56px 80px 28px ${keyLight}`,
+    `0 17px 64px 0 ${ambientShadow}, 0 60px 84px 32px ${keyLight}`,
+    `0 18px 68px 0 ${ambientShadow}, 0 64px 88px 32px ${keyLight}`,
+    `0 19px 72px 0 ${ambientShadow}, 0 68px 92px 36px ${keyLight}`,
   ];
 }
 
