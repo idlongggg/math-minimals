@@ -1,18 +1,18 @@
 'use client';
 
+import type { Components, Theme } from '@mui/material/styles';
 import type { SettingsState } from 'src/components/settings';
-import type { Theme, Components } from '@mui/material/styles';
 
 import { createTheme as createMuiTheme } from '@mui/material/styles';
 
-import { mixins } from './core/mixins';
-import { shadows } from './core/shadows';
-import { palette } from './core/palette';
-import { themeConfig } from './theme-config';
 import { components } from './core/components';
-import { typography } from './core/typography';
 import { customShadows } from './core/custom-shadows';
-import { updateCoreWithSettings, updateComponentsWithSettings } from './with-settings';
+import { mixins } from './core/mixins';
+import { palette } from './core/palette';
+import { shadows } from './core/shadows';
+import { typography } from './core/typography';
+import { themeConfig } from './theme-config';
+import { updateComponentsWithSettings, updateCoreWithSettings } from './with-settings';
 
 import type { ThemeOptions } from './types';
 
@@ -34,7 +34,7 @@ export const baseTheme: ThemeOptions = {
   mixins,
   components,
   typography,
-  shape: { borderRadius: 8 },
+  shape: { borderRadius: 6 }, // Windows 11 uses smaller border radius
   direction: themeConfig.direction,
   cssVariables: themeConfig.cssVariables,
   defaultColorScheme: themeConfig.defaultMode,
