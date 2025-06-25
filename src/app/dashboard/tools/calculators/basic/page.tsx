@@ -1,6 +1,6 @@
 import { CONFIG } from 'src/global-config';
 
-import { BasicCalculatorView } from 'src/sections/calculator/basic-calculator-view';
+import { BasicCalculatorView } from 'src/sections/calculator';
 
 // ----------------------------------------------------------------------
 
