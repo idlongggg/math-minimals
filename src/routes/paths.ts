@@ -97,8 +97,6 @@ export const paths = {
       factorsIrrationals: `${ROOTS.DASHBOARD}/arithmetic/factors-irrationals`,
       divisorsMultiples: `${ROOTS.DASHBOARD}/arithmetic/divisors-multiples`,
       fractions: `${ROOTS.DASHBOARD}/arithmetic/fractions`,
-      decimals: `${ROOTS.DASHBOARD}/arithmetic/decimals`,
-      percentages: `${ROOTS.DASHBOARD}/arithmetic/percentages`,
     },
     // Đại số
     algebra: {
