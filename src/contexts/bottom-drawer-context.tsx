@@ -6,7 +6,7 @@ import { createContext, useContext, useState } from 'react';
 
 // ----------------------------------------------------------------------
 
-export interface MathKeyboardContextValue {
+export interface BottomDrawerContextValue {
   isOpen: boolean;
   isVisible: boolean;
   onOpen: () => void;
@@ -16,19 +16,19 @@ export interface MathKeyboardContextValue {
   onHide: () => void;
 }
 
-const MathKeyboardContext = createContext<MathKeyboardContextValue | undefined>(undefined);
+const BottomDrawerContext = createContext<BottomDrawerContextValue | undefined>(undefined);
 
 // ----------------------------------------------------------------------
 
-export interface MathKeyboardProviderProps {
+export interface BottomDrawerProviderProps {
   children: ReactNode;
 }
 
-export function MathKeyboardProvider({ children }: MathKeyboardProviderProps) {
+export function BottomDrawerProvider({ children }: BottomDrawerProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
-  const value: MathKeyboardContextValue = {
+  const value: BottomDrawerContextValue = {
     isOpen,
     isVisible,
     onOpen: () => setIsOpen(true),
@@ -38,16 +38,16 @@ export function MathKeyboardProvider({ children }: MathKeyboardProviderProps) {
     onHide: () => setIsVisible(false),
   };
 
-  return <MathKeyboardContext.Provider value={value}>{children}</MathKeyboardContext.Provider>;
+  return <BottomDrawerContext.Provider value={value}>{children}</BottomDrawerContext.Provider>;
 }
 
 // ----------------------------------------------------------------------
 
-export function useMathKeyboard(): MathKeyboardContextValue {
-  const context = useContext(MathKeyboardContext);
+export function useBottomDrawer(): BottomDrawerContextValue {
+  const context = useContext(BottomDrawerContext);
 
   if (!context) {
-    throw new Error('useMathKeyboard must be used within a MathKeyboardProvider');
+    throw new Error('useBottomDrawer must be used within a BottomDrawerProvider');
   }
 
   return context;
