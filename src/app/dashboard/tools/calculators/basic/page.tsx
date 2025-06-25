@@ -1,11 +1,11 @@
 import { CONFIG } from 'src/global-config';
 
-import { BlankView } from 'src/sections/blank/view';
+import { BasicCalculatorView } from 'src/sections/calculator/basic-calculator-view';
 
 // ----------------------------------------------------------------------
 
 export const metadata = { title: `Máy tính cơ bản - ${CONFIG.appName}` };
 
 export default function Page() {
-  return <BlankView title="Máy tính cơ bản" />;
+  return <BasicCalculatorView />;
 }
