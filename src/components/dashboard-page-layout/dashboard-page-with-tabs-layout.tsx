@@ -90,6 +90,7 @@ export function DashboardPageWithTabsLayout({
 
         {/* Scrollable Content */}
         <Scrollbar
+          spacing={6} // Add 6px spacing between scrollbar and content
           sx={[
             {
               flex: 1,
