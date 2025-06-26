@@ -1,5 +1,5 @@
-import SimpleBar from 'simplebar-react';
 import { mergeClasses } from 'minimal-shared/utils';
+import SimpleBar from 'simplebar-react';
 
 import { styled } from '@mui/material/styles';
 
@@ -16,6 +16,7 @@ export function Scrollbar({
   className,
   slotProps,
   fillContent = true,
+  spacing = 4, // Default spacing of 4px
   ...other
 }: ScrollbarProps) {
   return (
@@ -23,6 +24,7 @@ export function Scrollbar({
       scrollableNodeProps={{ ref }}
       clickOnTrack={false}
       fillContent={fillContent}
+      spacing={spacing}
       className={mergeClasses([scrollbarClasses.root, className])}
       sx={[
         {
@@ -42,13 +44,26 @@ export function Scrollbar({
 // ----------------------------------------------------------------------
 
 const ScrollbarRoot = styled(SimpleBar, {
-  shouldForwardProp: (prop: string) => !['fillContent', 'sx'].includes(prop),
-})<Pick<ScrollbarProps, 'fillContent'>>(({ fillContent }) => ({
+  shouldForwardProp: (prop: string) => !['fillContent', 'spacing', 'sx'].includes(prop),
+})<Pick<ScrollbarProps, 'fillContent' | 'spacing'>>(({ fillContent, spacing = 4 }) => ({
   minWidth: 0,
   minHeight: 0,
   flexGrow: 1,
   display: 'flex',
   flexDirection: 'column',
+  // Apply dynamic spacing
+  '& .simplebar-scrollbar.simplebar-vertical': {
+    right: `${spacing}px`,
+    width: '8px',
+  },
+  '& .simplebar-scrollbar.simplebar-horizontal': {
+    height: '8px',
+    // Remove bottom spacing to keep horizontal scrollbar at the bottom
+  },
+  '& .simplebar-content-wrapper': {
+    paddingRight: '18px', // Fixed 18px padding for layout indentation
+    // Remove bottom padding to prevent scrollbar from being pushed down
+  },
   ...(fillContent && {
     '& .simplebar-content': {
       display: 'flex',
