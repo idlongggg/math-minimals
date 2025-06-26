@@ -90,6 +90,7 @@ export function DashboardLayout({
   const isNavHorizontal = settings.state.navLayout === 'horizontal';
   const isNavVertical = isNavMini || settings.state.navLayout === 'vertical';
   const isMenuHidden = settings.state.hideMenu;
+  const isAvatarHidden = settings.state.hideAvatar;
 
   const canDisplayItemByRole = (allowedRoles: NavItemProps['allowedRoles']): boolean =>
     !allowedRoles?.includes(user?.role);
@@ -172,14 +173,16 @@ export function DashboardLayout({
           {/** @slot Searchbar */}
           <Searchbar data={navData} />
 
-          {/** @slot Language popover */}
-          <LanguagePopover
-            data={[
-              { value: 'vi', label: 'Tiếng Việt', countryCode: 'VN' },
-              { value: 'cn', label: 'Tiếng Trung', countryCode: 'CN' },
-              { value: 'en', label: 'Tiếng Anh', countryCode: 'GB' },
-            ]}
-          />
+          {/** @slot Language popover - hiển thị trong danh sách bình thường nếu avatar không bị ẩn */}
+          {!isAvatarHidden && (
+            <LanguagePopover
+              data={[
+                { value: 'vi', label: 'Tiếng Việt', countryCode: 'VN' },
+                { value: 'cn', label: 'Tiếng Trung', countryCode: 'CN' },
+                { value: 'en', label: 'Tiếng Anh', countryCode: 'GB' },
+              ]}
+            />
+          )}
 
           {/** @slot Notifications popover */}
           <NotificationsDrawer data={_notifications} />
@@ -190,8 +193,19 @@ export function DashboardLayout({
           {/** @slot Settings button */}
           <SettingsButton />
 
-          {/** @slot Account drawer */}
-          <AccountDrawer data={_account} />
+          {/** @slot Language popover - hiển thị ở cuối nếu avatar bị ẩn */}
+          {isAvatarHidden && (
+            <LanguagePopover
+              data={[
+                { value: 'vi', label: 'Tiếng Việt', countryCode: 'VN' },
+                { value: 'cn', label: 'Tiếng Trung', countryCode: 'CN' },
+                { value: 'en', label: 'Tiếng Anh', countryCode: 'GB' },
+              ]}
+            />
+          )}
+
+          {/** @slot Account drawer - ẩn nếu isAvatarHidden */}
+          {!isAvatarHidden && <AccountDrawer data={_account} />}
         </Box>
       ),
     };
