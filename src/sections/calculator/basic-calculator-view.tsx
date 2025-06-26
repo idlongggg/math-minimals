@@ -5,9 +5,9 @@ import { useCallback, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
@@ -155,11 +155,11 @@ export function BasicCalculatorView() {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h3" sx={{ mb: 5 }}>
-        Máy tính cơ bản
-      </Typography>
-
+    <DashboardPageLayout 
+      title="Máy tính cơ bản"
+      description="Máy tính đơn giản với các phép toán cơ bản: cộng, trừ, nhân, chia."
+      maxWidth="sm"
+    >
       <Card sx={{ p: 3 }}>
         {/* Display */}
         <Box sx={{ mb: 3 }}>
@@ -263,26 +263,7 @@ export function BasicCalculatorView() {
             =
           </Button>
         </Box>
-
-        {/* Keyboard Instructions */}
-        <Box sx={{ mt: 3, p: 2, backgroundColor: 'grey.50', borderRadius: 1 }}>
-          <Typography variant="subtitle2" sx={{ mb: 1 }}>
-            Hướng dẫn bàn phím:
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            • Số 0-9: Nhập số
-            <br />
-            • +, -, *, /: Phép toán
-            <br />
-            • Enter hoặc =: Tính toán
-            <br />
-            • Escape hoặc C: Xóa
-            <br />
-            • Backspace: Xóa ký tự cuối
-            <br />• .: Dấu thập phân
-          </Typography>
-        </Box>
       </Card>
-    </Container>
+    </DashboardPageLayout>
   );
 }
