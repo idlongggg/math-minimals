@@ -21,6 +21,7 @@ import { useMockedUser } from 'src/auth/hooks';
 
 import { BottomDrawerProvider } from 'src/contexts/bottom-drawer-context';
 import { useNavigationData } from 'src/hooks/use-navigation-data';
+import { useUrlSettings } from 'src/hooks/use-url-settings';
 
 import { AccountDrawer } from '../components/account-drawer';
 import { ContactsPopover } from '../components/contacts-popover';
@@ -74,6 +75,9 @@ export function DashboardLayout({
   const { user } = useMockedUser();
 
   const settings = useSettingsContext();
+  
+  // Sử dụng URL settings để đọc parameters
+  useUrlSettings();
 
   const navVars = dashboardNavColorVars(theme, settings.state.navColor, settings.state.navLayout);
 
@@ -85,6 +89,7 @@ export function DashboardLayout({
   const isNavMini = settings.state.navLayout === 'mini';
   const isNavHorizontal = settings.state.navLayout === 'horizontal';
   const isNavVertical = isNavMini || settings.state.navLayout === 'vertical';
+  const isMenuHidden = settings.state.hideMenu;
 
   const canDisplayItemByRole = (allowedRoles: NavItemProps['allowedRoles']): boolean =>
     !allowedRoles?.includes(user?.role);
@@ -110,7 +115,7 @@ export function DashboardLayout({
           This is an info Alert.
         </Alert>
       ),
-      bottomArea: isNavHorizontal ? (
+      bottomArea: isNavHorizontal && !isMenuHidden ? (
         <NavHorizontal
           data={navData}
           layoutQuery={layoutQuery}
@@ -121,20 +126,24 @@ export function DashboardLayout({
       leftArea: (
         <>
           {/** @slot Nav mobile */}
-          <MenuButton
-            onClick={onOpen}
-            sx={{ mr: 1, ml: -1, [theme.breakpoints.up(layoutQuery)]: { display: 'none' } }}
-          />
-          <NavMobile
-            data={navData}
-            open={open}
-            onClose={onClose}
-            cssVars={navVars.section}
-            checkPermissions={canDisplayItemByRole}
-          />
+          {!isMenuHidden && (
+            <MenuButton
+              onClick={onOpen}
+              sx={{ mr: 1, ml: -1, [theme.breakpoints.up(layoutQuery)]: { display: 'none' } }}
+            />
+          )}
+          {!isMenuHidden && (
+            <NavMobile
+              data={navData}
+              open={open}
+              onClose={onClose}
+              cssVars={navVars.section}
+              checkPermissions={canDisplayItemByRole}
+            />
+          )}
 
           {/** @slot Logo */}
-          {isNavHorizontal && (
+          {(isNavHorizontal || isMenuHidden) && (
             <Logo
               sx={{
                 display: 'none',
@@ -144,14 +153,17 @@ export function DashboardLayout({
           )}
 
           {/** @slot Divider */}
-          {isNavHorizontal && (
+          {(isNavHorizontal || isMenuHidden) && (
             <VerticalDivider sx={{ [theme.breakpoints.up(layoutQuery)]: { display: 'flex' } }} />
           )}
 
           {/** @slot Workspace popover */}
           <WorkspacesPopover
             data={_workspaces}
-            sx={{ ...(isNavHorizontal && { color: 'var(--layout-nav-text-primary-color)' }) }}
+            sx={{ 
+              ...(isNavHorizontal && { color: 'var(--layout-nav-text-primary-color)' }),
+              ...(isMenuHidden && { color: 'text.primary' })
+            }}
           />
         </>
       ),
@@ -196,21 +208,22 @@ export function DashboardLayout({
     );
   };
 
-  const renderSidebar = () => (
-    <NavVertical
-      data={navData}
-      isNavMini={isNavMini}
-      layoutQuery={layoutQuery}
-      cssVars={navVars.section}
-      checkPermissions={canDisplayItemByRole}
-      onToggleNav={() =>
-        settings.setField(
-          'navLayout',
-          settings.state.navLayout === 'vertical' ? 'mini' : 'vertical'
-        )
-      }
-    />
-  );
+  const renderSidebar = () =>
+    !isMenuHidden ? (
+      <NavVertical
+        data={navData}
+        isNavMini={isNavMini}
+        layoutQuery={layoutQuery}
+        cssVars={navVars.section}
+        checkPermissions={canDisplayItemByRole}
+        onToggleNav={() =>
+          settings.setField(
+            'navLayout',
+            settings.state.navLayout === 'vertical' ? 'mini' : 'vertical'
+          )
+        }
+      />
+    ) : null;
 
   const renderFooter = () => null;
 
@@ -226,7 +239,7 @@ export function DashboardLayout({
         /** **************************************
          * @Sidebar
          *************************************** */
-        sidebarSection={isNavHorizontal ? null : renderSidebar()}
+        sidebarSection={isNavHorizontal || isMenuHidden ? null : renderSidebar()}
         /** **************************************
          * @Footer
          *************************************** */
@@ -239,7 +252,7 @@ export function DashboardLayout({
           {
             [`& .${layoutClasses.sidebarContainer}`]: {
               [theme.breakpoints.up(layoutQuery)]: {
-                pl: isNavMini ? 'var(--layout-nav-mini-width)' : 'var(--layout-nav-vertical-width)',
+                pl: isMenuHidden ? 0 : (isNavMini ? 'var(--layout-nav-mini-width)' : 'var(--layout-nav-vertical-width)'),
                 transition: theme.transitions.create(['padding-left'], {
                   easing: 'var(--layout-transition-easing)',
                   duration: 'var(--layout-transition-duration)',
