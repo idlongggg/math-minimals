@@ -1,10 +1,10 @@
 import { CONFIG } from 'src/global-config';
-import { SimpleLineChartView } from 'src/sections/charts/view';
+import { DynamicDataGridChartView } from 'src/sections/charts/view';
 
 // ----------------------------------------------------------------------
 
-export const metadata = { title: `Biểu đồ đường đơn giản - ${CONFIG.appName}` };
+export const metadata = { title: `Biểu đồ đường động - ${CONFIG.appName}` };
 
 export default function Page() {
-  return <SimpleLineChartView />;
+  return <DynamicDataGridChartView />;
 }
