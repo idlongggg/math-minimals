@@ -16,8 +16,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { CustomTabs } from 'src/components/custom-tabs';
+import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
-import { DashboardContent } from 'src/layouts/dashboard';
 
 // ----------------------------------------------------------------------
 
@@ -843,63 +843,41 @@ export function CommonDenominatorView() {
     </Box>
   );
 
+  const renderTabs = () => (
+    <CustomTabs value={currentTab} onChange={handleTabChange}>
+      <Tab
+        value="calculator"
+        label="Tính toán"
+        icon={<Iconify icon="solar:restart-bold" />}
+      />
+      <Tab
+        value="quick-tools"
+        label="Ví dụ nhanh"
+        icon={<Iconify icon="custom:flash-outline" />}
+      />
+      <Tab
+        value="history"
+        label={`Lịch sử (${history.length})`}
+        icon={<Iconify icon="solar:clock-circle-bold" />}
+      />
+      <Tab
+        value="guide"
+        label="Hướng dẫn"
+        icon={<Iconify icon="solar:notebook-bold-duotone" />}
+      />
+    </CustomTabs>
+  );
+
   return (
-    <DashboardContent maxWidth="xl">
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height:
-            'calc(100vh - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
-          minHeight: 600,
-        }}
-      >
-        {/* Fixed Header */}
-        <Box sx={{ flexShrink: 0, mb: 3 }}>
-          <Typography variant="h4">Tìm mẫu số chung</Typography>
-        </Box>
-
-        {/* Fixed Tabs */}
-        <Box sx={{ flexShrink: 0, mb: 3 }}>
-          <CustomTabs value={currentTab} onChange={handleTabChange}>
-            <Tab
-              value="calculator"
-              label="Tính toán"
-              icon={<Iconify icon="solar:restart-bold" />}
-            />
-            <Tab
-              value="quick-tools"
-              label="Ví dụ nhanh"
-              icon={<Iconify icon="custom:flash-outline" />}
-            />
-            <Tab
-              value="history"
-              label={`Lịch sử (${history.length})`}
-              icon={<Iconify icon="solar:clock-circle-bold" />}
-            />
-            <Tab
-              value="guide"
-              label="Hướng dẫn"
-              icon={<Iconify icon="solar:notebook-bold-duotone" />}
-            />
-          </CustomTabs>
-        </Box>
-
-        {/* Scrollable Content */}
-        <Box
-          sx={{
-            flex: 1,
-            overflow: 'auto',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          {currentTab === 'calculator' && renderCalculator()}
-          {currentTab === 'quick-tools' && renderQuickTools()}
-          {currentTab === 'history' && renderHistory()}
-          {currentTab === 'guide' && renderGuide()}
-        </Box>
-      </Box>
-    </DashboardContent>
+    <DashboardPageWithTabsLayout 
+      title="Tìm mẫu số chung"
+      description="Công cụ tìm mẫu số chung nhỏ nhất (BCNN) và chuyển đổi phân số về cùng mẫu số."
+      tabs={renderTabs()}
+    >
+      {currentTab === 'calculator' && renderCalculator()}
+      {currentTab === 'quick-tools' && renderQuickTools()}
+      {currentTab === 'history' && renderHistory()}
+      {currentTab === 'guide' && renderGuide()}
+    </DashboardPageWithTabsLayout>
   );
 }
