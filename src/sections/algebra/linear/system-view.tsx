@@ -1,26 +1,23 @@
 import type { BoxProps } from '@mui/material/Box';
 
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { DashboardContent } from 'src/layouts/dashboard';
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
 export function SystemEquationView({ sx, ...other }: BoxProps) {
   return (
-    <DashboardContent>
-      <Container maxWidth="xl">
-        <Typography variant="h4" sx={{ mb: 4 }}>
-          Hệ phương trình
+    <DashboardPageLayout 
+      title="Hệ phương trình"
+      description="Công cụ giải hệ phương trình tuyến tính bằng các phương pháp khử Gauss, Cramer và ma trận."
+    >
+      <Box>
+        <Typography variant="body1">
+          Công cụ giải hệ phương trình tuyến tính sẽ được phát triển tại đây.
         </Typography>
-        <Box>
-          <Typography variant="body1">
-            Công cụ giải hệ phương trình tuyến tính sẽ được phát triển tại đây.
-          </Typography>
-        </Box>
-      </Container>
-    </DashboardContent>
+      </Box>
+    </DashboardPageLayout>
   );
 }

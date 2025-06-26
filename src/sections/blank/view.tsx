@@ -5,18 +5,18 @@ import type { SxProps, Theme } from '@mui/material/styles';
 import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 
-import { DashboardContent } from 'src/layouts/dashboard';
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
 type Props = {
   title?: string;
+  description?: string;
   sx?: SxProps<Theme>;
 };
 
-export function BlankView({ title = 'Blank', sx }: Props) {
+export function BlankView({ title = 'Blank', description, sx }: Props) {
   const renderContent = () => (
     <Box
       sx={[
@@ -34,9 +34,8 @@ export function BlankView({ title = 'Blank', sx }: Props) {
   );
 
   return (
-    <DashboardContent maxWidth="xl">
-      <Typography variant="h4"> {title} </Typography>
+    <DashboardPageLayout title={title} description={description}>
       {renderContent()}
-    </DashboardContent>
+    </DashboardPageLayout>
   );
 }

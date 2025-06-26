@@ -18,6 +18,7 @@ import {
     Typography
 } from '@mui/material';
 import { useState } from 'react';
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { PictographChart, type PictographData } from 'src/components/pictograph-chart';
 
 // Sample data sets
@@ -104,34 +105,11 @@ export function PictographView() {
   };
 
   return (
-    <Box sx={{ 
-      display: 'flex',
-      flexDirection: 'column',
-      height: 'calc(100vh - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
-      minHeight: 600,
-    }}>
-      {/* Fixed Header */}
-      <Box sx={{ flexShrink: 0, mb: 3, p: 3, pb: 0 }}>
-        <Typography variant="h4">
-          Biểu đồ tranh (Pictograph)
-        </Typography>
-        
-        <Typography variant="body1" sx={{ mt: 1, color: 'text.secondary' }}>
-          Biểu đồ tranh sử dụng biểu tượng để hiển thị dữ liệu một cách trực quan và dễ hiểu. 
-          Mỗi biểu tượng đại diện cho một giá trị nhất định.
-        </Typography>
-      </Box>
-
-      {/* Scrollable Content */}
-      <Box sx={{ 
-        flex: 1, 
-        overflow: 'auto', 
-        px: 3,
-        pb: 3,
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 2fr' }, gap: 3 }}>
+    <DashboardPageLayout 
+      title="Biểu đồ tranh (Pictograph)"
+      description="Biểu đồ tranh sử dụng biểu tượng để hiển thị dữ liệu một cách trực quan và dễ hiểu. Mỗi biểu tượng đại diện cho một giá trị nhất định."
+    >
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 2fr' }, gap: 3 }}>
         {/* Controls Panel */}
         <Box>
           <Card>
@@ -348,7 +326,6 @@ export function PictographView() {
             </CardContent>
           </Card>
         </Box>
-      </Box>
-    </Box>
+    </DashboardPageLayout>
   );
 }

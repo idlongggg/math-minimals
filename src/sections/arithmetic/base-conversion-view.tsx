@@ -21,8 +21,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { CustomTabs } from 'src/components/custom-tabs';
+import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
-import { DashboardContent } from 'src/layouts/dashboard';
 
 // ----------------------------------------------------------------------
 
@@ -732,63 +732,41 @@ export function BaseConversionView() {
     </Box>
   );
 
+  const renderTabs = () => (
+    <CustomTabs value={currentTab} onChange={handleTabChange}>
+      <Tab
+        value="converter"
+        label="Chuyển đổi"
+        icon={<Iconify icon="solar:restart-bold" />}
+      />
+      <Tab
+        value="quick-tools"
+        label="Công cụ nhanh"
+        icon={<Iconify icon="custom:flash-outline" />}
+      />
+      <Tab
+        value="history"
+        label={`Lịch sử (${history.length})`}
+        icon={<Iconify icon="solar:clock-circle-bold" />}
+      />
+      <Tab
+        value="guide"
+        label="Hướng dẫn"
+        icon={<Iconify icon="solar:notebook-bold-duotone" />}
+      />
+    </CustomTabs>
+  );
+
   return (
-    <DashboardContent maxWidth="xl">
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height:
-            'calc(100vh - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
-          minHeight: 600,
-        }}
-      >
-        {/* Fixed Header */}
-        <Box sx={{ flexShrink: 0, mb: 3 }}>
-          <Typography variant="h4">Chuyển đổi hệ cơ số</Typography>
-        </Box>
-
-        {/* Fixed Tabs */}
-        <Box sx={{ flexShrink: 0, mb: 3 }}>
-          <CustomTabs value={currentTab} onChange={handleTabChange}>
-            <Tab
-              value="converter"
-              label="Chuyển đổi"
-              icon={<Iconify icon="solar:restart-bold" />}
-            />
-            <Tab
-              value="quick-tools"
-              label="Công cụ nhanh"
-              icon={<Iconify icon="custom:flash-outline" />}
-            />
-            <Tab
-              value="history"
-              label={`Lịch sử (${history.length})`}
-              icon={<Iconify icon="solar:clock-circle-bold" />}
-            />
-            <Tab
-              value="guide"
-              label="Hướng dẫn"
-              icon={<Iconify icon="solar:notebook-bold-duotone" />}
-            />
-          </CustomTabs>
-        </Box>
-
-        {/* Scrollable Content */}
-        <Box
-          sx={{
-            flex: 1,
-            overflow: 'auto',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          {currentTab === 'converter' && renderConverter()}
-          {currentTab === 'quick-tools' && renderQuickTools()}
-          {currentTab === 'history' && renderHistory()}
-          {currentTab === 'guide' && renderGuide()}
-        </Box>
-      </Box>
-    </DashboardContent>
+    <DashboardPageWithTabsLayout 
+      title="Chuyển đổi hệ cơ số"
+      description="Công cụ chuyển đổi số giữa các hệ cơ số khác nhau (nhị phân, bát phân, thập phân, thập lục phân)."
+      tabs={renderTabs()}
+    >
+      {currentTab === 'converter' && renderConverter()}
+      {currentTab === 'quick-tools' && renderQuickTools()}
+      {currentTab === 'history' && renderHistory()}
+      {currentTab === 'guide' && renderGuide()}
+    </DashboardPageWithTabsLayout>
   );
 }
