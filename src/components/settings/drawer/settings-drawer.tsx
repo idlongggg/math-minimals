@@ -2,33 +2,33 @@
 
 import type { ThemeColorScheme } from 'src/theme/types';
 
-import { useEffect, useCallback } from 'react';
 import { hasKeys, varAlpha } from 'minimal-shared/utils';
+import { useCallback, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
 import SvgIcon from '@mui/material/SvgIcon';
 import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useColorScheme } from '@mui/material/styles';
 
 import { themeConfig } from 'src/theme/theme-config';
 import { primaryColorPresets } from 'src/theme/with-settings';
 
-import { settingIcons } from './icons';
 import { Iconify } from '../../iconify';
-import { BaseOption } from './base-option';
 import { Scrollbar } from '../../scrollbar';
-import { SmallBlock, LargeBlock } from './styles';
-import { PresetsOptions } from './presets-options';
-import { FullScreenButton } from './fullscreen-button';
-import { FontSizeOptions, FontFamilyOptions } from './font-options';
 import { useSettingsContext } from '../context/use-settings-context';
+import { BaseOption } from './base-option';
+import { FontFamilyOptions, FontSizeOptions } from './font-options';
+import { FullScreenButton } from './fullscreen-button';
+import { settingIcons } from './icons';
 import { NavColorOptions, NavLayoutOptions } from './nav-layout-option';
+import { PresetsOptions } from './presets-options';
+import { LargeBlock, SmallBlock } from './styles';
 
-import type { SettingsState, SettingsDrawerProps } from '../types';
+import type { SettingsDrawerProps, SettingsState } from '../types';
 
 // ----------------------------------------------------------------------
 
@@ -71,12 +71,12 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
       }}
     >
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
-        Settings
+        Cài đặt
       </Typography>
 
       <FullScreenButton />
 
-      <Tooltip title="Reset all">
+      <Tooltip title="Đặt lại tất cả">
         <IconButton onClick={handleReset}>
           <Badge color="error" variant="dot" invisible={!settings.canReset}>
             <Iconify icon="solar:restart-bold" />
@@ -84,7 +84,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
         </IconButton>
       </Tooltip>
 
-      <Tooltip title="Close">
+      <Tooltip title="Đóng">
         <IconButton onClick={settings.onCloseDrawer}>
           <Iconify icon="mingcute:close-line" />
         </IconButton>
@@ -94,7 +94,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
 
   const renderMode = () => (
     <BaseOption
-      label="Dark mode"
+      label="Chế độ tối"
       selected={settings.state.colorScheme === 'dark'}
       icon={<SvgIcon>{settingIcons.moon}</SvgIcon>}
       onChangeOption={() => {
@@ -106,7 +106,8 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
 
   const renderContrast = () => (
     <BaseOption
-      label="Contrast"
+      label="Độ tương phản"
+      tooltip="Tăng độ tương phản để dễ đọc hơn"
       selected={settings.state.contrast === 'hight'}
       icon={<SvgIcon>{settingIcons.contrast}</SvgIcon>}
       onChangeOption={() =>
@@ -140,7 +141,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
 
   const renderPresets = () => (
     <LargeBlock
-      title="Presets"
+      title="Màu chủ đạo"
       canReset={settings.state.primaryColor !== defaultSettings.primaryColor}
       onReset={() => settings.setState({ primaryColor: defaultSettings.primaryColor })}
     >
@@ -159,10 +160,10 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
   );
 
   const renderNav = () => (
-    <LargeBlock title="Nav" tooltip="Dashboard only" sx={{ gap: 2.5 }}>
+    <LargeBlock title="Thanh điều hướng" tooltip="Chỉ áp dụng cho Dashboard" sx={{ gap: 2.5 }}>
       {isNavLayoutVisible && (
         <SmallBlock
-          label="Layout"
+          label="Bố cục"
           canReset={settings.state.navLayout !== defaultSettings.navLayout}
           onReset={() => settings.setState({ navLayout: defaultSettings.navLayout })}
         >
@@ -192,7 +193,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
       )}
       {isNavColorVisible && (
         <SmallBlock
-          label="Color"
+          label="Màu sắc"
           canReset={settings.state.navColor !== defaultSettings.navColor}
           onReset={() => settings.setState({ navColor: defaultSettings.navColor })}
         >
@@ -201,12 +202,12 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
             onChangeOption={(newOption) => settings.setState({ navColor: newOption })}
             options={[
               {
-                label: 'Integrate',
+                label: 'Tích hợp',
                 value: 'integrate',
                 icon: <SvgIcon>{settingIcons.sidebarOutline}</SvgIcon>,
               },
               {
-                label: 'Apparent',
+                label: 'Nổi bật',
                 value: 'apparent',
                 icon: <SvgIcon>{settingIcons.sidebarFill}</SvgIcon>,
               },
