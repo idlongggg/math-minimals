@@ -6,6 +6,7 @@
 @import '@fontsource/nunito/500.css';
 @import '@fontsource/nunito/600.css';
 @import '@fontsource/nunito/700.css';
+@import '@fontsource/nunito/800.css';
 
 /** **************************************
 * Fonts: options
@@ -36,6 +37,20 @@ body,
   max-height: 100vh;
   overflow: hidden;
   flex-direction: column;
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Ensure Nunito is used as default font for all elements */
+* {
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Reset and base styles */
+button,
+input,
+textarea,
+select {
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
 }
 img {
   max-width: 100%;

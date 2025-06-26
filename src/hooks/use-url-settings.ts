@@ -23,6 +23,18 @@ export function useUrlSettings() {
         settings.setState({ hideMenu });
       }
     }
+
+    // Đọc hideAvatar parameter từ URL
+    const hideAvatarParam = searchParams.get('hideAvatar');
+    
+    if (hideAvatarParam !== null) {
+      const hideAvatar = hideAvatarParam === 'true' || hideAvatarParam === '1';
+      
+      // Chỉ cập nhật nếu giá trị khác với state hiện tại
+      if (settings.state.hideAvatar !== hideAvatar) {
+        settings.setState({ hideAvatar });
+      }
+    }
   }, [searchParams, settings]);
 
   return settings;

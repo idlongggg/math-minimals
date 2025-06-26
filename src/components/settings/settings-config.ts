@@ -14,5 +14,7 @@ export const defaultSettings: SettingsState = {
   primaryColor: 'preset1',
   navColor: 'apparent',
   hideMenu: false,
+  hideAvatar: false,
+  fontFamily: themeConfig.fontFamily.primary,
   version: CONFIG.appVersion,
 };

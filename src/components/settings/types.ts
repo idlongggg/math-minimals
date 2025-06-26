@@ -14,6 +14,7 @@ export type SettingsState = {
   navColor?: 'integrate' | 'apparent';
   navLayout?: 'vertical' | 'horizontal' | 'mini';
   hideMenu?: boolean;
+  hideAvatar?: boolean;
   primaryColor?: 'default' | 'preset1' | 'preset2' | 'preset3' | 'preset4' | 'preset5';
 };
 
