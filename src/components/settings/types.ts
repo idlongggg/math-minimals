@@ -1,5 +1,5 @@
-import type { Theme, SxProps } from '@mui/material/styles';
-import type { ThemeDirection, ThemeColorScheme } from 'src/theme/types';
+import type { SxProps, Theme } from '@mui/material/styles';
+import type { ThemeColorScheme, ThemeDirection } from 'src/theme/types';
 
 // ----------------------------------------------------------------------
 
@@ -13,6 +13,7 @@ export type SettingsState = {
   contrast?: 'default' | 'hight';
   navColor?: 'integrate' | 'apparent';
   navLayout?: 'vertical' | 'horizontal' | 'mini';
+  hideMenu?: boolean;
   primaryColor?: 'default' | 'preset1' | 'preset2' | 'preset3' | 'preset4' | 'preset5';
 };
 
