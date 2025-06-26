@@ -15,6 +15,7 @@ export const defaultSettings: SettingsState = {
   primaryColor: 'preset1',
   navColor: 'apparent',
   compactLayout: false,
+  hideMenu: false,
   fontSize: 16,
   fontFamily: themeConfig.fontFamily.primary,
   version: CONFIG.appVersion,
