@@ -37,7 +37,13 @@ export function YourView() {
 
 ## 2. DashboardPageWithTabsLayout
 
-Component layout đặc biệt cho các trang có tabs, với header cố định, tabs cố định, và content scrollable.
+Component layout đặc biệt cho các trang có tabs, với **header cố định, tabs cố định**, và **chỉ content scrollable**.
+
+### Đặc điểm:
+- ✅ Header cố định (title + description)
+- ✅ Tabs cố định (không bị cuộn theo trang)
+- ✅ Chỉ content bên dưới tabs mới được cuộn
+- ✅ Layout tối ưu cho trải nghiệm người dùng
 
 ### Sử dụng:
 

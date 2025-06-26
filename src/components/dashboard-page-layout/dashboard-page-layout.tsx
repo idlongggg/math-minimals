@@ -6,6 +6,7 @@ import type { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
+import { Scrollbar } from 'src/components/scrollbar';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 // ----------------------------------------------------------------------
@@ -48,8 +49,7 @@ export function DashboardPageLayout({
             {
               flexShrink: 0,
               mb: 3,
-              p: 3,
-              pb: 0,
+              pt: 3,
             },
             ...(Array.isArray(headerSx) ? headerSx : [headerSx]),
           ]}
@@ -64,21 +64,26 @@ export function DashboardPageLayout({
         </Box>
 
         {/* Scrollable Content */}
-        <Box
+        <Scrollbar
           sx={[
             {
               flex: 1,
-              overflow: 'auto',
-              px: 3,
-              pb: 3,
               display: 'flex',
               flexDirection: 'column',
             },
             ...(Array.isArray(contentSx) ? contentSx : [contentSx]),
           ]}
+          slotProps={{
+            contentSx: {
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: 'auto',
+              pb: 3,
+            },
+          }}
         >
           {children}
-        </Box>
+        </Scrollbar>
       </Box>
     </DashboardContent>
   );

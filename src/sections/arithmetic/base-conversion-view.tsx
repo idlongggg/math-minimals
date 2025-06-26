@@ -240,7 +240,7 @@ export function BaseConversionView() {
   );
 
   const renderConverter = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
       <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
         <Box sx={{ flex: 1 }}>
           <Card>
@@ -386,7 +386,7 @@ export function BaseConversionView() {
   );
 
   const renderQuickTools = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
       <Typography variant="h6">Chuyển đổi nhanh</Typography>
 
       <Box
@@ -513,7 +513,7 @@ export function BaseConversionView() {
   );
 
   const renderHistory = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h6">Lịch sử chuyển đổi</Typography>
         {history.length > 0 && (
@@ -602,7 +602,7 @@ export function BaseConversionView() {
   );
 
   const renderGuide = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
       <Card>
         <CardHeader title="Hướng dẫn chuyển đổi cơ số" />
         <CardContent>

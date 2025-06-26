@@ -4,8 +4,11 @@ import type { SxProps, Theme } from '@mui/material/styles';
 import type { ReactNode } from 'react';
 
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
-import { DashboardPageLayout } from './dashboard-page-layout';
+import { Scrollbar } from 'src/components/scrollbar';
+import { DashboardContent } from 'src/layouts/dashboard';
+
 
 // ----------------------------------------------------------------------
 
@@ -33,40 +36,80 @@ export function DashboardPageWithTabsLayout({
   tabsSx,
 }: Props) {
   return (
-    <DashboardPageLayout
-      title={title}
-      description={description}
-      maxWidth={maxWidth}
-      sx={sx}
-      headerSx={headerSx}
-      contentSx={contentSx}
-    >
-      {/* Fixed Tabs */}
-      {tabs && (
+    <DashboardContent maxWidth={maxWidth} sx={sx}>
+      <Box
+        sx={[
+          {
+            display: 'flex',
+            flexDirection: 'column',
+            height: 'calc(100vh - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
+            minHeight: 600,
+          },
+          ...(Array.isArray(sx) ? sx : [sx]),
+        ]}
+      >
+        {/* Fixed Header */}
         <Box
           sx={[
             {
               flexShrink: 0,
               mb: 3,
+              pt: 3,
             },
-            ...(Array.isArray(tabsSx) ? tabsSx : [tabsSx]),
+            ...(Array.isArray(headerSx) ? headerSx : [headerSx]),
           ]}
         >
-          {tabs}
+          <Typography variant="h4">{title}</Typography>
+          
+          {description && (
+            <Typography variant="body1" sx={{ mt: 1, color: 'text.secondary' }}>
+              {description}
+            </Typography>
+          )}
         </Box>
-      )}
 
-      {/* Scrollable Content */}
-      <Box
-        sx={{
-          flex: 1,
-          overflow: 'auto',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {children}
+        {/* Fixed Tabs */}
+        {tabs && (
+          <Box
+            sx={[
+              {
+                flexShrink: 0,
+                mb: 3,
+                // Override CustomTabs padding to align with content
+                '& .MuiTabs-root': {
+                  marginLeft: '-8px',
+                  marginRight: '-8px',
+                },
+              },
+              ...(Array.isArray(tabsSx) ? tabsSx : [tabsSx]),
+            ]}
+          >
+            {tabs}
+          </Box>
+        )}
+
+        {/* Scrollable Content */}
+        <Scrollbar
+          sx={[
+            {
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+            },
+            ...(Array.isArray(contentSx) ? contentSx : [contentSx]),
+          ]}
+          slotProps={{
+            contentSx: {
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: 'auto',
+              pb: 3,
+            },
+          }}
+        >
+          {children}
+        </Scrollbar>
       </Box>
-    </DashboardPageLayout>
+    </DashboardContent>
   );
 }
