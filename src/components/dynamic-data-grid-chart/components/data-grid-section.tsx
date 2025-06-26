@@ -59,10 +59,11 @@ export function DataGridSection({
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      height: 'calc(100vh - 180px)', // Cố định chiều cao theo viewport
+      height: 'calc(100vh - 180px)',
       minHeight: 400,
       maxHeight: 'calc(100vh - 180px)',
-      overflow: 'hidden', // Paper không scroll
+      overflow: 'hidden',
+      border: '1px solid rgba(224, 224, 224, 1)',
     }}>
       <CardHeader 
         title="Bảng dữ liệu động" 
@@ -105,49 +106,83 @@ export function DataGridSection({
       <CardContent sx={{ 
         flex: 1,
         overflow: 'hidden',
-        p: 1, // Giảm padding để tối ưu không gian
+        p: 1,
         display: 'flex',
         flexDirection: 'column',
         minHeight: 0,
-        height: '100%', // Đảm bảo content fill toàn bộ space còn lại
+        height: '100%',
       }}>
         <DataGrid
           rows={rows}
           columns={gridColumns}
           processRowUpdate={onProcessRowUpdate}
           autoHeight={false}
-          hideFooter={true}
+          hideFooter={false}
+          disableColumnFilter
+          disableColumnMenu
+          disableColumnSelector
+          disableDensitySelector
+          rowHeight={52}
+          pageSizeOptions={[10, 25, 50]}
+          initialState={{
+            pagination: { paginationModel: { pageSize: 10 } },
+          }}
           sx={{
             height: '100%',
             width: '100%',
             flex: 1,
             minHeight: 300,
-            border: 'none',
+            border: '1px solid rgba(224, 224, 224, 1)',
+            '& .MuiDataGrid-root': {
+              border: 'none',
+            },
             '& .MuiDataGrid-main': {
               overflow: 'hidden',
             },
             '& .MuiDataGrid-virtualScroller': {
-              overflow: 'auto !important',
-              height: '100% !important',
+              flex: 1,
+              overflow: 'auto',
+              minHeight: 0,
             },
             '& .MuiDataGrid-columnHeaders': {
               backgroundColor: 'rgba(0, 0, 0, 0.04)',
               borderBottom: '2px solid rgba(224, 224, 224, 1)',
-              position: 'sticky',
-              top: 0,
-              zIndex: 1,
+              minHeight: '52px !important',
+              maxHeight: '52px !important',
+            },
+            '& .MuiDataGrid-columnHeader': {
+              outline: 'none',
+              '&:focus': {
+                outline: 'none',
+              },
+              '&:focus-within': {
+                outline: 'none',
+              },
             },
             '& .MuiDataGrid-cell': {
               border: '1px solid rgba(224, 224, 224, 1)',
+              outline: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              '&:focus': {
+                outline: 'none',
+              },
+              '&:focus-within': {
+                outline: 'none',
+              },
             },
-            '& .MuiDataGrid-scrollArea': {
-              overflow: 'auto',
+            '& .MuiDataGrid-row': {
+              minHeight: '52px !important',
+              maxHeight: '52px !important',
+              '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.04)',
+              },
             },
-            // Đảm bảo scroll chỉ ảnh hưởng đến nội dung data, không phải header
-            '& .MuiDataGrid-container--top [role=row]': {
-              position: 'sticky',
-              top: 0,
-              zIndex: 1,
+            '& .MuiDataGrid-footerContainer': {
+              minHeight: '52px',
+              borderTop: '1px solid rgba(224, 224, 224, 1)',
+              backgroundColor: '#fff',
+              flexShrink: 0,
             },
           }}
         />
