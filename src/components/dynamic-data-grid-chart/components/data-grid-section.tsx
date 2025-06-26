@@ -36,12 +36,16 @@ export function DataGridSection({
       type: col.type,
       editable: col.editable,
       width: col.width || 150,
+      hideable: false, // Prevent hiding columns
     })),
     {
       field: 'actions',
       type: 'actions',
       headerName: 'Thao tác',
       width: 100,
+      sortable: false,
+      filterable: false,
+      hideable: false,
       getActions: (params: any) => [
         <GridActionsCellItem
           key="delete"
@@ -119,13 +123,16 @@ export function DataGridSection({
           autoHeight={false}
           hideFooter={false}
           disableColumnFilter
-          disableColumnMenu
-          disableColumnSelector
+          disableColumnMenu={false} // Enable column menu for renaming
+          disableColumnSelector={false} // Allow column reordering
           disableDensitySelector
           rowHeight={52}
           pageSizeOptions={[10, 25, 50]}
           initialState={{
             pagination: { paginationModel: { pageSize: 10 } },
+            columns: {
+              columnVisibilityModel: {},
+            },
           }}
           sx={{
             height: '100%',
@@ -183,6 +190,24 @@ export function DataGridSection({
               borderTop: '1px solid rgba(224, 224, 224, 1)',
               backgroundColor: '#fff',
               flexShrink: 0,
+            },
+            // Style for actions column to keep it on the right
+            '& .MuiDataGrid-columnHeader[data-field="actions"]': {
+              position: 'sticky',
+              right: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.04)',
+              zIndex: 1,
+              borderLeft: '2px solid rgba(224, 224, 224, 1)',
+            },
+            '& .MuiDataGrid-cell[data-field="actions"]': {
+              position: 'sticky',
+              right: 0,
+              backgroundColor: '#fff',
+              zIndex: 1,
+              borderLeft: '2px solid rgba(224, 224, 224, 1)',
+              '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.04)',
+              },
             },
           }}
         />
