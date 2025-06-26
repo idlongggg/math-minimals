@@ -104,7 +104,8 @@ export function DashboardPageWithTabsLayout({
               display: 'flex',
               flexDirection: 'column',
               minHeight: 'auto',
-              pb: 3,
+              mt: 1, // Reduce margin top (8px)
+              mb: 2, // Reduce margin bottom (16px)
             },
           }}
         >

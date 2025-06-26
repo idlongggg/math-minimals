@@ -21,8 +21,9 @@ export function BottomDrawerFab({ onClick, sx, ...other }: BottomDrawerFabProps)
     }
   };
 
+  // Tạm thời ẩn FAB button
   return (
-    <Zoom in={isVisible}>
+    <Zoom in={false}>
       <Tooltip title="Mở Drawer" placement="left">
         <Fab
           color="primary"
