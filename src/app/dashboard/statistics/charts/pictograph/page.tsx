@@ -1,11 +1,11 @@
 import { CONFIG } from 'src/global-config';
 
-import { BlankView } from 'src/sections/blank/view';
+import { PictographView } from 'src/sections/charts/view';
 
 // ----------------------------------------------------------------------
 
 export const metadata = { title: `Biểu đồ tranh - ${CONFIG.appName}` };
 
 export default function Page() {
-  return <BlankView title="Biểu đồ tranh" />;
+  return <PictographView />;
 }
