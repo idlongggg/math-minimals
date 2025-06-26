@@ -366,99 +366,107 @@ export function DynamicDataGridChart({
   const numericColumns = columns.filter(col => col.type === 'number');
 
   return (
-    <Box sx={{ p: 3 }}>
-      {/* Column Management Section */}
-      <Card sx={{ mb: 3 }}>
-        <CardHeader 
-          title="Quản lý cột dữ liệu"
-          action={
-            <Button
-              variant="contained"
-              startIcon={<Iconify icon="solar:add-circle-bold" />}
-              onClick={() => setAddColumnDialog(true)}
-            >
-              Thêm cột
-            </Button>
-          }
-        />
-        <CardContent>
-          <Stack spacing={2}>
-            <Box>
-              <Typography variant="subtitle2" gutterBottom>
-                Cột hiện có:
-              </Typography>
-              <Stack direction="row" spacing={1} flexWrap="wrap">
-                {columns.map((col) => (
-                  <Chip
-                    key={col.id}
-                    label={`${col.headerName} (${col.type})`}
-                    onDelete={columns.length > 1 ? () => handleDeleteColumn(col.id) : undefined}
-                    color={col.type === 'number' ? 'primary' : 'default'}
-                    variant="outlined"
-                  />
-                ))}
-              </Stack>
-            </Box>
-
-            {numericColumns.length > 0 && (
+    <>
+      {/* Controls Panel */}
+      <Box>
+        <Card>
+          <CardHeader 
+            title="Điều khiển biểu đồ"
+            action={
+              <Button
+                variant="contained"
+                startIcon={<Iconify icon="solar:add-circle-bold" />}
+                onClick={() => setAddColumnDialog(true)}
+                size="small"
+              >
+                Thêm cột
+              </Button>
+            }
+          />
+          <CardContent>
+            <Stack spacing={3}>
               <Box>
                 <Typography variant="subtitle2" gutterBottom>
-                  Cấu hình biểu đồ:
+                  Cột hiện có:
                 </Typography>
-                <Stack direction="row" spacing={2} alignItems="center">
-                  <FormControl size="small" sx={{ minWidth: 120 }}>
-                    <InputLabel>Trục X</InputLabel>
-                    <Select
-                      value={xAxisColumn}
-                      label="Trục X"
-                      onChange={(e) => setXAxisColumn(e.target.value)}
-                    >
-                      {numericColumns.map((col) => (
-                        <MenuItem key={col.field} value={col.field}>
-                          {col.headerName}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-
-                  <Box>
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
-                      Trục Y (có thể chọn nhiều):
-                    </Typography>
-                    <Stack direction="row" spacing={1} flexWrap="wrap">
-                      {numericColumns.map((col) => (
-                        <Chip
-                          key={col.field}
-                          label={col.headerName}
-                          onClick={() => toggleYAxisColumn(col.field)}
-                          color={yAxisColumns.includes(col.field) ? 'primary' : 'default'}
-                          variant={yAxisColumns.includes(col.field) ? 'filled' : 'outlined'}
-                        />
-                      ))}
-                    </Stack>
-                  </Box>
+                <Stack direction="row" spacing={1} flexWrap="wrap">
+                  {columns.map((col) => (
+                    <Chip
+                      key={col.id}
+                      label={`${col.headerName} (${col.type})`}
+                      onDelete={columns.length > 1 ? () => handleDeleteColumn(col.id) : undefined}
+                      color={col.type === 'number' ? 'primary' : 'default'}
+                      variant="outlined"
+                      size="small"
+                    />
+                  ))}
                 </Stack>
               </Box>
-            )}
-          </Stack>
-        </CardContent>
-      </Card>
 
-      {/* Data Grid Section */}
-      <Card sx={{ mb: 3 }}>
-        <CardHeader 
-          title="Bảng dữ liệu động"
-          action={
-            <Button
-              variant="contained"
-              startIcon={<Iconify icon="solar:add-circle-bold" />}
-              onClick={handleAddRow}
-            >
-              Thêm hàng
-            </Button>
-          }
-        />
-        <CardContent>
+              {numericColumns.length > 0 && (
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    Cấu hình biểu đồ:
+                  </Typography>
+                  <Stack spacing={2}>
+                    <FormControl size="small" fullWidth>
+                      <InputLabel>Trục X</InputLabel>
+                      <Select
+                        value={xAxisColumn}
+                        label="Trục X"
+                        onChange={(e) => setXAxisColumn(e.target.value)}
+                      >
+                        {numericColumns.map((col) => (
+                          <MenuItem key={col.field} value={col.field}>
+                            {col.headerName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+
+                    <Box>
+                      <Typography variant="body2" color="text.secondary" gutterBottom>
+                        Trục Y (có thể chọn nhiều):
+                      </Typography>
+                      <Stack direction="row" spacing={1} flexWrap="wrap">
+                        {numericColumns.map((col) => (
+                          <Chip
+                            key={col.field}
+                            label={col.headerName}
+                            onClick={() => toggleYAxisColumn(col.field)}
+                            color={yAxisColumns.includes(col.field) ? 'primary' : 'default'}
+                            variant={yAxisColumns.includes(col.field) ? 'filled' : 'outlined'}
+                            size="small"
+                          />
+                        ))}
+                      </Stack>
+                    </Box>
+                  </Stack>
+                </Box>
+              )}
+
+              <Box>
+                <Button
+                  variant="outlined"
+                  startIcon={<Iconify icon="solar:add-circle-bold" />}
+                  onClick={handleAddRow}
+                  size="small"
+                  fullWidth
+                >
+                  Thêm hàng dữ liệu
+                </Button>
+              </Box>
+            </Stack>
+          </CardContent>
+        </Card>
+      </Box>
+
+      {/* Main Content Area */}
+      <Box>
+        {/* Data Grid Section */}
+        <Card sx={{ mb: 3 }}>
+          <CardHeader title="Bảng dữ liệu động" />
+          <CardContent>
           <Box sx={{ height: 400, width: '100%' }}>
             <DataGrid
               rows={rows}
@@ -515,6 +523,7 @@ export function DynamicDataGridChart({
           </Typography>
         </CardContent>
       </Card>
+      </Box>
 
       {/* Add Column Dialog */}
       <Dialog open={addColumnDialog} onClose={() => setAddColumnDialog(false)}>
@@ -549,6 +558,6 @@ export function DynamicDataGridChart({
           </Button>
         </DialogActions>
       </Dialog>
-    </Box>
+    </>
   );
 }
