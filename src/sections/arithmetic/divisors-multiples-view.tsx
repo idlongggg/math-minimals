@@ -16,8 +16,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { CustomTabs } from 'src/components/custom-tabs';
+import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
-import { DashboardContent } from 'src/layouts/dashboard';
 
 import 'katex/dist/katex.min.css';
 import { BlockMath, InlineMath } from 'react-katex';
@@ -1135,63 +1135,41 @@ export function DivisorsMultiplesView() {
     </Box>
   );
 
+  const renderTabs = () => (
+    <CustomTabs value={currentTab} onChange={handleTabChange}>
+      <Tab value="divisors" label="Tìm ước số" icon={<Iconify icon="solar:restart-bold" />} />
+      <Tab value="multiples" label="Tìm bội số" icon={<Iconify icon="solar:list-bold" />} />
+      <Tab value="gcd-lcm" label="GCD & LCM" icon={<Iconify icon="solar:forward-bold" />} />
+      <Tab
+        value="quick-tools"
+        label="Công cụ nhanh"
+        icon={<Iconify icon="solar:settings-bold" />}
+      />
+      <Tab
+        value="history"
+        label={`Lịch sử (${history.length})`}
+        icon={<Iconify icon="solar:clock-circle-bold" />}
+      />
+      <Tab
+        value="guide"
+        label="Hướng dẫn"
+        icon={<Iconify icon="solar:notebook-bold-duotone" />}
+      />
+    </CustomTabs>
+  );
+
   return (
-    <DashboardContent maxWidth="xl">
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height:
-            'calc(100vh - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
-          minHeight: 600,
-        }}
-      >
-        {/* Fixed Header */}
-        <Box sx={{ flexShrink: 0, mb: 3 }}>
-          <Typography variant="h4">Ước số và bội số</Typography>
-        </Box>
-
-        {/* Fixed Tabs */}
-        <Box sx={{ flexShrink: 0, mb: 3 }}>
-          <CustomTabs value={currentTab} onChange={handleTabChange}>
-            <Tab value="divisors" label="Tìm ước số" icon={<Iconify icon="solar:restart-bold" />} />
-            <Tab value="multiples" label="Tìm bội số" icon={<Iconify icon="solar:list-bold" />} />
-            <Tab value="gcd-lcm" label="GCD & LCM" icon={<Iconify icon="solar:forward-bold" />} />
-            <Tab
-              value="quick-tools"
-              label="Công cụ nhanh"
-              icon={<Iconify icon="solar:settings-bold" />}
-            />
-            <Tab
-              value="history"
-              label={`Lịch sử (${history.length})`}
-              icon={<Iconify icon="solar:clock-circle-bold" />}
-            />
-            <Tab
-              value="guide"
-              label="Hướng dẫn"
-              icon={<Iconify icon="solar:notebook-bold-duotone" />}
-            />
-          </CustomTabs>
-        </Box>
-
-        {/* Scrollable Content */}
-        <Box
-          sx={{
-            flex: 1,
-            overflow: 'auto',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          {currentTab === 'divisors' && renderDivisors()}
-          {currentTab === 'multiples' && renderMultiples()}
-          {currentTab === 'gcd-lcm' && renderGcdLcm()}
-          {currentTab === 'quick-tools' && renderQuickTools()}
-          {currentTab === 'history' && renderHistory()}
-          {currentTab === 'guide' && renderGuide()}
-        </Box>
-      </Box>
-    </DashboardContent>
+    <DashboardPageWithTabsLayout 
+      title="Ước số và bội số"
+      description="Công cụ tìm ước số, bội số và tính toán GCD/LCM với giải thích chi tiết và ví dụ minh họa."
+      tabs={renderTabs()}
+    >
+      {currentTab === 'divisors' && renderDivisors()}
+      {currentTab === 'multiples' && renderMultiples()}
+      {currentTab === 'gcd-lcm' && renderGcdLcm()}
+      {currentTab === 'quick-tools' && renderQuickTools()}
+      {currentTab === 'history' && renderHistory()}
+      {currentTab === 'guide' && renderGuide()}
+    </DashboardPageWithTabsLayout>
   );
 }

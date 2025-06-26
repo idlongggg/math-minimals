@@ -17,8 +17,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { CustomTabs } from 'src/components/custom-tabs';
+import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
-import { DashboardContent } from 'src/layouts/dashboard';
 
 // ----------------------------------------------------------------------
 
@@ -775,59 +775,37 @@ export function DivisionWithRemainderView() {
     </Box>
   );
 
+  const renderTabs = () => (
+    <CustomTabs value={currentTab} onChange={handleTabChange}>
+      <Tab value="calculator" label="Máy tính" icon={<Iconify icon="solar:restart-bold" />} />
+      <Tab
+        value="quick-tools"
+        label="Ví dụ nhanh"
+        icon={<Iconify icon="custom:flash-outline" />}
+      />
+      <Tab
+        value="history"
+        label={`Lịch sử (${history.length})`}
+        icon={<Iconify icon="solar:clock-circle-bold" />}
+      />
+      <Tab
+        value="guide"
+        label="Hướng dẫn"
+        icon={<Iconify icon="solar:notebook-bold-duotone" />}
+      />
+    </CustomTabs>
+  );
+
   return (
-    <DashboardContent maxWidth="xl">
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height:
-            'calc(100vh - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
-          minHeight: 600,
-        }}
-      >
-        {/* Fixed Header */}
-        <Box sx={{ flexShrink: 0, mb: 3 }}>
-          <Typography variant="h4">Phép chia có dư</Typography>
-        </Box>
-
-        {/* Fixed Tabs */}
-        <Box sx={{ flexShrink: 0, mb: 3 }}>
-          <CustomTabs value={currentTab} onChange={handleTabChange}>
-            <Tab value="calculator" label="Máy tính" icon={<Iconify icon="solar:restart-bold" />} />
-            <Tab
-              value="quick-tools"
-              label="Ví dụ nhanh"
-              icon={<Iconify icon="custom:flash-outline" />}
-            />
-            <Tab
-              value="history"
-              label={`Lịch sử (${history.length})`}
-              icon={<Iconify icon="solar:clock-circle-bold" />}
-            />
-            <Tab
-              value="guide"
-              label="Hướng dẫn"
-              icon={<Iconify icon="solar:notebook-bold-duotone" />}
-            />
-          </CustomTabs>
-        </Box>
-
-        {/* Scrollable Content */}
-        <Box
-          sx={{
-            flex: 1,
-            overflow: 'auto',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          {currentTab === 'calculator' && renderCalculator()}
-          {currentTab === 'quick-tools' && renderQuickTools()}
-          {currentTab === 'history' && renderHistory()}
-          {currentTab === 'guide' && renderGuide()}
-        </Box>
-      </Box>
-    </DashboardContent>
+    <DashboardPageWithTabsLayout 
+      title="Phép chia có dư"
+      description="Công cụ tính phép chia có dư với các ví dụ minh họa và bảng tra cứu nhanh."
+      tabs={renderTabs()}
+    >
+      {currentTab === 'calculator' && renderCalculator()}
+      {currentTab === 'quick-tools' && renderQuickTools()}
+      {currentTab === 'history' && renderHistory()}
+      {currentTab === 'guide' && renderGuide()}
+    </DashboardPageWithTabsLayout>
   );
 }
