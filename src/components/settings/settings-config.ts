@@ -9,14 +9,10 @@ export const SETTINGS_STORAGE_KEY: string = 'app-settings';
 
 export const defaultSettings: SettingsState = {
   colorScheme: themeConfig.defaultMode,
-  direction: themeConfig.direction,
   contrast: 'hight',
   navLayout: 'vertical',
   primaryColor: 'preset1',
   navColor: 'apparent',
-  compactLayout: false,
   hideMenu: false,
-  fontSize: 16,
-  fontFamily: themeConfig.fontFamily.primary,
   version: CONFIG.appVersion,
 };
