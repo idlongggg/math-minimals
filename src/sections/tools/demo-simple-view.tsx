@@ -10,12 +10,14 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
 import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
 export function DemoSimpleView() {
+  const theme = useTheme();
   const [input, setInput] = useState('');
   const [results, setResults] = useState<string[]>([]);
 
@@ -30,7 +32,14 @@ export function DemoSimpleView() {
     <DashboardPageLayoutWithMetadata pageKey="tools.calculator">
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
         {/* Input Section */}
-        <Card>
+        <Card 
+          sx={{
+            borderRadius: 3,
+            border: '1px solid',
+            borderColor: 'divider',
+            boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+          }}
+        >
           <CardHeader title="Nhập dữ liệu" />
           <CardContent>
             <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>

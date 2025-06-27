@@ -6,12 +6,14 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
+import { useTheme } from '@mui/material/styles';
 
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
 export function BasicCalculatorView() {
+  const theme = useTheme();
   const [display, setDisplay] = useState('0');
   const [previousValue, setPreviousValue] = useState<number | null>(null);
   const [operation, setOperation] = useState<string | null>(null);
@@ -125,6 +127,12 @@ export function BasicCalculatorView() {
     minHeight: 60,
     fontSize: '1.2rem',
     fontWeight: 600,
+    borderRadius: 2,
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    '&:hover': {
+      transform: 'translateY(-1px)',
+      boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+    },
   };
 
   const operatorStyle = {
@@ -160,7 +168,15 @@ export function BasicCalculatorView() {
       description="Máy tính đơn giản với các phép toán cơ bản: cộng, trừ, nhân, chia."
       maxWidth="sm"
     >
-      <Card sx={{ p: 3 }}>
+      <Card 
+        sx={{ 
+          p: 3,
+          borderRadius: 3,
+          border: '1px solid',
+          borderColor: 'divider',
+          boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+        }}
+      >
         {/* Display */}
         <Box sx={{ mb: 3 }}>
           <TextField

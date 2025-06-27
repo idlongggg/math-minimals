@@ -4,9 +4,6 @@ import { Icon } from '@iconify/react';
 import {
     Box,
     Button,
-    Card,
-    CardContent,
-    CardHeader,
     Chip,
     FormControl,
     IconButton,
@@ -17,7 +14,9 @@ import {
     TextField,
     Typography
 } from '@mui/material';
+import { alpha, useTheme } from '@mui/material/styles';
 import { useState } from 'react';
+import { CustomCard, CustomCardContent, CustomCardHeader } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { PictographChart, type PictographData } from 'src/components/pictograph-chart';
 
@@ -67,6 +66,7 @@ const colors = [
 ];
 
 export function PictographView() {
+  const theme = useTheme();
   const [selectedDataSet, setSelectedDataSet] = useState<keyof typeof sampleDataSets>('fruits');
   const [customData, setCustomData] = useState<PictographData[]>([
     { category: 'Danh mục A', value: 10, icon: '🔵', color: '#3b82f6' }
@@ -112,14 +112,28 @@ export function PictographView() {
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 2fr' }, gap: 3 }}>
         {/* Controls Panel */}
         <Box>
-          <Card>
-            <CardHeader title="Điều khiển biểu đồ" />
-            <CardContent>
+          <CustomCard
+            sx={{
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+                boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
+              },
+            }}
+          >
+            <CustomCardHeader title="Điều khiển biểu đồ" />
+            <CustomCardContent>
               <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
                 <Button
                   variant={!useCustomData ? 'contained' : 'outlined'}
                   onClick={() => setUseCustomData(false)}
                   size="small"
+                  sx={{
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      transform: 'translateY(-1px)',
+                    },
+                  }}
                 >
                   Mẫu có sẵn
                 </Button>
@@ -127,6 +141,12 @@ export function PictographView() {
                   variant={useCustomData ? 'contained' : 'outlined'}
                   onClick={() => setUseCustomData(true)}
                   size="small"
+                  sx={{
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      transform: 'translateY(-1px)',
+                    },
+                  }}
                 >
                   Tự tạo
                 </Button>
@@ -150,16 +170,50 @@ export function PictographView() {
                 <Box sx={{ mb: 3 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
                     <Typography variant="subtitle2">Dữ liệu tùy chỉnh</Typography>
-                    <IconButton size="small" onClick={addCustomCategory} color="primary">
+                    <IconButton 
+                      size="small" 
+                      onClick={addCustomCategory} 
+                      color="primary"
+                      sx={{
+                        transition: 'all 0.2s ease',
+                        '&:hover': {
+                          transform: 'scale(1.1)',
+                          bgcolor: alpha(theme.palette.primary.main, 0.1),
+                        },
+                      }}
+                    >
                       <Icon icon="material-symbols:add" />
                     </IconButton>
-                    <IconButton size="small" onClick={resetData} color="warning">
+                    <IconButton 
+                      size="small" 
+                      onClick={resetData} 
+                      color="warning"
+                      sx={{
+                        transition: 'all 0.2s ease',
+                        '&:hover': {
+                          transform: 'scale(1.1)',
+                          bgcolor: alpha(theme.palette.warning.main, 0.1),
+                        },
+                      }}
+                    >
                       <Icon icon="material-symbols:refresh" />
                     </IconButton>
                   </Box>
                   
                   {customData.map((item, index) => (
-                    <Card key={index} variant="outlined" sx={{ p: 2, mb: 2 }}>
+                    <CustomCard 
+                      key={index} 
+                      variant="outlined" 
+                      sx={{ 
+                        p: 2, 
+                        mb: 2,
+                        transition: 'all 0.2s ease',
+                        '&:hover': {
+                          borderColor: theme.palette.primary.main,
+                          boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+                        },
+                      }}
+                    >
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                         <TextField
                           size="small"
@@ -173,6 +227,13 @@ export function PictographView() {
                           onClick={() => removeCustomCategory(index)}
                           color="error"
                           disabled={customData.length <= 1}
+                          sx={{
+                            transition: 'all 0.2s ease',
+                            '&:hover': {
+                              transform: 'scale(1.1)',
+                              bgcolor: alpha(theme.palette.error.main, 0.1),
+                            },
+                          }}
                         >
                           <Icon icon="material-symbols:delete" />
                         </IconButton>
@@ -228,7 +289,7 @@ export function PictographView() {
                           </Select>
                         </FormControl>
                       </Box>
-                    </Card>
+                    </CustomCard>
                   ))}
                 </Box>
               )}
@@ -274,13 +335,21 @@ export function PictographView() {
                   valueLabelDisplay="auto"
                 />
               </Box>
-            </CardContent>
-          </Card>
+            </CustomCardContent>
+          </CustomCard>
         </Box>
 
         {/* Chart Display */}
         <Box>
-          <PictographChart
+          <Box
+            sx={{
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+              },
+            }}
+          >
+            <PictographChart
             title={useCustomData ? 'Biểu đồ tranh tùy chỉnh' : `Biểu đồ ${
               selectedDataSet === 'fruits' ? 'trái cây' :
               selectedDataSet === 'vehicles' ? 'phương tiện' :
@@ -293,14 +362,23 @@ export function PictographView() {
             showLegend={true}
             showValues={true}
           />
+          </Box>
         </Box>
         </Box>
 
         {/* Data Summary */}
         <Box sx={{ mt: 3 }}>
-          <Card>
-            <CardHeader title="Tóm tắt dữ liệu" />
-            <CardContent>
+          <CustomCard
+            sx={{
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+                boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
+              },
+            }}
+          >
+            <CustomCardHeader title="Tóm tắt dữ liệu" />
+            <CustomCardContent>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
                 {currentData.map((item) => (
                   <Chip
@@ -309,7 +387,12 @@ export function PictographView() {
                     sx={{ 
                       bgcolor: item.color + '20',
                       color: item.color,
-                      border: `1px solid ${item.color}40`
+                      border: `1px solid ${item.color}40`,
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        transform: 'scale(1.05)',
+                        bgcolor: item.color + '30',
+                      },
                     }}
                     icon={<span style={{ fontSize: 16 }}>{item.icon}</span>}
                   />
@@ -323,8 +406,8 @@ export function PictographView() {
                 {' • '}
                 Trung bình mỗi danh mục: {Math.round(currentData.reduce((sum, item) => sum + item.value, 0) / currentData.length * 10) / 10}
               </Typography>
-            </CardContent>
-          </Card>
+            </CustomCardContent>
+          </CustomCard>
         </Box>
     </DashboardPageLayout>
   );

@@ -8,12 +8,14 @@ import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
 export function ScientificCalculatorView() {
+  const theme = useTheme();
   const [display, setDisplay] = useState('0');
   const [previousValue, setPreviousValue] = useState<number | null>(null);
   const [operation, setOperation] = useState<string | null>(null);
@@ -320,7 +322,15 @@ export function ScientificCalculatorView() {
 
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' }, gap: 3 }}>
         {/* Calculator */}
-        <Card sx={{ p: 3 }}>
+        <Card 
+          sx={{ 
+            p: 3,
+            borderRadius: 3,
+            border: '1px solid',
+            borderColor: 'divider',
+            boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+          }}
+        >
           {/* Mode and Memory Indicators */}
           <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
             <Chip
@@ -591,7 +601,17 @@ export function ScientificCalculatorView() {
         </Card>
 
         {/* History Panel */}
-        <Card sx={{ p: 3, maxHeight: '600px', overflow: 'auto' }}>
+        <Card 
+          sx={{ 
+            p: 3, 
+            maxHeight: '600px', 
+            overflow: 'auto',
+            borderRadius: 3,
+            border: '1px solid',
+            borderColor: 'divider',
+            boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+          }}
+        >
           <Typography variant="h6" sx={{ mb: 2 }}>
             Lịch sử tính toán
           </Typography>

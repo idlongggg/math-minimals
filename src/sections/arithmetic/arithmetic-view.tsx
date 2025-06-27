@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
 import { CustomTab, CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
@@ -79,6 +80,7 @@ const ARITHMETIC_TOPICS = [
 
 export function ArithmeticView() {
   const router = useRouter();
+  const theme = useTheme();
   const [currentTab, setCurrentTab] = useState('overview');
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -142,10 +144,14 @@ export function ArithmeticView() {
             sx={{
               height: '100%',
               cursor: 'pointer',
-              transition: 'all 0.2s',
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              borderRadius: 2,
+              border: '1px solid',
+              borderColor: 'divider',
               '&:hover': {
                 transform: 'translateY(-4px)',
-                boxShadow: (theme) => theme.shadows[8],
+                boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
+                borderColor: 'primary.main',
               },
             }}
             onClick={() => handleTopicClick(topic.path)}
@@ -188,7 +194,22 @@ export function ArithmeticView() {
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         {ARITHMETIC_TOPICS.map((topic) => (
-          <Card key={topic.id}>
+          <Card 
+            key={topic.id}
+            sx={{
+              cursor: 'pointer',
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              borderRadius: 2,
+              border: '1px solid',
+              borderColor: 'divider',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+                boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+                borderColor: 'primary.main',
+              },
+            }}
+            onClick={() => handleTopicClick(topic.path)}
+          >
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>

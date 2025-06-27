@@ -13,6 +13,7 @@ import {
     Divider,
     Typography,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { DynamicLineChart, type DataSeries } from 'src/components/dynamic-line-chart';
@@ -139,6 +140,7 @@ const sampleDataSets = {
 };
 
 export function DynamicLineChartView() {
+  const theme = useTheme();
   const [selectedDataSet, setSelectedDataSet] = useState<keyof typeof sampleDataSets | 'custom'>('custom');
   const [currentData, setCurrentData] = useState<DataSeries[]>([]);
 

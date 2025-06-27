@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { alpha, useTheme } from '@mui/material/styles';
 
+import { CustomCard, CustomCardContent } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
 import { paths } from 'src/routes/paths';
@@ -77,6 +77,7 @@ const ALGEBRA_TOPICS = [
 
 export function AlgebraView() {
   const router = useRouter();
+  const theme = useTheme();
 
   const handleTopicClick = (path: string) => {
     router.push(path);
@@ -108,20 +109,20 @@ export function AlgebraView() {
           }}
         >
           {ALGEBRA_TOPICS.map((topic) => (
-            <Card
+            <CustomCard
               key={topic.id}
               sx={{
                 height: '100%',
                 cursor: 'pointer',
-                transition: 'all 0.2s',
+                transition: 'all 0.3s ease',
                 '&:hover': {
                   transform: 'translateY(-4px)',
-                  boxShadow: (theme) => theme.shadows[8],
+                  boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
                 },
               }}
               onClick={() => handleTopicClick(topic.path)}
             >
-              <CardContent>
+              <CustomCardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <Box
                     sx={{
@@ -145,8 +146,8 @@ export function AlgebraView() {
                 <Typography variant="body2" color="text.secondary">
                   {topic.description}
                 </Typography>
-              </CardContent>
-            </Card>
+              </CustomCardContent>
+            </CustomCard>
           ))}
         </Box>
 
@@ -164,6 +165,13 @@ export function AlgebraView() {
               variant="contained"
               startIcon={<Iconify icon="solar:pen-bold" />}
               onClick={() => handleTopicClick(paths.dashboard.algebra.basic.expressions)}
+              sx={{
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
+                },
+              }}
             >
               Bắt đầu với biểu thức đại số
             </Button>
@@ -171,6 +179,14 @@ export function AlgebraView() {
               variant="outlined"
               startIcon={<Iconify icon="solar:chart-square-outline" />}
               onClick={() => handleTopicClick(paths.dashboard.algebra.functions.root)}
+              sx={{
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  borderColor: theme.palette.primary.main,
+                  bgcolor: alpha(theme.palette.primary.main, 0.08),
+                },
+              }}
             >
               Khám phá hàm số
             </Button>

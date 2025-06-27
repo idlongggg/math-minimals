@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
@@ -52,6 +53,7 @@ const TOOLS_TOPICS = [
 
 export function ToolsView() {
   const router = useRouter();
+  const theme = useTheme();
 
   const handleTopicClick = (path: string) => {
     router.push(path);
@@ -86,10 +88,14 @@ export function ToolsView() {
               key={topic.id}
               sx={{
                 cursor: 'pointer',
-                transition: 'all 0.2s',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                borderRadius: 2,
+                border: '1px solid',
+                borderColor: 'divider',
                 '&:hover': {
                   transform: 'translateY(-4px)',
-                  boxShadow: (theme) => theme.shadows[8],
+                  boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
+                  borderColor: 'primary.main',
                 },
               }}
               onClick={() => handleTopicClick(topic.path)}

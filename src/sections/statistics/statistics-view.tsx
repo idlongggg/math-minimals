@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
 import { CustomCard, CustomCardContent } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
@@ -51,6 +52,7 @@ const STATISTICS_TOPICS = [
 
 export function StatisticsView() {
   const router = useRouter();
+  const theme = useTheme();
 
   const handleTopicClick = (path: string) => {
     router.push(path);
@@ -85,10 +87,10 @@ export function StatisticsView() {
               key={topic.id}
               sx={{
                 cursor: 'pointer',
-                transition: 'all 0.2s',
+                transition: 'all 0.3s ease',
                 '&:hover': {
                   transform: 'translateY(-4px)',
-                  boxShadow: (theme: any) => theme.shadows[8],
+                  boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
                 },
               }}
               onClick={() => handleTopicClick(topic.path)}
@@ -106,6 +108,11 @@ export function StatisticsView() {
                       alignItems: 'center',
                       justifyContent: 'center',
                       mr: 2,
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        transform: 'scale(1.05)',
+                        boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+                      },
                     }}
                   >
                     <Iconify icon={topic.icon as any} width={24} />

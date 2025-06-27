@@ -11,6 +11,7 @@ import CardHeader from '@mui/material/CardHeader';
 import Tab from '@mui/material/Tab';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayoutAndMetadata } from 'src/components/dashboard-page-layout';
@@ -19,6 +20,7 @@ import { Iconify } from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export function DemoArithmeticView() {
+  const theme = useTheme();
   const [currentTab, setCurrentTab] = useState('tab1');
   const [input, setInput] = useState('');
   const [result, setResult] = useState('');
@@ -52,7 +54,14 @@ export function DemoArithmeticView() {
   );
 
   const renderTab1 = () => (
-    <Card>
+    <Card 
+      sx={{
+        borderRadius: 3,
+        border: '1px solid',
+        borderColor: 'divider',
+        boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+      }}
+    >
       <CardHeader title="Công cụ tính toán" />
       <CardContent>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>

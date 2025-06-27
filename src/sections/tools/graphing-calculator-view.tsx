@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -41,6 +42,7 @@ const COLORS = [
 ];
 
 export function GraphingCalculatorView() {
+  const theme = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [functions, setFunctions] = useState<FunctionData[]>([
     {
@@ -61,6 +63,15 @@ export function GraphingCalculatorView() {
   const [error, setError] = useState('');
   const [history, setHistory] = useState<string[]>([]);
   const [hoveredPoint, setHoveredPoint] = useState<{ x: number; y: number } | null>(null);
+
+  // Fluent Design card style
+  const cardStyle = {
+    p: 3,
+    borderRadius: 3,
+    border: '1px solid',
+    borderColor: 'divider',
+    boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+  };
 
   // Parse and evaluate mathematical expression
   const evaluateExpression = useCallback((expression: string, x: number): number => {
@@ -348,7 +359,7 @@ export function GraphingCalculatorView() {
 
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 400px' }, gap: 3 }}>
         {/* Graph Canvas */}
-        <Card sx={{ p: 3 }}>
+        <Card sx={cardStyle}>
           <Box
             sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
           >
@@ -401,7 +412,7 @@ export function GraphingCalculatorView() {
         {/* Control Panel */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
           {/* Functions */}
-          <Card sx={{ p: 3 }}>
+          <Card sx={cardStyle}>
             <Box
               sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}
             >
@@ -468,7 +479,7 @@ export function GraphingCalculatorView() {
           </Card>
 
           {/* View Range */}
-          <Card sx={{ p: 3 }}>
+          <Card sx={cardStyle}>
             <Typography variant="h6" sx={{ mb: 2 }}>
               Phạm vi hiển thị
             </Typography>
@@ -506,7 +517,7 @@ export function GraphingCalculatorView() {
           </Card>
 
           {/* Quick Functions */}
-          <Card sx={{ p: 3 }}>
+          <Card sx={cardStyle}>
             <Typography variant="h6" sx={{ mb: 2 }}>
               Hàm nhanh
             </Typography>
@@ -543,7 +554,7 @@ export function GraphingCalculatorView() {
           </Card>
 
           {/* History */}
-          <Card sx={{ p: 3, maxHeight: '300px', overflow: 'auto' }}>
+          <Card sx={{ ...cardStyle, maxHeight: '300px', overflow: 'auto' }}>
             <Typography variant="h6" sx={{ mb: 2 }}>
               Lịch sử
             </Typography>
@@ -596,7 +607,7 @@ export function GraphingCalculatorView() {
           </Card>
 
           {/* Instructions */}
-          <Card sx={{ p: 3 }}>
+          <Card sx={cardStyle}>
             <Typography variant="h6" sx={{ mb: 2 }}>
               Hướng dẫn sử dụng
             </Typography>
