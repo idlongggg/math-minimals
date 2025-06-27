@@ -7,72 +7,87 @@ import { useCookies, useLocalStorage } from 'minimal-shared/hooks';
 
 import { SettingsContext } from './settings-context';
 import { SETTINGS_STORAGE_KEY } from '../settings-config';
+import { cleanSettings, removeDeprecatedProperties } from '../utils/clean-settings';
 
 import type { SettingsState, SettingsProviderProps } from '../types';
 
 // ----------------------------------------------------------------------
 
 export function SettingsProvider({
-  children,
-  cookieSettings,
-  defaultSettings,
-  storageKey = SETTINGS_STORAGE_KEY,
+    children,
+    cookieSettings,
+    defaultSettings,
+    storageKey = SETTINGS_STORAGE_KEY,
 }: SettingsProviderProps) {
-  const isCookieEnabled = !!cookieSettings;
-  const useStorage = isCookieEnabled ? useCookies : useLocalStorage;
-  const initialSettings = isCookieEnabled ? cookieSettings : defaultSettings;
-  const getStorageValue = isCookieEnabled ? getCookie : getStorage;
+    const isCookieEnabled = !!cookieSettings;
+    const useStorage = isCookieEnabled ? useCookies : useLocalStorage;
 
-  const { state, setState, resetState, setField } = useStorage<SettingsState>(
-    storageKey,
-    initialSettings
-  );
+    // Làm sạch initialSettings để loại bỏ các properties deprecated
+    const cleanedCookieSettings = cookieSettings ? cleanSettings(removeDeprecatedProperties(cookieSettings)) : undefined;
+    const cleanedDefaultSettings = cleanSettings(defaultSettings);
 
-  const [openDrawer, setOpenDrawer] = useState(false);
+    const initialSettings = isCookieEnabled ? cleanedCookieSettings : cleanedDefaultSettings;
+    const getStorageValue = isCookieEnabled ? getCookie : getStorage;
 
-  const onToggleDrawer = useCallback(() => {
-    setOpenDrawer((prev) => !prev);
-  }, []);
+    const { state, setState, resetState, setField } = useStorage<SettingsState>(
+        storageKey,
+        initialSettings
+    );
 
-  const onCloseDrawer = useCallback(() => {
-    setOpenDrawer(false);
-  }, []);
+    const [openDrawer, setOpenDrawer] = useState(false);
 
-  const canReset = !isEqual(state, defaultSettings);
+    const onToggleDrawer = useCallback(() => {
+        setOpenDrawer((prev) => !prev);
+    }, []);
 
-  const onReset = useCallback(() => {
-    resetState(defaultSettings);
-  }, [defaultSettings, resetState]);
+    const onCloseDrawer = useCallback(() => {
+        setOpenDrawer(false);
+    }, []);
 
-  // Version check and reset handling
-  useEffect(() => {
-    const storedValue = getStorageValue<SettingsState>(storageKey);
+    const canReset = !isEqual(cleanSettings(state), cleanedDefaultSettings);
 
-    if (storedValue) {
-      try {
-        if (!storedValue.version || storedValue.version !== defaultSettings.version) {
-          onReset();
+    const onReset = useCallback(() => {
+        resetState(cleanedDefaultSettings);
+    }, [cleanedDefaultSettings, resetState]);
+
+    // Version check and reset handling
+    useEffect(() => {
+        const storedValue = getStorageValue<SettingsState>(storageKey);
+
+        if (storedValue) {
+            try {
+                // Làm sạch storedValue để loại bỏ các properties deprecated
+                const cleanedStoredValue = cleanSettings(removeDeprecatedProperties(storedValue));
+
+                if (!cleanedStoredValue.version || cleanedStoredValue.version !== cleanedDefaultSettings.version) {
+                    onReset();
+                } else {
+                    // Nếu có deprecated properties, cập nhật state với version đã làm sạch
+                    const hasDeprecatedProps = 'hideMenu' in storedValue || 'hideAvatar' in storedValue;
+                    if (hasDeprecatedProps) {
+                        setState(cleanedStoredValue);
+                    }
+                }
+            } catch {
+                onReset();
+            }
         }
-      } catch {
-        onReset();
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-  const memoizedValue = useMemo(
-    () => ({
-      canReset,
-      onReset,
-      openDrawer,
-      onCloseDrawer,
-      onToggleDrawer,
-      state,
-      setState,
-      setField,
-    }),
-    [canReset, onReset, openDrawer, onCloseDrawer, onToggleDrawer, state, setField, setState]
-  );
+    const memoizedValue = useMemo(
+        () => ({
+            canReset,
+            onReset,
+            openDrawer,
+            onCloseDrawer,
+            onToggleDrawer,
+            state,
+            setState,
+            setField,
+        }),
+        [canReset, onReset, openDrawer, onCloseDrawer, onToggleDrawer, state, setField, setState]
+    );
 
-  return <SettingsContext.Provider value={memoizedValue}>{children}</SettingsContext.Provider>;
+    return <SettingsContext.Provider value={memoizedValue}>{children}</SettingsContext.Provider>;
 }
