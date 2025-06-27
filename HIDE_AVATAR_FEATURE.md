@@ -30,16 +30,22 @@ http://localhost:8083/dashboard/arithmetic?hideAvatar=false
 ### 2. Cập nhật default settings
 - Thêm `hideAvatar: false` vào `src/components/settings/settings-config.ts`
 
-### 3. Cập nhật hook useUrlSettings
-- Cập nhật `src/hooks/use-url-settings.ts`
-- Đọc `hideAvatar` parameter từ URL và cập nhật settings state
+### 3. Tạo hook useUrlParams  
+- File mới: `src/hooks/use-url-params.ts`
+- Đọc `hideAvatar` parameter từ URL trực tiếp mà không lưu cache
 
 ### 4. Cập nhật DashboardLayout
-- Thêm biến `isAvatarHidden` từ `settings.state.hideAvatar`
+- Import và sử dụng `useUrlParams` hook thay vì `useUrlSettings`
+- Thêm biến `isAvatarHidden` từ `urlParams.hideAvatar`
 - Cập nhật logic render trong `rightArea`:
   - Ẩn `AccountDrawer` khi `isAvatarHidden = true`
   - Di chuyển `LanguagePopover` ra ngoài cùng (sau `SettingsButton`) khi avatar bị ẩn
   - Giữ nguyên vị trí `LanguagePopover` bình thường khi avatar hiển thị
+
+### 5. Loại bỏ cache settings
+- Xóa `hideAvatar` khỏi `SettingsState` type
+- Xóa `hideAvatar` khỏi default settings  
+- Đảm bảo tính năng chỉ hoạt động dựa trên URL parameters
 
 ## Logic hoạt động
 

@@ -8,13 +8,11 @@ import type { SettingsState } from './types';
 export const SETTINGS_STORAGE_KEY: string = 'app-settings';
 
 export const defaultSettings: SettingsState = {
-  colorScheme: themeConfig.defaultMode,
-  contrast: 'hight',
-  navLayout: 'vertical',
-  primaryColor: 'preset1',
-  navColor: 'apparent',
-  hideMenu: false,
-  hideAvatar: false,
-  fontFamily: themeConfig.fontFamily.primary,
-  version: CONFIG.appVersion,
+    colorScheme: themeConfig.defaultMode,
+    contrast: 'hight',
+    navLayout: 'vertical',
+    primaryColor: 'preset1',
+    navColor: 'apparent',
+    fontFamily: themeConfig.fontFamily.primary,
+    version: CONFIG.appVersion,
 };

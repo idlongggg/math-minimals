@@ -30,17 +30,23 @@ http://localhost:8083/dashboard/arithmetic?hideMenu=false
 ### 2. Cập nhật default settings
 - Thêm `hideMenu: false` vào `src/components/settings/settings-config.ts`
 
-### 3. Tạo hook useUrlSettings
-- File mới: `src/hooks/use-url-settings.ts`
-- Đọc URL parameters và cập nhật settings state
+### 3. Tạo hook useUrlParams
+- File mới: `src/hooks/use-url-params.ts`
+- Đọc URL parameters trực tiếp mà không lưu cache
 
 ### 4. Cập nhật DashboardLayout
-- Import và sử dụng `useUrlSettings` hook
+- Import và sử dụng `useUrlParams` hook thay vì `useUrlSettings`
+- Đọc `hideMenu` trực tiếp từ URL parameters
 - Cập nhật logic render để ẩn/hiện:
   - Navigation menu (vertical/horizontal)
   - Mobile menu button
   - Logo positioning
   - Sidebar padding
+
+### 5. Loại bỏ cache settings
+- Xóa `hideMenu` khỏi `SettingsState` type
+- Xóa `hideMenu` khỏi default settings
+- Đảm bảo tính năng chỉ hoạt động dựa trên URL parameters
 
 ## Logic hoạt động
 
@@ -62,7 +68,7 @@ Khi `hideMenu=false` (mặc định):
 - ✅ Tương thích với nav colors (integrate, apparent)  
 - ✅ Responsive trên mobile và desktop
 - ✅ Smooth transitions
-- ✅ Persistent state trong session (không ảnh hưởng localStorage)
+- ✅ Không lưu cache - chỉ hoạt động dựa trên URL parameters
 
 ## Ví dụ URLs
 
