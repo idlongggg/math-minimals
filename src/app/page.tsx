@@ -2,18 +2,25 @@
 
 import { useEffect } from 'react';
 
-import { useRouter } from 'src/routes/hooks';
+import { useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/global-config';
 
 // ----------------------------------------------------------------------
 
 export default function Page() {
-  const router = useRouter();
+    const router = useRouter();
+    const searchParams = useSearchParams();
 
-  useEffect(() => {
-    router.push(CONFIG.auth.redirectPath);
-  }, [router]);
+    useEffect(() => {
+        // Bảo tồn query parameters khi redirect
+        const queryString = searchParams.toString();
+        const redirectPath = queryString
+            ? `${CONFIG.auth.redirectPath}?${queryString}`
+            : CONFIG.auth.redirectPath;
 
-  return null;
+        router.push(redirectPath);
+    }, [router, searchParams]);
+
+    return null;
 }
