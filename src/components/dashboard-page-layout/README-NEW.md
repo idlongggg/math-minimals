@@ -179,10 +179,10 @@ function PrimeNumbersView() {
 4. **SEO friendly**: Metadata có thể dễ dàng extend cho SEO
 5. **Maintainability**: Dễ bảo trì và cập nhật
 
-## Demo Pages
+## Example Pages
 
-- **Với tabs**: `src/sections/arithmetic/demo-arithmetic-view.tsx`
-- **Không tabs**: `src/sections/tools/demo-simple-view.tsx`
+- **Với tabs**: Đã được tích hợp sẵn trong các section
+- **Không tabs**: Các view thông thường trong sections
 - **Thực tế**: `src/sections/arithmetic/prime-numbers-view.tsx` (đã được cập nhật)
 
 ## Backward Compatibility

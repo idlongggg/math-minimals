@@ -9,13 +9,13 @@ import {
     CardActions,
     CardContent,
     Divider,
-    Grid,
     Paper,
     Stack,
     Typography
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 
+import { CustomCard, CustomCardContent, CustomCardHeader } from 'src/components/custom-card';
 import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
 
@@ -23,7 +23,7 @@ import { Iconify } from 'src/components/iconify';
 
 type StatColor = 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
 
-const DEMO_STATS = [
+const OVERVIEW_STATS = [
   {
     title: 'Tổng số công cụ',
     value: '24',
@@ -34,27 +34,27 @@ const DEMO_STATS = [
   {
     title: 'Lượt sử dụng hôm nay',
     value: '156',
-    icon: 'solar:chart-bold' as const,
+    icon: 'solar:eye-bold' as const,
     color: 'info' as StatColor,
     description: 'Số lượt truy cập trong ngày',
   },
   {
     title: 'Công thức được lưu',
     value: '89',
-    icon: 'solar:bookmark-bold' as const,
+    icon: 'solar:heart-bold' as const,
     color: 'success' as StatColor,
     description: 'Công thức đã được đánh dấu',
   },
   {
     title: 'Thời gian trực tuyến',
     value: '99.9%',
-    icon: 'solar:server-bold' as const,
+    icon: 'solar:info-circle-bold' as const,
     color: 'warning' as StatColor,
     description: 'Tỷ lệ uptime hệ thống',
   },
 ];
 
-const DEMO_TOOLS = [
+const OVERVIEW_TOOLS = [
   {
     title: 'Máy tính số nguyên tố',
     description: 'Kiểm tra và tìm các số nguyên tố',
@@ -73,28 +73,28 @@ const DEMO_TOOLS = [
     title: 'Tính diện tích hình học',
     description: 'Tính diện tích các hình cơ bản',
     category: 'Hình học',
-    icon: 'solar:squares-bold' as const,
+    icon: 'solar:copy-bold' as const,
     color: 'success' as StatColor,
   },
   {
     title: 'Đạo hàm và tích phân',
     description: 'Tính toán vi tích phân',
     category: 'Giải tích',
-    icon: 'solar:graph-new-bold' as const,
+    icon: 'solar:eye-bold' as const,
     color: 'warning' as StatColor,
   },
   {
     title: 'Thống kê cơ bản',
     description: 'Tính mean, median, mode',
     category: 'Thống kê',
-    icon: 'solar:chart-bold' as const,
+    icon: 'solar:info-circle-bold' as const,
     color: 'error' as StatColor,
   },
   {
     title: 'Chuyển đổi đơn vị',
     description: 'Chuyển đổi giữa các đơn vị',
     category: 'Công cụ',
-    icon: 'solar:refresh-bold' as const,
+    icon: 'solar:restart-bold' as const,
     color: 'secondary' as StatColor,
   },
 ];
@@ -122,25 +122,35 @@ const RECENT_ACTIVITIES = [
   },
 ];
 
-export function DashboardDemoView() {
+export function DashboardOverviewView() {
   const theme = useTheme();
   const [selectedTool, setSelectedTool] = useState<number | null>(null);
 
   const renderStats = () => (
-    <Grid container spacing={3} sx={{ mb: 4 }}>
-      {DEMO_STATS.map((stat, index) => (
-        <Grid key={stat.title} item xs={12} sm={6} md={3}>
-          <Card
-            sx={{
-              p: 3,
-              textAlign: 'center',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                transform: 'translateY(-4px)',
-                boxShadow: theme.vars.customShadows?.z8 || theme.shadows[8],
-              },
-            }}
-          >
+    <Box 
+      sx={{ 
+        display: 'flex', 
+        flexWrap: 'wrap', 
+        gap: 3, 
+        mb: 4,
+        '& > *': {
+          flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' }
+        }
+      }}
+    >
+      {OVERVIEW_STATS.map((stat, index) => (
+        <CustomCard
+          key={stat.title}
+          sx={{
+            p: 3,
+            textAlign: 'center',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              transform: 'translateY(-4px)',
+              boxShadow: theme.vars.customShadows?.z8 || theme.shadows[8],
+            },
+          }}
+        >
             <Box
               sx={{
                 width: 64,
@@ -169,40 +179,47 @@ export function DashboardDemoView() {
             <Typography variant="body2" color="text.secondary">
               {stat.description}
             </Typography>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
-  );
+          </CustomCard>
+        ))}
+      </Box>
+    );
 
   const renderToolGrid = () => (
-    <Card sx={{ mb: 4 }}>
-      <Box sx={{ p: 3, borderBottom: `1px solid ${theme.vars?.palette?.divider || theme.palette.divider}` }}>
-        <Typography variant="h5">Công cụ toán học</Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-          Các công cụ được sử dụng phổ biến nhất
-        </Typography>
-      </Box>
+    <CustomCard sx={{ mb: 4 }}>
+      <CustomCardHeader
+        title="Công cụ toán học"
+        subheader="Các công cụ được sử dụng phổ biến nhất"
+        sx={{ pb: 0 }}
+      />
 
       <Box sx={{ p: 3 }}>
-        <Grid container spacing={3}>
-          {DEMO_TOOLS.map((tool, index) => (
-            <Grid key={tool.title} item xs={12} sm={6} md={4}>
-              <Paper
-                sx={{
-                  p: 3,
-                  height: '100%',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  border: selectedTool === index ? `2px solid ${theme.palette.primary.main}` : '1px solid transparent',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                    boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
-                    borderColor: theme.palette.primary.main,
-                  },
-                }}
-                onClick={() => setSelectedTool(index)}
-              >
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: 3,
+            '& > *': {
+              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(33.333% - 16px)' }
+            }
+          }}
+        >
+          {OVERVIEW_TOOLS.map((tool, index) => (
+            <Paper
+              key={tool.title}
+              sx={{
+                p: 3,
+                height: '100%',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                border: selectedTool === index ? `2px solid ${theme.palette.primary.main}` : '1px solid transparent',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+                  borderColor: theme.palette.primary.main,
+                },
+              }}
+              onClick={() => setSelectedTool(index)}
+            >
                 <Stack spacing={2}>
                   <Box
                     sx={{
@@ -235,12 +252,11 @@ export function DashboardDemoView() {
                   </Box>
                 </Stack>
               </Paper>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-    </Card>
-  );
+            ))}
+          </Box>
+        </Box>
+      </CustomCard>
+    );
 
   const renderRecentActivity = () => (
     <Card>
@@ -285,7 +301,7 @@ export function DashboardDemoView() {
         </Stack>
 
         <Box sx={{ mt: 3, textAlign: 'center' }}>
-          <Button variant="outlined" startIcon={<Iconify icon="solar:history-bold" />}>
+          <Button variant="outlined" startIcon={<Iconify icon="solar:list-bold" />}>
             Xem tất cả hoạt động
           </Button>
         </Box>
@@ -294,40 +310,37 @@ export function DashboardDemoView() {
   );
 
   const renderQuickActions = () => (
-    <Card sx={{ mb: 4 }}>
-      <Box sx={{ p: 3, borderBottom: `1px solid ${theme.vars?.palette?.divider || theme.palette.divider}` }}>
-        <Typography variant="h5">Thao tác nhanh</Typography>
-      </Box>
-
-      <Box sx={{ p: 3 }}>
+    <CustomCard sx={{ mb: 4 }}>
+      <CustomCardHeader title="Thao tác nhanh" />
+      <CustomCardContent>
         <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
           <Button
             variant="contained"
-            startIcon={<Iconify icon="solar:calculator-bold" />}
+            startIcon={<Iconify icon="solar:pen-bold" />}
             sx={{ minWidth: 200 }}
           >
             Mở máy tính khoa học
           </Button>
           <Button
             variant="outlined"
-            startIcon={<Iconify icon="solar:document-add-bold" />}
+            startIcon={<Iconify icon="solar:camera-add-bold" />}
             sx={{ minWidth: 200 }}
           >
             Tạo công thức mới
           </Button>
           <Button
             variant="outlined"
-            startIcon={<Iconify icon="solar:bookmark-bold" />}
+            startIcon={<Iconify icon="solar:heart-bold" />}
             sx={{ minWidth: 200 }}
           >
             Công thức đã lưu
           </Button>
         </Stack>
-      </Box>
-    </Card>
+      </CustomCardContent>
+    </CustomCard>
   );
 
-  const renderDemoContent = () => (
+  const renderExampleContent = () => (
     <Stack spacing={4}>
       {/* Quick Actions */}
       {renderQuickActions()}
@@ -341,14 +354,23 @@ export function DashboardDemoView() {
       {/* Recent Activity */}
       {renderRecentActivity()}
 
-      {/* Additional Demo Content for Scrolling */}
+      {/* Additional Example Content for Scrolling */}
       <Card>
         <Box sx={{ p: 3, borderBottom: `1px solid ${theme.vars?.palette?.divider || theme.palette.divider}` }}>
           <Typography variant="h5">Thông tin hệ thống</Typography>
         </Box>
         <CardContent>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              flexWrap: 'wrap', 
+              gap: 3,
+              '& > *': {
+                flex: { xs: '1 1 100%', md: '1 1 calc(50% - 12px)' }
+              }
+            }}
+          >
+            <Box>
               <Typography variant="h6" gutterBottom>
                 Trạng thái máy chủ
               </Typography>
@@ -372,8 +394,8 @@ export function DashboardDemoView() {
                   </Typography>
                 </Stack>
               </Stack>
-            </Grid>
-            <Grid item xs={12} md={6}>
+            </Box>
+            <Box>
               <Typography variant="h6" gutterBottom>
                 Phiên bản
               </Typography>
@@ -388,20 +410,20 @@ export function DashboardDemoView() {
                   Database: PostgreSQL 14.2
                 </Typography>
               </Stack>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </CardContent>
       </Card>
 
-      {/* More demo content */}
+      {/* More example content */}
       {Array.from({ length: 5 }, (_, i) => (
         <Card key={i}>
           <CardContent>
             <Typography variant="h6" gutterBottom>
-              Demo Section {i + 1}
+              Ví dụ Section {i + 1}
             </Typography>
             <Typography variant="body1" paragraph>
-              Đây là nội dung demo để minh họa việc cuộn trang. Trang dashboard này được thiết kế với header cố định 
+              Đây là nội dung ví dụ để minh họa việc cuộn trang. Trang dashboard này được thiết kế với header cố định 
               và phần nội dung có thể cuộn được. Metadata đã được cấu hình đầy đủ với tiêu đề và mô tả phù hợp.
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -422,7 +444,7 @@ export function DashboardDemoView() {
     <DashboardPageLayoutWithMetadata
       pageKey="dashboard"
     >
-      {renderDemoContent()}
+      {renderExampleContent()}
     </DashboardPageLayoutWithMetadata>
   );
 }

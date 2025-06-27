@@ -1,1 +1,1 @@
-export { DashboardDemoView } from './dashboard-demo-view';
+export { DashboardOverviewView } from './dashboard-overview-view';

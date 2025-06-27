@@ -7,6 +7,3 @@ export * from './factors-irrationals-view';
 export * from './fraction-view';
 export * from './prime-numbers-view';
 
-// Demo views
-export * from './demo-arithmetic-view';
-
