@@ -7,35 +7,18 @@ import { useSettingsContext } from 'src/components/settings';
 
 // ----------------------------------------------------------------------
 
+/**
+ * @deprecated Use useUrlParams() instead. This hook saves to settings state/cache.
+ * The new approach only reads URL parameters without caching.
+ */
 export function useUrlSettings() {
-  const settings = useSettingsContext();
-  const searchParams = useSearchParams();
+    const settings = useSettingsContext();
+    const searchParams = useSearchParams();
 
-  useEffect(() => {
-    // Đọc hideMenu parameter từ URL
-    const hideMenuParam = searchParams.get('hideMenu');
-    
-    if (hideMenuParam !== null) {
-      const hideMenu = hideMenuParam === 'true' || hideMenuParam === '1';
-      
-      // Chỉ cập nhật nếu giá trị khác với state hiện tại
-      if (settings.state.hideMenu !== hideMenu) {
-        settings.setState({ hideMenu });
-      }
-    }
+    useEffect(() => {
+        // This hook is deprecated - implementation removed
+        // Use useUrlParams() for reading URL parameters without caching
+    }, [searchParams, settings]);
 
-    // Đọc hideAvatar parameter từ URL
-    const hideAvatarParam = searchParams.get('hideAvatar');
-    
-    if (hideAvatarParam !== null) {
-      const hideAvatar = hideAvatarParam === 'true' || hideAvatarParam === '1';
-      
-      // Chỉ cập nhật nếu giá trị khác với state hiện tại
-      if (settings.state.hideAvatar !== hideAvatar) {
-        settings.setState({ hideAvatar });
-      }
-    }
-  }, [searchParams, settings]);
-
-  return settings;
+    return settings;
 }
