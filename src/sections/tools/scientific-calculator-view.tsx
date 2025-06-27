@@ -316,10 +316,6 @@ export function ScientificCalculatorView() {
       description="Máy tính khoa học với các hàm toán học nâng cao"
       maxWidth="lg"
     >
-      <Typography variant="h3" sx={{ mb: 3 }}>
-        Máy tính khoa học
-      </Typography>
-
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' }, gap: 3 }}>
         {/* Calculator */}
         <Card 

@@ -6,13 +6,13 @@ import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
@@ -352,11 +352,11 @@ export function GraphingCalculatorView() {
   const selectedFunction = functions.find((func) => func.id === selectedFunctionId);
 
   return (
-    <Container maxWidth="xl">
-      <Typography variant="h3" sx={{ mb: 3 }}>
-        Máy tính đồ thị
-      </Typography>
-
+    <DashboardPageLayout 
+      title="Máy tính đồ thị"
+      description="Vẽ và phân tích đồ thị của các hàm số toán học"
+      maxWidth="xl"
+    >
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 400px' }, gap: 3 }}>
         {/* Graph Canvas */}
         <Card sx={cardStyle}>
@@ -636,6 +636,6 @@ export function GraphingCalculatorView() {
           </Card>
         </Box>
       </Box>
-    </Container>
+    </DashboardPageLayout>
   );
 }
