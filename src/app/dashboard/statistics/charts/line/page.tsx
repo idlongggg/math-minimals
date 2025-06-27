@@ -1,5 +1,5 @@
 import { CONFIG } from 'src/global-config';
-import { DynamicDataGridChartView } from 'src/sections/charts/view';
+import { DynamicDataGridChartView } from 'src/sections/statistics/view';
 
 // ----------------------------------------------------------------------
 

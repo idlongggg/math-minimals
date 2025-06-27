@@ -21,7 +21,7 @@ declare -a files=(
   "src/sections/calculus/integral-view.tsx"
   "src/sections/calculus/limit-view.tsx"
   "src/sections/calculus/sequence-view.tsx"
-  "src/sections/charts/view/line-chart-view.tsx"
+  "src/sections/statistics/view/line-chart-view.tsx"
   "src/sections/algebra/linear/matrix-view.tsx"
   "src/sections/algebra/linear/system-view.tsx"
 )

@@ -222,14 +222,14 @@ export function DynamicLineChartView() {
             <Button
               variant={selectedDataSet === 'temperature' ? 'contained' : 'outlined'}
               onClick={() => loadSampleData('temperature')}
-              startIcon={<Iconify icon="solar:widget-outline" />}
+              startIcon={<Iconify icon="solar:chart-square-outline" />}
             >
               Nhiệt độ theo tháng
             </Button>
             <Button
               variant={selectedDataSet === 'math_scores' ? 'contained' : 'outlined'}
               onClick={() => loadSampleData('math_scores')}
-              startIcon={<Iconify icon="solar:document-outline" />}
+              startIcon={<Iconify icon="solar:file-text-bold" />}
             >
               Điểm toán học
             </Button>

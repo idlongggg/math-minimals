@@ -29,10 +29,10 @@
 - ✅ `sections/algebra/linear/system-view.tsx` (đơn giản)
 
 #### Charts (Biểu đồ):
-- ✅ `sections/charts/view/pictograph-view.tsx` (đơn giản)
+- ✅ `sections/statistics/view/pictograph-view.tsx` (đơn giản)
 
 #### Calculator (Máy tính):
-- ✅ `sections/calculator/basic-calculator-view.tsx` (đơn giản)
+- ✅ `sections/tools/basic-calculator-view.tsx` (đơn giản)
 
 ## 🔄 **Cần Migration:**
 
@@ -42,11 +42,11 @@
 - ⏳ `sections/arithmetic/factors-irrationals-view.tsx`
 
 ### Calculator:
-- ⏳ `sections/calculator/scientific-calculator-view.tsx`
-- ⏳ `sections/calculator/graphing-calculator-view.tsx`
+- ⏳ `sections/tools/scientific-calculator-view.tsx`
+- ⏳ `sections/tools/graphing-calculator-view.tsx`
 
 ### Charts:
-- ⏳ `sections/charts/view/line-chart-view.tsx`
+- ⏳ `sections/statistics/view/line-chart-view.tsx`
 
 ### Các trang khác cần tạo mới:
 - Tất cả các trang trong menu sidebar chưa có file view tương ứng

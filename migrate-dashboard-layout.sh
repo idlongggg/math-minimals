@@ -13,7 +13,7 @@ declare -a views=(
   "src/sections/arithmetic/factors-irrationals-view.tsx"
   "src/sections/calculus"
   "src/sections/algebra"
-  "src/sections/charts"
+  "src/sections/statistics"
 )
 
 # Function để backup file

@@ -226,7 +226,19 @@ export const isChildPath = (childPath: string, parentPath: string): boolean => {
  * @returns Mảng các path con
  */
 export const getChildPaths = (parentPath: string): string[] => {
-  const allPaths = Object.values(paths.dashboard).flat();
+  const getAllPathsRecursive = (obj: any): string[] => {
+    const result: string[] = [];
+    for (const value of Object.values(obj)) {
+      if (typeof value === 'string') {
+        result.push(value);
+      } else if (typeof value === 'object' && value !== null) {
+        result.push(...getAllPathsRecursive(value));
+      }
+    }
+    return result;
+  };
+
+  const allPaths = getAllPathsRecursive(paths.dashboard);
   return allPaths.filter((path) => typeof path === 'string' && isChildPath(path, parentPath));
 };
 

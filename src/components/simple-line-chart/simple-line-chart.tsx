@@ -199,7 +199,7 @@ export function SimpleLineChart({
           action={
             <Button
               variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
+              startIcon={<Iconify icon="solar:add-circle-bold" />}
               onClick={addRow}
             >
               Thêm hàng
@@ -246,7 +246,7 @@ export function SimpleLineChart({
                         onClick={() => removeRow(row.id)}
                         disabled={tableData.length <= 2}
                       >
-                        <Iconify icon="eva:trash-2-outline" />
+                        <Iconify icon="solar:trash-bin-trash-bold" />
                       </IconButton>
                     </TableCell>
                   </TableRow>
