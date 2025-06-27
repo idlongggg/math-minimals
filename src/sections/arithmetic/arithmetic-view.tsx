@@ -7,10 +7,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 
-import { CustomTabs } from 'src/components/custom-tabs';
+import { CustomTab, CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
 import { paths } from 'src/routes/paths';
@@ -92,22 +91,22 @@ export function ArithmeticView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab
+      <CustomTab
         value="overview"
         label="Tổng quan"
         icon={<Iconify icon="solar:flag-bold" />}
       />
-      <Tab
+      <CustomTab
         value="topics"
         label="Chủ đề"
         icon={<Iconify icon="solar:list-bold" />}
       />
-      <Tab
+      <CustomTab
         value="practice"
         label="Luyện tập"
         icon={<Iconify icon="solar:pen-bold" />}
       />
-      <Tab
+      <CustomTab
         value="guide"
         label="Hướng dẫn"
         icon={<Iconify icon="solar:notebook-bold-duotone" />}

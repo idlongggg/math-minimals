@@ -3,10 +3,9 @@
 import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
+import { CustomCard, CustomCardContent } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
 import { paths } from 'src/routes/paths';
@@ -75,7 +74,7 @@ export function GeometryView() {
           }}
         >
           {GEOMETRY_TOPICS.map((topic) => (
-            <Card
+            <CustomCard
               key={topic.id}
               sx={{
                 height: '100%',
@@ -83,12 +82,12 @@ export function GeometryView() {
                 transition: 'all 0.2s',
                 '&:hover': {
                   transform: 'translateY(-4px)',
-                  boxShadow: (theme) => theme.shadows[8],
+                  boxShadow: (theme: any) => theme.shadows[8],
                 },
               }}
               onClick={() => handleTopicClick(topic.path)}
             >
-              <CardContent>
+              <CustomCardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <Box
                     sx={{
@@ -112,8 +111,8 @@ export function GeometryView() {
                 <Typography variant="body2" color="text.secondary">
                   {topic.description}
                 </Typography>
-              </CardContent>
-            </Card>
+              </CustomCardContent>
+            </CustomCard>
           ))}
         </Box>
       </Box>

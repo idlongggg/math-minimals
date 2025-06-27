@@ -6,9 +6,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip';
-import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
@@ -308,7 +309,11 @@ export function ScientificCalculatorView() {
   };
 
   return (
-    <Container maxWidth="lg">
+    <DashboardPageLayout 
+      title="Máy tính khoa học"
+      description="Máy tính khoa học với các hàm toán học nâng cao"
+      maxWidth="lg"
+    >
       <Typography variant="h3" sx={{ mb: 3 }}>
         Máy tính khoa học
       </Typography>
@@ -637,6 +642,6 @@ export function ScientificCalculatorView() {
           )}
         </Card>
       </Box>
-    </Container>
+    </DashboardPageLayout>
   );
 }
