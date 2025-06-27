@@ -30,7 +30,7 @@ export function DashboardPageHeader({ title, description, sx }: Props) {
       </Typography>
       
       {description && (
-        <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+        <Typography variant="body2" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
           {description}
         </Typography>
       )}
