@@ -1,11 +1,11 @@
 import { CONFIG } from 'src/global-config';
 
-import { BlankView } from 'src/sections/blank/view';
+import { CalculusView } from 'src/sections/calculus/calculus-view';
 
 // ----------------------------------------------------------------------
 
 export const metadata = { title: `Công cụ giải tích - ${CONFIG.appName}` };
 
 export default function Page() {
-  return <BlankView title="Công cụ giải tích" />;
+  return <CalculusView />;
 }

@@ -3,11 +3,8 @@
 import type { SxProps, Theme } from '@mui/material/styles';
 import type { ReactNode } from 'react';
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-
-import { Scrollbar } from 'src/components/scrollbar';
-import { DashboardContent } from 'src/layouts/dashboard';
+import { DashboardPageContainer } from './dashboard-page-container';
+import { DashboardPageContent } from './dashboard-page-content';
 
 // ----------------------------------------------------------------------
 
@@ -31,61 +28,16 @@ export function DashboardPageLayout({
   contentSx,
 }: Props) {
   return (
-    <DashboardContent maxWidth={maxWidth} sx={sx}>
-      <Box
-        sx={[
-          {
-            display: 'flex',
-            flexDirection: 'column',
-            height: 'calc(100vh - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
-            minHeight: 600,
-          },
-          ...(Array.isArray(sx) ? sx : [sx]),
-        ]}
-      >
-        {/* Fixed Header */}
-        <Box
-          sx={[
-            {
-              flexShrink: 0,
-              mb: 3,
-              pt: 3,
-            },
-            ...(Array.isArray(headerSx) ? headerSx : [headerSx]),
-          ]}
-        >
-          <Typography variant="h4">{title}</Typography>
-          
-          {description && (
-            <Typography variant="body1" sx={{ mt: 1, color: 'text.secondary' }}>
-              {description}
-            </Typography>
-          )}
-        </Box>
-
-        {/* Scrollable Content */}
-        <Scrollbar
-          sx={[
-            {
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-            },
-            ...(Array.isArray(contentSx) ? contentSx : [contentSx]),
-          ]}
-          slotProps={{
-            contentSx: {
-              display: 'flex',
-              flexDirection: 'column',
-              minHeight: 'auto',
-              mt: 1, // Reduce margin top (8px)
-              mb: 2, // Reduce margin bottom (16px)
-            },
-          }}
-        >
-          {children}
-        </Scrollbar>
-      </Box>
-    </DashboardContent>
+    <DashboardPageContainer
+      title={title}
+      description={description}
+      maxWidth={maxWidth}
+      sx={sx}
+      headerSx={headerSx}
+    >
+      <DashboardPageContent sx={contentSx}>
+        {children}
+      </DashboardPageContent>
+    </DashboardPageContainer>
   );
 }

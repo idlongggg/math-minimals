@@ -50,7 +50,9 @@ export function LayoutSection({
             {sidebarSection}
             <LayoutSidebarContainer className={layoutClasses.sidebarContainer}>
               {headerSection}
-              {children}
+              <LayoutMainContainer>
+                {children}
+              </LayoutMainContainer>
               {footerSection}
             </LayoutSidebarContainer>
           </>
@@ -83,4 +85,12 @@ const LayoutSidebarContainer = styled('div')(() => ({
   flexDirection: 'column',
   height: '100%',
   overflow: 'hidden',
+}));
+
+const LayoutMainContainer = styled('div')(() => ({
+  display: 'flex',
+  flex: '1 1 auto',
+  flexDirection: 'column',
+  height: '100%',
+  overflow: 'auto',
 }));

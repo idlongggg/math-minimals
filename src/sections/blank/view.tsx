@@ -6,7 +6,7 @@ import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
 
-import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
+import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
@@ -34,8 +34,12 @@ export function BlankView({ title = 'Blank', description, sx }: Props) {
   );
 
   return (
-    <DashboardPageLayout title={title} description={description}>
+    <DashboardPageLayoutWithMetadata 
+      pageKey="default" 
+      title={title} 
+      description={description}
+    >
       {renderContent()}
-    </DashboardPageLayout>
+    </DashboardPageLayoutWithMetadata>
   );
 }

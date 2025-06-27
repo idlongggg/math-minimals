@@ -1,12 +1,26 @@
 # Dashboard Page Layout Components
 
-Để tối ưu hóa và tái sử dụng layout cho tất cả các trang dashboard, chúng ta đã tạo ra 2 component layout chính:
+Để tối ưu hóa và tái sử dụng layout cho tất cả các trang dashboard, chúng ta đã tạo ra hệ thống layout modular với các component riêng biệt:
 
-## 1. DashboardPageLayout
+## Kiến trúc mới (Refactored)
+
+### 1. DashboardPageContainer
+Component cha chứa layout cơ bản và header cố định (title + description).
+
+### 2. DashboardPageHeader  
+Component header cố định với title và description.
+
+### 3. DashboardPageContent
+Component content scrollable cho các trang thông thường.
+
+### 4. DashboardPageWithTabsContent
+Component content đặc biệt cho các trang có tabs - tabs cố định, chỉ content scrollable.
+
+## Cách sử dụng
+
+### 1. DashboardPageLayout (Refactored)
 
 Component layout cơ bản với header cố định (title + description) và content scrollable.
-
-### Sử dụng:
 
 ```tsx
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
@@ -35,7 +49,7 @@ export function YourView() {
 - `headerSx`: SxProps - Style cho phần header
 - `contentSx`: SxProps - Style cho phần content
 
-## 2. DashboardPageWithTabsLayout
+### 2. DashboardPageWithTabsLayout (Refactored)
 
 Component layout đặc biệt cho các trang có tabs, với **header cố định, tabs cố định**, và **chỉ content scrollable**.
 
@@ -78,8 +92,69 @@ export function YourViewWithTabs() {
 ### Props:
 
 Tất cả props của `DashboardPageLayout` cộng thêm:
-- `tabs`: ReactNode - Component tabs
+- `tabs`: ReactNode (bắt buộc) - Component tabs
 - `tabsSx`: SxProps - Style cho phần tabs
+
+## 3. Sử dụng Modular Components (Advanced)
+
+Nếu bạn cần tùy chỉnh layout phức tạp hơn, bạn có thể sử dụng các component riêng biệt:
+
+### DashboardPageContainer + DashboardPageContent
+
+```tsx
+import { 
+  DashboardPageContainer,
+  DashboardPageContent 
+} from 'src/components/dashboard-page-layout';
+
+export function CustomView() {
+  return (
+    <DashboardPageContainer title="Custom Title" description="Custom Description">
+      <DashboardPageContent>
+        <YourContent />
+      </DashboardPageContent>
+    </DashboardPageContainer>
+  );
+}
+```
+
+### DashboardPageContainer + DashboardPageWithTabsContent
+
+```tsx
+import { 
+  DashboardPageContainer,
+  DashboardPageWithTabsContent 
+} from 'src/components/dashboard-page-layout';
+
+export function CustomTabsView() {
+  return (
+    <DashboardPageContainer title="Custom Title" description="Custom Description">
+      <DashboardPageWithTabsContent tabs={renderTabs()}>
+        <YourTabContent />
+      </DashboardPageWithTabsContent>
+    </DashboardPageContainer>
+  );
+}
+```
+
+### Chỉ sử dụng DashboardPageHeader
+
+```tsx
+import { 
+  DashboardPageContainer,
+  DashboardPageHeader 
+} from 'src/components/dashboard-page-layout';
+
+export function FullyCustomView() {
+  return (
+    <DashboardPageContainer title="Title" description="Description">
+      <DashboardPageHeader title="Override Title" />
+      <CustomContent />
+      <CustomFooter />
+    </DashboardPageContainer>
+  );
+}
+```
 
 ## Ví dụ migration
 

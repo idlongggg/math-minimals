@@ -16,7 +16,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { CustomTabs } from 'src/components/custom-tabs';
-import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
+import { DashboardPageWithTabsLayoutAndMetadata } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
@@ -745,9 +745,8 @@ export function PrimeNumbersView() {
   );
 
   return (
-    <DashboardPageWithTabsLayout 
-      title="Số nguyên tố"
-      description="Công cụ kiểm tra và tìm số nguyên tố với các thuật toán tối ưu."
+    <DashboardPageWithTabsLayoutAndMetadata 
+      pageKey="arithmetic.primeNumbers"
       tabs={renderTabs()}
     >
       {currentTab === 'checker' && renderChecker()}
@@ -755,6 +754,6 @@ export function PrimeNumbersView() {
       {currentTab === 'quick-tools' && renderQuickTools()}
       {currentTab === 'history' && renderHistory()}
       {currentTab === 'guide' && renderGuide()}
-    </DashboardPageWithTabsLayout>
+    </DashboardPageWithTabsLayoutAndMetadata>
   );
 }

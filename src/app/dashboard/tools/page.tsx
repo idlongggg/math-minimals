@@ -1,11 +1,11 @@
 import { CONFIG } from 'src/global-config';
 
-import { BlankView } from 'src/sections/blank/view';
+import { ToolsView } from 'src/sections/tools/tools-view';
 
 // ----------------------------------------------------------------------
 
 export const metadata = { title: `Công cụ toán học - ${CONFIG.appName}` };
 
 export default function Page() {
-  return <BlankView title="Công cụ toán học" />;
+  return <ToolsView />;
 }

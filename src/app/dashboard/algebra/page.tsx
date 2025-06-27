@@ -1,11 +1,11 @@
 import { CONFIG } from 'src/global-config';
 
-import { BlankView } from 'src/sections/blank/view';
+import { AlgebraView } from 'src/sections/algebra/algebra-view';
 
 // ----------------------------------------------------------------------
 
 export const metadata = { title: `Đại số và giải tích - ${CONFIG.appName}` };
 
 export default function Page() {
-  return <BlankView title="Đại số và giải tích" />;
+  return <AlgebraView />;
 }

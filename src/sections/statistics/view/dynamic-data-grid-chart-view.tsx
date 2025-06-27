@@ -11,8 +11,7 @@ export function DynamicDataGridChartView() {
       contentSx={{
         display: 'flex',
         flexDirection: 'column',
-        height: 'calc(100vh - 64px)', // Cố định chiều cao theo viewport, trừ đi header
-        overflow: 'hidden',
+        height: '100%',
       }}
     >
       <DynamicDataGridChart

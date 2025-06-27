@@ -1,11 +1,11 @@
 import { CONFIG } from 'src/global-config';
 
-import { BlankView } from 'src/sections/blank/view';
+import { TrigonometryView } from 'src/sections/trigonometry/trigonometry-view';
 
 // ----------------------------------------------------------------------
 
 export const metadata = { title: `Lượng giác - ${CONFIG.appName}` };
 
 export default function Page() {
-  return <BlankView title="Lượng giác" />;
+  return <TrigonometryView />;
 }

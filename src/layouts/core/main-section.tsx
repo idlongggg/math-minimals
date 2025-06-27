@@ -24,6 +24,4 @@ const MainRoot = styled('main')({
   display: 'flex',
   flex: '1 1 auto',
   flexDirection: 'column',
-  height: '100%',
-  overflow: 'auto',
 });
