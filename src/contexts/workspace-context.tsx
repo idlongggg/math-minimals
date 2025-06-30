@@ -1,8 +1,8 @@
 'use client';
 
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
-
 import type { WorkspacesPopoverProps } from 'src/layouts/components/workspaces-popover';
+
+import { useMemo, useState, useContext, useCallback, createContext } from 'react';
 
 // ----------------------------------------------------------------------
 

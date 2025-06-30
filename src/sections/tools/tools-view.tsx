@@ -4,13 +4,14 @@ import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
-import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
 import { paths } from 'src/routes/paths';
+
+import { Iconify } from 'src/components/iconify';
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
@@ -69,8 +70,8 @@ export function ToolsView() {
           Công cụ toán học cơ bản
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Các công cụ toán học thiết yếu giúp bạn giải quyết các bài toán từ cơ bản đến nâng cao. 
-          Từ máy tính đơn giản đến các công cụ chuyển đổi và giải phương trình phức tạp.
+          Các công cụ toán học thiết yếu giúp bạn giải quyết các bài toán từ cơ bản đến nâng cao. Từ
+          máy tính đơn giản đến các công cụ chuyển đổi và giải phương trình phức tạp.
         </Typography>
 
         <Box

@@ -1,8 +1,9 @@
 'use client';
 
+import type { PageMetadata } from 'src/constants/page-metadata';
+
 import { useMemo } from 'react';
 
-import type { PageMetadata } from 'src/constants/page-metadata';
 import { getPageMetadata } from 'src/constants/page-metadata';
 
 // ----------------------------------------------------------------------

@@ -1,17 +1,17 @@
 'use client';
 
+import { useEffect, useCallback } from 'react';
 import { usePopoverHover } from 'minimal-shared/hooks';
 import { isActiveLink, isExternalLink } from 'minimal-shared/utils';
-import { useCallback, useEffect } from 'react';
 
-import { popoverClasses } from '@mui/material/Popover';
 import { useTheme } from '@mui/material/styles';
+import { popoverClasses } from '@mui/material/Popover';
 
 import { usePathname } from 'src/routes/hooks';
 
-import { NavDropdown, NavDropdownPaper, NavLi, NavUl } from '../components';
-import { navSectionClasses } from '../styles';
 import { NavItem } from './nav-item';
+import { navSectionClasses } from '../styles';
+import { NavLi, NavUl, NavDropdown, NavDropdownPaper } from '../components';
 
 import type { NavListProps, NavSubListProps } from '../types';
 

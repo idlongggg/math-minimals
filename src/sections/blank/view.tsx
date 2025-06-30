@@ -1,6 +1,6 @@
 'use client';
 
-import type { SxProps, Theme } from '@mui/material/styles';
+import type { Theme, SxProps } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -34,11 +34,7 @@ export function BlankView({ title = 'Blank', description, sx }: Props) {
   );
 
   return (
-    <DashboardPageLayoutWithMetadata 
-      pageKey="default" 
-      title={title} 
-      description={description}
-    >
+    <DashboardPageLayoutWithMetadata pageKey="default" title={title} description={description}>
       {renderContent()}
     </DashboardPageLayoutWithMetadata>
   );

@@ -9,7 +9,7 @@ import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 export function SystemEquationView({ sx, ...other }: BoxProps) {
   return (
-    <DashboardPageLayout 
+    <DashboardPageLayout
       title="Hệ phương trình"
       description="Công cụ giải hệ phương trình tuyến tính bằng các phương pháp khử Gauss, Cramer và ma trận."
     >

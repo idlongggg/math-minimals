@@ -1,14 +1,14 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
@@ -311,15 +311,15 @@ export function ScientificCalculatorView() {
   };
 
   return (
-    <DashboardPageLayout 
+    <DashboardPageLayout
       title="Máy tính khoa học"
       description="Máy tính khoa học với các hàm toán học nâng cao"
       maxWidth="lg"
     >
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' }, gap: 3 }}>
         {/* Calculator */}
-        <Card 
-          sx={{ 
+        <Card
+          sx={{
             p: 3,
             borderRadius: 3,
             border: '1px solid',
@@ -597,10 +597,10 @@ export function ScientificCalculatorView() {
         </Card>
 
         {/* History Panel */}
-        <Card 
-          sx={{ 
-            p: 3, 
-            maxHeight: '600px', 
+        <Card
+          sx={{
+            p: 3,
+            maxHeight: '600px',
             overflow: 'auto',
             borderRadius: 3,
             border: '1px solid',

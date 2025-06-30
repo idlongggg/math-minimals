@@ -1,11 +1,9 @@
 import { CONFIG } from 'src/global-config';
 import { DashboardLayout } from 'src/layouts/dashboard';
-
+import { _workspaces } from 'src/layouts/nav-config-workspace';
 import { WorkspaceProvider } from 'src/contexts/workspace-context';
 
 import { AuthGuard } from 'src/auth/guard';
-
-import { _workspaces } from 'src/layouts/nav-config-workspace';
 
 // ----------------------------------------------------------------------
 

@@ -1,11 +1,11 @@
 import type { ChipProps } from '@mui/material/Chip';
 import type { SvgIconProps } from '@mui/material/SvgIcon';
-import type { CSSObject, Components, ComponentsVariants, Theme } from '@mui/material/styles';
+import type { Theme, CSSObject, Components, ComponentsVariants } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
-import { chipClasses } from '@mui/material/Chip';
 import SvgIcon from '@mui/material/SvgIcon';
+import { chipClasses } from '@mui/material/Chip';
 
 // ----------------------------------------------------------------------
 

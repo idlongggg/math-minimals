@@ -1,10 +1,10 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useTheme } from '@mui/material/styles';
 
@@ -163,13 +163,13 @@ export function BasicCalculatorView() {
   };
 
   return (
-    <DashboardPageLayout 
+    <DashboardPageLayout
       title="Máy tính cơ bản"
       description="Máy tính đơn giản với các phép toán cơ bản: cộng, trừ, nhân, chia."
       maxWidth="sm"
     >
-      <Card 
-        sx={{ 
+      <Card
+        sx={{
           p: 3,
           borderRadius: 3,
           border: '1px solid',

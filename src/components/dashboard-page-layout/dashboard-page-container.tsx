@@ -1,9 +1,10 @@
 'use client';
 
-import type { SxProps, Theme } from '@mui/material/styles';
 import type { ReactNode } from 'react';
+import type { Theme, SxProps } from '@mui/material/styles';
 
 import { DashboardContent } from 'src/layouts/dashboard';
+
 import { DashboardPageHeader } from './dashboard-page-header';
 
 // ----------------------------------------------------------------------
@@ -26,13 +27,14 @@ export function DashboardPageContainer({
   headerSx,
 }: Props) {
   return (
-    <DashboardContent 
-      maxWidth={maxWidth} 
+    <DashboardContent
+      maxWidth={maxWidth}
       sx={[
         {
           display: 'flex',
           flexDirection: 'column',
-          height: 'calc(100vh - var(--layout-header-desktop-height) - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
+          height:
+            'calc(100vh - var(--layout-header-desktop-height) - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
           minHeight: 0,
           overflow: 'hidden',
         },
@@ -41,7 +43,7 @@ export function DashboardPageContainer({
     >
       {/* Fixed Header */}
       <DashboardPageHeader title={title} description={description} sx={headerSx} />
-      
+
       {/* Dynamic Content */}
       {children}
     </DashboardContent>

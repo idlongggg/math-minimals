@@ -1,12 +1,10 @@
-import {
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Stack
-} from '@mui/material';
-import { DataGrid, GridActionsCellItem, GridColDef } from '@mui/x-data-grid';
+import type { GridColDef } from '@mui/x-data-grid';
+
+import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import { Card, Stack, Button, CardHeader, CardContent } from '@mui/material';
+
 import { Iconify } from 'src/components/iconify';
+
 import type { ChartDataRow, ColumnDefinition } from '../types';
 
 interface DataGridSectionProps {
@@ -59,18 +57,20 @@ export function DataGridSection({
   ];
 
   return (
-    <Card sx={{ 
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      height: 'calc(100vh - 180px)',
-      minHeight: 400,
-      maxHeight: 'calc(100vh - 180px)',
-      overflow: 'hidden',
-      border: '1px solid rgba(224, 224, 224, 1)',
-    }}>
-      <CardHeader 
-        title="Bảng dữ liệu động" 
+    <Card
+      sx={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        height: 'calc(100vh - 180px)',
+        minHeight: 400,
+        maxHeight: 'calc(100vh - 180px)',
+        overflow: 'hidden',
+        border: '1px solid rgba(224, 224, 224, 1)',
+      }}
+    >
+      <CardHeader
+        title="Bảng dữ liệu động"
         action={
           <Stack direction="row" spacing={1}>
             <Button
@@ -78,12 +78,12 @@ export function DataGridSection({
               variant="text"
               color="primary"
               size="small"
-              sx={{ 
+              sx={{
                 minWidth: 'auto',
                 padding: 1,
                 '&:hover': {
                   bgcolor: 'action.hover',
-                }
+                },
               }}
             >
               <Iconify icon="solar:settings-bold" />
@@ -107,15 +107,17 @@ export function DataGridSection({
           </Stack>
         }
       />
-      <CardContent sx={{ 
-        flex: 1,
-        overflow: 'hidden',
-        p: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: 0,
-        height: '100%',
-      }}>
+      <CardContent
+        sx={{
+          flex: 1,
+          overflow: 'hidden',
+          p: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 0,
+          height: '100%',
+        }}
+      >
         <DataGrid
           rows={rows}
           columns={gridColumns}

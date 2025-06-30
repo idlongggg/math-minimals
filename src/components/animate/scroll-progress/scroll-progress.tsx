@@ -1,12 +1,12 @@
 'use client';
 
 import type { BoxProps } from '@mui/material/Box';
-import type { SxProps, Theme } from '@mui/material/styles';
+import type { Theme, SxProps } from '@mui/material/styles';
 import type { MotionProps, MotionValue } from 'framer-motion';
 
-import { m, useSpring, useTransform } from 'framer-motion';
-import { mergeClasses } from 'minimal-shared/utils';
 import { Fragment } from 'react';
+import { mergeClasses } from 'minimal-shared/utils';
+import { m, useSpring, useTransform } from 'framer-motion';
 
 import Box from '@mui/material/Box';
 import Portal from '@mui/material/Portal';

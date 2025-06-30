@@ -1,17 +1,19 @@
 import {
-    Alert,
-    Box,
-    Button,
-    Chip,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    Stack,
-    Typography
+  Box,
+  Chip,
+  Alert,
+  Stack,
+  Button,
+  Select,
+  MenuItem,
+  InputLabel,
+  Typography,
+  FormControl,
 } from '@mui/material';
-import { CustomPopover } from 'src/components/custom-popover';
+
 import { Iconify } from 'src/components/iconify';
+import { CustomPopover } from 'src/components/custom-popover';
+
 import type { ColumnDefinition } from '../types';
 
 interface ControlsPopoverProps {
@@ -48,8 +50,8 @@ export function ControlsPopover({
       anchorEl={anchorEl}
       slotProps={{
         paper: {
-          sx: { width: 380, maxHeight: 500, overflow: 'auto' }
-        }
+          sx: { width: 380, maxHeight: 500, overflow: 'auto' },
+        },
       }}
     >
       <Box sx={{ p: 2 }}>

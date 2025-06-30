@@ -8,7 +8,7 @@ export function useChartConfiguration() {
   // Toggle Y-axis column
   const toggleYAxisColumn = (columnField: string) => {
     if (yAxisColumns.includes(columnField)) {
-      setYAxisColumns(yAxisColumns.filter(col => col !== columnField));
+      setYAxisColumns(yAxisColumns.filter((col) => col !== columnField));
     } else {
       setYAxisColumns([...yAxisColumns, columnField]);
     }
@@ -21,7 +21,7 @@ export function useChartConfiguration() {
         setXAxisColumn(numericColumns[0].field);
       }
     }
-    setYAxisColumns(yAxisColumns.filter(col => col !== deletedField));
+    setYAxisColumns(yAxisColumns.filter((col) => col !== deletedField));
   };
 
   return {

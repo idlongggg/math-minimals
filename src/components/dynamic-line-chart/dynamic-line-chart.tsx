@@ -1,27 +1,29 @@
 'use client';
 
+import { useRef, useState, useEffect } from 'react';
+
 import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Chip,
-    Divider,
-    FormControlLabel,
-    IconButton,
-    Paper,
-    Switch,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    TextField,
-    Typography,
+  Box,
+  Card,
+  Chip,
+  Paper,
+  Table,
+  Button,
+  Switch,
+  Divider,
+  TableRow,
+  TableBody,
+  TableCell,
+  TableHead,
+  TextField,
+  CardHeader,
+  IconButton,
+  Typography,
+  CardContent,
+  TableContainer,
+  FormControlLabel,
 } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
+
 import { Iconify } from 'src/components/iconify';
 
 // Types
@@ -48,8 +50,16 @@ export interface DynamicLineChartProps {
 
 // Predefined colors for series
 const SERIES_COLORS = [
-  '#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6',
-  '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#6366f1'
+  '#3b82f6',
+  '#ef4444',
+  '#10b981',
+  '#f59e0b',
+  '#8b5cf6',
+  '#ec4899',
+  '#06b6d4',
+  '#84cc16',
+  '#f97316',
+  '#6366f1',
 ];
 
 // JSXGraph styles
@@ -74,32 +84,38 @@ export function DynamicLineChart({
   id,
   width = 800,
   height = 500,
-  title = "Biểu đồ đường động",
-  initialSeries = []
+  title = 'Biểu đồ đường động',
+  initialSeries = [],
 }: DynamicLineChartProps) {
   const boardRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  const [series, setSeries] = useState<DataSeries[]>(initialSeries.length > 0 ? initialSeries : [
-    {
-      id: '1',
-      name: 'Dữ liệu 1',
-      color: SERIES_COLORS[0],
-      visible: true,
-      points: [
-        { x: 1, y: 2 },
-        { x: 2, y: 4 },
-        { x: 3, y: 3 },
-        { x: 4, y: 5 },
-        { x: 5, y: 6 }
-      ]
-    }
-  ]);
-  
+
+  const [series, setSeries] = useState<DataSeries[]>(
+    initialSeries.length > 0
+      ? initialSeries
+      : [
+          {
+            id: '1',
+            name: 'Dữ liệu 1',
+            color: SERIES_COLORS[0],
+            visible: true,
+            points: [
+              { x: 1, y: 2 },
+              { x: 2, y: 4 },
+              { x: 3, y: 3 },
+              { x: 4, y: 5 },
+              { x: 5, y: 6 },
+            ],
+          },
+        ]
+  );
+
   const [selectedSeriesId, setSelectedSeriesId] = useState<string>('1');
   const [newPointX, setNewPointX] = useState<string>('');
   const [newPointY, setNewPointY] = useState<string>('');
-  const [editingPoint, setEditingPoint] = useState<{ seriesId: string; index: number } | null>(null);
+  const [editingPoint, setEditingPoint] = useState<{ seriesId: string; index: number } | null>(
+    null
+  );
 
   // Initialize JSXGraph styles
   useEffect(() => {
@@ -107,7 +123,7 @@ export function DynamicLineChart({
       const styleElement = document.createElement('style');
       styleElement.textContent = jsxGraphStyles;
       document.head.appendChild(styleElement);
-      
+
       return () => {
         if (document.head.contains(styleElement)) {
           document.head.removeChild(styleElement);
@@ -123,22 +139,25 @@ export function DynamicLineChart({
     const initChart = async () => {
       try {
         const JXG = await import('jsxgraph');
-        
+
         if (boardRef.current) {
           JXG.JSXGraph.freeBoard(boardRef.current);
         }
 
         if (containerRef.current) {
           // Calculate bounds based on data
-          let xMin = -1, xMax = 10, yMin = -1, yMax = 10;
-          
+          let xMin = -1,
+            xMax = 10,
+            yMin = -1,
+            yMax = 10;
+
           if (series.length > 0) {
-            const allPoints = series.flatMap(s => s.points);
+            const allPoints = series.flatMap((s) => s.points);
             if (allPoints.length > 0) {
-              xMin = Math.min(...allPoints.map(p => p.x)) - 1;
-              xMax = Math.max(...allPoints.map(p => p.x)) + 1;
-              yMin = Math.min(...allPoints.map(p => p.y)) - 1;
-              yMax = Math.max(...allPoints.map(p => p.y)) + 1;
+              xMin = Math.min(...allPoints.map((p) => p.x)) - 1;
+              xMax = Math.max(...allPoints.map((p) => p.x)) + 1;
+              yMin = Math.min(...allPoints.map((p) => p.y)) - 1;
+              yMax = Math.max(...allPoints.map((p) => p.y)) + 1;
             }
           }
 
@@ -152,62 +171,79 @@ export function DynamicLineChart({
               factorX: 1.25,
               factorY: 1.25,
               wheel: true,
-              needShift: false
+              needShift: false,
             },
             pan: {
               enabled: true,
-              needShift: false
-            }
+              needShift: false,
+            },
           });
 
           // Add title
-          boardRef.current.create('text', [xMin + (xMax - xMin) * 0.05, yMax - (yMax - yMin) * 0.1, title], {
-            fontSize: 16,
-            fontWeight: 'bold',
-            color: '#374151'
-          });
+          boardRef.current.create(
+            'text',
+            [xMin + (xMax - xMin) * 0.05, yMax - (yMax - yMin) * 0.1, title],
+            {
+              fontSize: 16,
+              fontWeight: 'bold',
+              color: '#374151',
+            }
+          );
 
           // Draw series
           series.forEach((seriesData, index) => {
             if (seriesData.visible && seriesData.points.length > 1) {
               // Create line
-              const curve = boardRef.current.create('curve', [
-                seriesData.points.map(p => p.x),
-                seriesData.points.map(p => p.y)
-              ], {
-                strokeColor: seriesData.color,
-                strokeWidth: 2,
-                name: seriesData.name
-              });
+              const curve = boardRef.current.create(
+                'curve',
+                [seriesData.points.map((p) => p.x), seriesData.points.map((p) => p.y)],
+                {
+                  strokeColor: seriesData.color,
+                  strokeWidth: 2,
+                  name: seriesData.name,
+                }
+              );
 
               // Create points
               seriesData.points.forEach((point, pointIndex) => {
                 boardRef.current.create('point', [point.x, point.y], {
                   size: 3,
                   color: seriesData.color,
-                  name: `${seriesData.name} (${point.x}, ${point.y})`
+                  name: `${seriesData.name} (${point.x}, ${point.y})`,
                 });
               });
 
               // Add legend entry
               const legendY = yMax - (yMax - yMin) * 0.2 - index * (yMax - yMin) * 0.08;
-              boardRef.current.create('text', [xMin + (xMax - xMin) * 0.7, legendY, seriesData.name], {
-                fontSize: 12,
-                color: seriesData.color
-              });
+              boardRef.current.create(
+                'text',
+                [xMin + (xMax - xMin) * 0.7, legendY, seriesData.name],
+                {
+                  fontSize: 12,
+                  color: seriesData.color,
+                }
+              );
             }
           });
 
           // Add axis labels
-          boardRef.current.create('text', [xMax - (xMax - xMin) * 0.05, yMin + (yMax - yMin) * 0.05, 'x'], {
-            fontSize: 14,
-            color: '#6b7280'
-          });
-          
-          boardRef.current.create('text', [xMin + (xMax - xMin) * 0.05, yMax - (yMax - yMin) * 0.15, 'y'], {
-            fontSize: 14,
-            color: '#6b7280'
-          });
+          boardRef.current.create(
+            'text',
+            [xMax - (xMax - xMin) * 0.05, yMin + (yMax - yMin) * 0.05, 'x'],
+            {
+              fontSize: 14,
+              color: '#6b7280',
+            }
+          );
+
+          boardRef.current.create(
+            'text',
+            [xMin + (xMax - xMin) * 0.05, yMax - (yMax - yMin) * 0.15, 'y'],
+            {
+              fontSize: 14,
+              color: '#6b7280',
+            }
+          );
         }
       } catch (error) {
         console.error('Error initializing JSXGraph:', error);
@@ -236,7 +272,7 @@ export function DynamicLineChart({
       name: `Dữ liệu ${series.length + 1}`,
       color: SERIES_COLORS[series.length % SERIES_COLORS.length],
       visible: true,
-      points: []
+      points: [],
     };
     setSeries([...series, newSeries]);
     setSelectedSeriesId(newId);
@@ -245,7 +281,7 @@ export function DynamicLineChart({
   // Remove series
   const removeSeries = (seriesId: string) => {
     if (series.length <= 1) return;
-    const newSeries = series.filter(s => s.id !== seriesId);
+    const newSeries = series.filter((s) => s.id !== seriesId);
     setSeries(newSeries);
     if (selectedSeriesId === seriesId) {
       setSelectedSeriesId(newSeries[0]?.id || '');
@@ -254,71 +290,71 @@ export function DynamicLineChart({
 
   // Toggle series visibility
   const toggleSeriesVisibility = (seriesId: string) => {
-    setSeries(series.map(s => 
-      s.id === seriesId ? { ...s, visible: !s.visible } : s
-    ));
+    setSeries(series.map((s) => (s.id === seriesId ? { ...s, visible: !s.visible } : s)));
   };
 
   // Update series name
   const updateSeriesName = (seriesId: string, name: string) => {
-    setSeries(series.map(s => 
-      s.id === seriesId ? { ...s, name } : s
-    ));
+    setSeries(series.map((s) => (s.id === seriesId ? { ...s, name } : s)));
   };
 
   // Add point to series
   const addPoint = () => {
     const x = parseFloat(newPointX);
     const y = parseFloat(newPointY);
-    
+
     if (isNaN(x) || isNaN(y)) return;
 
-    setSeries(series.map(s => 
-      s.id === selectedSeriesId 
-        ? { ...s, points: [...s.points, { x, y }].sort((a, b) => a.x - b.x) }
-        : s
-    ));
-    
+    setSeries(
+      series.map((s) =>
+        s.id === selectedSeriesId
+          ? { ...s, points: [...s.points, { x, y }].sort((a, b) => a.x - b.x) }
+          : s
+      )
+    );
+
     setNewPointX('');
     setNewPointY('');
   };
 
   // Remove point from series
   const removePoint = (seriesId: string, pointIndex: number) => {
-    setSeries(series.map(s => 
-      s.id === seriesId 
-        ? { ...s, points: s.points.filter((_, i) => i !== pointIndex) }
-        : s
-    ));
+    setSeries(
+      series.map((s) =>
+        s.id === seriesId ? { ...s, points: s.points.filter((_, i) => i !== pointIndex) } : s
+      )
+    );
   };
 
   // Update point in series
   const updatePoint = (seriesId: string, pointIndex: number, x: number, y: number) => {
-    setSeries(series.map(s => 
-      s.id === seriesId 
-        ? { 
-            ...s, 
-            points: s.points.map((p, i) => 
-              i === pointIndex ? { x, y } : p
-            ).sort((a, b) => a.x - b.x)
-          }
-        : s
-    ));
+    setSeries(
+      series.map((s) =>
+        s.id === seriesId
+          ? {
+              ...s,
+              points: s.points
+                .map((p, i) => (i === pointIndex ? { x, y } : p))
+                .sort((a, b) => a.x - b.x),
+            }
+          : s
+      )
+    );
     setEditingPoint(null);
   };
 
   // Clear all data
   const clearAllData = () => {
-    setSeries(series.map(s => ({ ...s, points: [] })));
+    setSeries(series.map((s) => ({ ...s, points: [] })));
   };
 
-  const selectedSeries = series.find(s => s.id === selectedSeriesId);
+  const selectedSeries = series.find((s) => s.id === selectedSeriesId);
 
   return (
     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 400px' }, gap: 3 }}>
       {/* Chart Area */}
       <Card>
-        <CardHeader 
+        <CardHeader
           title={title}
           action={
             <Box sx={{ display: 'flex', gap: 1 }}>
@@ -345,7 +381,7 @@ export function DynamicLineChart({
               borderRadius: 1,
             }}
           />
-          
+
           {/* Series Legend */}
           <Box sx={{ mt: 2, display: 'flex', flexWrap: 'wrap', gap: 1 }}>
             {series.map((s) => (
@@ -355,7 +391,7 @@ export function DynamicLineChart({
                 sx={{
                   bgcolor: s.visible ? s.color + '20' : 'grey.100',
                   color: s.visible ? s.color : 'grey.500',
-                  border: `1px solid ${s.visible ? s.color : 'grey.400'}`
+                  border: `1px solid ${s.visible ? s.color : 'grey.400'}`,
                 }}
                 size="small"
                 onClick={() => toggleSeriesVisibility(s.id)}
@@ -369,7 +405,7 @@ export function DynamicLineChart({
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         {/* Series Management */}
         <Card>
-          <CardHeader 
+          <CardHeader
             title="Quản lý dữ liệu"
             action={
               <Button
@@ -400,7 +436,7 @@ export function DynamicLineChart({
                     borderColor: selectedSeriesId === s.id ? s.color : 'grey.300',
                     borderRadius: 1,
                     mb: 1,
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                   }}
                   onClick={() => setSelectedSeriesId(s.id)}
                 >
@@ -409,7 +445,7 @@ export function DynamicLineChart({
                       width: 16,
                       height: 16,
                       bgcolor: s.color,
-                      borderRadius: '50%'
+                      borderRadius: '50%',
                     }}
                   />
                   <TextField
@@ -469,11 +505,7 @@ export function DynamicLineChart({
                 onChange={(e) => setNewPointY(e.target.value)}
                 sx={{ flex: 1 }}
               />
-              <IconButton
-                color="primary"
-                onClick={addPoint}
-                disabled={!newPointX || !newPointY}
-              >
+              <IconButton color="primary" onClick={addPoint} disabled={!newPointX || !newPointY}>
                 <Iconify icon="mingcute:add-line" />
               </IconButton>
             </Box>
@@ -482,7 +514,7 @@ export function DynamicLineChart({
 
         {/* Data Table */}
         <Card>
-          <CardHeader 
+          <CardHeader
             title={`Dữ liệu: ${selectedSeries?.name || ''}`}
             subheader={`${selectedSeries?.points.length || 0} điểm`}
           />
@@ -500,7 +532,8 @@ export function DynamicLineChart({
                   {(selectedSeries?.points || []).map((point, index) => (
                     <TableRow key={index}>
                       <TableCell>
-                        {editingPoint?.seriesId === selectedSeriesId && editingPoint.index === index ? (
+                        {editingPoint?.seriesId === selectedSeriesId &&
+                        editingPoint.index === index ? (
                           <TextField
                             size="small"
                             type="number"
@@ -533,7 +566,8 @@ export function DynamicLineChart({
                         )}
                       </TableCell>
                       <TableCell>
-                        {editingPoint?.seriesId === selectedSeriesId && editingPoint.index === index ? (
+                        {editingPoint?.seriesId === selectedSeriesId &&
+                        editingPoint.index === index ? (
                           <TextField
                             size="small"
                             type="number"

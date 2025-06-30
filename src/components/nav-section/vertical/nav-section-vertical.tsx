@@ -6,9 +6,9 @@ import { mergeClasses } from 'minimal-shared/utils';
 import Collapse from '@mui/material/Collapse';
 import { useTheme } from '@mui/material/styles';
 
-import { Nav, NavLi, NavSubheader, NavUl } from '../components';
-import { navSectionClasses, navSectionCssVars } from '../styles';
 import { NavList } from './nav-list';
+import { Nav, NavLi, NavUl, NavSubheader } from '../components';
+import { navSectionClasses, navSectionCssVars } from '../styles';
 
 import type { NavGroupProps, NavSectionProps } from '../types';
 

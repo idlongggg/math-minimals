@@ -1,19 +1,19 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import IconButton from '@mui/material/IconButton';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
-import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
@@ -77,7 +77,7 @@ export function GraphingCalculatorView() {
   const evaluateExpression = useCallback((expression: string, x: number): number => {
     try {
       // Replace mathematical functions and constants
-      let expr = expression
+      const expr = expression
         .replace(/\^/g, '**')
         .replace(/sin/g, 'Math.sin')
         .replace(/cos/g, 'Math.cos')
@@ -95,7 +95,6 @@ export function GraphingCalculatorView() {
         throw new Error('Invalid expression');
       }
 
-      // eslint-disable-next-line no-eval
       const result = eval(expr);
       return typeof result === 'number' ? result : NaN;
     } catch {
@@ -352,7 +351,7 @@ export function GraphingCalculatorView() {
   const selectedFunction = functions.find((func) => func.id === selectedFunctionId);
 
   return (
-    <DashboardPageLayout 
+    <DashboardPageLayout
       title="Máy tính đồ thị"
       description="Vẽ và phân tích đồ thị của các hàm số toán học"
       maxWidth="xl"

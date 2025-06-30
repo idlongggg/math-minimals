@@ -1,10 +1,10 @@
 'use client';
 
-import type { SxProps, Theme } from '@mui/material/styles';
 import type { ReactNode } from 'react';
+import type { Theme, SxProps } from '@mui/material/styles';
 
-import { DashboardPageContainer } from './dashboard-page-container';
 import { DashboardPageContent } from './dashboard-page-content';
+import { DashboardPageContainer } from './dashboard-page-container';
 
 // ----------------------------------------------------------------------
 
@@ -35,9 +35,7 @@ export function DashboardPageLayout({
       sx={sx}
       headerSx={headerSx}
     >
-      <DashboardPageContent sx={contentSx}>
-        {children}
-      </DashboardPageContent>
+      <DashboardPageContent sx={contentSx}>{children}</DashboardPageContent>
     </DashboardPageContainer>
   );
 }

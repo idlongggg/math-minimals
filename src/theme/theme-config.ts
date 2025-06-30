@@ -1,7 +1,7 @@
 import type { CommonColors } from '@mui/material/styles';
 
 import type { PaletteColorNoChannels } from './core/palette';
-import type { ThemeColorScheme, ThemeCssVariables, ThemeDirection } from './types';
+import type { ThemeDirection, ThemeColorScheme, ThemeCssVariables } from './types';
 
 // ----------------------------------------------------------------------
 

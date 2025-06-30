@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 // JSXGraph styles
 const jsxGraphStyles = `
@@ -32,29 +32,29 @@ export interface LineChartProps {
   }>;
 }
 
-export function LineChart({ 
-  id, 
-  width = 600, 
-  height = 400, 
-  title = "Biểu đồ đường",
+export function LineChart({
+  id,
+  width = 600,
+  height = 400,
+  title = 'Biểu đồ đường',
   data = [
     {
-      name: "Hàm sin(x)",
+      name: 'Hàm sin(x)',
       points: Array.from({ length: 100 }, (_, i) => {
         const x = (i - 50) * 0.2;
         return [x, Math.sin(x)];
       }),
-      color: '#3b82f6'
+      color: '#3b82f6',
     },
     {
-      name: "Hàm cos(x)",
+      name: 'Hàm cos(x)',
       points: Array.from({ length: 100 }, (_, i) => {
         const x = (i - 50) * 0.2;
         return [x, Math.cos(x)];
       }),
-      color: '#ef4444'
-    }
-  ]
+      color: '#ef4444',
+    },
+  ],
 }: LineChartProps) {
   const boardRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -65,7 +65,7 @@ export function LineChart({
       const styleElement = document.createElement('style');
       styleElement.textContent = jsxGraphStyles;
       document.head.appendChild(styleElement);
-      
+
       return () => {
         document.head.removeChild(styleElement);
       };
@@ -75,73 +75,74 @@ export function LineChart({
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-  const initChart = async () => {
-    try {
-      const JXG = await import('jsxgraph');
-      
-      if (boardRef.current) {
-        JXG.JSXGraph.freeBoard(boardRef.current);
-      }
+    const initChart = async () => {
+      try {
+        const JXG = await import('jsxgraph');
 
-      if (containerRef.current) {
-        boardRef.current = JXG.JSXGraph.initBoard(id, {
-          boundingbox: [-12, 3, 12, -3],
-          axis: true,
-          grid: true,
-          showCopyright: false,
-          showNavigation: true,
-          zoom: {
-            factorX: 1.25,
-            factorY: 1.25,
-            wheel: true,
-            needShift: false
-          },
-          pan: {
-            enabled: true,
-            needShift: false
-          }
-        });
+        if (boardRef.current) {
+          JXG.JSXGraph.freeBoard(boardRef.current);
+        }
 
-        // Thiết lập tiêu đề
-        boardRef.current.create('text', [0, 2.5, title], {
-          fontSize: 16,
-          fontWeight: 'bold',
-          color: '#374151'
-        });
-
-        // Vẽ các đường biểu đồ
-        data.forEach((series, index) => {
-          const curve = boardRef.current.create('curve', [
-            series.points.map(p => p[0]),
-            series.points.map(p => p[1])
-          ], {
-            strokeColor: series.color || `hsl(${index * 60}, 70%, 50%)`,
-            strokeWidth: 2,
-            name: series.name
+        if (containerRef.current) {
+          boardRef.current = JXG.JSXGraph.initBoard(id, {
+            boundingbox: [-12, 3, 12, -3],
+            axis: true,
+            grid: true,
+            showCopyright: false,
+            showNavigation: true,
+            zoom: {
+              factorX: 1.25,
+              factorY: 1.25,
+              wheel: true,
+              needShift: false,
+            },
+            pan: {
+              enabled: true,
+              needShift: false,
+            },
           });
 
-          // Thêm chú thích
-          boardRef.current.create('text', [-10, 2 - index * 0.3, series.name], {
-            fontSize: 12,
-            color: series.color || `hsl(${index * 60}, 70%, 50%)`
+          // Thiết lập tiêu đề
+          boardRef.current.create('text', [0, 2.5, title], {
+            fontSize: 16,
+            fontWeight: 'bold',
+            color: '#374151',
           });
-        });
 
-        // Thêm nhãn cho trục
-        boardRef.current.create('text', [11, -0.3, 'x'], {
-          fontSize: 14,
-          color: '#6b7280'
-        });
-        
-        boardRef.current.create('text', [0.3, 2.8, 'y'], {
-          fontSize: 14,
-          color: '#6b7280'
-        });
+          // Vẽ các đường biểu đồ
+          data.forEach((series, index) => {
+            const curve = boardRef.current.create(
+              'curve',
+              [series.points.map((p) => p[0]), series.points.map((p) => p[1])],
+              {
+                strokeColor: series.color || `hsl(${index * 60}, 70%, 50%)`,
+                strokeWidth: 2,
+                name: series.name,
+              }
+            );
+
+            // Thêm chú thích
+            boardRef.current.create('text', [-10, 2 - index * 0.3, series.name], {
+              fontSize: 12,
+              color: series.color || `hsl(${index * 60}, 70%, 50%)`,
+            });
+          });
+
+          // Thêm nhãn cho trục
+          boardRef.current.create('text', [11, -0.3, 'x'], {
+            fontSize: 14,
+            color: '#6b7280',
+          });
+
+          boardRef.current.create('text', [0.3, 2.8, 'y'], {
+            fontSize: 14,
+            color: '#6b7280',
+          });
+        }
+      } catch (error) {
+        console.error('Error initializing JSXGraph:', error);
       }
-    } catch (error) {
-      console.error('Error initializing JSXGraph:', error);
-    }
-  };
+    };
 
     initChart();
 
@@ -159,14 +160,14 @@ export function LineChart({
 
   return (
     <div className="w-full">
-      <div 
+      <div
         ref={containerRef}
         id={id}
         className="jxgbox border border-gray-200 rounded-lg"
-        style={{ 
-          width: `${width}px`, 
+        style={{
+          width: `${width}px`,
           height: `${height}px`,
-          margin: '0 auto'
+          margin: '0 auto',
         }}
       />
     </div>

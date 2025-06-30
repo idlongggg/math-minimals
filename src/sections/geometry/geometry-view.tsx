@@ -5,10 +5,11 @@ import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
+import { paths } from 'src/routes/paths';
+
+import { Iconify } from 'src/components/iconify';
 import { CustomCard, CustomCardContent } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
-import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -58,8 +59,9 @@ export function GeometryView() {
           Các lĩnh vực hình học
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Hình học là ngành toán học nghiên cứu về hình dạng, kích thước, vị trí tương đối của các hình 
-          và tính chất của không gian. Từ hình học phẳng cơ bản đến hình học không gian phức tạp.
+          Hình học là ngành toán học nghiên cứu về hình dạng, kích thước, vị trí tương đối của các
+          hình và tính chất của không gian. Từ hình học phẳng cơ bản đến hình học không gian phức
+          tạp.
         </Typography>
 
         <Box

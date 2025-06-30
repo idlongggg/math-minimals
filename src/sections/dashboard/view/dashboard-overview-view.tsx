@@ -2,22 +2,22 @@
 
 import { useState } from 'react';
 
-import {
-    Box,
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    Divider,
-    Paper,
-    Stack,
-    Typography
-} from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
+import {
+  Box,
+  Card,
+  Paper,
+  Stack,
+  Button,
+  Divider,
+  Typography,
+  CardActions,
+  CardContent,
+} from '@mui/material';
 
-import { CustomCard, CustomCardContent, CustomCardHeader } from 'src/components/custom-card';
-import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
+import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
+import { CustomCard, CustomCardHeader, CustomCardContent } from 'src/components/custom-card';
 
 // ----------------------------------------------------------------------
 
@@ -127,15 +127,15 @@ export function DashboardOverviewView() {
   const [selectedTool, setSelectedTool] = useState<number | null>(null);
 
   const renderStats = () => (
-    <Box 
-      sx={{ 
-        display: 'flex', 
-        flexWrap: 'wrap', 
-        gap: 3, 
+    <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: 3,
         mb: 4,
         '& > *': {
-          flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' }
-        }
+          flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' },
+        },
       }}
     >
       {OVERVIEW_STATS.map((stat, index) => (
@@ -151,38 +151,34 @@ export function DashboardOverviewView() {
             },
           }}
         >
-            <Box
-              sx={{
-                width: 64,
-                height: 64,
-                mx: 'auto',
-                mb: 2,
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                bgcolor: alpha(theme.palette[stat.color].main, 0.1),
-              }}
-            >
-              <Iconify
-                icon={stat.icon}
-                width={32}
-                sx={{ color: theme.palette[stat.color].main }}
-              />
-            </Box>
-            <Typography variant="h3" sx={{ mb: 1 }}>
-              {stat.value}
-            </Typography>
-            <Typography variant="h6" sx={{ mb: 1 }}>
-              {stat.title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {stat.description}
-            </Typography>
-          </CustomCard>
-        ))}
-      </Box>
-    );
+          <Box
+            sx={{
+              width: 64,
+              height: 64,
+              mx: 'auto',
+              mb: 2,
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              bgcolor: alpha(theme.palette[stat.color].main, 0.1),
+            }}
+          >
+            <Iconify icon={stat.icon} width={32} sx={{ color: theme.palette[stat.color].main }} />
+          </Box>
+          <Typography variant="h3" sx={{ mb: 1 }}>
+            {stat.value}
+          </Typography>
+          <Typography variant="h6" sx={{ mb: 1 }}>
+            {stat.title}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {stat.description}
+          </Typography>
+        </CustomCard>
+      ))}
+    </Box>
+  );
 
   const renderToolGrid = () => (
     <CustomCard sx={{ mb: 4 }}>
@@ -193,14 +189,14 @@ export function DashboardOverviewView() {
       />
 
       <Box sx={{ p: 3 }}>
-        <Box 
-          sx={{ 
-            display: 'flex', 
-            flexWrap: 'wrap', 
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
             gap: 3,
             '& > *': {
-              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(33.333% - 16px)' }
-            }
+              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(33.333% - 16px)' },
+            },
           }}
         >
           {OVERVIEW_TOOLS.map((tool, index) => (
@@ -211,7 +207,10 @@ export function DashboardOverviewView() {
                 height: '100%',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
-                border: selectedTool === index ? `2px solid ${theme.palette.primary.main}` : '1px solid transparent',
+                border:
+                  selectedTool === index
+                    ? `2px solid ${theme.palette.primary.main}`
+                    : '1px solid transparent',
                 '&:hover': {
                   transform: 'translateY(-2px)',
                   boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
@@ -220,47 +219,52 @@ export function DashboardOverviewView() {
               }}
               onClick={() => setSelectedTool(index)}
             >
-                <Stack spacing={2}>
-                  <Box
-                    sx={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: 1.5,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      bgcolor: alpha(theme.palette[tool.color].main, 0.1),
-                    }}
-                  >
-                    <Iconify
-                      icon={tool.icon}
-                      width={24}
-                      sx={{ color: theme.palette[tool.color].main }}
-                    />
-                  </Box>
+              <Stack spacing={2}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 1.5,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    bgcolor: alpha(theme.palette[tool.color].main, 0.1),
+                  }}
+                >
+                  <Iconify
+                    icon={tool.icon}
+                    width={24}
+                    sx={{ color: theme.palette[tool.color].main }}
+                  />
+                </Box>
 
-                  <Box>
-                    <Typography variant="subtitle1" sx={{ mb: 0.5 }}>
-                      {tool.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      {tool.description}
-                    </Typography>
-                    <Typography variant="caption" color="primary.main">
-                      {tool.category}
-                    </Typography>
-                  </Box>
-                </Stack>
-              </Paper>
-            ))}
-          </Box>
+                <Box>
+                  <Typography variant="subtitle1" sx={{ mb: 0.5 }}>
+                    {tool.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                    {tool.description}
+                  </Typography>
+                  <Typography variant="caption" color="primary.main">
+                    {tool.category}
+                  </Typography>
+                </Box>
+              </Stack>
+            </Paper>
+          ))}
         </Box>
-      </CustomCard>
-    );
+      </Box>
+    </CustomCard>
+  );
 
   const renderRecentActivity = () => (
     <Card>
-      <Box sx={{ p: 3, borderBottom: `1px solid ${theme.vars?.palette?.divider || theme.palette.divider}` }}>
+      <Box
+        sx={{
+          p: 3,
+          borderBottom: `1px solid ${theme.vars?.palette?.divider || theme.palette.divider}`,
+        }}
+      >
         <Typography variant="h5">Hoạt động gần đây</Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
           Các tính toán được thực hiện gần đây
@@ -293,9 +297,7 @@ export function DashboardOverviewView() {
                   </Typography>
                 </Box>
               </Stack>
-              {index < RECENT_ACTIVITIES.length - 1 && (
-                <Divider sx={{ mt: 2 }} />
-              )}
+              {index < RECENT_ACTIVITIES.length - 1 && <Divider sx={{ mt: 2 }} />}
             </Box>
           ))}
         </Stack>
@@ -356,18 +358,23 @@ export function DashboardOverviewView() {
 
       {/* Additional Example Content for Scrolling */}
       <Card>
-        <Box sx={{ p: 3, borderBottom: `1px solid ${theme.vars?.palette?.divider || theme.palette.divider}` }}>
+        <Box
+          sx={{
+            p: 3,
+            borderBottom: `1px solid ${theme.vars?.palette?.divider || theme.palette.divider}`,
+          }}
+        >
           <Typography variant="h5">Thông tin hệ thống</Typography>
         </Box>
         <CardContent>
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              flexWrap: 'wrap', 
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
               gap: 3,
               '& > *': {
-                flex: { xs: '1 1 100%', md: '1 1 calc(50% - 12px)' }
-              }
+                flex: { xs: '1 1 100%', md: '1 1 calc(50% - 12px)' },
+              },
             }}
           >
             <Box>
@@ -400,15 +407,9 @@ export function DashboardOverviewView() {
                 Phiên bản
               </Typography>
               <Stack spacing={1}>
-                <Typography variant="body2">
-                  Frontend: v2.1.0
-                </Typography>
-                <Typography variant="body2">
-                  Backend API: v1.8.3
-                </Typography>
-                <Typography variant="body2">
-                  Database: PostgreSQL 14.2
-                </Typography>
+                <Typography variant="body2">Frontend: v2.1.0</Typography>
+                <Typography variant="body2">Backend API: v1.8.3</Typography>
+                <Typography variant="body2">Database: PostgreSQL 14.2</Typography>
               </Stack>
             </Box>
           </Box>
@@ -423,12 +424,13 @@ export function DashboardOverviewView() {
               Ví dụ Section {i + 1}
             </Typography>
             <Typography variant="body1" paragraph>
-              Đây là nội dung ví dụ để minh họa việc cuộn trang. Trang dashboard này được thiết kế với header cố định 
-              và phần nội dung có thể cuộn được. Metadata đã được cấu hình đầy đủ với tiêu đề và mô tả phù hợp.
+              Đây là nội dung ví dụ để minh họa việc cuộn trang. Trang dashboard này được thiết kế
+              với header cố định và phần nội dung có thể cuộn được. Metadata đã được cấu hình đầy đủ
+              với tiêu đề và mô tả phù hợp.
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Bạn có thể thêm nhiều nội dung khác vào đây để tạo ra một trang dashboard đầy đủ tính năng.
-              Layout này sử dụng Material-UI components và tuân theo best practices của React.
+              Bạn có thể thêm nhiều nội dung khác vào đây để tạo ra một trang dashboard đầy đủ tính
+              năng. Layout này sử dụng Material-UI components và tuân theo best practices của React.
             </Typography>
           </CardContent>
           <CardActions>
@@ -441,9 +443,7 @@ export function DashboardOverviewView() {
   );
 
   return (
-    <DashboardPageLayoutWithMetadata
-      pageKey="dashboard"
-    >
+    <DashboardPageLayoutWithMetadata pageKey="dashboard">
       {renderExampleContent()}
     </DashboardPageLayoutWithMetadata>
   );

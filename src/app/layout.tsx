@@ -7,17 +7,17 @@ import 'src/global.css';
 
 import type { Metadata, Viewport } from 'next';
 
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 import { CONFIG } from 'src/global-config';
-import { themeConfig, ThemeProvider } from 'src/theme';
 import { primary } from 'src/theme/core/palette';
+import { themeConfig, ThemeProvider } from 'src/theme';
 
-import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { ProgressBar } from 'src/components/progress-bar';
-import { defaultSettings, SettingsDrawer, SettingsProvider } from 'src/components/settings';
+import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { detectSettings } from 'src/components/settings/server';
+import { SettingsDrawer, defaultSettings, SettingsProvider } from 'src/components/settings';
 
 import { AuthProvider } from 'src/auth/context/jwt';
 

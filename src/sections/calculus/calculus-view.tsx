@@ -5,10 +5,11 @@ import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
+import { paths } from 'src/routes/paths';
+
+import { Iconify } from 'src/components/iconify';
 import { CustomCard, CustomCardContent } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
-import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -66,8 +67,8 @@ export function CalculusView() {
           Giải tích cơ bản
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Giải tích là nhánh toán học nghiên cứu về sự thay đổi liên tục, bao gồm đạo hàm, tích phân, 
-          giới hạn và dãy số. Đây là nền tảng của nhiều lĩnh vực khoa học và kỹ thuật.
+          Giải tích là nhánh toán học nghiên cứu về sự thay đổi liên tục, bao gồm đạo hàm, tích
+          phân, giới hạn và dãy số. Đây là nền tảng của nhiều lĩnh vực khoa học và kỹ thuật.
         </Typography>
 
         <Box

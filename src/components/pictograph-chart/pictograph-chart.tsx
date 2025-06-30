@@ -1,7 +1,8 @@
 'use client';
 
-import { Box, Card, CardContent, CardHeader, Typography } from '@mui/material';
 import { useState } from 'react';
+
+import { Box, Card, CardHeader, Typography, CardContent } from '@mui/material';
 
 export interface PictographData {
   category: string;
@@ -21,13 +22,13 @@ export interface PictographChartProps {
 }
 
 export function PictographChart({
-  title = "Biểu đồ tranh",
+  title = 'Biểu đồ tranh',
   data,
   unitValue = 1,
   maxIconsPerRow = 10,
   iconSize = 40,
   showLegend = true,
-  showValues = true
+  showValues = true,
 }: PictographChartProps) {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
@@ -55,8 +56,8 @@ export function PictographChart({
             cursor: 'pointer',
             '&:hover': {
               transform: 'scale(1.1)',
-              transition: 'transform 0.2s ease'
-            }
+              transition: 'transform 0.2s ease',
+            },
           }}
           onMouseEnter={() => setHoveredCategory(category.category)}
           onMouseLeave={() => setHoveredCategory(null)}
@@ -72,7 +73,7 @@ export function PictographChart({
   const renderCategoryRow = (category: PictographData) => {
     const icons = renderIcons(category);
     const rows = [];
-    
+
     for (let i = 0; i < icons.length; i += maxIconsPerRow) {
       const rowIcons = icons.slice(i, i + maxIconsPerRow);
       rows.push(
@@ -82,7 +83,7 @@ export function PictographChart({
             display: 'flex',
             flexWrap: 'wrap',
             gap: 1,
-            mb: 1
+            mb: 1,
           }}
         >
           {rowIcons}
@@ -95,10 +96,7 @@ export function PictographChart({
 
   return (
     <Card>
-      <CardHeader 
-        title={title}
-        subheader={`Mỗi biểu tượng đại diện cho ${unitValue} đơn vị`}
-      />
+      <CardHeader title={title} subheader={`Mỗi biểu tượng đại diện cho ${unitValue} đơn vị`} />
       <CardContent>
         <Box sx={{ mb: 3 }}>
           {data.map((category) => (
@@ -113,10 +111,8 @@ export function PictographChart({
                   </Typography>
                 )}
               </Box>
-              
-              <Box sx={{ ml: 2 }}>
-                {renderCategoryRow(category)}
-              </Box>
+
+              <Box sx={{ ml: 2 }}>{renderCategoryRow(category)}</Box>
             </Box>
           ))}
         </Box>
@@ -128,26 +124,26 @@ export function PictographChart({
             </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
               {data.map((category) => (
-                <Box 
+                <Box
                   key={category.category}
-                  sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
                     gap: 1,
                     p: 1,
                     borderRadius: 1,
                     bgcolor: hoveredCategory === category.category ? 'action.hover' : 'transparent',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                   }}
                   onMouseEnter={() => setHoveredCategory(category.category)}
                   onMouseLeave={() => setHoveredCategory(null)}
                 >
-                  <Box 
-                    sx={{ 
-                      fontSize: 20, 
+                  <Box
+                    sx={{
+                      fontSize: 20,
                       color: category.color,
                       transition: 'transform 0.2s ease',
-                      transform: hoveredCategory === category.category ? 'scale(1.2)' : 'scale(1)'
+                      transform: hoveredCategory === category.category ? 'scale(1.2)' : 'scale(1)',
                     }}
                   >
                     {category.icon}

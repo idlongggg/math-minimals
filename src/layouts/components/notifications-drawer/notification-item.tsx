@@ -1,15 +1,15 @@
+import Box from '@mui/material/Box';
 import { SvgIcon } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 
 import { fToNow } from 'src/utils/format-time';
 
-import { FileThumbnail } from 'src/components/file-thumbnail';
 import { Label } from 'src/components/label';
+import { FileThumbnail } from 'src/components/file-thumbnail';
 
 import { notificationIcons } from './icons';
 

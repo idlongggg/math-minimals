@@ -1,21 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import {
-    AddColumnDialog,
-    ChartDialog,
-    ControlsPopover,
-    DataGridSection,
-} from './components';
+import { useState, useEffect } from 'react';
+
 import { jsxGraphStyles } from './constants';
-import { useChartConfiguration, useDataGridState, useJSXGraph } from './hooks';
+import { useJSXGraph, useDataGridState, useChartConfiguration } from './hooks';
+import { ChartDialog, AddColumnDialog, ControlsPopover, DataGridSection } from './components';
+
 import type { DynamicDataGridChartProps } from './types';
 
 export function DynamicDataGridChart({
   id,
   width = 800,
   height = 500,
-  title = "Biểu đồ từ dữ liệu động"
+  title = 'Biểu đồ từ dữ liệu động',
 }: DynamicDataGridChartProps) {
   // State management hooks
   const {
@@ -57,7 +54,7 @@ export function DynamicDataGridChart({
       const styleElement = document.createElement('style');
       styleElement.textContent = jsxGraphStyles;
       document.head.appendChild(styleElement);
-      
+
       return () => {
         if (document.head.contains(styleElement)) {
           document.head.removeChild(styleElement);
@@ -70,14 +67,12 @@ export function DynamicDataGridChart({
   const handleDeleteColumnWithUpdate = (columnId: string) => {
     const result = handleDeleteColumn(columnId);
     if (result && typeof result === 'object' && result.success) {
-      const numericColumns = columns.filter(col => 
-        col.id !== columnId && col.type === 'number'
-      );
+      const numericColumns = columns.filter((col) => col.id !== columnId && col.type === 'number');
       updateConfigurationAfterColumnDelete(result.deletedField, numericColumns);
     }
   };
 
-  const numericColumns = columns.filter(col => col.type === 'number');
+  const numericColumns = columns.filter((col) => col.type === 'number');
 
   return (
     <>

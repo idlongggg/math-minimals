@@ -1,6 +1,6 @@
 'use client';
 
-import type { SxProps, Theme } from '@mui/material/styles';
+import type { Theme, SxProps } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -28,7 +28,7 @@ export function DashboardPageHeader({ title, description, sx }: Props) {
       <Typography variant="h4" sx={{ mb: 1 }}>
         {title}
       </Typography>
-      
+
       {description && (
         <Typography variant="body2" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
           {description}

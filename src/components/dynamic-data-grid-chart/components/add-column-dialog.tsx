@@ -1,17 +1,18 @@
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    Stack,
-    TextField
-} from '@mui/material';
 import { useState } from 'react';
+
+import {
+  Stack,
+  Button,
+  Dialog,
+  Select,
+  MenuItem,
+  TextField,
+  InputLabel,
+  DialogTitle,
+  FormControl,
+  DialogActions,
+  DialogContent,
+} from '@mui/material';
 
 interface AddColumnDialogProps {
   open: boolean;
@@ -19,11 +20,7 @@ interface AddColumnDialogProps {
   onAddColumn: (name: string, type: 'number' | 'string' | 'boolean') => boolean;
 }
 
-export function AddColumnDialog({
-  open,
-  onClose,
-  onAddColumn,
-}: AddColumnDialogProps) {
+export function AddColumnDialog({ open, onClose, onAddColumn }: AddColumnDialogProps) {
   const [newColumnName, setNewColumnName] = useState('');
   const [newColumnType, setNewColumnType] = useState<'number' | 'string' | 'boolean'>('number');
 

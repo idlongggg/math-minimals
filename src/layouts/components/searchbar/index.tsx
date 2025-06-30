@@ -6,22 +6,22 @@ import type { NavSectionProps } from 'src/components/nav-section';
 
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import { useBoolean } from 'minimal-shared/hooks';
 import { varAlpha } from 'minimal-shared/utils';
-import { useCallback, useEffect, useState } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
+import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
-import Dialog, { dialogClasses } from '@mui/material/Dialog';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
-import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import InputAdornment from '@mui/material/InputAdornment';
+import Dialog, { dialogClasses } from '@mui/material/Dialog';
+import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
+import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
 
-import { Iconify } from 'src/components/iconify';
 import { Label } from 'src/components/label';
+import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import { SearchNotFound } from 'src/components/search-not-found';
 

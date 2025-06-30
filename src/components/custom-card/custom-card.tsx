@@ -1,8 +1,8 @@
-import type { CardContentProps, CardHeaderProps, CardProps } from '@mui/material';
+import type { CardProps, CardHeaderProps, CardContentProps } from '@mui/material';
 
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
 
 // ----------------------------------------------------------------------
 

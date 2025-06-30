@@ -1,7 +1,7 @@
 'use client';
 
-import type { SxProps, Theme } from '@mui/material/styles';
 import type { ReactNode } from 'react';
+import type { Theme, SxProps } from '@mui/material/styles';
 
 import { usePageInfo } from 'src/hooks/use-page-metadata';
 
@@ -49,11 +49,7 @@ export function DashboardPageWithTabsLayoutAndMetadata({
       sx={sx}
       headerSx={headerSx}
     >
-      <DashboardPageWithTabsContent
-        tabs={tabs}
-        tabsSx={tabsSx}
-        contentSx={contentSx}
-      >
+      <DashboardPageWithTabsContent tabs={tabs} tabsSx={tabsSx} contentSx={contentSx}>
         {children}
       </DashboardPageWithTabsContent>
     </DashboardPageContainer>

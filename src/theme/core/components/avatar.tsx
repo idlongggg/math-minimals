@@ -1,4 +1,4 @@
-import type { Components, ComponentsVariants, Theme } from '@mui/material/styles';
+import type { Theme, Components, ComponentsVariants } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 

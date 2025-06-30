@@ -1,16 +1,16 @@
 import type { CSSObject, MixinsOptions } from '@mui/material/styles';
 
-import { acrylicMaterial, bgBlur, bgGradient, fluentBlur } from './background';
 import { borderGradient } from './border';
-import { menuItemStyles, paperStyles } from './global-styles-components';
 import { maxLine, textGradient } from './text';
+import { paperStyles, menuItemStyles } from './global-styles-components';
+import { bgBlur, bgGradient, fluentBlur, acrylicMaterial } from './background';
 
 // ----------------------------------------------------------------------
 
-export type * from './background';
-export type * from './border';
-export type * from './global-styles-components';
 export type * from './text';
+export type * from './border';
+export type * from './background';
+export type * from './global-styles-components';
 
 export type MixinsExtend = {
   hideScrollX: CSSObject;

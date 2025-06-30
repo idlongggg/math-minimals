@@ -1,23 +1,25 @@
 'use client';
 
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Alert,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Typography,
-} from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import { useState } from 'react';
-import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
-import { DynamicLineChart, type DataSeries } from 'src/components/dynamic-line-chart';
+
+import { useTheme } from '@mui/material/styles';
+import {
+  Box,
+  Card,
+  Alert,
+  Button,
+  Divider,
+  Accordion,
+  CardHeader,
+  Typography,
+  CardContent,
+  AccordionDetails,
+  AccordionSummary,
+} from '@mui/material';
+
 import { Iconify } from 'src/components/iconify';
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
+import { type DataSeries, DynamicLineChart } from 'src/components/dynamic-line-chart';
 
 // Sample data sets
 const sampleDataSets = {
@@ -33,8 +35,8 @@ const sampleDataSets = {
         { x: 3, y: 120 },
         { x: 4, y: 180 },
         { x: 5, y: 200 },
-        { x: 6, y: 250 }
-      ]
+        { x: 6, y: 250 },
+      ],
     },
     {
       id: '2',
@@ -47,9 +49,9 @@ const sampleDataSets = {
         { x: 3, y: 160 },
         { x: 4, y: 140 },
         { x: 5, y: 220 },
-        { x: 6, y: 280 }
-      ]
-    }
+        { x: 6, y: 280 },
+      ],
+    },
   ],
   temperature: [
     {
@@ -69,8 +71,8 @@ const sampleDataSets = {
         { x: 9, y: 30 },
         { x: 10, y: 25 },
         { x: 11, y: 20 },
-        { x: 12, y: 16 }
-      ]
+        { x: 12, y: 16 },
+      ],
     },
     {
       id: '2',
@@ -89,9 +91,9 @@ const sampleDataSets = {
         { x: 9, y: 30 },
         { x: 10, y: 29 },
         { x: 11, y: 28 },
-        { x: 12, y: 27 }
-      ]
-    }
+        { x: 12, y: 27 },
+      ],
+    },
   ],
   math_scores: [
     {
@@ -105,8 +107,8 @@ const sampleDataSets = {
         { x: 3, y: 8.1 },
         { x: 4, y: 8.3 },
         { x: 5, y: 8.7 },
-        { x: 6, y: 8.9 }
-      ]
+        { x: 6, y: 8.9 },
+      ],
     },
     {
       id: '2',
@@ -119,8 +121,8 @@ const sampleDataSets = {
         { x: 3, y: 7.5 },
         { x: 4, y: 7.9 },
         { x: 5, y: 8.2 },
-        { x: 6, y: 8.5 }
-      ]
+        { x: 6, y: 8.5 },
+      ],
     },
     {
       id: '3',
@@ -133,15 +135,17 @@ const sampleDataSets = {
         { x: 3, y: 7.7 },
         { x: 4, y: 8.0 },
         { x: 5, y: 8.4 },
-        { x: 6, y: 8.8 }
-      ]
-    }
-  ]
+        { x: 6, y: 8.8 },
+      ],
+    },
+  ],
 };
 
 export function DynamicLineChartView() {
   const theme = useTheme();
-  const [selectedDataSet, setSelectedDataSet] = useState<keyof typeof sampleDataSets | 'custom'>('custom');
+  const [selectedDataSet, setSelectedDataSet] = useState<keyof typeof sampleDataSets | 'custom'>(
+    'custom'
+  );
   const [currentData, setCurrentData] = useState<DataSeries[]>([]);
 
   const loadSampleData = (dataSetKey: keyof typeof sampleDataSets) => {
@@ -161,14 +165,14 @@ export function DynamicLineChartView() {
     >
       {/* Instructions */}
       <Card sx={{ mb: 3 }}>
-        <CardHeader 
+        <CardHeader
           title="Hướng dẫn sử dụng"
-          action={
-            <Iconify icon="solar:info-circle-bold" width={24} />
-          }
+          action={<Iconify icon="solar:info-circle-bold" width={24} />}
         />
         <CardContent>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' }, gap: 2 }}>
+          <Box
+            sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' }, gap: 2 }}
+          >
             <Box>
               <Typography variant="subtitle2" color="primary" gutterBottom>
                 📊 Quản lý dữ liệu
@@ -177,8 +181,7 @@ export function DynamicLineChartView() {
                 • Tạo nhiều chuỗi dữ liệu
                 <br />
                 • Thêm/xóa điểm dữ liệu
-                <br />
-                • Chỉnh sửa trực tiếp trong bảng
+                <br />• Chỉnh sửa trực tiếp trong bảng
               </Typography>
             </Box>
             <Box>
@@ -189,8 +192,7 @@ export function DynamicLineChartView() {
                 • Đổi tên chuỗi dữ liệu
                 <br />
                 • Ẩn/hiện từng chuỗi
-                <br />
-                • Màu sắc tự động
+                <br />• Màu sắc tự động
               </Typography>
             </Box>
             <Box>
@@ -201,8 +203,7 @@ export function DynamicLineChartView() {
                 • Zoom bằng chuột
                 <br />
                 • Kéo để di chuyển
-                <br />
-                • Điều hướng JSXGraph
+                <br />• Điều hướng JSXGraph
               </Typography>
             </Box>
           </Box>
@@ -248,11 +249,13 @@ export function DynamicLineChartView() {
 
           {selectedDataSet !== 'custom' && (
             <Alert severity="info" sx={{ mb: 2 }}>
-              Bạn đang xem dữ liệu mẫu "{
-                selectedDataSet === 'sales' ? 'Doanh số bán hàng' :
-                selectedDataSet === 'temperature' ? 'Nhiệt độ theo tháng' :
-                'Điểm toán học'
-              }". Có thể chỉnh sửa dữ liệu hoặc tạo mới.
+              Bạn đang xem dữ liệu mẫu "
+              {selectedDataSet === 'sales'
+                ? 'Doanh số bán hàng'
+                : selectedDataSet === 'temperature'
+                  ? 'Nhiệt độ theo tháng'
+                  : 'Điểm toán học'}
+              ". Có thể chỉnh sửa dữ liệu hoặc tạo mới.
             </Alert>
           )}
         </CardContent>
@@ -264,10 +267,13 @@ export function DynamicLineChartView() {
         width={800}
         height={500}
         title={
-          selectedDataSet === 'sales' ? 'Biểu đồ doanh số bán hàng theo tháng' :
-          selectedDataSet === 'temperature' ? 'Biểu đồ nhiệt độ trung bình theo tháng' :
-          selectedDataSet === 'math_scores' ? 'Biểu đồ điểm toán học theo kỳ thi' :
-          'Biểu đồ đường tùy chỉnh'
+          selectedDataSet === 'sales'
+            ? 'Biểu đồ doanh số bán hàng theo tháng'
+            : selectedDataSet === 'temperature'
+              ? 'Biểu đồ nhiệt độ trung bình theo tháng'
+              : selectedDataSet === 'math_scores'
+                ? 'Biểu đồ điểm toán học theo kỳ thi'
+                : 'Biểu đồ đường tùy chỉnh'
         }
         initialSeries={currentData}
       />
@@ -279,7 +285,9 @@ export function DynamicLineChartView() {
             <Typography variant="h6">Thông tin chi tiết về JSXGraph</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
+            <Box
+              sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}
+            >
               <Box>
                 <Typography variant="subtitle2" gutterBottom>
                   Tính năng của JSXGraph:
@@ -292,8 +300,7 @@ export function DynamicLineChartView() {
                   • Hiển thị toán học chính xác
                   <br />
                   • Hỗ trợ nhiều loại đồ thị
-                  <br />
-                  • Responsive trên mọi thiết bị
+                  <br />• Responsive trên mọi thiết bị
                 </Typography>
               </Box>
               <Box>
@@ -308,8 +315,7 @@ export function DynamicLineChartView() {
                   • Ẩn chuỗi không cần thiết để tập trung
                   <br />
                   • Xóa điểm lỗi trước khi phân tích
-                  <br />
-                  • Lưu dữ liệu quan trọng ra file
+                  <br />• Lưu dữ liệu quan trọng ra file
                 </Typography>
               </Box>
             </Box>

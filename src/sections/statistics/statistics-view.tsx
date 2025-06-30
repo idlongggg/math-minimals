@@ -3,13 +3,14 @@
 import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
+import { paths } from 'src/routes/paths';
+
+import { Iconify } from 'src/components/iconify';
 import { CustomCard, CustomCardContent } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
-import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -68,8 +69,8 @@ export function StatisticsView() {
           Thống kê và xác suất
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Thống kê và xác suất là những công cụ quan trọng để phân tích dữ liệu và đưa ra quyết định. 
-          Từ việc tạo biểu đồ đến tính toán xác suất và phân tích xu hướng.
+          Thống kê và xác suất là những công cụ quan trọng để phân tích dữ liệu và đưa ra quyết
+          định. Từ việc tạo biểu đồ đến tính toán xác suất và phân tích xu hướng.
         </Typography>
 
         <Box

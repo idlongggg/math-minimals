@@ -3,8 +3,8 @@
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { DynamicLineChart } from 'src/components/dynamic-line-chart';
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 export function LineChartView() {
   const theme = useTheme();

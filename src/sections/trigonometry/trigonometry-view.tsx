@@ -4,12 +4,13 @@ import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
-import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
 import { paths } from 'src/routes/paths';
+
+import { Iconify } from 'src/components/iconify';
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
@@ -67,7 +68,7 @@ export function TrigonometryView() {
           Lượng giác cơ bản
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Lượng giác là nhánh toán học nghiên cứu về mối quan hệ giữa các góc và cạnh của tam giác. 
+          Lượng giác là nhánh toán học nghiên cứu về mối quan hệ giữa các góc và cạnh của tam giác.
           Đây là nền tảng cho nhiều ứng dụng trong vật lý, kỹ thuật và khoa học.
         </Typography>
 

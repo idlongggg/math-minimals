@@ -1,3 +1,2 @@
 export { PictographChart } from './pictograph-chart';
-export type { PictographChartProps, PictographData } from './pictograph-chart';
-
+export type { PictographData, PictographChartProps } from './pictograph-chart';

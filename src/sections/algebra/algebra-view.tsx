@@ -7,10 +7,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
 
+import { paths } from 'src/routes/paths';
+
+import { Iconify } from 'src/components/iconify';
 import { CustomCard, CustomCardContent } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
-import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -93,8 +94,9 @@ export function AlgebraView() {
           Các chủ đề đại số
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Đại số là một nhánh quan trọng của toán học, nghiên cứu về các cấu trúc toán học trừu tượng 
-          và các quy tắc thao tác với chúng. Từ đại số cơ bản đến đại số tuyến tính và giải tích hàm số.
+          Đại số là một nhánh quan trọng của toán học, nghiên cứu về các cấu trúc toán học trừu
+          tượng và các quy tắc thao tác với chúng. Từ đại số cơ bản đến đại số tuyến tính và giải
+          tích hàm số.
         </Typography>
 
         <Box
@@ -156,10 +158,10 @@ export function AlgebraView() {
             Bắt đầu học đại số
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-            Chọn một chủ đề để bắt đầu hành trình khám phá đại số. Mỗi chủ đề được thiết kế 
-            với các công cụ tương tác và hướng dẫn chi tiết.
+            Chọn một chủ đề để bắt đầu hành trình khám phá đại số. Mỗi chủ đề được thiết kế với các
+            công cụ tương tác và hướng dẫn chi tiết.
           </Typography>
-          
+
           <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
             <Button
               variant="contained"

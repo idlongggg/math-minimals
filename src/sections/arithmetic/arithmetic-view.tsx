@@ -1,19 +1,20 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
+import { paths } from 'src/routes/paths';
+
+import { Iconify } from 'src/components/iconify';
 import { CustomTab, CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
-import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -21,7 +22,8 @@ const ARITHMETIC_TOPICS = [
   {
     id: 'base-conversion',
     title: 'Chuyển đổi cơ số',
-    description: 'Chuyển đổi giữa các hệ cơ số khác nhau (nhị phân, bát phân, thập phân, thập lục phân)',
+    description:
+      'Chuyển đổi giữa các hệ cơ số khác nhau (nhị phân, bát phân, thập phân, thập lục phân)',
     path: paths.dashboard.arithmetic.baseConversion,
     icon: 'solar:refresh-circle-bold',
     color: '#3b82f6',
@@ -93,21 +95,9 @@ export function ArithmeticView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <CustomTab
-        value="overview"
-        label="Tổng quan"
-        icon={<Iconify icon="solar:flag-bold" />}
-      />
-      <CustomTab
-        value="topics"
-        label="Chủ đề"
-        icon={<Iconify icon="solar:list-bold" />}
-      />
-      <CustomTab
-        value="practice"
-        label="Luyện tập"
-        icon={<Iconify icon="solar:pen-bold" />}
-      />
+      <CustomTab value="overview" label="Tổng quan" icon={<Iconify icon="solar:flag-bold" />} />
+      <CustomTab value="topics" label="Chủ đề" icon={<Iconify icon="solar:list-bold" />} />
+      <CustomTab value="practice" label="Luyện tập" icon={<Iconify icon="solar:pen-bold" />} />
       <CustomTab
         value="guide"
         label="Hướng dẫn"
@@ -122,9 +112,9 @@ export function ArithmeticView() {
         Số học cơ bản
       </Typography>
       <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-        Số học cơ bản là nền tảng của toán học, bao gồm các phép toán cơ bản với số tự nhiên, 
-        số nguyên, phân số và số thập phân. Tại đây bạn sẽ học về các khái niệm cơ bản như 
-        chuyển đổi hệ cơ số, số nguyên tố, ước số, bội số và các phép toán với phân số.
+        Số học cơ bản là nền tảng của toán học, bao gồm các phép toán cơ bản với số tự nhiên, số
+        nguyên, phân số và số thập phân. Tại đây bạn sẽ học về các khái niệm cơ bản như chuyển đổi
+        hệ cơ số, số nguyên tố, ước số, bội số và các phép toán với phân số.
       </Typography>
 
       <Box
@@ -194,7 +184,7 @@ export function ArithmeticView() {
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         {ARITHMETIC_TOPICS.map((topic) => (
-          <Card 
+          <Card
             key={topic.id}
             sx={{
               cursor: 'pointer',
@@ -234,12 +224,10 @@ export function ArithmeticView() {
                       {topic.description}
                     </Typography>
                   </Box>
-                </Box>                  <Button
-                    variant="outlined"
-                    onClick={() => handleTopicClick(topic.path)}
-                  >
-                    Học ngay
-                  </Button>
+                </Box>{' '}
+                <Button variant="outlined" onClick={() => handleTopicClick(topic.path)}>
+                  Học ngay
+                </Button>
               </Box>
             </CardContent>
           </Card>
@@ -254,7 +242,8 @@ export function ArithmeticView() {
         Luyện tập
       </Typography>
       <Typography variant="body1" color="text.secondary">
-        Phần luyện tập đang được phát triển. Sẽ có các bài tập thực hành cho từng chủ đề số học cơ bản.
+        Phần luyện tập đang được phát triển. Sẽ có các bài tập thực hành cho từng chủ đề số học cơ
+        bản.
       </Typography>
     </Box>
   );
@@ -272,7 +261,8 @@ export function ArithmeticView() {
           <strong>Chọn chủ đề:</strong> Nhấp vào từng thẻ chủ đề để học về lĩnh vực cụ thể
         </Typography>
         <Typography component="li" sx={{ mb: 1 }}>
-          <strong>Sử dụng công cụ:</strong> Mỗi chủ đề có các tab riêng với công cụ tính toán và hướng dẫn
+          <strong>Sử dụng công cụ:</strong> Mỗi chủ đề có các tab riêng với công cụ tính toán và
+          hướng dẫn
         </Typography>
         <Typography component="li" sx={{ mb: 1 }}>
           <strong>Thực hành:</strong> Sử dụng các ví dụ nhanh để hiểu rõ khái niệm

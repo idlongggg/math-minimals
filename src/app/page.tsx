@@ -9,18 +9,18 @@ import { CONFIG } from 'src/global-config';
 // ----------------------------------------------------------------------
 
 export default function Page() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-    useEffect(() => {
-        // Bảo tồn query parameters khi redirect
-        const queryString = searchParams.toString();
-        const redirectPath = queryString
-            ? `${CONFIG.auth.redirectPath}?${queryString}`
-            : CONFIG.auth.redirectPath;
+  useEffect(() => {
+    // Bảo tồn query parameters khi redirect
+    const queryString = searchParams.toString();
+    const redirectPath = queryString
+      ? `${CONFIG.auth.redirectPath}?${queryString}`
+      : CONFIG.auth.redirectPath;
 
-        router.push(redirectPath);
-    }, [router, searchParams]);
+    router.push(redirectPath);
+  }, [router, searchParams]);
 
-    return null;
+  return null;
 }

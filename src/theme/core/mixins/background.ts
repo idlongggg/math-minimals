@@ -134,7 +134,7 @@ export function acrylicMaterial({
       right: 0,
       bottom: 0,
       backgroundColor: tint,
-      opacity: opacity,
+      opacity,
       pointerEvents: 'none',
     },
   };

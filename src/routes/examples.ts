@@ -216,9 +216,8 @@ export const createBreadcrumb = (currentPath: string) => {
  * @param parentPath - Path cha
  * @returns Boolean
  */
-export const isChildPath = (childPath: string, parentPath: string): boolean => {
-  return childPath.startsWith(parentPath) && childPath !== parentPath;
-};
+export const isChildPath = (childPath: string, parentPath: string): boolean =>
+  childPath.startsWith(parentPath) && childPath !== parentPath;
 
 /**
  * Lấy tất cả các path con của một path

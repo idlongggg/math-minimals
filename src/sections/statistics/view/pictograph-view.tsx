@@ -1,24 +1,26 @@
 'use client';
 
-import { Icon } from '@iconify/react';
-import {
-    Box,
-    Button,
-    Chip,
-    FormControl,
-    IconButton,
-    InputLabel,
-    MenuItem,
-    Select,
-    Slider,
-    TextField,
-    Typography
-} from '@mui/material';
-import { alpha, useTheme } from '@mui/material/styles';
 import { useState } from 'react';
-import { CustomCard, CustomCardContent, CustomCardHeader } from 'src/components/custom-card';
+import { Icon } from '@iconify/react';
+
+import { alpha, useTheme } from '@mui/material/styles';
+import {
+  Box,
+  Chip,
+  Button,
+  Select,
+  Slider,
+  MenuItem,
+  TextField,
+  IconButton,
+  InputLabel,
+  Typography,
+  FormControl,
+} from '@mui/material';
+
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { PictographChart, type PictographData } from 'src/components/pictograph-chart';
+import { CustomCard, CustomCardHeader, CustomCardContent } from 'src/components/custom-card';
 
 // Sample data sets
 const sampleDataSets = {
@@ -49,27 +51,98 @@ const sampleDataSets = {
 };
 
 const availableIcons = [
-  '🍎', '🍌', '🍊', '🍇', '🥝', '🍓', '🥭', '🍑',
-  '🚗', '🏍️', '🚲', '🚌', '✈️', '🚢', '🚁', '🚂',
-  '🐕', '🐱', '🐰', '🐟', '🐦', '🐸', '🐘', '🦁',
-  '⚽', '🏀', '🏐', '🎾', '🏓', '🏸', '🥎', '🏈',
-  '👨', '👩', '👶', '👴', '👵', '👦', '👧', '🧑‍💼',
-  '📚', '✏️', '🖊️', '📝', '💻', '📱', '⌚', '🖥️',
-  '🏠', '🏢', '🏪', '🏫', '🏥', '🏦', '🏨', '⛪',
-  '🌞', '☁️', '🌧️', '❄️', '⚡', '🌈', '🌙', '⭐'
+  '🍎',
+  '🍌',
+  '🍊',
+  '🍇',
+  '🥝',
+  '🍓',
+  '🥭',
+  '🍑',
+  '🚗',
+  '🏍️',
+  '🚲',
+  '🚌',
+  '✈️',
+  '🚢',
+  '🚁',
+  '🚂',
+  '🐕',
+  '🐱',
+  '🐰',
+  '🐟',
+  '🐦',
+  '🐸',
+  '🐘',
+  '🦁',
+  '⚽',
+  '🏀',
+  '🏐',
+  '🎾',
+  '🏓',
+  '🏸',
+  '🥎',
+  '🏈',
+  '👨',
+  '👩',
+  '👶',
+  '👴',
+  '👵',
+  '👦',
+  '👧',
+  '🧑‍💼',
+  '📚',
+  '✏️',
+  '🖊️',
+  '📝',
+  '💻',
+  '📱',
+  '⌚',
+  '🖥️',
+  '🏠',
+  '🏢',
+  '🏪',
+  '🏫',
+  '🏥',
+  '🏦',
+  '🏨',
+  '⛪',
+  '🌞',
+  '☁️',
+  '🌧️',
+  '❄️',
+  '⚡',
+  '🌈',
+  '🌙',
+  '⭐',
 ];
 
 const colors = [
-  '#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16', '#22c55e',
-  '#10b981', '#14b8a6', '#06b6d4', '#0ea5e9', '#3b82f6', '#6366f1',
-  '#8b5cf6', '#a855f7', '#c084fc', '#d946ef', '#ec4899', '#f43f5e'
+  '#ef4444',
+  '#f97316',
+  '#f59e0b',
+  '#eab308',
+  '#84cc16',
+  '#22c55e',
+  '#10b981',
+  '#14b8a6',
+  '#06b6d4',
+  '#0ea5e9',
+  '#3b82f6',
+  '#6366f1',
+  '#8b5cf6',
+  '#a855f7',
+  '#c084fc',
+  '#d946ef',
+  '#ec4899',
+  '#f43f5e',
 ];
 
 export function PictographView() {
   const theme = useTheme();
   const [selectedDataSet, setSelectedDataSet] = useState<keyof typeof sampleDataSets>('fruits');
   const [customData, setCustomData] = useState<PictographData[]>([
-    { category: 'Danh mục A', value: 10, icon: '🔵', color: '#3b82f6' }
+    { category: 'Danh mục A', value: 10, icon: '🔵', color: '#3b82f6' },
   ]);
   const [useCustomData, setUseCustomData] = useState(false);
   const [unitValue, setUnitValue] = useState(5);
@@ -83,7 +156,7 @@ export function PictographView() {
       category: `Danh mục ${String.fromCharCode(65 + customData.length)}`,
       value: 5,
       icon: availableIcons[Math.floor(Math.random() * availableIcons.length)],
-      color: colors[customData.length % colors.length]
+      color: colors[customData.length % colors.length],
     };
     setCustomData([...customData, newCategory]);
   };
@@ -99,13 +172,11 @@ export function PictographView() {
   };
 
   const resetData = () => {
-    setCustomData([
-      { category: 'Danh mục A', value: 10, icon: '🔵', color: '#3b82f6' }
-    ]);
+    setCustomData([{ category: 'Danh mục A', value: 10, icon: '🔵', color: '#3b82f6' }]);
   };
 
   return (
-    <DashboardPageLayout 
+    <DashboardPageLayout
       title="Biểu đồ tranh (Pictograph)"
       description="Biểu đồ tranh sử dụng biểu tượng để hiển thị dữ liệu một cách trực quan và dễ hiểu. Mỗi biểu tượng đại diện cho một giá trị nhất định."
     >
@@ -158,7 +229,9 @@ export function PictographView() {
                   <Select
                     value={selectedDataSet}
                     label="Chọn bộ dữ liệu"
-                    onChange={(e) => setSelectedDataSet(e.target.value as keyof typeof sampleDataSets)}
+                    onChange={(e) =>
+                      setSelectedDataSet(e.target.value as keyof typeof sampleDataSets)
+                    }
                   >
                     <MenuItem value="fruits">🍎 Trái cây</MenuItem>
                     <MenuItem value="vehicles">🚗 Phương tiện</MenuItem>
@@ -170,9 +243,9 @@ export function PictographView() {
                 <Box sx={{ mb: 3 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
                     <Typography variant="subtitle2">Dữ liệu tùy chỉnh</Typography>
-                    <IconButton 
-                      size="small" 
-                      onClick={addCustomCategory} 
+                    <IconButton
+                      size="small"
+                      onClick={addCustomCategory}
                       color="primary"
                       sx={{
                         transition: 'all 0.2s ease',
@@ -184,9 +257,9 @@ export function PictographView() {
                     >
                       <Icon icon="material-symbols:add" />
                     </IconButton>
-                    <IconButton 
-                      size="small" 
-                      onClick={resetData} 
+                    <IconButton
+                      size="small"
+                      onClick={resetData}
                       color="warning"
                       sx={{
                         transition: 'all 0.2s ease',
@@ -199,13 +272,13 @@ export function PictographView() {
                       <Icon icon="material-symbols:refresh" />
                     </IconButton>
                   </Box>
-                  
+
                   {customData.map((item, index) => (
-                    <CustomCard 
-                      key={index} 
-                      variant="outlined" 
-                      sx={{ 
-                        p: 2, 
+                    <CustomCard
+                      key={index}
+                      variant="outlined"
+                      sx={{
+                        p: 2,
                         mb: 2,
                         transition: 'all 0.2s ease',
                         '&:hover': {
@@ -222,8 +295,8 @@ export function PictographView() {
                           onChange={(e) => updateCustomCategory(index, 'category', e.target.value)}
                           sx={{ flex: 1 }}
                         />
-                        <IconButton 
-                          size="small" 
+                        <IconButton
+                          size="small"
                           onClick={() => removeCustomCategory(index)}
                           color="error"
                           disabled={customData.length <= 1}
@@ -238,16 +311,18 @@ export function PictographView() {
                           <Icon icon="material-symbols:delete" />
                         </IconButton>
                       </Box>
-                      
+
                       <TextField
                         size="small"
                         label="Giá trị"
                         type="number"
                         value={item.value}
-                        onChange={(e) => updateCustomCategory(index, 'value', Number(e.target.value))}
+                        onChange={(e) =>
+                          updateCustomCategory(index, 'value', Number(e.target.value))
+                        }
                         sx={{ mb: 1, width: '100%' }}
                       />
-                      
+
                       <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
                         <FormControl size="small" sx={{ flex: 1 }}>
                           <InputLabel>Biểu tượng</InputLabel>
@@ -263,7 +338,7 @@ export function PictographView() {
                             ))}
                           </Select>
                         </FormControl>
-                        
+
                         <FormControl size="small" sx={{ flex: 1 }}>
                           <InputLabel>Màu sắc</InputLabel>
                           <Select
@@ -274,13 +349,13 @@ export function PictographView() {
                             {colors.map((color) => (
                               <MenuItem key={color} value={color}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                  <Box 
-                                    sx={{ 
-                                      width: 16, 
-                                      height: 16, 
-                                      bgcolor: color, 
-                                      borderRadius: '50%' 
-                                    }} 
+                                  <Box
+                                    sx={{
+                                      width: 16,
+                                      height: 16,
+                                      bgcolor: color,
+                                      borderRadius: '50%',
+                                    }}
                                   />
                                   {color}
                                 </Box>
@@ -350,65 +425,77 @@ export function PictographView() {
             }}
           >
             <PictographChart
-            title={useCustomData ? 'Biểu đồ tranh tùy chỉnh' : `Biểu đồ ${
-              selectedDataSet === 'fruits' ? 'trái cây' :
-              selectedDataSet === 'vehicles' ? 'phương tiện' :
-              selectedDataSet === 'animals' ? 'động vật' : 'thể thao'
-            }`}
-            data={currentData}
-            unitValue={unitValue}
-            maxIconsPerRow={maxIconsPerRow}
-            iconSize={iconSize}
-            showLegend={true}
-            showValues={true}
-          />
+              title={
+                useCustomData
+                  ? 'Biểu đồ tranh tùy chỉnh'
+                  : `Biểu đồ ${
+                      selectedDataSet === 'fruits'
+                        ? 'trái cây'
+                        : selectedDataSet === 'vehicles'
+                          ? 'phương tiện'
+                          : selectedDataSet === 'animals'
+                            ? 'động vật'
+                            : 'thể thao'
+                    }`
+              }
+              data={currentData}
+              unitValue={unitValue}
+              maxIconsPerRow={maxIconsPerRow}
+              iconSize={iconSize}
+              showLegend
+              showValues
+            />
           </Box>
         </Box>
-        </Box>
+      </Box>
 
-        {/* Data Summary */}
-        <Box sx={{ mt: 3 }}>
-          <CustomCard
-            sx={{
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
-              },
-            }}
-          >
-            <CustomCardHeader title="Tóm tắt dữ liệu" />
-            <CustomCardContent>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-                {currentData.map((item) => (
-                  <Chip
-                    key={item.category}
-                    label={`${item.category}: ${item.value}`}
-                    sx={{ 
-                      bgcolor: item.color + '20',
-                      color: item.color,
-                      border: `1px solid ${item.color}40`,
-                      transition: 'all 0.2s ease',
-                      '&:hover': {
-                        transform: 'scale(1.05)',
-                        bgcolor: item.color + '30',
-                      },
-                    }}
-                    icon={<span style={{ fontSize: 16 }}>{item.icon}</span>}
-                  />
-                ))}
-              </Box>
-              
-              <Typography variant="body2" color="text.secondary">
-                Tổng cộng: {currentData.reduce((sum, item) => sum + item.value, 0)} đơn vị
-                {' • '}
-                Tổng số biểu tượng: {Math.ceil(currentData.reduce((sum, item) => sum + item.value, 0) / unitValue)}
-                {' • '}
-                Trung bình mỗi danh mục: {Math.round(currentData.reduce((sum, item) => sum + item.value, 0) / currentData.length * 10) / 10}
-              </Typography>
-            </CustomCardContent>
-          </CustomCard>
-        </Box>
+      {/* Data Summary */}
+      <Box sx={{ mt: 3 }}>
+        <CustomCard
+          sx={{
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              transform: 'translateY(-2px)',
+              boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
+            },
+          }}
+        >
+          <CustomCardHeader title="Tóm tắt dữ liệu" />
+          <CustomCardContent>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+              {currentData.map((item) => (
+                <Chip
+                  key={item.category}
+                  label={`${item.category}: ${item.value}`}
+                  sx={{
+                    bgcolor: item.color + '20',
+                    color: item.color,
+                    border: `1px solid ${item.color}40`,
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      transform: 'scale(1.05)',
+                      bgcolor: item.color + '30',
+                    },
+                  }}
+                  icon={<span style={{ fontSize: 16 }}>{item.icon}</span>}
+                />
+              ))}
+            </Box>
+
+            <Typography variant="body2" color="text.secondary">
+              Tổng cộng: {currentData.reduce((sum, item) => sum + item.value, 0)} đơn vị
+              {' • '}
+              Tổng số biểu tượng:{' '}
+              {Math.ceil(currentData.reduce((sum, item) => sum + item.value, 0) / unitValue)}
+              {' • '}
+              Trung bình mỗi danh mục:{' '}
+              {Math.round(
+                (currentData.reduce((sum, item) => sum + item.value, 0) / currentData.length) * 10
+              ) / 10}
+            </Typography>
+          </CustomCardContent>
+        </CustomCard>
+      </Box>
     </DashboardPageLayout>
   );
 }

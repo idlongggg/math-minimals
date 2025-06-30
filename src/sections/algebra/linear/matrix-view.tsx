@@ -9,7 +9,7 @@ import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 export function MatrixCalculatorView({ sx, ...other }: BoxProps) {
   return (
-    <DashboardPageLayout 
+    <DashboardPageLayout
       title="Máy tính ma trận"
       description="Công cụ tính toán ma trận: cộng, trừ, nhân, định thức, ma trận nghịch đảo và các phép biến đổi."
     >

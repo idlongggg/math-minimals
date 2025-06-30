@@ -1,26 +1,26 @@
 'use client';
 
+import type { Theme, SxProps } from '@mui/material/styles';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
-import type { SxProps, Theme } from '@mui/material/styles';
 
-import { usePopover } from 'minimal-shared/hooks';
 import { useCallback } from 'react';
+import { usePopover } from 'minimal-shared/hooks';
 
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Button, { buttonClasses } from '@mui/material/Button';
-import ButtonBase from '@mui/material/ButtonBase';
+import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
+import Button, { buttonClasses } from '@mui/material/Button';
 
 import { useWorkspaceContext } from 'src/contexts/workspace-context';
 
-import { CustomPopover } from 'src/components/custom-popover';
-import { Iconify } from 'src/components/iconify';
 import { Label } from 'src/components/label';
+import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
+import { CustomPopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 

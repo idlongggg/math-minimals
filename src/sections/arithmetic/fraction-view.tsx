@@ -1,28 +1,29 @@
 'use client';
 
 import 'katex/dist/katex.min.css';
-import { useCallback, useState } from 'react';
+
+import { useState, useCallback } from 'react';
 import { BlockMath, InlineMath } from 'react-katex';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
+import InputLabel from '@mui/material/InputLabel';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Tab from '@mui/material/Tab';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 
+import { Iconify } from 'src/components/iconify';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -140,13 +141,12 @@ export function FractionView() {
     return { numerator, denominator };
   };
 
-  const fractionToDecimal = (fraction: Fraction): number => {
-    return fraction.numerator / fraction.denominator;
-  };
+  const fractionToDecimal = (fraction: Fraction): number =>
+    fraction.numerator / fraction.denominator;
 
   const decimalToFraction = (decimal: number): Fraction => {
     // Convert decimal to fraction using continued fractions algorithm
-    let sign = decimal < 0 ? -1 : 1;
+    const sign = decimal < 0 ? -1 : 1;
     decimal = Math.abs(decimal);
 
     // Handle integers
@@ -1140,16 +1140,8 @@ export function FractionView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab
-        value="converter"
-        label="Chuyển đổi"
-        icon={<Iconify icon="solar:restart-bold" />}
-      />
-      <Tab
-        value="calculator"
-        label="Tính toán"
-        icon={<Iconify icon="mingcute:dot-grid-fill" />}
-      />
+      <Tab value="converter" label="Chuyển đổi" icon={<Iconify icon="solar:restart-bold" />} />
+      <Tab value="calculator" label="Tính toán" icon={<Iconify icon="mingcute:dot-grid-fill" />} />
       <Tab
         value="quick-tools"
         label="Công cụ nhanh"
@@ -1160,16 +1152,12 @@ export function FractionView() {
         label={`Lịch sử (${history.length})`}
         icon={<Iconify icon="solar:clock-circle-bold" />}
       />
-      <Tab
-        value="guide"
-        label="Hướng dẫn"
-        icon={<Iconify icon="solar:notebook-bold-duotone" />}
-      />
+      <Tab value="guide" label="Hướng dẫn" icon={<Iconify icon="solar:notebook-bold-duotone" />} />
     </CustomTabs>
   );
 
   return (
-    <DashboardPageWithTabsLayout 
+    <DashboardPageWithTabsLayout
       title="Phân số"
       description="Công cụ chuyển đổi và tính toán với phân số, số thập phân và phần trăm."
       tabs={renderTabs()}
