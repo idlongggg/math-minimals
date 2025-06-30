@@ -161,9 +161,10 @@ export function DataGridSection({
           autoHeight={false}
           hideFooter={false}
           disableColumnFilter
-          disableColumnMenu={false} // Enable column menu for renaming
-          disableColumnSelector={false} // Allow column reordering
+          disableColumnMenu
+          disableColumnSelector
           disableDensitySelector
+          disableColumnSorting
           rowHeight={52}
           pageSizeOptions={[10, 25, 50]}
           initialState={{
