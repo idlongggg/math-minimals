@@ -73,3 +73,8 @@ input[type='number']::-webkit-inner-spin-button {
   margin: 0;
   -webkit-appearance: none;
 }
+
+/* Fix padding right for workspace menu */
+.simplebar-content-wrapper {
+  padding-right: 0 !important;
+}
