@@ -6,8 +6,8 @@ import { DynamicDataGridChart } from 'src/components/dynamic-data-grid-chart';
 export function DynamicDataGridChartView() {
   return (
     <DashboardPageLayout
-      title="Biểu đồ đường với DataGrid động"
-      description="Tạo biểu đồ đường từ bảng dữ liệu có thể tùy chỉnh hoàn toàn. Thêm cột, định nghĩa kiểu dữ liệu, chọn trục X và Y, và xem biểu đồ được vẽ tự động bằng JSXGraph."
+      title="Biểu đồ đường"
+      description="Hiển thị dữ liệu dưới dạng biểu đồ đường với khả năng tùy chỉnh trục X, Y và các thông số hiển thị. Công cụ mạnh mẽ để phân tích xu hướng và so sánh dữ liệu theo thời gian."
       contentSx={{
         display: 'flex',
         flexDirection: 'column',
@@ -18,7 +18,7 @@ export function DynamicDataGridChartView() {
         id="dynamic-data-grid-chart"
         width={800}
         height={500}
-        title="Biểu đồ đường từ DataGrid động"
+        title="Xu hướng bầu cử Đức (1949-2009)"
       />
     </DashboardPageLayout>
   );

@@ -1,7 +1,7 @@
 import type { GridColDef } from '@mui/x-data-grid';
 
+import { Button, Card, CardContent, CardHeader, Stack } from '@mui/material';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import { Card, Stack, Button, CardHeader, CardContent } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -36,6 +36,20 @@ export function DataGridSection({
       width: col.width || 150,
       hideable: false, // Prevent hiding columns
     })),
+    // Spacer column to push actions to the right
+    {
+      field: 'spacer',
+      headerName: '',
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+      resizable: false,
+      flex: 1,
+      minWidth: 50,
+      renderCell: () => null,
+      renderHeader: () => null,
+    },
     {
       field: 'actions',
       type: 'actions',
@@ -44,6 +58,8 @@ export function DataGridSection({
       sortable: false,
       filterable: false,
       hideable: false,
+      headerAlign: 'right',
+      align: 'right',
       getActions: (params: any) => [
         <GridActionsCellItem
           key="delete"
