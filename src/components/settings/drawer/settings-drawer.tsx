@@ -2,34 +2,34 @@
 
 import type { ThemeColorScheme } from 'src/theme/types';
 
-import { useEffect, useCallback } from 'react';
 import { hasKeys, varAlpha } from 'minimal-shared/utils';
+import { useCallback, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
 import SvgIcon from '@mui/material/SvgIcon';
 import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useColorScheme } from '@mui/material/styles';
 
 import { themeConfig } from 'src/theme/theme-config';
 import { primaryColorPresets } from 'src/theme/with-settings';
 
-import { settingIcons } from './icons';
 import { Iconify } from '../../iconify';
-import { BaseOption } from './base-option';
 import { Scrollbar } from '../../scrollbar';
-import { LargeBlock, SmallBlock } from './styles';
-import { PresetsOptions } from './presets-options';
-import { FullScreenButton } from './fullscreen-button';
-import { cleanSettings } from '../utils/clean-settings';
-import { FontSizeOptions, FontFamilyOptions } from './font-options';
 import { useSettingsContext } from '../context/use-settings-context';
+import { cleanSettings } from '../utils/clean-settings';
+import { BaseOption } from './base-option';
+import { FontFamilyOptions, FontSizeOptions } from './font-options';
+import { FullScreenButton } from './fullscreen-button';
+import { settingIcons } from './icons';
 import { NavColorOptions, NavLayoutOptions } from './nav-layout-option';
+import { PresetsOptions } from './presets-options';
+import { LargeBlock, SmallBlock } from './styles';
 
-import type { SettingsState, SettingsDrawerProps } from '../types';
+import type { SettingsDrawerProps, SettingsState } from '../types';
 
 // ----------------------------------------------------------------------
 
@@ -293,7 +293,8 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
           }}
         >
           <Box sx={{ gap: 2, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-            {isColorSchemeVisible && renderMode()}
+            {/* Dark mode button hidden as requested */}
+            {/* {isColorSchemeVisible && renderMode()} */}
             {isContrastVisible && renderContrast()}
             {isDirectionVisible && renderRtl()}
             {isCompactLayoutVisible && renderCompact()}
