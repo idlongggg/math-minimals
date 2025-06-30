@@ -28,6 +28,26 @@ export function DataGridSection({
 }: DataGridSectionProps) {
   // Generate DataGrid columns
   const gridColumns: GridColDef[] = [
+    // STT column
+    {
+      field: 'stt',
+      headerName: 'STT',
+      type: 'number',
+      editable: false,
+      width: 80,
+      hideable: false,
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
+      headerAlign: 'center',
+      align: 'center',
+      renderCell: (params) => (
+        <strong style={{ fontWeight: 'bold' }}>
+          {params.api.getRowIndexRelativeToVisibleRows(params.id) + 1}
+        </strong>
+      ),
+      renderHeader: () => <strong style={{ fontWeight: 'bold' }}>STT</strong>,
+    },
     ...columns.map((col) => ({
       field: col.field,
       headerName: col.headerName,
