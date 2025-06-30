@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import { useTheme } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
@@ -210,6 +210,9 @@ export function ScientificCalculatorView() {
           break;
         case 'M-':
           setMemory(memory - currentValue);
+          break;
+        default:
+          console.warn(`Unknown memory action: ${action}`);
           break;
       }
     },

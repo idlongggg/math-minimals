@@ -55,6 +55,22 @@ To set up your local server:
 
 - **Resource:** [Download](https://www.dropbox.com/sh/6ojn099upi105tf/AACpmlqrNUacwbBfVdtt2t6va?dl=0).
 
+## Project Structure
+
+```
+├── docs/                  # 📚 Documentation files
+├── scripts/              # 🔧 Automation scripts  
+├── tests/                # 🧪 Test files
+├── src/                  # 🎯 Source code
+├── public/               # 📁 Static assets
+└── ...config files
+```
+
+For detailed information about each directory, check the README.md files in:
+- [`docs/README.md`](./docs/README.md) - Documentation guidelines
+- [`scripts/README.md`](./scripts/README.md) - Script usage
+- [`tests/README.md`](./tests/README.md) - Testing guidelines
+
 ## Full version
 
 - Create React App ([migrate to CRA](https://docs.minimals.cc/migrate-to-cra/)).
