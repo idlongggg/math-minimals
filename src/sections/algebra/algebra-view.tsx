@@ -1,16 +1,13 @@
 'use client';
 
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
-import { useRouter } from 'next/navigation';
-import { CustomCard, CustomCardContent } from 'src/components/custom-card';
-import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
 import { paths } from 'src/routes/paths';
 
-const ALGEBRA_TOPICS = [
+import {
+  SubjectTabsView,
+  type TopicItem,
+} from 'src/components/subject-tabs-view';
+
+const ALGEBRA_TOPICS: TopicItem[] = [
   {
     id: 'basic-expressions',
     title: 'Biểu thức đại số',
@@ -71,115 +68,13 @@ const ALGEBRA_TOPICS = [
 ];
 
 export function AlgebraView() {
-  const router = useRouter();
-  const theme = useTheme();
-
-  const handleTopicClick = (path: string) => {
-    router.push(path);
-  };
-
   return (
-    <DashboardPageLayout
+    <SubjectTabsView
       title="Đại số và giải tích"
       description="Khám phá thế giới đại số từ cơ bản đến nâng cao với các công cụ giải phương trình, phân tích đa thức và hàm số."
-    >
-      <Box>
-        <Typography variant="h5" sx={{ mb: 3 }}>
-          Các chủ đề đại số
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Đại số là một nhánh quan trọng của toán học, nghiên cứu về các cấu
-          trúc toán học trừu tượng và các quy tắc thao tác với chúng. Từ đại số
-          cơ bản đến đại số tuyến tính và giải tích hàm số.
-        </Typography>
-
-        <Box
-          sx={{
-            display: 'grid',
-            gap: 3,
-            gridTemplateColumns: {
-              xs: '1fr',
-              md: 'repeat(2, 1fr)',
-              lg: 'repeat(3, 1fr)',
-            },
-          }}
-        >
-          {ALGEBRA_TOPICS.map((topic) => (
-            <CustomCard
-              key={topic.id}
-              sx={{
-                height: '100%',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-              }}
-              onClick={() => handleTopicClick(topic.path)}
-            >
-              <CustomCardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                  <Box
-                    sx={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: 1.5,
-                      bgcolor: topic.color,
-                      color: 'white',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      mr: 2,
-                    }}
-                  >
-                    <Iconify icon={topic.icon as any} width={24} />
-                  </Box>
-                  <Typography variant="h6" component="h3">
-                    {topic.title}
-                  </Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary">
-                  {topic.description}
-                </Typography>
-              </CustomCardContent>
-            </CustomCard>
-          ))}
-        </Box>
-
-        <Box sx={{ mt: 4 }}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            Bắt đầu học đại số
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-            Chọn một chủ đề để bắt đầu hành trình khám phá đại số. Mỗi chủ đề
-            được thiết kế với các công cụ tương tác và hướng dẫn chi tiết.
-          </Typography>
-
-          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-            <Button
-              variant="contained"
-              startIcon={<Iconify icon="solar:pen-bold" />}
-              onClick={() =>
-                handleTopicClick(paths.dashboard.algebra.basic.expressions)
-              }
-              sx={{
-                transition: 'all 0.2s ease',
-              }}
-            >
-              Bắt đầu với biểu thức đại số
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<Iconify icon="solar:chart-square-outline" />}
-              onClick={() =>
-                handleTopicClick(paths.dashboard.algebra.functions.root)
-              }
-              sx={{
-                transition: 'all 0.2s ease',
-              }}
-            >
-              Khám phá hàm số
-            </Button>
-          </Box>
-        </Box>
-      </Box>
-    </DashboardPageLayout>
+      subjectTitle="Đại số và giải tích"
+      subjectDescription="Đại số là một nhánh quan trọng của toán học, nghiên cứu về các cấu trúc toán học trừu tượng và các quy tắc thao tác với chúng. Từ đại số cơ bản đến đại số tuyến tính và giải tích hàm số."
+      topics={ALGEBRA_TOPICS}
+    />
   );
 }

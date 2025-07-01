@@ -10,8 +10,8 @@ import type { ThemeColorScheme } from '../types';
 
 function createShadows(colorChannel: string): Shadows {
   // Material Design shadow system
-  const ambientShadow = varAlpha(colorChannel, 0.06); 
-  const keyShadow = varAlpha(colorChannel, 0.12); 
+  const ambientShadow = varAlpha(colorChannel, 0.06);
+  const keyShadow = varAlpha(colorChannel, 0.12);
   const directionalShadow = varAlpha(colorChannel, 0.08);
 
   return [

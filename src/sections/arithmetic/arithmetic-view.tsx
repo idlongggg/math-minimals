@@ -1,24 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
-import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import CardContent from '@mui/material/CardContent';
-
 import { paths } from 'src/routes/paths';
 
-import { Iconify } from 'src/components/iconify';
-import { CustomTab, CustomTabs } from 'src/components/custom-tabs';
-import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
+import {
+  SubjectTabsView,
+  type TopicItem,
+} from 'src/components/subject-tabs-view';
 
 // ----------------------------------------------------------------------
 
-const ARITHMETIC_TOPICS = [
+const ARITHMETIC_TOPICS: TopicItem[] = [
   {
     id: 'base-conversion',
     title: 'Chuyển đổi cơ số',
@@ -81,233 +72,13 @@ const ARITHMETIC_TOPICS = [
 // ----------------------------------------------------------------------
 
 export function ArithmeticView() {
-  const router = useRouter();
-  const theme = useTheme();
-  const [currentTab, setCurrentTab] = useState('overview');
-
-  const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  };
-
-  const handleTopicClick = (path: string) => {
-    router.push(path);
-  };
-
-  const renderTabs = () => (
-    <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <CustomTab
-        value="overview"
-        label="Tổng quan"
-        icon={<Iconify icon="solar:flag-bold" />}
-      />
-      <CustomTab
-        value="topics"
-        label="Chủ đề"
-        icon={<Iconify icon="solar:list-bold" />}
-      />
-      <CustomTab
-        value="practice"
-        label="Luyện tập"
-        icon={<Iconify icon="solar:pen-bold" />}
-      />
-      <CustomTab
-        value="guide"
-        label="Hướng dẫn"
-        icon={<Iconify icon="solar:notebook-bold-duotone" />}
-      />
-    </CustomTabs>
-  );
-
-  const renderOverview = () => (
-    <Box>
-      <Typography variant="h5" sx={{ mb: 3 }}>
-        Số học cơ bản
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-        Số học cơ bản là nền tảng của toán học, bao gồm các phép toán cơ bản với
-        số tự nhiên, số nguyên, phân số và số thập phân. Tại đây bạn sẽ học về
-        các khái niệm cơ bản như chuyển đổi hệ cơ số, số nguyên tố, ước số, bội
-        số và các phép toán với phân số.
-      </Typography>
-
-      <Box
-        sx={{
-          display: 'grid',
-          gap: 3,
-          gridTemplateColumns: {
-            xs: '1fr',
-            md: 'repeat(2, 1fr)',
-            lg: 'repeat(3, 1fr)',
-          },
-        }}
-      >
-        {ARITHMETIC_TOPICS.map((topic) => (
-          <Card
-            key={topic.id}
-            sx={{
-              height: '100%',
-              cursor: 'pointer',
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              borderRadius: 2,
-              border: '1px solid',
-              borderColor: 'divider',
-              '&:hover': {
-                transform: 'translateY(-4px)',
-                boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
-                borderColor: 'primary.main',
-              },
-            }}
-            onClick={() => handleTopicClick(topic.path)}
-          >
-            <CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Box
-                  sx={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 1.5,
-                    bgcolor: topic.color,
-                    color: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mr: 2,
-                  }}
-                >
-                  <Iconify icon={topic.icon as any} width={24} />
-                </Box>
-                <Typography variant="h6" component="h3">
-                  {topic.title}
-                </Typography>
-              </Box>
-              <Typography variant="body2" color="text.secondary">
-                {topic.description}
-              </Typography>
-            </CardContent>
-          </Card>
-        ))}
-      </Box>
-    </Box>
-  );
-
-  const renderTopics = () => (
-    <Box>
-      <Typography variant="h5" sx={{ mb: 3 }}>
-        Danh sách chủ đề
-      </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {ARITHMETIC_TOPICS.map((topic) => (
-          <Card
-            key={topic.id}
-            sx={{
-              cursor: 'pointer',
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              borderRadius: 2,
-              border: '1px solid',
-              borderColor: 'divider',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
-                borderColor: 'primary.main',
-              },
-            }}
-            onClick={() => handleTopicClick(topic.path)}
-          >
-            <CardContent>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Box
-                    sx={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: 1,
-                      bgcolor: topic.color,
-                      color: 'white',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      mr: 2,
-                    }}
-                  >
-                    <Iconify icon={topic.icon as any} width={20} />
-                  </Box>
-                  <Box>
-                    <Typography variant="subtitle1">{topic.title}</Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {topic.description}
-                    </Typography>
-                  </Box>
-                </Box>{' '}
-                <Button
-                  variant="outlined"
-                  onClick={() => handleTopicClick(topic.path)}
-                >
-                  Học ngay
-                </Button>
-              </Box>
-            </CardContent>
-          </Card>
-        ))}
-      </Box>
-    </Box>
-  );
-
-  const renderPractice = () => (
-    <Box>
-      <Typography variant="h5" sx={{ mb: 3 }}>
-        Luyện tập
-      </Typography>
-      <Typography variant="body1" color="text.secondary">
-        Phần luyện tập đang được phát triển. Sẽ có các bài tập thực hành cho
-        từng chủ đề số học cơ bản.
-      </Typography>
-    </Box>
-  );
-
-  const renderGuide = () => (
-    <Box>
-      <Typography variant="h5" sx={{ mb: 3 }}>
-        Hướng dẫn sử dụng
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 2 }}>
-        Đây là hướng dẫn cách sử dụng các công cụ số học cơ bản:
-      </Typography>
-      <Box component="ol" sx={{ pl: 2 }}>
-        <Typography component="li" sx={{ mb: 1 }}>
-          <strong>Chọn chủ đề:</strong> Nhấp vào từng thẻ chủ đề để học về lĩnh
-          vực cụ thể
-        </Typography>
-        <Typography component="li" sx={{ mb: 1 }}>
-          <strong>Sử dụng công cụ:</strong> Mỗi chủ đề có các tab riêng với công
-          cụ tính toán và hướng dẫn
-        </Typography>
-        <Typography component="li" sx={{ mb: 1 }}>
-          <strong>Thực hành:</strong> Sử dụng các ví dụ nhanh để hiểu rõ khái
-          niệm
-        </Typography>
-        <Typography component="li" sx={{ mb: 1 }}>
-          <strong>Lịch sử:</strong> Xem lại các phép toán đã thực hiện
-        </Typography>
-      </Box>
-    </Box>
-  );
-
   return (
-    <DashboardPageWithTabsLayout
+    <SubjectTabsView
       title="Số học cơ bản"
       description="Học và thực hành các khái niệm số học cơ bản: chuyển đổi cơ số, số nguyên tố, phân số và nhiều hơn nữa."
-      tabs={renderTabs()}
-    >
-      {currentTab === 'overview' && renderOverview()}
-      {currentTab === 'topics' && renderTopics()}
-      {currentTab === 'practice' && renderPractice()}
-      {currentTab === 'guide' && renderGuide()}
-    </DashboardPageWithTabsLayout>
+      subjectTitle="Số học cơ bản"
+      subjectDescription="Số học cơ bản là nền tảng của toán học, bao gồm các phép toán cơ bản với số tự nhiên, số nguyên, phân số và số thập phân. Tại đây bạn sẽ học về các khái niệm cơ bản như chuyển đổi hệ cơ số, số nguyên tố, ước số, bội số và các phép toán với phân số."
+      topics={ARITHMETIC_TOPICS}
+    />
   );
 }

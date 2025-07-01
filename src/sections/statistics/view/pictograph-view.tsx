@@ -4,27 +4,28 @@ import { Icon } from '@iconify/react';
 import { useState } from 'react';
 
 import {
-    Box,
-    Button, FormControl,
-    IconButton,
-    InputLabel,
-    MenuItem,
-    Select,
-    Slider,
-    TextField,
-    Typography
+  Box,
+  Button,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  Slider,
+  TextField,
+  Typography,
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 
 import {
-    CustomCard,
-    CustomCardContent,
-    CustomCardHeader,
+  CustomCard,
+  CustomCardContent,
+  CustomCardHeader,
 } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import {
-    PictographChart,
-    type PictographData,
+  PictographChart,
+  type PictographData,
 } from 'src/components/pictograph-chart';
 
 // Sample data sets

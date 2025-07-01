@@ -1,13 +1,9 @@
 'use client';
 
-import type { ReactNode } from 'react';
-import type { Theme, SxProps } from '@mui/material/styles';
-
 import Box from '@mui/material/Box';
-
+import type { SxProps, Theme } from '@mui/material/styles';
+import type { ReactNode } from 'react';
 import { Scrollbar } from 'src/components/scrollbar';
-
-// ----------------------------------------------------------------------
 
 type Props = {
   tabs: ReactNode;
@@ -31,10 +27,7 @@ export function DashboardPageWithTabsContent({
             flexShrink: 0,
             mb: 2,
             // Override CustomTabs padding to align with content
-            '& .MuiTabs-root': {
-              marginLeft: '-8px',
-              marginRight: '-8px',
-            },
+            // CustomTabs has p: 1 (8px) in its list, so we need to offset it
           },
           ...(Array.isArray(tabsSx) ? tabsSx : [tabsSx]),
         ]}

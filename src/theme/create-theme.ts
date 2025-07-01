@@ -13,8 +13,8 @@ import { shadows } from './core/shadows';
 import { typography } from './core/typography';
 import { themeConfig } from './theme-config';
 import {
-    updateComponentsWithSettings,
-    updateCoreWithSettings,
+  updateComponentsWithSettings,
+  updateCoreWithSettings,
 } from './with-settings';
 
 import type { ThemeOptions } from './types';
