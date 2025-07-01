@@ -121,7 +121,7 @@ export function PictographChart({
         </Box>
 
         {showLegend && (
-          <Card variant="outlined" sx={{ p: 2, bgcolor: 'grey.50' }}>
+          <Card variant="outlined" sx={{ p: 2, bgcolor: 'background.neutral' }}>
             <Typography variant="subtitle2" gutterBottom>
               Chú giải:
             </Typography>

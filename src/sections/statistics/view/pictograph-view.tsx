@@ -5,16 +5,14 @@ import { useState } from 'react';
 
 import {
     Box,
-    Button,
-    Chip,
-    FormControl,
+    Button, FormControl,
     IconButton,
     InputLabel,
     MenuItem,
     Select,
     Slider,
     TextField,
-    Typography,
+    Typography
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 
@@ -205,15 +203,7 @@ export function PictographView() {
       >
         {/* Controls Panel */}
         <Box>
-          <CustomCard
-            sx={{
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
-              },
-            }}
-          >
+          <CustomCard>
             <CustomCardHeader title="Điều khiển biểu đồ" />
             <CustomCardContent>
               <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
@@ -221,12 +211,6 @@ export function PictographView() {
                   variant={!useCustomData ? 'contained' : 'outlined'}
                   onClick={() => setUseCustomData(false)}
                   size="small"
-                  sx={{
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      transform: 'translateY(-1px)',
-                    },
-                  }}
                 >
                   Mẫu có sẵn
                 </Button>
@@ -234,12 +218,6 @@ export function PictographView() {
                   variant={useCustomData ? 'contained' : 'outlined'}
                   onClick={() => setUseCustomData(true)}
                   size="small"
-                  sx={{
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      transform: 'translateY(-1px)',
-                    },
-                  }}
                 >
                   Tự tạo
                 </Button>
@@ -513,60 +491,6 @@ export function PictographView() {
             />
           </Box>
         </Box>
-      </Box>
-
-      {/* Data Summary */}
-      <Box sx={{ mt: 3 }}>
-        <CustomCard
-          sx={{
-            transition: 'all 0.3s ease',
-            '&:hover': {
-              transform: 'translateY(-2px)',
-              boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
-            },
-          }}
-        >
-          <CustomCardHeader title="Tóm tắt dữ liệu" />
-          <CustomCardContent>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-              {currentData.map((item) => (
-                <Chip
-                  key={item.category}
-                  label={`${item.category}: ${item.value}`}
-                  sx={{
-                    bgcolor: item.color + '20',
-                    color: item.color,
-                    border: `1px solid ${item.color}40`,
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      transform: 'scale(1.05)',
-                      bgcolor: item.color + '30',
-                    },
-                  }}
-                  icon={<span style={{ fontSize: 16 }}>{item.icon}</span>}
-                />
-              ))}
-            </Box>
-
-            <Typography variant="body2" color="text.secondary">
-              Tổng cộng:{' '}
-              {currentData.reduce((sum, item) => sum + item.value, 0)} đơn vị
-              {' • '}
-              Tổng số biểu tượng:{' '}
-              {Math.ceil(
-                currentData.reduce((sum, item) => sum + item.value, 0) /
-                  unitValue
-              )}
-              {' • '}
-              Trung bình mỗi danh mục:{' '}
-              {Math.round(
-                (currentData.reduce((sum, item) => sum + item.value, 0) /
-                  currentData.length) *
-                  10
-              ) / 10}
-            </Typography>
-          </CustomCardContent>
-        </CustomCard>
       </Box>
     </DashboardPageLayout>
   );
