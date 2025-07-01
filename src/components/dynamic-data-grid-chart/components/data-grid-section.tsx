@@ -1,7 +1,8 @@
-import type { GridColDef } from '@mui/x-data-grid';
+import type { GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
+import { useState } from 'react';
 
 import { Button, Card, CardContent, CardHeader, Stack } from '@mui/material';
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -26,6 +27,21 @@ export function DataGridSection({
   onOpenControls,
   onOpenChart,
 }: DataGridSectionProps) {
+  const [selectedRowIds, setSelectedRowIds] = useState<GridRowSelectionModel>([]);
+
+  // Handle row selection
+  const handleSelectionChange = (newSelection: GridRowSelectionModel) => {
+    setSelectedRowIds(newSelection);
+  };
+
+  // Handle delete selected rows
+  const handleDeleteSelected = () => {
+    selectedRowIds.forEach((rowId) => {
+      onDeleteRow(String(rowId));
+    });
+    setSelectedRowIds([]);
+  };
+
   // Generate DataGrid columns
   const gridColumns: GridColDef[] = [
     // STT column
@@ -56,40 +72,6 @@ export function DataGridSection({
       width: col.width || 150,
       hideable: false, // Prevent hiding columns
     })),
-    // Spacer column to push actions to the right
-    {
-      field: 'spacer',
-      headerName: '',
-      sortable: false,
-      filterable: false,
-      hideable: false,
-      disableColumnMenu: true,
-      resizable: false,
-      flex: 1,
-      minWidth: 50,
-      renderCell: () => null,
-      renderHeader: () => null,
-    },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Thao tác',
-      width: 100,
-      sortable: false,
-      filterable: false,
-      hideable: false,
-      headerAlign: 'right',
-      align: 'right',
-      getActions: (params: any) => [
-        <GridActionsCellItem
-          key="delete"
-          icon={<Iconify icon="solar:trash-bin-trash-bold" />}
-          label="Xóa"
-          onClick={() => onDeleteRow(params.id)}
-          color="error"
-        />,
-      ],
-    },
   ];
 
   return (
@@ -140,6 +122,17 @@ export function DataGridSection({
             >
               Thêm hàng
             </Button>
+            {selectedRowIds.length > 0 && (
+              <Button
+                variant="outlined"
+                color="error"
+                startIcon={<Iconify icon="solar:trash-bin-trash-bold" />}
+                onClick={handleDeleteSelected}
+                size="small"
+              >
+                Xóa {selectedRowIds.length} hàng
+              </Button>
+            )}
           </Stack>
         }
       />
@@ -165,6 +158,9 @@ export function DataGridSection({
           disableColumnSelector
           disableDensitySelector
           disableColumnSorting
+          checkboxSelection
+          rowSelectionModel={selectedRowIds}
+          onRowSelectionModelChange={handleSelectionChange}
           rowHeight={52}
           pageSizeOptions={[10, 25, 50]}
           initialState={{
@@ -229,24 +225,6 @@ export function DataGridSection({
               borderTop: '1px solid rgba(224, 224, 224, 1)',
               backgroundColor: '#fff',
               flexShrink: 0,
-            },
-            // Style for actions column to keep it on the right
-            '& .MuiDataGrid-columnHeader[data-field="actions"]': {
-              position: 'sticky',
-              right: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.04)',
-              zIndex: 1,
-              borderLeft: '2px solid rgba(224, 224, 224, 1)',
-            },
-            '& .MuiDataGrid-cell[data-field="actions"]': {
-              position: 'sticky',
-              right: 0,
-              backgroundColor: '#fff',
-              zIndex: 1,
-              borderLeft: '2px solid rgba(224, 224, 224, 1)',
-              '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.04)',
-              },
             },
           }}
         />
