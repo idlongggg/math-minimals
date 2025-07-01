@@ -1,5 +1,4 @@
 import { CONFIG } from 'src/global-config';
-
 import type { ExtendFile } from './types';
 
 // ----------------------------------------------------------------------

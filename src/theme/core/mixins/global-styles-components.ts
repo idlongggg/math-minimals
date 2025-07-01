@@ -1,7 +1,5 @@
 import type { CSSObject, Theme } from '@mui/material/styles';
-
 import { varAlpha } from 'minimal-shared/utils';
-
 import { autocompleteClasses } from '@mui/material/Autocomplete';
 import { checkboxClasses } from '@mui/material/Checkbox';
 import { dividerClasses } from '@mui/material/Divider';

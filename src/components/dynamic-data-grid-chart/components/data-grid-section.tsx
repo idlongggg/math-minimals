@@ -1,11 +1,8 @@
 import type { GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import { useState } from 'react';
-
 import { Button, Card, CardContent, CardHeader, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-
 import { Iconify } from 'src/components/iconify';
-
 import type { ChartDataRow, ColumnDefinition } from '../types';
 
 interface DataGridSectionProps {
@@ -40,7 +37,7 @@ export function DataGridSection({
 
   // Handle delete selected rows
   const handleDeleteSelected = () => {
-    const rowIds = selectedRowIds.map(id => String(id));
+    const rowIds = selectedRowIds.map((id) => String(id));
     onDeleteRows(rowIds);
     setSelectedRowIds([]);
   };

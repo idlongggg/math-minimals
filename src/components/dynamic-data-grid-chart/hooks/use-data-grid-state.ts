@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-
 import type { ChartDataRow, ColumnDefinition } from '../types';
 
 export function useDataGridState() {

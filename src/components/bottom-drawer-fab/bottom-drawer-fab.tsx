@@ -1,9 +1,7 @@
 'use client';
 
 import { Fab, Zoom, Tooltip } from '@mui/material';
-
 import { useBottomDrawer } from 'src/contexts/bottom-drawer-context';
-
 import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------

@@ -5,9 +5,7 @@ import Drawer from '@mui/material/Drawer';
 import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
 import { useBottomDrawer } from 'src/contexts/bottom-drawer-context';
-
 import { Iconify } from 'src/components/iconify';
 import { useSettingsContext } from 'src/components/settings';
 

@@ -13,7 +13,6 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 import { CustomPopover } from 'src/components/custom-popover';
-
 import type { ColumnDefinition } from '../types';
 
 interface ControlsPopoverProps {

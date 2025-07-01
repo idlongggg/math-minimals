@@ -11,11 +11,9 @@ import type {
 
 import { useScrollOffsetTop } from 'minimal-shared/hooks';
 import { varAlpha, mergeClasses } from 'minimal-shared/utils';
-
 import AppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-
 import { layoutClasses } from './classes';
 
 // ----------------------------------------------------------------------

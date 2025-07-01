@@ -1,5 +1,4 @@
 import { CONFIG } from 'src/global-config';
-
 import { BasicCalculatorView } from 'src/sections/tools';
 
 // ----------------------------------------------------------------------

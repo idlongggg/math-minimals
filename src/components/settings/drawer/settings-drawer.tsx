@@ -1,10 +1,8 @@
 'use client';
 
 import type { ThemeColorScheme } from 'src/theme/types';
-
 import { hasKeys, varAlpha } from 'minimal-shared/utils';
 import { useCallback, useEffect } from 'react';
-
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -13,9 +11,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useColorScheme } from '@mui/material/styles';
-
 import { primaryColorPresets } from 'src/theme/with-settings';
-
 import { Iconify } from '../../iconify';
 import { Scrollbar } from '../../scrollbar';
 import { useSettingsContext } from '../context/use-settings-context';
@@ -26,7 +22,6 @@ import { settingIcons } from './icons';
 import { NavColorOptions, NavLayoutOptions } from './nav-layout-option';
 import { PresetsOptions } from './presets-options';
 import { LargeBlock, SmallBlock } from './styles';
-
 import type { SettingsDrawerProps, SettingsState } from '../types';
 
 // ----------------------------------------------------------------------

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-
 import { Box, Card, CardContent, CardHeader, Typography } from '@mui/material';
 
 export interface PictographData {

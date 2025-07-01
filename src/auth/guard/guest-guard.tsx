@@ -1,13 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-
 import { useRouter, useSearchParams } from 'src/routes/hooks';
-
 import { CONFIG } from 'src/global-config';
-
 import { SplashScreen } from 'src/components/loading-screen';
-
 import { useAuthContext } from '../hooks';
 
 // ----------------------------------------------------------------------

@@ -2,7 +2,6 @@
 
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
-
 import {
   Box,
   Button,
@@ -16,7 +15,6 @@ import {
   Typography,
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-
 import {
   CustomCard,
   CustomCardContent,

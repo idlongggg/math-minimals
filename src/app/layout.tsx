@@ -4,16 +4,12 @@ import '@fontsource/nunito/500.css';
 import '@fontsource/nunito/600.css';
 import '@fontsource/nunito/700.css';
 import 'src/global.css';
-
 import type { Metadata, Viewport } from 'next';
-
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-
 import { CONFIG } from 'src/global-config';
 import { primary } from 'src/theme/core/palette';
 import { themeConfig, ThemeProvider } from 'src/theme';
-
 import { ProgressBar } from 'src/components/progress-bar';
 import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { detectSettings } from 'src/components/settings/server';

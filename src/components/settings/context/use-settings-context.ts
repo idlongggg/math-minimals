@@ -1,7 +1,6 @@
 'use client';
 
 import { use } from 'react';
-
 import { SettingsContext } from './settings-context';
 
 // ----------------------------------------------------------------------

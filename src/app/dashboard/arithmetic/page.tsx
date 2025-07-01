@@ -1,5 +1,4 @@
 import { CONFIG } from 'src/global-config';
-
 import { ArithmeticView } from 'src/sections/arithmetic/arithmetic-view';
 
 // ----------------------------------------------------------------------

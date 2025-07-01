@@ -1,6 +1,5 @@
 import type { UseInViewOptions } from 'framer-motion';
 import type { TypographyProps } from '@mui/material/Typography';
-
 import { useRef, useEffect } from 'react';
 import {
   m,

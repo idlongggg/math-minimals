@@ -1,10 +1,8 @@
 'use client';
 
 import 'katex/dist/katex.min.css';
-
 import { useState, useCallback } from 'react';
 import { BlockMath, InlineMath } from 'react-katex';
-
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
@@ -20,7 +18,6 @@ import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
-
 import { Iconify } from 'src/components/iconify';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';

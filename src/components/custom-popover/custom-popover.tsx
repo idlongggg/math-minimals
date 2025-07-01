@@ -1,10 +1,8 @@
 import Popover from '@mui/material/Popover';
 import { listClasses } from '@mui/material/List';
 import { menuItemClasses } from '@mui/material/MenuItem';
-
 import { Arrow } from './styles';
 import { calculateAnchorOrigin } from './utils';
-
 import type { CustomPopoverProps } from './types';
 
 // ----------------------------------------------------------------------

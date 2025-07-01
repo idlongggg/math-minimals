@@ -1,7 +1,5 @@
 import { useRef, useEffect } from 'react';
-
 import { chartColors } from '../constants';
-
 import type { ChartDataRow, ColumnDefinition } from '../types';
 
 interface UseJSXGraphProps {

@@ -2,7 +2,6 @@
 
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-
 import { DynamicLineChart } from 'src/components/dynamic-line-chart';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 

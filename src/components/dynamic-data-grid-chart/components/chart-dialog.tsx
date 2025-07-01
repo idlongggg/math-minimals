@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
-
 import type { ColumnDefinition } from '../types';
 
 interface ChartDialogProps {

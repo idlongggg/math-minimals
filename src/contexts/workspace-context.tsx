@@ -1,7 +1,6 @@
 'use client';
 
 import type { WorkspacesPopoverProps } from 'src/layouts/components/workspaces-popover';
-
 import {
   createContext,
   useCallback,

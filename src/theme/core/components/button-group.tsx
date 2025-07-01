@@ -7,7 +7,6 @@ import type {
 } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
-
 import { buttonGroupClasses } from '@mui/material/ButtonGroup';
 
 // ----------------------------------------------------------------------

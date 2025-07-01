@@ -1,5 +1,4 @@
 import { CONFIG } from 'src/global-config';
-
 import { GeometryView } from 'src/sections/geometry/geometry-view';
 
 // ----------------------------------------------------------------------

@@ -1,9 +1,6 @@
 import type { SvgIconProps } from '@mui/material/SvgIcon';
-
 import { memo } from 'react';
-
 import SvgIcon from '@mui/material/SvgIcon';
-
 import { BackgroundShape } from './background-shape';
 
 // ----------------------------------------------------------------------

@@ -1,5 +1,4 @@
 import { CONFIG } from 'src/global-config';
-
 import { ToolsView } from 'src/sections/tools/tools-view';
 
 // ----------------------------------------------------------------------

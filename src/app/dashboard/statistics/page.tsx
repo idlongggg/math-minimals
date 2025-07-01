@@ -1,5 +1,4 @@
 import { CONFIG } from 'src/global-config';
-
 import { StatisticsView } from 'src/sections/statistics/statistics-view';
 
 // ----------------------------------------------------------------------

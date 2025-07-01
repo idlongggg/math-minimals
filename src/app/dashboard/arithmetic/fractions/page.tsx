@@ -1,5 +1,4 @@
 import { CONFIG } from 'src/global-config';
-
 import { FractionView } from 'src/sections/arithmetic/fraction-view';
 
 // ----------------------------------------------------------------------

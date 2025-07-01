@@ -1,12 +1,8 @@
 import type { Theme, SxProps } from '@mui/material/styles';
-
 import { m } from 'framer-motion';
 import { varAlpha } from 'minimal-shared/utils';
-
 import { styled } from '@mui/material/styles';
-
 import { Logo } from '../logo';
-
 import type { LogoProps } from '../logo';
 
 // ----------------------------------------------------------------------

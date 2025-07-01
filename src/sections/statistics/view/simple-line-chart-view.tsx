@@ -2,7 +2,6 @@
 
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { SimpleLineChart } from 'src/components/simple-line-chart';
 

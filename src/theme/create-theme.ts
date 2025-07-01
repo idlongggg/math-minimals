@@ -2,9 +2,7 @@
 
 import type { Components, Theme } from '@mui/material/styles';
 import type { SettingsState } from 'src/components/settings';
-
 import { createTheme as createMuiTheme } from '@mui/material/styles';
-
 import { components } from './core/components';
 import { customShadows } from './core/custom-shadows';
 import { mixins } from './core/mixins';

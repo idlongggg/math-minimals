@@ -1,5 +1,4 @@
 import { CONFIG } from 'src/global-config';
-
 import { CommonDenominatorView } from 'src/sections/arithmetic/common-denominator-view';
 
 // ----------------------------------------------------------------------

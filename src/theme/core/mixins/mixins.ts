@@ -1,5 +1,4 @@
 import type { CSSObject, MixinsOptions } from '@mui/material/styles';
-
 import { bgBlur, bgGradient } from './background';
 import { borderGradient } from './border';
 import { menuItemStyles, paperStyles } from './global-styles-components';

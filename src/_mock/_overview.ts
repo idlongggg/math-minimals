@@ -1,7 +1,5 @@
 import { today } from 'src/utils/format-time';
-
 import { CONFIG } from 'src/global-config';
-
 import { _mock } from './_mock';
 
 // APP

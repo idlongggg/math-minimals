@@ -2,7 +2,6 @@
 
 import type { ReactNode } from 'react';
 import type { Theme, SxProps } from '@mui/material/styles';
-
 import { Scrollbar } from 'src/components/scrollbar';
 
 // ----------------------------------------------------------------------

@@ -2,9 +2,7 @@
 
 import type { ReactNode } from 'react';
 import type { Theme, SxProps } from '@mui/material/styles';
-
 import { DashboardContent } from 'src/layouts/dashboard';
-
 import { DashboardPageHeader } from './dashboard-page-header';
 
 // ----------------------------------------------------------------------

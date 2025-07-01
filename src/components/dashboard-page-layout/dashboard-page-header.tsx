@@ -1,7 +1,6 @@
 'use client';
 
 import type { Theme, SxProps } from '@mui/material/styles';
-
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 

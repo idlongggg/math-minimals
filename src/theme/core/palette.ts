@@ -5,9 +5,7 @@ import type {
 } from '@mui/material/styles';
 
 import { varAlpha, createPaletteChannel } from 'minimal-shared/utils';
-
 import { themeConfig } from '../theme-config';
-
 import type { ThemeColorScheme } from '../types';
 
 // ----------------------------------------------------------------------

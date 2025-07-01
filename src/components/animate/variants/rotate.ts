@@ -1,5 +1,4 @@
 import type { Variants, Transition } from 'framer-motion';
-
 import { transitionExit, transitionEnter } from './transition';
 
 // ----------------------------------------------------------------------

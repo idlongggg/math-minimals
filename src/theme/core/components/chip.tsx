@@ -8,7 +8,6 @@ import type {
 } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
-
 import SvgIcon from '@mui/material/SvgIcon';
 import { chipClasses } from '@mui/material/Chip';
 

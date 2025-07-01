@@ -1,5 +1,4 @@
 import { CONFIG } from 'src/global-config';
-
 import { GraphingCalculatorView } from 'src/sections/tools';
 
 // ----------------------------------------------------------------------

@@ -1,8 +1,6 @@
 import type { SvgIconProps } from '@mui/material/SvgIcon';
 import type { Theme, Components } from '@mui/material/styles';
-
 import { varAlpha } from 'minimal-shared/utils';
-
 import { listClasses } from '@mui/material/List';
 import { paperClasses } from '@mui/material/Paper';
 import { textFieldClasses } from '@mui/material/TextField';

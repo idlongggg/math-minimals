@@ -2,21 +2,16 @@
 
 import type { Breakpoint } from '@mui/material/styles';
 import type { NavItemProps, NavSectionProps } from 'src/components/nav-section';
-
 import { merge } from 'es-toolkit';
 import { useBoolean } from 'minimal-shared/hooks';
-
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 import { iconButtonClasses } from '@mui/material/IconButton';
-
 import { useUrlParams } from 'src/hooks/use-url-params';
 import { useNavigationData } from 'src/hooks/use-navigation-data';
-
 import { _contacts, _notifications } from 'src/_mock';
 import { BottomDrawerProvider } from 'src/contexts/bottom-drawer-context';
-
 import { Logo } from 'src/components/logo';
 import { useSettingsContext } from 'src/components/settings';
 import {
@@ -25,7 +20,6 @@ import {
 } from 'src/components/bottom-drawer-fab';
 
 import { useMockedUser } from 'src/auth/hooks';
-
 import { NavMobile } from './nav-mobile';
 import { VerticalDivider } from './content';
 import { NavVertical } from './nav-vertical';
@@ -46,7 +40,6 @@ import { WorkspacesPopover } from '../components/workspaces-popover';
 import { navData as dashboardNavData } from '../nav-config-dashboard';
 import { dashboardLayoutVars, dashboardNavColorVars } from './css-vars';
 import { NotificationsDrawer } from '../components/notifications-drawer';
-
 import type { MainSectionProps } from '../core/main-section';
 import type { HeaderSectionProps } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';

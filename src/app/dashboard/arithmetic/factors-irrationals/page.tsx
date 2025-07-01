@@ -1,5 +1,4 @@
 import { CONFIG } from 'src/global-config';
-
 import { FactorsIrrationalsView } from 'src/sections/arithmetic/factors-irrationals-view';
 
 // ----------------------------------------------------------------------

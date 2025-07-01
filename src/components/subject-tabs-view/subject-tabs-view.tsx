@@ -2,14 +2,12 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-
 import { CustomTab, CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
@@ -101,38 +99,38 @@ export function SubjectTabsView({
   };
 
   const renderTabs = () => {
-    const activeTab = tabs.find(tab => tab.value === currentTab);
+    const activeTab = tabs.find((tab) => tab.value === currentTab);
     const activeTabColor = activeTab?.color || theme.palette.primary.main;
-    
+
     return (
-      <CustomTabs 
-        value={currentTab} 
+      <CustomTabs
+        value={currentTab}
         onChange={handleTabChange}
         slotProps={{
           indicatorContent: {
             sx: {
               backgroundColor: activeTabColor,
               opacity: 0.1,
-            }
-          }
+            },
+          },
         }}
       >
         {tabs.map((tab) => {
           const isActive = currentTab === tab.value;
           const tabColor = tab.color || theme.palette.primary.main;
-          
+
           return (
             <CustomTab
               key={tab.value}
               value={tab.value}
               label={tab.label}
               icon={
-                <Iconify 
-                  icon={tab.icon as any} 
-                  sx={{ 
+                <Iconify
+                  icon={tab.icon as any}
+                  sx={{
                     color: isActive ? tabColor : 'text.secondary',
                     transition: 'color 0.3s ease',
-                  }} 
+                  }}
                 />
               }
               sx={{

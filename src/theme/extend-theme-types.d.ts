@@ -3,7 +3,6 @@ import type {} from '@mui/x-tree-view/themeAugmentation';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import type {} from '@mui/x-date-pickers/themeAugmentation';
 import type {} from '@mui/material/themeCssVarsAugmentation';
-
 import type { MixinsExtend } from './core/mixins';
 import type { FontStyleExtend } from './core/typography';
 import type { CustomShadows } from './core/custom-shadows';

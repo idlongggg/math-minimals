@@ -5,7 +5,6 @@ import type {
 } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
-
 import { avatarGroupClasses } from '@mui/material/AvatarGroup';
 
 // ----------------------------------------------------------------------

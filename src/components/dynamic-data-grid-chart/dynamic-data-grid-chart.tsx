@@ -1,11 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-
 import { AddColumnDialog, ChartDialog, DataGridSection } from './components';
 import { jsxGraphStyles } from './constants';
 import { useChartConfiguration, useDataGridState, useJSXGraph } from './hooks';
-
 import type { DynamicDataGridChartProps } from './types';
 
 export function DynamicDataGridChart({
