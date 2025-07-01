@@ -34,7 +34,11 @@ export function BlankView({ title = 'Blank', description, sx }: Props) {
   );
 
   return (
-    <DashboardPageLayoutWithMetadata pageKey="default" title={title} description={description}>
+    <DashboardPageLayoutWithMetadata
+      pageKey="default"
+      title={title}
+      description={description}
+    >
       {renderContent()}
     </DashboardPageLayoutWithMetadata>
   );

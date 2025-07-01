@@ -12,20 +12,24 @@ import { Iconify, iconifyClasses } from '../../iconify';
 
 export type NavSubheaderProps = ListSubheaderProps & { open?: boolean };
 
-export const NavSubheader = styled(({ open, children, className, ...other }: NavSubheaderProps) => (
-  <ListSubheader
-    disableSticky
-    component="div"
-    {...other}
-    className={mergeClasses([navSectionClasses.subheader, className])}
-  >
-    <Iconify
-      width={16}
-      icon={open ? 'eva:arrow-ios-downward-fill' : 'eva:arrow-ios-forward-fill'}
-    />
-    {children}
-  </ListSubheader>
-))(({ theme }) => ({
+export const NavSubheader = styled(
+  ({ open, children, className, ...other }: NavSubheaderProps) => (
+    <ListSubheader
+      disableSticky
+      component="div"
+      {...other}
+      className={mergeClasses([navSectionClasses.subheader, className])}
+    >
+      <Iconify
+        width={16}
+        icon={
+          open ? 'eva:arrow-ios-downward-fill' : 'eva:arrow-ios-forward-fill'
+        }
+      />
+      {children}
+    </ListSubheader>
+  )
+)(({ theme }) => ({
   ...theme.typography.overline,
   cursor: 'pointer',
   alignItems: 'center',

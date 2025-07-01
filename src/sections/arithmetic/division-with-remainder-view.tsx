@@ -61,48 +61,54 @@ export function DivisionWithRemainderView() {
     }>
   >([]);
 
-  const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleTabChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setCurrentTab(newValue);
+    },
+    []
+  );
 
-  const calculateDivision = useCallback((a: number, b: number): DivisionResult => {
-    if (b === 0) {
-      throw new Error('Không thể chia cho 0');
-    }
+  const calculateDivision = useCallback(
+    (a: number, b: number): DivisionResult => {
+      if (b === 0) {
+        throw new Error('Không thể chia cho 0');
+      }
 
-    const quotient = Math.floor(a / b);
-    const remainder = a % b;
+      const quotient = Math.floor(a / b);
+      const remainder = a % b;
 
-    // Tạo các bước tính toán chi tiết
-    const steps: DivisionResult['steps'] = [
-      {
-        step: 1,
-        description: 'Thiết lập phép chia',
-        calculation: `${a} \\div ${b}`,
-        result: 'Tìm thương và số dư',
-      },
-      {
-        step: 2,
-        description: 'Tính thương (làm tròn xuống)',
-        calculation: `\\lfloor \\frac{${a}}{${b}} \\rfloor = \\lfloor ${(a / b).toFixed(2)} \\rfloor`,
-        result: `${quotient}`,
-      },
-      {
-        step: 3,
-        description: 'Tính số dư',
-        calculation: `${a} - (${quotient} \\times ${b}) = ${a} - ${quotient * b}`,
-        result: `${remainder}`,
-      },
-      {
-        step: 4,
-        description: 'Kiểm tra kết quả',
-        calculation: `${quotient} \\times ${b} + ${remainder} = ${quotient * b} + ${remainder} = ${a} \\checkmark`,
-        result: `Kết quả chính xác`,
-      },
-    ];
+      // Tạo các bước tính toán chi tiết
+      const steps: DivisionResult['steps'] = [
+        {
+          step: 1,
+          description: 'Thiết lập phép chia',
+          calculation: `${a} \\div ${b}`,
+          result: 'Tìm thương và số dư',
+        },
+        {
+          step: 2,
+          description: 'Tính thương (làm tròn xuống)',
+          calculation: `\\lfloor \\frac{${a}}{${b}} \\rfloor = \\lfloor ${(a / b).toFixed(2)} \\rfloor`,
+          result: `${quotient}`,
+        },
+        {
+          step: 3,
+          description: 'Tính số dư',
+          calculation: `${a} - (${quotient} \\times ${b}) = ${a} - ${quotient * b}`,
+          result: `${remainder}`,
+        },
+        {
+          step: 4,
+          description: 'Kiểm tra kết quả',
+          calculation: `${quotient} \\times ${b} + ${remainder} = ${quotient * b} + ${remainder} = ${a} \\checkmark`,
+          result: `Kết quả chính xác`,
+        },
+      ];
 
-    return { quotient, remainder, steps };
-  }, []);
+      return { quotient, remainder, steps };
+    },
+    []
+  );
 
   const handleCalculate = useCallback(() => {
     setError('');
@@ -142,7 +148,9 @@ export function DivisionWithRemainderView() {
       };
       setHistory((prev) => [historyItem, ...prev.slice(0, 49)]); // Keep max 50 items
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Có lỗi xảy ra khi tính toán');
+      setError(
+        err instanceof Error ? err.message : 'Có lỗi xảy ra khi tính toán'
+      );
       setResult(null);
     }
   }, [dividend, divisor, calculateDivision]);
@@ -174,7 +182,10 @@ export function DivisionWithRemainderView() {
 
       setTimeout(() => {
         try {
-          const divisionResult = calculateDivision(example.dividend, example.divisor);
+          const divisionResult = calculateDivision(
+            example.dividend,
+            example.divisor
+          );
           setResult(divisionResult);
           setError('');
 
@@ -198,7 +209,13 @@ export function DivisionWithRemainderView() {
 
   const renderCalculator = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
-      <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 3,
+          flexDirection: { xs: 'column', md: 'row' },
+        }}
+      >
         <Box sx={{ flex: 1 }}>
           <Card>
             <CardHeader title="Nhập dữ liệu" />
@@ -247,7 +264,11 @@ export function DivisionWithRemainderView() {
                       textAlign: 'center',
                     }}
                   >
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      gutterBottom
+                    >
                       Phép chia:
                     </Typography>
                     <Box component="div" sx={{ fontSize: '1.2rem' }}>
@@ -276,7 +297,11 @@ export function DivisionWithRemainderView() {
                       textAlign: 'center',
                     }}
                   >
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      gutterBottom
+                    >
                       Kết quả phép chia:
                     </Typography>
                     <Box component="div" sx={{ fontSize: '1.5rem', mb: 2 }}>
@@ -321,7 +346,11 @@ export function DivisionWithRemainderView() {
                       textAlign: 'center',
                     }}
                   >
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      gutterBottom
+                    >
                       Công thức tổng quát:
                     </Typography>
                     <Box component="div" sx={{ fontSize: '1.1rem' }}>
@@ -332,7 +361,8 @@ export function DivisionWithRemainderView() {
                       color="text.secondary"
                       sx={{ mt: 1, display: 'block' }}
                     >
-                      Trong đó: a = số bị chia, b = số chia, q = thương, r = số dư
+                      Trong đó: a = số bị chia, b = số chia, q = thương, r = số
+                      dư
                     </Typography>
                   </Box>
                 </Box>
@@ -340,7 +370,12 @@ export function DivisionWithRemainderView() {
                 <Box sx={{ textAlign: 'center', py: 4 }}>
                   <Iconify
                     icon="solar:restart-bold"
-                    sx={{ width: 64, height: 64, color: 'text.disabled', mb: 2 }}
+                    sx={{
+                      width: 64,
+                      height: 64,
+                      color: 'text.disabled',
+                      mb: 2,
+                    }}
                   />
                   <Typography variant="h6" color="text.secondary">
                     Nhập số để tính toán
@@ -395,14 +430,23 @@ export function DivisionWithRemainderView() {
                     bgcolor: step.step % 2 === 0 ? 'grey.50' : 'white',
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2,
+                      mb: 1,
+                    }}
+                  >
                     <Chip
                       label={`Bước ${step.step}`}
                       size="small"
                       color="primary"
                       variant="outlined"
                     />
-                    <Typography variant="subtitle2">{step.description}</Typography>
+                    <Typography variant="subtitle2">
+                      {step.description}
+                    </Typography>
                   </Box>
                   <Box sx={{ ml: 1 }}>
                     <Box component="div" sx={{ mb: 1 }}>
@@ -428,7 +472,11 @@ export function DivisionWithRemainderView() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: {
+            xs: '1fr',
+            sm: 'repeat(2, 1fr)',
+            md: 'repeat(3, 1fr)',
+          },
           gap: 2,
         }}
       >
@@ -446,15 +494,27 @@ export function DivisionWithRemainderView() {
             onClick={() => handleQuickExample(example)}
           >
             <CardContent>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1,
+                  textAlign: 'center',
+                }}
+              >
                 <Typography variant="subtitle1" fontWeight="bold">
                   {example.description}
                 </Typography>
                 <Box component="div" sx={{ fontSize: '1.1rem', my: 1 }}>
-                  <InlineMath math={`${example.dividend} \\div ${example.divisor} = ?`} />
+                  <InlineMath
+                    math={`${example.dividend} \\div ${example.divisor} = ?`}
+                  />
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                  <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                  <Iconify
+                    icon="eva:arrowhead-right-fill"
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Box>
               </Box>
             </CardContent>
@@ -469,23 +529,52 @@ export function DivisionWithRemainderView() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr>
-                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                  <th
+                    style={{
+                      padding: 12,
+                      borderBottom: '2px solid #ddd',
+                      textAlign: 'center',
+                    }}
+                  >
                     Số bị chia
                   </th>
-                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                  <th
+                    style={{
+                      padding: 12,
+                      borderBottom: '2px solid #ddd',
+                      textAlign: 'center',
+                    }}
+                  >
                     ÷ 3
                   </th>
-                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                  <th
+                    style={{
+                      padding: 12,
+                      borderBottom: '2px solid #ddd',
+                      textAlign: 'center',
+                    }}
+                  >
                     ÷ 4
                   </th>
-                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                  <th
+                    style={{
+                      padding: 12,
+                      borderBottom: '2px solid #ddd',
+                      textAlign: 'center',
+                    }}
+                  >
                     ÷ 5
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {Array.from({ length: 15 }, (_, i) => i + 10).map((num) => (
-                  <tr key={num} style={{ backgroundColor: num % 2 === 0 ? '#f9f9f9' : 'white' }}>
+                  <tr
+                    key={num}
+                    style={{
+                      backgroundColor: num % 2 === 0 ? '#f9f9f9' : 'white',
+                    }}
+                  >
                     <td
                       style={{
                         padding: 8,
@@ -539,7 +628,13 @@ export function DivisionWithRemainderView() {
 
   const renderHistory = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography variant="h6">Lịch sử tính toán</Typography>
         {history.length > 0 && (
           <Button
@@ -586,7 +681,11 @@ export function DivisionWithRemainderView() {
             >
               <CardContent sx={{ py: 2 }}>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Box
@@ -599,10 +698,18 @@ export function DivisionWithRemainderView() {
                       }}
                     >
                       <Box component="span" sx={{ fontWeight: 'bold' }}>
-                        <InlineMath math={`${item.dividend} \\div ${item.divisor}`} />
+                        <InlineMath
+                          math={`${item.dividend} \\div ${item.divisor}`}
+                        />
                       </Box>
-                      <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.secondary' }} />
-                      <Box component="span" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                      <Iconify
+                        icon="eva:arrow-forward-fill"
+                        sx={{ color: 'text.secondary' }}
+                      />
+                      <Box
+                        component="span"
+                        sx={{ fontWeight: 'bold', color: 'primary.main' }}
+                      >
                         <InlineMath
                           math={`${item.result.quotient} \\text{ dư } ${item.result.remainder}`}
                         />
@@ -613,7 +720,10 @@ export function DivisionWithRemainderView() {
                     <Typography variant="caption" color="text.secondary">
                       {item.timestamp.toLocaleTimeString('vi-VN')}
                     </Typography>
-                    <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.disabled' }} />
+                    <Iconify
+                      icon="eva:arrow-forward-fill"
+                      sx={{ color: 'text.disabled' }}
+                    />
                   </Box>
                 </Box>
               </CardContent>
@@ -632,11 +742,13 @@ export function DivisionWithRemainderView() {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             <Typography variant="h6">Khái niệm cơ bản:</Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}
+            >
               <Box>
                 <Typography variant="body1" component="div">
-                  • <strong>Phép chia có dư</strong> là phép chia mà kết quả bao gồm{' '}
-                  <strong>thương</strong> và <strong>số dư</strong>
+                  • <strong>Phép chia có dư</strong> là phép chia mà kết quả bao
+                  gồm <strong>thương</strong> và <strong>số dư</strong>
                 </Typography>
               </Box>
 
@@ -646,22 +758,35 @@ export function DivisionWithRemainderView() {
                 </Typography>
                 <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
                   <BlockMath math="a = b \times q + r" />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1 }}
+                  >
                     Trong đó:
                   </Typography>
                   <Box sx={{ ml: 2 }}>
-                    <Typography variant="body2">• a: số bị chia (dividend)</Typography>
-                    <Typography variant="body2">• b: số chia (divisor)</Typography>
-                    <Typography variant="body2">• q: thương (quotient)</Typography>
-                    <Typography variant="body2">• r: số dư (remainder)</Typography>
+                    <Typography variant="body2">
+                      • a: số bị chia (dividend)
+                    </Typography>
+                    <Typography variant="body2">
+                      • b: số chia (divisor)
+                    </Typography>
+                    <Typography variant="body2">
+                      • q: thương (quotient)
+                    </Typography>
+                    <Typography variant="body2">
+                      • r: số dư (remainder)
+                    </Typography>
                   </Box>
                 </Box>
               </Box>
 
               <Box>
                 <Typography variant="body1" component="div">
-                  • <strong>Điều kiện:</strong> <InlineMath math="0 \leq r < b" /> (số dư phải không
-                  âm và nhỏ hơn số chia)
+                  • <strong>Điều kiện:</strong>{' '}
+                  <InlineMath math="0 \leq r < b" /> (số dư phải không âm và nhỏ
+                  hơn số chia)
                 </Typography>
               </Box>
             </Box>
@@ -670,10 +795,13 @@ export function DivisionWithRemainderView() {
               Cách thực hiện phép chia có dư:
             </Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}
+            >
               <Box>
                 <Typography variant="body1" gutterBottom>
-                  <strong>Bước 1:</strong> Xác định số bị chia (a) và số chia (b)
+                  <strong>Bước 1:</strong> Xác định số bị chia (a) và số chia
+                  (b)
                 </Typography>
               </Box>
 
@@ -683,7 +811,11 @@ export function DivisionWithRemainderView() {
                 </Typography>
                 <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
                   <BlockMath math="q = \lfloor \frac{a}{b} \rfloor" />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1 }}
+                  >
                     (Lấy phần nguyên của phép chia)
                   </Typography>
                 </Box>
@@ -695,8 +827,13 @@ export function DivisionWithRemainderView() {
                 </Typography>
                 <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
                   <BlockMath math="r = a - (q \times b)" />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                    hoặc sử dụng phép toán modulo: <InlineMath math="r = a \bmod b" />
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1 }}
+                  >
+                    hoặc sử dụng phép toán modulo:{' '}
+                    <InlineMath math="r = a \bmod b" />
                   </Typography>
                 </Box>
               </Box>
@@ -707,7 +844,11 @@ export function DivisionWithRemainderView() {
                 </Typography>
                 <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
                   <BlockMath math="q \times b + r = a" />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1 }}
+                  >
                     Nếu đẳng thức đúng thì kết quả chính xác
                   </Typography>
                 </Box>
@@ -746,7 +887,11 @@ export function DivisionWithRemainderView() {
                   <strong>Bước 4:</strong> Kiểm tra
                 </Typography>
                 <BlockMath math="3 \times 5 + 2 = 15 + 2 = 17 \checkmark" />
-                <Typography variant="body2" color="primary.main" sx={{ mt: 2, fontWeight: 'bold' }}>
+                <Typography
+                  variant="body2"
+                  color="primary.main"
+                  sx={{ mt: 2, fontWeight: 'bold' }}
+                >
                   Kết quả: <InlineMath math="17 \div 5 = 3 \text{ dư } 2" />
                 </Typography>
               </Box>
@@ -756,18 +901,20 @@ export function DivisionWithRemainderView() {
               Ứng dụng thực tế:
             </Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, ml: 2 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 2, ml: 2 }}
+            >
               <Typography variant="body2">
-                • <strong>Chia kẹo:</strong> 23 cái kẹo chia cho 7 bạn, mỗi bạn được bao nhiêu cái,
-                thừa bao nhiêu cái?
+                • <strong>Chia kẹo:</strong> 23 cái kẹo chia cho 7 bạn, mỗi bạn
+                được bao nhiêu cái, thừa bao nhiêu cái?
               </Typography>
               <Typography variant="body2">
-                • <strong>Xếp hàng:</strong> 50 học sinh xếp thành các hàng 8 người, có bao nhiêu
-                hàng đầy và thừa bao nhiêu người?
+                • <strong>Xếp hàng:</strong> 50 học sinh xếp thành các hàng 8
+                người, có bao nhiêu hàng đầy và thừa bao nhiêu người?
               </Typography>
               <Typography variant="body2">
-                • <strong>Đóng gói:</strong> 156 sản phẩm đóng vào các hộp 12 cái/hộp, cần bao nhiêu
-                hộp và thừa bao nhiêu sản phẩm?
+                • <strong>Đóng gói:</strong> 156 sản phẩm đóng vào các hộp 12
+                cái/hộp, cần bao nhiêu hộp và thừa bao nhiêu sản phẩm?
               </Typography>
             </Box>
           </Box>
@@ -778,14 +925,26 @@ export function DivisionWithRemainderView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="calculator" label="Máy tính" icon={<Iconify icon="solar:restart-bold" />} />
-      <Tab value="quick-tools" label="Ví dụ nhanh" icon={<Iconify icon="custom:flash-outline" />} />
+      <Tab
+        value="calculator"
+        label="Máy tính"
+        icon={<Iconify icon="solar:restart-bold" />}
+      />
+      <Tab
+        value="quick-tools"
+        label="Ví dụ nhanh"
+        icon={<Iconify icon="custom:flash-outline" />}
+      />
       <Tab
         value="history"
         label={`Lịch sử (${history.length})`}
         icon={<Iconify icon="solar:clock-circle-bold" />}
       />
-      <Tab value="guide" label="Hướng dẫn" icon={<Iconify icon="solar:notebook-bold-duotone" />} />
+      <Tab
+        value="guide"
+        label="Hướng dẫn"
+        icon={<Iconify icon="solar:notebook-bold-duotone" />}
+      />
     </CustomTabs>
   );
 

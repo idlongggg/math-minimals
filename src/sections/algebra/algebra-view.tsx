@@ -19,7 +19,8 @@ const ALGEBRA_TOPICS = [
   {
     id: 'basic-expressions',
     title: 'Biểu thức đại số',
-    description: 'Học về biểu thức đại số, phép toán cơ bản và rút gọn biểu thức',
+    description:
+      'Học về biểu thức đại số, phép toán cơ bản và rút gọn biểu thức',
     path: paths.dashboard.algebra.basic.expressions,
     icon: 'solar:calculator-bold',
     color: '#3b82f6',
@@ -94,9 +95,9 @@ export function AlgebraView() {
           Các chủ đề đại số
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Đại số là một nhánh quan trọng của toán học, nghiên cứu về các cấu trúc toán học trừu
-          tượng và các quy tắc thao tác với chúng. Từ đại số cơ bản đến đại số tuyến tính và giải
-          tích hàm số.
+          Đại số là một nhánh quan trọng của toán học, nghiên cứu về các cấu
+          trúc toán học trừu tượng và các quy tắc thao tác với chúng. Từ đại số
+          cơ bản đến đại số tuyến tính và giải tích hàm số.
         </Typography>
 
         <Box
@@ -158,15 +159,17 @@ export function AlgebraView() {
             Bắt đầu học đại số
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-            Chọn một chủ đề để bắt đầu hành trình khám phá đại số. Mỗi chủ đề được thiết kế với các
-            công cụ tương tác và hướng dẫn chi tiết.
+            Chọn một chủ đề để bắt đầu hành trình khám phá đại số. Mỗi chủ đề
+            được thiết kế với các công cụ tương tác và hướng dẫn chi tiết.
           </Typography>
 
           <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
             <Button
               variant="contained"
               startIcon={<Iconify icon="solar:pen-bold" />}
-              onClick={() => handleTopicClick(paths.dashboard.algebra.basic.expressions)}
+              onClick={() =>
+                handleTopicClick(paths.dashboard.algebra.basic.expressions)
+              }
               sx={{
                 transition: 'all 0.2s ease',
                 '&:hover': {
@@ -180,7 +183,9 @@ export function AlgebraView() {
             <Button
               variant="outlined"
               startIcon={<Iconify icon="solar:chart-square-outline" />}
-              onClick={() => handleTopicClick(paths.dashboard.algebra.functions.root)}
+              onClick={() =>
+                handleTopicClick(paths.dashboard.algebra.functions.root)
+              }
               sx={{
                 transition: 'all 0.2s ease',
                 '&:hover': {

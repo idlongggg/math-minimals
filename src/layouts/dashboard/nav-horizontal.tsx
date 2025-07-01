@@ -26,7 +26,11 @@ export function NavHorizontal({
 }: NavHorizontalProps) {
   return (
     <Box
-      className={mergeClasses([layoutClasses.nav.root, layoutClasses.nav.horizontal, className])}
+      className={mergeClasses([
+        layoutClasses.nav.root,
+        layoutClasses.nav.horizontal,
+        className,
+      ])}
       sx={[
         (theme) => ({
           width: 1,
@@ -58,7 +62,11 @@ export function NavHorizontal({
           WebkitBackdropFilter: `blur(var(--layout-header-blur))`,
         }}
       >
-        <NavSectionHorizontal data={data} checkPermissions={checkPermissions} {...other} />
+        <NavSectionHorizontal
+          data={data}
+          checkPermissions={checkPermissions}
+          {...other}
+        />
       </Box>
     </Box>
   );

@@ -7,7 +7,10 @@ import { useCookies, useLocalStorage } from 'minimal-shared/hooks';
 
 import { SettingsContext } from './settings-context';
 import { SETTINGS_STORAGE_KEY } from '../settings-config';
-import { cleanSettings, removeDeprecatedProperties } from '../utils/clean-settings';
+import {
+  cleanSettings,
+  removeDeprecatedProperties,
+} from '../utils/clean-settings';
 
 import type { SettingsState, SettingsProviderProps } from '../types';
 
@@ -28,7 +31,9 @@ export function SettingsProvider({
     : undefined;
   const cleanedDefaultSettings = cleanSettings(defaultSettings);
 
-  const initialSettings = isCookieEnabled ? cleanedCookieSettings : cleanedDefaultSettings;
+  const initialSettings = isCookieEnabled
+    ? cleanedCookieSettings
+    : cleanedDefaultSettings;
   const getStorageValue = isCookieEnabled ? getCookie : getStorage;
 
   const { state, setState, resetState, setField } = useStorage<SettingsState>(
@@ -59,7 +64,9 @@ export function SettingsProvider({
     if (storedValue) {
       try {
         // Làm sạch storedValue để loại bỏ các properties deprecated
-        const cleanedStoredValue = cleanSettings(removeDeprecatedProperties(storedValue));
+        const cleanedStoredValue = cleanSettings(
+          removeDeprecatedProperties(storedValue)
+        );
 
         if (
           !cleanedStoredValue.version ||
@@ -68,7 +75,8 @@ export function SettingsProvider({
           onReset();
         } else {
           // Nếu có deprecated properties, cập nhật state với version đã làm sạch
-          const hasDeprecatedProps = 'hideMenu' in storedValue || 'hideAvatar' in storedValue;
+          const hasDeprecatedProps =
+            'hideMenu' in storedValue || 'hideAvatar' in storedValue;
           if (hasDeprecatedProps) {
             setState(cleanedStoredValue);
           }
@@ -91,8 +99,21 @@ export function SettingsProvider({
       setState,
       setField,
     }),
-    [canReset, onReset, openDrawer, onCloseDrawer, onToggleDrawer, state, setField, setState]
+    [
+      canReset,
+      onReset,
+      openDrawer,
+      onCloseDrawer,
+      onToggleDrawer,
+      state,
+      setField,
+      setState,
+    ]
   );
 
-  return <SettingsContext.Provider value={memoizedValue}>{children}</SettingsContext.Provider>;
+  return (
+    <SettingsContext.Provider value={memoizedValue}>
+      {children}
+    </SettingsContext.Provider>
+  );
 }

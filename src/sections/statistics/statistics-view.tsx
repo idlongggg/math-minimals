@@ -69,8 +69,9 @@ export function StatisticsView() {
           Thống kê và xác suất
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Thống kê và xác suất là những công cụ quan trọng để phân tích dữ liệu và đưa ra quyết
-          định. Từ việc tạo biểu đồ đến tính toán xác suất và phân tích xu hướng.
+          Thống kê và xác suất là những công cụ quan trọng để phân tích dữ liệu
+          và đưa ra quyết định. Từ việc tạo biểu đồ đến tính toán xác suất và
+          phân tích xu hướng.
         </Typography>
 
         <Box
@@ -112,7 +113,8 @@ export function StatisticsView() {
                       transition: 'all 0.2s ease',
                       '&:hover': {
                         transform: 'scale(1.05)',
-                        boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+                        boxShadow:
+                          theme.vars?.customShadows?.z4 || theme.shadows[4],
                       },
                     }}
                   >

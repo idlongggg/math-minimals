@@ -21,7 +21,10 @@ type Options = {
   transition?: Transition;
 };
 
-export const varBounce = (direction: Direction, options?: Options): Variants => {
+export const varBounce = (
+  direction: Direction,
+  options?: Options
+): Variants => {
   const distance = options?.distance || 720;
 
   const variants: Record<Direction, Variants> = {

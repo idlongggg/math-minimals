@@ -19,7 +19,10 @@ import { BottomDrawerProvider } from 'src/contexts/bottom-drawer-context';
 
 import { Logo } from 'src/components/logo';
 import { useSettingsContext } from 'src/components/settings';
-import { BottomDrawer, BottomDrawerFab } from 'src/components/bottom-drawer-fab';
+import {
+  BottomDrawer,
+  BottomDrawerFab,
+} from 'src/components/bottom-drawer-fab';
 
 import { useMockedUser } from 'src/auth/hooks';
 
@@ -79,7 +82,11 @@ export function DashboardLayout({
   // Đọc parameters trực tiếp từ URL mà không lưu cache
   const urlParams = useUrlParams();
 
-  const navVars = dashboardNavColorVars(theme, settings.state.navColor, settings.state.navLayout);
+  const navVars = dashboardNavColorVars(
+    theme,
+    settings.state.navColor,
+    settings.state.navLayout
+  );
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
@@ -92,8 +99,9 @@ export function DashboardLayout({
   const isMenuHidden = urlParams.hideMenu ?? false;
   const isAvatarHidden = urlParams.hideAvatar ?? false;
 
-  const canDisplayItemByRole = (allowedRoles: NavItemProps['allowedRoles']): boolean =>
-    !allowedRoles?.includes(user?.role);
+  const canDisplayItemByRole = (
+    allowedRoles: NavItemProps['allowedRoles']
+  ): boolean => !allowedRoles?.includes(user?.role);
 
   const renderHeader = () => {
     const headerSlotProps: HeaderSectionProps['slotProps'] = {
@@ -104,7 +112,9 @@ export function DashboardLayout({
           ...(isNavHorizontal && {
             bgcolor: 'var(--layout-nav-bg)',
             height: { [layoutQuery]: 'var(--layout-nav-horizontal-height)' },
-            [`& .${iconButtonClasses.root}`]: { color: 'var(--layout-nav-text-secondary-color)' },
+            [`& .${iconButtonClasses.root}`]: {
+              color: 'var(--layout-nav-text-secondary-color)',
+            },
           }),
         },
       },
@@ -131,7 +141,11 @@ export function DashboardLayout({
           {!isMenuHidden && (
             <MenuButton
               onClick={onOpen}
-              sx={{ mr: 1, ml: -1, [theme.breakpoints.up(layoutQuery)]: { display: 'none' } }}
+              sx={{
+                mr: 1,
+                ml: -1,
+                [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
+              }}
             />
           )}
           {!isMenuHidden && (
@@ -156,21 +170,31 @@ export function DashboardLayout({
 
           {/** @slot Divider */}
           {(isNavHorizontal || isMenuHidden) && (
-            <VerticalDivider sx={{ [theme.breakpoints.up(layoutQuery)]: { display: 'flex' } }} />
+            <VerticalDivider
+              sx={{ [theme.breakpoints.up(layoutQuery)]: { display: 'flex' } }}
+            />
           )}
 
           {/** @slot Workspace popover */}
           <WorkspacesPopover
             data={_workspaces}
             sx={{
-              ...(isNavHorizontal && { color: 'var(--layout-nav-text-primary-color)' }),
+              ...(isNavHorizontal && {
+                color: 'var(--layout-nav-text-primary-color)',
+              }),
               ...(isMenuHidden && { color: 'text.primary' }),
             }}
           />
         </>
       ),
       rightArea: (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0, sm: 0.75 } }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: { xs: 0, sm: 0.75 },
+          }}
+        >
           {/** @slot Searchbar */}
           <Searchbar data={navData} />
 
@@ -242,7 +266,9 @@ export function DashboardLayout({
 
   const renderFooter = () => null;
 
-  const renderMain = () => <MainSection {...slotProps?.main}>{children}</MainSection>;
+  const renderMain = () => (
+    <MainSection {...slotProps?.main}>{children}</MainSection>
+  );
 
   return (
     <BottomDrawerProvider>
@@ -254,7 +280,9 @@ export function DashboardLayout({
         /** **************************************
          * @Sidebar
          *************************************** */
-        sidebarSection={isNavHorizontal || isMenuHidden ? null : renderSidebar()}
+        sidebarSection={
+          isNavHorizontal || isMenuHidden ? null : renderSidebar()
+        }
         /** **************************************
          * @Footer
          *************************************** */
@@ -262,7 +290,11 @@ export function DashboardLayout({
         /** **************************************
          * @Styles
          *************************************** */
-        cssVars={{ ...dashboardLayoutVars(theme), ...navVars.layout, ...cssVars }}
+        cssVars={{
+          ...dashboardLayoutVars(theme),
+          ...navVars.layout,
+          ...cssVars,
+        }}
         sx={[
           {
             [`& .${layoutClasses.sidebarContainer}`]: {

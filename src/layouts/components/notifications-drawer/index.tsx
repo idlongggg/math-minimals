@@ -39,21 +39,35 @@ export type NotificationsDrawerProps = IconButtonProps & {
   data?: NotificationItemProps['notification'][];
 };
 
-export function NotificationsDrawer({ data = [], sx, ...other }: NotificationsDrawerProps) {
+export function NotificationsDrawer({
+  data = [],
+  sx,
+  ...other
+}: NotificationsDrawerProps) {
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
   const [currentTab, setCurrentTab] = useState('all');
 
-  const handleChangeTab = useCallback((event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleChangeTab = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setCurrentTab(newValue);
+    },
+    []
+  );
 
   const [notifications, setNotifications] = useState(data);
 
-  const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
+  const totalUnRead = notifications.filter(
+    (item) => item.isUnRead === true
+  ).length;
 
   const handleMarkAllAsRead = () => {
-    setNotifications(notifications.map((notification) => ({ ...notification, isUnRead: false })));
+    setNotifications(
+      notifications.map((notification) => ({
+        ...notification,
+        isUnRead: false,
+      }))
+    );
   };
 
   const renderHead = () => (
@@ -79,7 +93,10 @@ export function NotificationsDrawer({ data = [], sx, ...other }: NotificationsDr
         </Tooltip>
       )}
 
-      <IconButton onClick={onClose} sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
+      <IconButton
+        onClick={onClose}
+        sx={{ display: { xs: 'inline-flex', sm: 'none' } }}
+      >
         <Iconify icon="mingcute:close-line" />
       </IconButton>
 
@@ -90,7 +107,11 @@ export function NotificationsDrawer({ data = [], sx, ...other }: NotificationsDr
   );
 
   const renderTabs = () => (
-    <CustomTabs variant="fullWidth" value={currentTab} onChange={handleChangeTab}>
+    <CustomTabs
+      variant="fullWidth"
+      value={currentTab}
+      onChange={handleChangeTab}
+    >
       {TABS.map((tab) => (
         <Tab
           key={tab.value}
@@ -99,7 +120,11 @@ export function NotificationsDrawer({ data = [], sx, ...other }: NotificationsDr
           label={tab.label}
           icon={
             <Label
-              variant={((tab.value === 'all' || tab.value === currentTab) && 'filled') || 'soft'}
+              variant={
+                ((tab.value === 'all' || tab.value === currentTab) &&
+                  'filled') ||
+                'soft'
+              }
               color={
                 (tab.value === 'unread' && 'info') ||
                 (tab.value === 'archived' && 'success') ||

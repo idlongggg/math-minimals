@@ -42,7 +42,12 @@ const customTabsStyles: Record<string, SxProps<Theme>> = {
   },
 };
 
-export function CustomTabs({ children, slotProps, sx, ...other }: CustomTabsProps) {
+export function CustomTabs({
+  children,
+  slotProps,
+  sx,
+  ...other
+}: CustomTabsProps) {
   const isClient = useIsClient();
 
   return (
@@ -61,7 +66,9 @@ export function CustomTabs({ children, slotProps, sx, ...other }: CustomTabsProp
         ...slotProps,
         indicator: {
           ...slotProps?.indicator,
-          children: isClient && <IndicatorContent sx={slotProps?.indicatorContent?.sx} />,
+          children: isClient && (
+            <IndicatorContent sx={slotProps?.indicatorContent?.sx} />
+          ),
           sx: [
             customTabsStyles.indicator,
             ...(Array.isArray(slotProps?.indicator?.sx)
@@ -73,7 +80,9 @@ export function CustomTabs({ children, slotProps, sx, ...other }: CustomTabsProp
           ...slotProps?.list,
           sx: [
             customTabsStyles.list,
-            ...(Array.isArray(slotProps?.list?.sx) ? slotProps.list.sx : [slotProps?.list?.sx]),
+            ...(Array.isArray(slotProps?.list?.sx)
+              ? slotProps.list.sx
+              : [slotProps?.list?.sx]),
           ],
         },
       }}

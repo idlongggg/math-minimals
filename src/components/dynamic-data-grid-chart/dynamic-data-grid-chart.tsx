@@ -66,7 +66,9 @@ export function DynamicDataGridChart({
   const handleDeleteColumnWithUpdate = (columnId: string) => {
     const result = handleDeleteColumn(columnId);
     if (result && typeof result === 'object' && result.success) {
-      const numericColumns = columns.filter((col) => col.id !== columnId && col.type === 'number');
+      const numericColumns = columns.filter(
+        (col) => col.id !== columnId && col.type === 'number'
+      );
       updateConfigurationAfterColumnDelete(result.deletedField, numericColumns);
     }
   };

@@ -66,14 +66,26 @@ export function NavItem({
       {...other}
     >
       {icon && (
-        <ItemIcon {...ownerState} className={navSectionClasses.item.icon} sx={slotProps?.icon}>
+        <ItemIcon
+          {...ownerState}
+          className={navSectionClasses.item.icon}
+          sx={slotProps?.icon}
+        >
           {navItem.renderIcon}
         </ItemIcon>
       )}
 
       {title && (
-        <ItemTexts {...ownerState} className={navSectionClasses.item.texts} sx={slotProps?.texts}>
-          <ItemTitle {...ownerState} className={navSectionClasses.item.title} sx={slotProps?.title}>
+        <ItemTexts
+          {...ownerState}
+          className={navSectionClasses.item.texts}
+          sx={slotProps?.texts}
+        >
+          <ItemTitle
+            {...ownerState}
+            className={navSectionClasses.item.title}
+            sx={slotProps?.title}
+          >
             {title}
           </ItemTitle>
 
@@ -92,7 +104,11 @@ export function NavItem({
       )}
 
       {info && (
-        <ItemInfo {...ownerState} className={navSectionClasses.item.info} sx={slotProps?.info}>
+        <ItemInfo
+          {...ownerState}
+          className={navSectionClasses.item.info}
+          sx={slotProps?.info}
+        >
           {navItem.renderInfo}
         </ItemInfo>
       )}
@@ -100,7 +116,9 @@ export function NavItem({
       {hasChild && (
         <ItemArrow
           {...ownerState}
-          icon={open ? 'eva:arrow-ios-downward-fill' : 'eva:arrow-ios-forward-fill'}
+          icon={
+            open ? 'eva:arrow-ios-downward-fill' : 'eva:arrow-ios-forward-fill'
+          }
           className={navSectionClasses.item.arrow}
           sx={slotProps?.arrow}
         />
@@ -212,33 +230,44 @@ const ItemTexts = styled('span', { shouldForwardProp })<StyledState>(() => ({
 /**
  * @slot title
  */
-const ItemTitle = styled('span', { shouldForwardProp })<StyledState>(({ theme }) => ({
-  ...navItemStyles.title(theme),
-  ...theme.typography.body2,
-  fontWeight: theme.typography.fontWeightMedium,
-  variants: [
-    { props: { active: true }, style: { fontWeight: theme.typography.fontWeightSemiBold } },
-  ],
-}));
+const ItemTitle = styled('span', { shouldForwardProp })<StyledState>(
+  ({ theme }) => ({
+    ...navItemStyles.title(theme),
+    ...theme.typography.body2,
+    fontWeight: theme.typography.fontWeightMedium,
+    variants: [
+      {
+        props: { active: true },
+        style: { fontWeight: theme.typography.fontWeightSemiBold },
+      },
+    ],
+  })
+);
 
 /**
  * @slot caption text
  */
-const ItemCaptionText = styled('span', { shouldForwardProp })<StyledState>(({ theme }) => ({
-  ...navItemStyles.captionText(theme),
-  color: 'var(--nav-item-caption-color)',
-}));
+const ItemCaptionText = styled('span', { shouldForwardProp })<StyledState>(
+  ({ theme }) => ({
+    ...navItemStyles.captionText(theme),
+    color: 'var(--nav-item-caption-color)',
+  })
+);
 
 /**
  * @slot info
  */
-const ItemInfo = styled('span', { shouldForwardProp })<StyledState>(({ theme }) => ({
-  ...navItemStyles.info,
-}));
+const ItemInfo = styled('span', { shouldForwardProp })<StyledState>(
+  ({ theme }) => ({
+    ...navItemStyles.info,
+  })
+);
 
 /**
  * @slot arrow
  */
-const ItemArrow = styled(Iconify, { shouldForwardProp })<StyledState>(({ theme }) => ({
-  ...navItemStyles.arrow(theme),
-}));
+const ItemArrow = styled(Iconify, { shouldForwardProp })<StyledState>(
+  ({ theme }) => ({
+    ...navItemStyles.arrow(theme),
+  })
+);

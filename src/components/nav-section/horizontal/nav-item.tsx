@@ -66,13 +66,21 @@ export function NavItem({
       {...other}
     >
       {icon && (
-        <ItemIcon {...ownerState} className={navSectionClasses.item.icon} sx={slotProps?.icon}>
+        <ItemIcon
+          {...ownerState}
+          className={navSectionClasses.item.icon}
+          sx={slotProps?.icon}
+        >
           {navItem.renderIcon}
         </ItemIcon>
       )}
 
       {title && (
-        <ItemTitle {...ownerState} className={navSectionClasses.item.title} sx={slotProps?.title}>
+        <ItemTitle
+          {...ownerState}
+          className={navSectionClasses.item.title}
+          sx={slotProps?.title}
+        >
           {title}
         </ItemTitle>
       )}
@@ -89,7 +97,11 @@ export function NavItem({
       )}
 
       {info && (
-        <ItemInfo {...ownerState} className={navSectionClasses.item.info} sx={slotProps?.info}>
+        <ItemInfo
+          {...ownerState}
+          className={navSectionClasses.item.info}
+          sx={slotProps?.info}
+        >
           {navItem.renderInfo}
         </ItemInfo>
       )}
@@ -97,7 +109,11 @@ export function NavItem({
       {hasChild && (
         <ItemArrow
           {...ownerState}
-          icon={navItem.subItem ? 'eva:arrow-ios-forward-fill' : 'eva:arrow-ios-downward-fill'}
+          icon={
+            navItem.subItem
+              ? 'eva:arrow-ios-forward-fill'
+              : 'eva:arrow-ios-downward-fill'
+          }
           className={navSectionClasses.item.arrow}
           sx={slotProps?.arrow}
         />
@@ -176,41 +192,67 @@ const ItemIcon = styled('span', { shouldForwardProp })<StyledState>(() => ({
   width: 'var(--nav-icon-size)',
   height: 'var(--nav-icon-size)',
   margin: 'var(--nav-icon-root-margin)',
-  variants: [{ props: { variant: 'subItem' }, style: { margin: 'var(--nav-icon-sub-margin)' } }],
+  variants: [
+    {
+      props: { variant: 'subItem' },
+      style: { margin: 'var(--nav-icon-sub-margin)' },
+    },
+  ],
 }));
 
 /**
  * @slot title
  */
-const ItemTitle = styled('span', { shouldForwardProp })<StyledState>(({ theme }) => ({
-  ...navItemStyles.title(theme),
-  ...theme.typography.body2,
-  fontWeight: theme.typography.fontWeightMedium,
-  variants: [
-    { props: { active: true }, style: { fontWeight: theme.typography.fontWeightSemiBold } },
-  ],
-}));
+const ItemTitle = styled('span', { shouldForwardProp })<StyledState>(
+  ({ theme }) => ({
+    ...navItemStyles.title(theme),
+    ...theme.typography.body2,
+    fontWeight: theme.typography.fontWeightMedium,
+    variants: [
+      {
+        props: { active: true },
+        style: { fontWeight: theme.typography.fontWeightSemiBold },
+      },
+    ],
+  })
+);
 
 /**
  * @slot caption icon
  */
-const ItemCaptionIcon = styled(Iconify, { shouldForwardProp })<StyledState>(({ theme }) => ({
-  ...navItemStyles.captionIcon,
-  color: 'var(--nav-item-caption-color)',
-  variants: [{ props: { variant: 'rootItem' }, style: { marginLeft: theme.spacing(0.75) } }],
-}));
+const ItemCaptionIcon = styled(Iconify, { shouldForwardProp })<StyledState>(
+  ({ theme }) => ({
+    ...navItemStyles.captionIcon,
+    color: 'var(--nav-item-caption-color)',
+    variants: [
+      {
+        props: { variant: 'rootItem' },
+        style: { marginLeft: theme.spacing(0.75) },
+      },
+    ],
+  })
+);
 
 /**
  * @slot info
  */
-const ItemInfo = styled('span', { shouldForwardProp })<StyledState>(({ theme }) => ({
-  ...navItemStyles.info,
-}));
+const ItemInfo = styled('span', { shouldForwardProp })<StyledState>(
+  ({ theme }) => ({
+    ...navItemStyles.info,
+  })
+);
 
 /**
  * @slot arrow
  */
-const ItemArrow = styled(Iconify, { shouldForwardProp })<StyledState>(({ theme }) => ({
-  ...navItemStyles.arrow(theme),
-  variants: [{ props: { variant: 'subItem' }, style: { marginRight: theme.spacing(-0.5) } }],
-}));
+const ItemArrow = styled(Iconify, { shouldForwardProp })<StyledState>(
+  ({ theme }) => ({
+    ...navItemStyles.arrow(theme),
+    variants: [
+      {
+        props: { variant: 'subItem' },
+        style: { marginRight: theme.spacing(-0.5) },
+      },
+    ],
+  })
+);

@@ -9,7 +9,11 @@ import { useRouter, usePathname, useSearchParams } from 'src/routes/hooks';
 
 // ----------------------------------------------------------------------
 
-type PushStateInput = [data: any, unused: string, url?: string | URL | null | undefined];
+type PushStateInput = [
+  data: any,
+  unused: string,
+  url?: string | URL | null | undefined,
+];
 
 /**
  * Handles anchor click events to start the progress bar if the target URL is different from the current URL.
@@ -28,7 +32,8 @@ const handleAnchorClick = (event: MouseEvent) => {
  * Handles DOM mutations to add click event listeners to anchor elements.
  */
 const handleMutation = () => {
-  const anchorElements: NodeListOf<HTMLAnchorElement> = document.querySelectorAll('a[href]');
+  const anchorElements: NodeListOf<HTMLAnchorElement> =
+    document.querySelectorAll('a[href]');
 
   const filteredAnchors = Array.from(anchorElements).filter((element) => {
     const rel = element.getAttribute('rel');
@@ -38,7 +43,9 @@ const handleMutation = () => {
     return href?.startsWith('/') && target !== '_blank' && rel !== 'noopener';
   });
 
-  filteredAnchors.forEach((anchor) => anchor.addEventListener('click', handleAnchorClick));
+  filteredAnchors.forEach((anchor) =>
+    anchor.addEventListener('click', handleAnchorClick)
+  );
 };
 
 export function ProgressBar() {
@@ -59,8 +66,11 @@ export function ProgressBar() {
     // Cleanup function to remove event listeners and observer
     return () => {
       mutationObserver.disconnect();
-      const anchorElements: NodeListOf<HTMLAnchorElement> = document.querySelectorAll('a[href]');
-      anchorElements.forEach((anchor) => anchor.removeEventListener('click', handleAnchorClick));
+      const anchorElements: NodeListOf<HTMLAnchorElement> =
+        document.querySelectorAll('a[href]');
+      anchorElements.forEach((anchor) =>
+        anchor.removeEventListener('click', handleAnchorClick)
+      );
     };
   }, []);
 

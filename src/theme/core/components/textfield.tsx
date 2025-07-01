@@ -14,7 +14,9 @@ const MuiInputBase: Components<Theme>['MuiInputBase'] = {
    *************************************** */
   styleOverrides: {
     root: ({ theme }) => ({
-      [`&.${inputBaseClasses.disabled}`]: { '& svg': { color: theme.vars.palette.text.disabled } },
+      [`&.${inputBaseClasses.disabled}`]: {
+        '& svg': { color: theme.vars.palette.text.disabled },
+      },
       [`& .${inputBaseClasses.input}:focus`]: { borderRadius: 'inherit' },
     }),
     input: ({ theme }) => ({
@@ -36,7 +38,12 @@ const MuiInput: Components<Theme>['MuiInput'] = {
    *************************************** */
   styleOverrides: {
     underline: ({ theme }) => ({
-      '&::before': { borderBottomColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.32) },
+      '&::before': {
+        borderBottomColor: varAlpha(
+          theme.vars.palette.grey['500Channel'],
+          0.32
+        ),
+      },
       '&::after': { borderBottomColor: theme.vars.palette.text.primary },
     }),
   },
@@ -90,7 +97,9 @@ const MuiFilledInput: Components<Theme>['MuiFilledInput'] = {
     root: ({ theme }) => ({
       borderRadius: theme.shape.borderRadius,
       backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-      '&:hover': { backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.16) },
+      '&:hover': {
+        backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.16),
+      },
       [`&.${filledInputClasses.focused}`]: {
         backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.16),
       },

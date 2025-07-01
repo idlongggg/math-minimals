@@ -2,9 +2,13 @@
 
 import type { WorkspacesPopoverProps } from 'src/layouts/components/workspaces-popover';
 
-import { useMemo, useState, useContext, useCallback, createContext } from 'react';
-
-// ----------------------------------------------------------------------
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
 type WorkspaceItem = NonNullable<WorkspacesPopoverProps['data']>[0];
 
@@ -14,34 +18,41 @@ type WorkspaceContextValue = {
   isAllTools: boolean;
 };
 
-// ----------------------------------------------------------------------
-
-const WorkspaceContext = createContext<WorkspaceContextValue | undefined>(undefined);
+const WorkspaceContext = createContext<WorkspaceContextValue | undefined>(
+  undefined
+);
 
 export function useWorkspaceContext() {
   const context = useContext(WorkspaceContext);
   if (!context) {
-    throw new Error('useWorkspaceContext must be used within WorkspaceProvider');
+    throw new Error(
+      'useWorkspaceContext must be used within WorkspaceProvider'
+    );
   }
   return context;
 }
-
-// ----------------------------------------------------------------------
 
 type WorkspaceProviderProps = {
   children: React.ReactNode;
   workspaces: WorkspacesPopoverProps['data'];
 };
 
-export function WorkspaceProvider({ children, workspaces }: WorkspaceProviderProps) {
+export function WorkspaceProvider({
+  children,
+  workspaces,
+}: WorkspaceProviderProps) {
   // Mặc định là "Tất cả công cụ toán học" (null)
-  const [currentWorkspace, setCurrentWorkspace] = useState<WorkspaceItem | null>(null);
+  const [currentWorkspace, setCurrentWorkspace] =
+    useState<WorkspaceItem | null>(null);
 
   const setWorkspace = useCallback((workspace: WorkspaceItem | null) => {
     setCurrentWorkspace(workspace);
   }, []);
 
-  const isAllTools = useMemo(() => currentWorkspace === null, [currentWorkspace]);
+  const isAllTools = useMemo(
+    () => currentWorkspace === null,
+    [currentWorkspace]
+  );
 
   const value = useMemo(
     () => ({
@@ -52,5 +63,9 @@ export function WorkspaceProvider({ children, workspaces }: WorkspaceProviderPro
     [currentWorkspace, setWorkspace, isAllTools]
   );
 
-  return <WorkspaceContext.Provider value={value}>{children}</WorkspaceContext.Provider>;
+  return (
+    <WorkspaceContext.Provider value={value}>
+      {children}
+    </WorkspaceContext.Provider>
+  );
 }

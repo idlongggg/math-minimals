@@ -116,7 +116,12 @@ export function BottomDrawer() {
           Đây là drawer blank từ dưới lên
         </Typography>
 
-        <Typography variant="body2" color="text.disabled" textAlign="center" sx={{ mt: 1 }}>
+        <Typography
+          variant="body2"
+          color="text.disabled"
+          textAlign="center"
+          sx={{ mt: 1 }}
+        >
           Bạn có thể thêm nội dung tùy ý vào đây
         </Typography>
       </Box>

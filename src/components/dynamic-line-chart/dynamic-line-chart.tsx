@@ -113,9 +113,10 @@ export function DynamicLineChart({
   const [selectedSeriesId, setSelectedSeriesId] = useState<string>('1');
   const [newPointX, setNewPointX] = useState<string>('');
   const [newPointY, setNewPointY] = useState<string>('');
-  const [editingPoint, setEditingPoint] = useState<{ seriesId: string; index: number } | null>(
-    null
-  );
+  const [editingPoint, setEditingPoint] = useState<{
+    seriesId: string;
+    index: number;
+  } | null>(null);
 
   // Initialize JSXGraph styles
   useEffect(() => {
@@ -196,7 +197,10 @@ export function DynamicLineChart({
               // Create line
               const curve = boardRef.current.create(
                 'curve',
-                [seriesData.points.map((p) => p.x), seriesData.points.map((p) => p.y)],
+                [
+                  seriesData.points.map((p) => p.x),
+                  seriesData.points.map((p) => p.y),
+                ],
                 {
                   strokeColor: seriesData.color,
                   strokeWidth: 2,
@@ -214,7 +218,8 @@ export function DynamicLineChart({
               });
 
               // Add legend entry
-              const legendY = yMax - (yMax - yMin) * 0.2 - index * (yMax - yMin) * 0.08;
+              const legendY =
+                yMax - (yMax - yMin) * 0.2 - index * (yMax - yMin) * 0.08;
               boardRef.current.create(
                 'text',
                 [xMin + (xMax - xMin) * 0.7, legendY, seriesData.name],
@@ -290,7 +295,9 @@ export function DynamicLineChart({
 
   // Toggle series visibility
   const toggleSeriesVisibility = (seriesId: string) => {
-    setSeries(series.map((s) => (s.id === seriesId ? { ...s, visible: !s.visible } : s)));
+    setSeries(
+      series.map((s) => (s.id === seriesId ? { ...s, visible: !s.visible } : s))
+    );
   };
 
   // Update series name
@@ -321,13 +328,20 @@ export function DynamicLineChart({
   const removePoint = (seriesId: string, pointIndex: number) => {
     setSeries(
       series.map((s) =>
-        s.id === seriesId ? { ...s, points: s.points.filter((_, i) => i !== pointIndex) } : s
+        s.id === seriesId
+          ? { ...s, points: s.points.filter((_, i) => i !== pointIndex) }
+          : s
       )
     );
   };
 
   // Update point in series
-  const updatePoint = (seriesId: string, pointIndex: number, x: number, y: number) => {
+  const updatePoint = (
+    seriesId: string,
+    pointIndex: number,
+    x: number,
+    y: number
+  ) => {
     setSeries(
       series.map((s) =>
         s.id === seriesId
@@ -351,7 +365,13 @@ export function DynamicLineChart({
   const selectedSeries = series.find((s) => s.id === selectedSeriesId);
 
   return (
-    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 400px' }, gap: 3 }}>
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', lg: '1fr 400px' },
+        gap: 3,
+      }}
+    >
       {/* Chart Area */}
       <Card>
         <CardHeader
@@ -433,7 +453,8 @@ export function DynamicLineChart({
                     gap: 1,
                     p: 1,
                     border: selectedSeriesId === s.id ? 2 : 1,
-                    borderColor: selectedSeriesId === s.id ? s.color : 'grey.300',
+                    borderColor:
+                      selectedSeriesId === s.id ? s.color : 'grey.300',
                     borderRadius: 1,
                     mb: 1,
                     cursor: 'pointer',
@@ -505,7 +526,11 @@ export function DynamicLineChart({
                 onChange={(e) => setNewPointY(e.target.value)}
                 sx={{ flex: 1 }}
               />
-              <IconButton color="primary" onClick={addPoint} disabled={!newPointX || !newPointY}>
+              <IconButton
+                color="primary"
+                onClick={addPoint}
+                disabled={!newPointX || !newPointY}
+              >
                 <Iconify icon="mingcute:add-line" />
               </IconButton>
             </Box>
@@ -541,16 +566,28 @@ export function DynamicLineChart({
                             onBlur={(e) => {
                               const newX = parseFloat(e.target.value);
                               if (!isNaN(newX)) {
-                                updatePoint(selectedSeriesId, index, newX, point.y);
+                                updatePoint(
+                                  selectedSeriesId,
+                                  index,
+                                  newX,
+                                  point.y
+                                );
                               } else {
                                 setEditingPoint(null);
                               }
                             }}
                             onKeyPress={(e) => {
                               if (e.key === 'Enter') {
-                                const newX = parseFloat((e.target as HTMLInputElement).value);
+                                const newX = parseFloat(
+                                  (e.target as HTMLInputElement).value
+                                );
                                 if (!isNaN(newX)) {
-                                  updatePoint(selectedSeriesId, index, newX, point.y);
+                                  updatePoint(
+                                    selectedSeriesId,
+                                    index,
+                                    newX,
+                                    point.y
+                                  );
                                 }
                               }
                             }}
@@ -558,7 +595,12 @@ export function DynamicLineChart({
                           />
                         ) : (
                           <span
-                            onClick={() => setEditingPoint({ seriesId: selectedSeriesId, index })}
+                            onClick={() =>
+                              setEditingPoint({
+                                seriesId: selectedSeriesId,
+                                index,
+                              })
+                            }
                             style={{ cursor: 'pointer' }}
                           >
                             {point.x}
@@ -575,23 +617,40 @@ export function DynamicLineChart({
                             onBlur={(e) => {
                               const newY = parseFloat(e.target.value);
                               if (!isNaN(newY)) {
-                                updatePoint(selectedSeriesId, index, point.x, newY);
+                                updatePoint(
+                                  selectedSeriesId,
+                                  index,
+                                  point.x,
+                                  newY
+                                );
                               } else {
                                 setEditingPoint(null);
                               }
                             }}
                             onKeyPress={(e) => {
                               if (e.key === 'Enter') {
-                                const newY = parseFloat((e.target as HTMLInputElement).value);
+                                const newY = parseFloat(
+                                  (e.target as HTMLInputElement).value
+                                );
                                 if (!isNaN(newY)) {
-                                  updatePoint(selectedSeriesId, index, point.x, newY);
+                                  updatePoint(
+                                    selectedSeriesId,
+                                    index,
+                                    point.x,
+                                    newY
+                                  );
                                 }
                               }
                             }}
                           />
                         ) : (
                           <span
-                            onClick={() => setEditingPoint({ seriesId: selectedSeriesId, index })}
+                            onClick={() =>
+                              setEditingPoint({
+                                seriesId: selectedSeriesId,
+                                index,
+                              })
+                            }
                             style={{ cursor: 'pointer' }}
                           >
                             {point.y}
@@ -609,9 +668,14 @@ export function DynamicLineChart({
                       </TableCell>
                     </TableRow>
                   ))}
-                  {(!selectedSeries?.points || selectedSeries.points.length === 0) && (
+                  {(!selectedSeries?.points ||
+                    selectedSeries.points.length === 0) && (
                     <TableRow>
-                      <TableCell colSpan={3} align="center" sx={{ color: 'text.secondary', py: 4 }}>
+                      <TableCell
+                        colSpan={3}
+                        align="center"
+                        sx={{ color: 'text.secondary', py: 4 }}
+                      >
                         Chưa có dữ liệu. Thêm điểm ở trên để bắt đầu.
                       </TableCell>
                     </TableRow>

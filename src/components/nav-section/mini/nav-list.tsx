@@ -91,8 +91,14 @@ export function NavList({
         id={id}
         open={open}
         anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'center', horizontal: isRtl ? 'left' : 'right' }}
-        transformOrigin={{ vertical: 'center', horizontal: isRtl ? 'right' : 'left' }}
+        anchorOrigin={{
+          vertical: 'center',
+          horizontal: isRtl ? 'left' : 'right',
+        }}
+        transformOrigin={{
+          vertical: 'center',
+          horizontal: isRtl ? 'right' : 'left',
+        }}
         slotProps={{
           paper: {
             onMouseEnter: handleOpenMenu,
@@ -120,7 +126,11 @@ export function NavList({
     );
 
   // Hidden item by role
-  if (data.allowedRoles && checkPermissions && checkPermissions(data.allowedRoles)) {
+  if (
+    data.allowedRoles &&
+    checkPermissions &&
+    checkPermissions(data.allowedRoles)
+  ) {
     return null;
   }
 

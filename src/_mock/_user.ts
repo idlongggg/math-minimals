@@ -97,7 +97,11 @@ export const _userCards = Array.from({ length: 21 }, (_, index) => ({
 
 export const _userPayment = Array.from({ length: 3 }, (_, index) => ({
   id: _mock.id(index),
-  cardNumber: ['**** **** **** 1234', '**** **** **** 5678', '**** **** **** 7878'][index],
+  cardNumber: [
+    '**** **** **** 1234',
+    '**** **** **** 5678',
+    '**** **** **** 7878',
+  ][index],
   cardType: ['mastercard', 'visa', 'visa'][index],
   primary: index === 1,
 }));
@@ -139,5 +143,8 @@ export const _userList = Array.from({ length: 20 }, (_, index) => ({
   avatarUrl: _mock.image.avatar(index),
   phoneNumber: _mock.phoneNumber(index),
   status:
-    (index % 2 && 'pending') || (index % 3 && 'banned') || (index % 4 && 'rejected') || 'active',
+    (index % 2 && 'pending') ||
+    (index % 3 && 'banned') ||
+    (index % 4 && 'rejected') ||
+    'active',
 }));

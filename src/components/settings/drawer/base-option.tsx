@@ -29,10 +29,22 @@ export function BaseOption({
   ...other
 }: BaseOptionProps) {
   return (
-    <ItemRoot disableRipple selected={selected} onClick={onChangeOption} sx={sx} {...other}>
+    <ItemRoot
+      disableRipple
+      selected={selected}
+      onClick={onChangeOption}
+      sx={sx}
+      {...other}
+    >
       <TopContainer>
         {icon}
-        <Switch name={label} size="small" color="default" checked={selected} sx={{ mr: -0.75 }} />
+        <Switch
+          name={label}
+          size="small"
+          color="default"
+          checked={selected}
+          sx={{ mr: -0.75 }}
+        />
       </TopContainer>
 
       <BottomContainer>

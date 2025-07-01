@@ -27,7 +27,9 @@ export function DataGridSection({
   onOpenChart,
   onOpenAddColumn,
 }: DataGridSectionProps) {
-  const [selectedRowIds, setSelectedRowIds] = useState<GridRowSelectionModel>([]);
+  const [selectedRowIds, setSelectedRowIds] = useState<GridRowSelectionModel>(
+    []
+  );
 
   // Handle row selection
   const handleSelectionChange = (newSelection: GridRowSelectionModel) => {

@@ -37,7 +37,8 @@ export function PictographChart({
     const icons = [];
 
     for (let i = 0; i < numberOfIcons; i++) {
-      const isPartial = i === numberOfIcons - 1 && category.value % unitValue !== 0;
+      const isPartial =
+        i === numberOfIcons - 1 && category.value % unitValue !== 0;
       const opacity = isPartial ? (category.value % unitValue) / unitValue : 1;
 
       icons.push(
@@ -51,7 +52,10 @@ export function PictographChart({
             justifyContent: 'center',
             fontSize: iconSize * 0.7,
             color: category.color,
-            opacity: hoveredCategory && hoveredCategory !== category.category ? 0.3 : opacity,
+            opacity:
+              hoveredCategory && hoveredCategory !== category.category
+                ? 0.3
+                : opacity,
             transition: 'opacity 0.2s ease',
             cursor: 'pointer',
             '&:hover': {
@@ -96,7 +100,10 @@ export function PictographChart({
 
   return (
     <Card>
-      <CardHeader title={title} subheader={`Mỗi biểu tượng đại diện cho ${unitValue} đơn vị`} />
+      <CardHeader
+        title={title}
+        subheader={`Mỗi biểu tượng đại diện cho ${unitValue} đơn vị`}
+      />
       <CardContent>
         <Box sx={{ mb: 3 }}>
           {data.map((category) => (
@@ -132,7 +139,10 @@ export function PictographChart({
                     gap: 1,
                     p: 1,
                     borderRadius: 1,
-                    bgcolor: hoveredCategory === category.category ? 'action.hover' : 'transparent',
+                    bgcolor:
+                      hoveredCategory === category.category
+                        ? 'action.hover'
+                        : 'transparent',
                     cursor: 'pointer',
                   }}
                   onMouseEnter={() => setHoveredCategory(category.category)}
@@ -143,7 +153,10 @@ export function PictographChart({
                       fontSize: 20,
                       color: category.color,
                       transition: 'transform 0.2s ease',
-                      transform: hoveredCategory === category.category ? 'scale(1.2)' : 'scale(1)',
+                      transform:
+                        hoveredCategory === category.category
+                          ? 'scale(1.2)'
+                          : 'scale(1)',
                     }}
                   >
                     {category.icon}

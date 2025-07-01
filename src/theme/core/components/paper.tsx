@@ -29,7 +29,10 @@ const MuiPaper: Components<Theme>['MuiPaper'] = {
     }),
     outlined: ({ theme }) => ({
       borderColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.12),
-      backgroundColor: varAlpha(theme.vars.palette.background.paperChannel, 0.9),
+      backgroundColor: varAlpha(
+        theme.vars.palette.background.paperChannel,
+        0.9
+      ),
     }),
   },
 };

@@ -80,12 +80,16 @@ export function DivisorsMultiplesView() {
 
   // Divisors tab
   const [divisorInput, setDivisorInput] = useState('');
-  const [divisorResult, setDivisorResult] = useState<DivisorResult | null>(null);
+  const [divisorResult, setDivisorResult] = useState<DivisorResult | null>(
+    null
+  );
 
   // Multiples tab
   const [multipleInput, setMultipleInput] = useState('');
   const [multipleLimit, setMultipleLimit] = useState('10');
-  const [multipleResult, setMultipleResult] = useState<MultipleResult | null>(null);
+  const [multipleResult, setMultipleResult] = useState<MultipleResult | null>(
+    null
+  );
 
   // GCD/LCM tab
   const [gcdLcmInputA, setGcdLcmInputA] = useState('');
@@ -102,9 +106,12 @@ export function DivisorsMultiplesView() {
     }>
   >([]);
 
-  const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleTabChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setCurrentTab(newValue);
+    },
+    []
+  );
 
   // Tìm tất cả ước số của một số
   const findAllDivisors = useCallback((num: number): number[] => {
@@ -158,30 +165,37 @@ export function DivisorsMultiplesView() {
   }, []);
 
   // Tính GCD bằng thuật toán Euclid
-  const calculateGcd = useCallback((a: number, b: number): { gcd: number; steps: any[] } => {
-    const steps = [];
-    let x = a,
-      y = b;
-    let stepCount = 1;
+  const calculateGcd = useCallback(
+    (a: number, b: number): { gcd: number; steps: any[] } => {
+      const steps = [];
+      let x = a,
+        y = b;
+      let stepCount = 1;
 
-    while (y !== 0) {
-      const quotient = Math.floor(x / y);
-      const remainder = x % y;
+      while (y !== 0) {
+        const quotient = Math.floor(x / y);
+        const remainder = x % y;
 
-      steps.push({
-        step: stepCount,
-        description: stepCount === 1 ? 'Áp dụng thuật toán Euclid' : 'Tiếp tục thuật toán',
-        calculation: `${x} = ${y} \\times ${quotient} + ${remainder}`,
-        result: remainder === 0 ? `GCD = ${y}` : `Tiếp tục với ${y}, ${remainder}`,
-      });
+        steps.push({
+          step: stepCount,
+          description:
+            stepCount === 1
+              ? 'Áp dụng thuật toán Euclid'
+              : 'Tiếp tục thuật toán',
+          calculation: `${x} = ${y} \\times ${quotient} + ${remainder}`,
+          result:
+            remainder === 0 ? `GCD = ${y}` : `Tiếp tục với ${y}, ${remainder}`,
+        });
 
-      x = y;
-      y = remainder;
-      stepCount++;
-    }
+        x = y;
+        y = remainder;
+        stepCount++;
+      }
 
-    return { gcd: x, steps };
-  }, []);
+      return { gcd: x, steps };
+    },
+    []
+  );
 
   // Tính LCM
   const calculateLcm = useCallback(
@@ -229,7 +243,13 @@ export function DivisorsMultiplesView() {
       timestamp: new Date(),
     };
     setHistory((prev) => [historyItem, ...prev.slice(0, 49)]);
-  }, [divisorInput, findAllDivisors, isPrime, isPerfectSquare, isPerfectNumber]);
+  }, [
+    divisorInput,
+    findAllDivisors,
+    isPrime,
+    isPerfectSquare,
+    isPerfectNumber,
+  ]);
 
   // Xử lý tìm bội số
   const handleFindMultiples = useCallback(() => {
@@ -452,7 +472,12 @@ export function DivisorsMultiplesView() {
               >
                 Tìm ước số
               </Button>
-              <Button variant="outlined" size="large" onClick={handleReset} sx={{ minWidth: 120 }}>
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={handleReset}
+                sx={{ minWidth: 120 }}
+              >
                 Reset
               </Button>
             </Box>
@@ -464,23 +489,39 @@ export function DivisorsMultiplesView() {
                 <CardHeader
                   title={
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography variant="h6">Ước số của {divisorResult.number}</Typography>
+                      <Typography variant="h6">
+                        Ước số của {divisorResult.number}
+                      </Typography>
                       <Box sx={{ display: 'flex', gap: 1 }}>
                         {divisorResult.isPrime && (
-                          <Chip label="Số nguyên tố" color="success" size="small" />
+                          <Chip
+                            label="Số nguyên tố"
+                            color="success"
+                            size="small"
+                          />
                         )}
                         {divisorResult.isPerfectSquare && (
-                          <Chip label="Số chính phương" color="info" size="small" />
+                          <Chip
+                            label="Số chính phương"
+                            color="info"
+                            size="small"
+                          />
                         )}
                         {divisorResult.isPerfectNumber && (
-                          <Chip label="Số hoàn hảo" color="warning" size="small" />
+                          <Chip
+                            label="Số hoàn hảo"
+                            color="warning"
+                            size="small"
+                          />
                         )}
                       </Box>
                     </Box>
                   }
                 />
                 <CardContent>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  <Box
+                    sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
+                  >
                     {/* Tất cả ước số */}
                     <Box>
                       <Typography variant="h6" gutterBottom>
@@ -515,17 +556,28 @@ export function DivisorsMultiplesView() {
                       <Typography variant="h6" gutterBottom>
                         Thông tin chi tiết:
                       </Typography>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 1,
+                        }}
+                      >
                         <Typography variant="body1">
-                          • <strong>Số lượng ước số:</strong> {divisorResult.divisorCount}
+                          • <strong>Số lượng ước số:</strong>{' '}
+                          {divisorResult.divisorCount}
                         </Typography>
                         <Typography variant="body1">
-                          • <strong>Tổng tất cả ước số:</strong> {divisorResult.divisorSum}
+                          • <strong>Tổng tất cả ước số:</strong>{' '}
+                          {divisorResult.divisorSum}
                         </Typography>
                         <Typography variant="body1">
                           • <strong>Tổng ước thực sự:</strong>{' '}
-                          {divisorResult.properDivisors.reduce((sum, d) => sum + d, 0)} (trừ chính
-                          số đó)
+                          {divisorResult.properDivisors.reduce(
+                            (sum, d) => sum + d,
+                            0
+                          )}{' '}
+                          (trừ chính số đó)
                         </Typography>
                         <Typography variant="body1">
                           • <strong>Loại số:</strong>{' '}
@@ -539,18 +591,22 @@ export function DivisorsMultiplesView() {
                         </Typography>
                         {divisorResult.isPerfectSquare && (
                           <Typography variant="body1">
-                            • <strong>Căn bậc hai:</strong> √{divisorResult.number} ={' '}
+                            • <strong>Căn bậc hai:</strong> √
+                            {divisorResult.number} ={' '}
                             {Math.sqrt(divisorResult.number)}
                           </Typography>
                         )}
                       </Box>
                     </Box>
 
-                    <Box sx={{ p: 2, bgcolor: 'info.lighter', borderRadius: 1 }}>
+                    <Box
+                      sx={{ p: 2, bgcolor: 'info.lighter', borderRadius: 1 }}
+                    >
                       <Typography variant="body2" color="info.dark">
-                        💡 <strong>Giải thích:</strong> Ước số của n là những số nguyên dương chia
-                        hết cho n.
-                        {divisorResult.isPrime && ' Số nguyên tố chỉ có 2 ước số: 1 và chính nó.'}
+                        💡 <strong>Giải thích:</strong> Ước số của n là những số
+                        nguyên dương chia hết cho n.
+                        {divisorResult.isPrime &&
+                          ' Số nguyên tố chỉ có 2 ước số: 1 và chính nó.'}
                         {divisorResult.isPerfectNumber &&
                           ' Số hoàn hảo là số bằng tổng các ước thực sự của nó.'}
                       </Typography>
@@ -609,7 +665,12 @@ export function DivisorsMultiplesView() {
               >
                 Tìm bội số
               </Button>
-              <Button variant="outlined" size="large" onClick={handleReset} sx={{ minWidth: 120 }}>
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={handleReset}
+                sx={{ minWidth: 120 }}
+              >
                 Reset
               </Button>
             </Box>
@@ -622,7 +683,9 @@ export function DivisorsMultiplesView() {
                   title={`${multipleResult.count} bội số đầu tiên của ${multipleResult.number}`}
                 />
                 <CardContent>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  <Box
+                    sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
+                  >
                     <Box>
                       <Typography variant="h6" gutterBottom>
                         Dãy bội số:
@@ -653,28 +716,41 @@ export function DivisorsMultiplesView() {
                       <Typography variant="h6" gutterBottom>
                         Thông tin:
                       </Typography>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 1,
+                        }}
+                      >
                         <Typography variant="body1">
                           • <strong>Số gốc:</strong> {multipleResult.number}
                         </Typography>
                         <Typography variant="body1">
-                          • <strong>Số lượng bội:</strong> {multipleResult.count}
+                          • <strong>Số lượng bội:</strong>{' '}
+                          {multipleResult.count}
                         </Typography>
                         <Typography variant="body1">
-                          • <strong>Bội lớn nhất:</strong> {multipleResult.limit}
+                          • <strong>Bội lớn nhất:</strong>{' '}
+                          {multipleResult.limit}
                         </Typography>
                         <Typography variant="body1">
                           • <strong>Công thức:</strong>{' '}
-                          <InlineMath math={`${multipleResult.number} \\times k`} /> với k = 1, 2,
-                          3, ...
+                          <InlineMath
+                            math={`${multipleResult.number} \\times k`}
+                          />{' '}
+                          với k = 1, 2, 3, ...
                         </Typography>
                       </Box>
                     </Box>
 
-                    <Box sx={{ p: 2, bgcolor: 'info.lighter', borderRadius: 1 }}>
+                    <Box
+                      sx={{ p: 2, bgcolor: 'info.lighter', borderRadius: 1 }}
+                    >
                       <Typography variant="body2" color="info.dark">
-                        💡 <strong>Giải thích:</strong> Bội số của n là những số có thể chia hết cho
-                        n. Bội số của n có dạng n × k với k là số nguyên dương.
+                        💡 <strong>Giải thích:</strong> Bội số của n là những số
+                        có thể chia hết cho n. Bội số của n có dạng n × k với k
+                        là số nguyên dương.
                       </Typography>
                     </Box>
                   </Box>
@@ -725,7 +801,12 @@ export function DivisorsMultiplesView() {
               >
                 Tính GCD và LCM
               </Button>
-              <Button variant="outlined" size="large" onClick={handleReset} sx={{ minWidth: 120 }}>
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={handleReset}
+                sx={{ minWidth: 120 }}
+              >
                 Reset
               </Button>
             </Box>
@@ -734,11 +815,21 @@ export function DivisorsMultiplesView() {
 
             {gcdLcmResult && (
               <Card>
-                <CardHeader title={`GCD và LCM của ${gcdLcmResult.a} và ${gcdLcmResult.b}`} />
+                <CardHeader
+                  title={`GCD và LCM của ${gcdLcmResult.a} và ${gcdLcmResult.b}`}
+                />
                 <CardContent>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  <Box
+                    sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
+                  >
                     {/* Kết quả */}
-                    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 3 }}>
+                    <Box
+                      sx={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(2, 1fr)',
+                        gap: 3,
+                      }}
+                    >
                       <Box
                         sx={{
                           p: 3,
@@ -747,13 +838,21 @@ export function DivisorsMultiplesView() {
                           textAlign: 'center',
                         }}
                       >
-                        <Typography variant="h6" color="success.dark" gutterBottom>
+                        <Typography
+                          variant="h6"
+                          color="success.dark"
+                          gutterBottom
+                        >
                           Ước chung lớn nhất (GCD)
                         </Typography>
                         <Typography variant="h3" color="success.main">
                           {gcdLcmResult.gcd}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ mt: 1 }}
+                        >
                           <InlineMath
                             math={`\\gcd(${gcdLcmResult.a}, ${gcdLcmResult.b}) = ${gcdLcmResult.gcd}`}
                           />
@@ -768,13 +867,21 @@ export function DivisorsMultiplesView() {
                           textAlign: 'center',
                         }}
                       >
-                        <Typography variant="h6" color="primary.dark" gutterBottom>
+                        <Typography
+                          variant="h6"
+                          color="primary.dark"
+                          gutterBottom
+                        >
                           Bội chung nhỏ nhất (LCM)
                         </Typography>
                         <Typography variant="h3" color="primary.main">
                           {gcdLcmResult.lcm}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ mt: 1 }}
+                        >
                           <InlineMath
                             math={`\\text{lcm}(${gcdLcmResult.a}, ${gcdLcmResult.b}) = ${gcdLcmResult.lcm}`}
                           />
@@ -789,7 +896,13 @@ export function DivisorsMultiplesView() {
                       <Typography variant="h6" gutterBottom>
                         Chi tiết thuật toán Euclid tìm GCD:
                       </Typography>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 2,
+                        }}
+                      >
                         {gcdLcmResult.steps.map((step, index) => (
                           <Box
                             key={index}
@@ -810,7 +923,10 @@ export function DivisorsMultiplesView() {
                             <Typography variant="subtitle2" gutterBottom>
                               Bước {step.step}: {step.description}
                             </Typography>
-                            <Box component="div" sx={{ fontSize: '1.1rem', mb: 1 }}>
+                            <Box
+                              component="div"
+                              sx={{ fontSize: '1.1rem', mb: 1 }}
+                            >
                               <BlockMath math={step.calculation} />
                             </Box>
                             <Typography
@@ -822,7 +938,9 @@ export function DivisorsMultiplesView() {
                               }
                               sx={{
                                 fontWeight:
-                                  index === gcdLcmResult.steps.length - 1 ? 'bold' : 'normal',
+                                  index === gcdLcmResult.steps.length - 1
+                                    ? 'bold'
+                                    : 'normal',
                               }}
                             >
                               {step.result}
@@ -833,7 +951,9 @@ export function DivisorsMultiplesView() {
                     </Box>
 
                     {/* Công thức LCM */}
-                    <Box sx={{ p: 2, bgcolor: 'info.lighter', borderRadius: 1 }}>
+                    <Box
+                      sx={{ p: 2, bgcolor: 'info.lighter', borderRadius: 1 }}
+                    >
                       <Typography variant="body1" gutterBottom>
                         <strong>Công thức tính LCM:</strong>
                       </Typography>
@@ -842,9 +962,12 @@ export function DivisorsMultiplesView() {
                       />
                     </Box>
 
-                    <Box sx={{ p: 2, bgcolor: 'warning.lighter', borderRadius: 1 }}>
+                    <Box
+                      sx={{ p: 2, bgcolor: 'warning.lighter', borderRadius: 1 }}
+                    >
                       <Typography variant="body2" color="warning.dark">
-                        💡 <strong>Quan hệ:</strong> GCD × LCM = tích của hai số ban đầu
+                        💡 <strong>Quan hệ:</strong> GCD × LCM = tích của hai số
+                        ban đầu
                         <br />
                         <InlineMath
                           math={`${gcdLcmResult.gcd} \\times ${gcdLcmResult.lcm} = ${gcdLcmResult.gcd * gcdLcmResult.lcm} = ${gcdLcmResult.a} \\times ${gcdLcmResult.b}`}
@@ -868,7 +991,11 @@ export function DivisorsMultiplesView() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: {
+            xs: '1fr',
+            sm: 'repeat(2, 1fr)',
+            md: 'repeat(3, 1fr)',
+          },
           gap: 2,
         }}
       >
@@ -886,7 +1013,14 @@ export function DivisorsMultiplesView() {
             onClick={() => handleQuickExample(example)}
           >
             <CardContent>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1,
+                  textAlign: 'center',
+                }}
+              >
                 <Typography variant="subtitle1" fontWeight="bold">
                   {example.label}
                 </Typography>
@@ -894,7 +1028,10 @@ export function DivisorsMultiplesView() {
                   {example.example}
                 </Typography>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                  <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                  <Iconify
+                    icon="eva:arrowhead-right-fill"
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Box>
               </Box>
             </CardContent>
@@ -927,12 +1064,24 @@ export function DivisorsMultiplesView() {
             onClick={() => handleQuickPair(pair)}
           >
             <CardContent>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1,
+                  textAlign: 'center',
+                }}
+              >
                 <Typography variant="subtitle1" fontWeight="bold">
                   {pair.label}
                 </Typography>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
                 >
                   <Typography variant="h5" color="primary.main">
                     {pair.a}
@@ -943,7 +1092,10 @@ export function DivisorsMultiplesView() {
                   </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                  <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                  <Iconify
+                    icon="eva:arrowhead-right-fill"
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Box>
               </Box>
             </CardContent>
@@ -955,7 +1107,13 @@ export function DivisorsMultiplesView() {
 
   const renderHistory = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography variant="h6">Lịch sử tính toán</Typography>
         {history.length > 0 && (
           <Button
@@ -1002,18 +1160,28 @@ export function DivisorsMultiplesView() {
             >
               <CardContent sx={{ py: 2 }}>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
                 >
                   <Box>
                     <Typography variant="subtitle2" fontWeight="bold">
-                      {item.type === 'divisor' && `Ước số của ${item.data.number}`}
-                      {item.type === 'multiple' && `${item.data.count} bội của ${item.data.number}`}
-                      {item.type === 'gcd-lcm' && `GCD/LCM của ${item.data.a} và ${item.data.b}`}
+                      {item.type === 'divisor' &&
+                        `Ước số của ${item.data.number}`}
+                      {item.type === 'multiple' &&
+                        `${item.data.count} bội của ${item.data.number}`}
+                      {item.type === 'gcd-lcm' &&
+                        `GCD/LCM của ${item.data.a} và ${item.data.b}`}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {item.type === 'divisor' && `${item.data.divisorCount} ước số`}
-                      {item.type === 'multiple' && `Lớn nhất: ${item.data.limit}`}
-                      {item.type === 'gcd-lcm' && `GCD: ${item.data.gcd}, LCM: ${item.data.lcm}`}
+                      {item.type === 'divisor' &&
+                        `${item.data.divisorCount} ước số`}
+                      {item.type === 'multiple' &&
+                        `Lớn nhất: ${item.data.limit}`}
+                      {item.type === 'gcd-lcm' &&
+                        `GCD: ${item.data.gcd}, LCM: ${item.data.lcm}`}
                     </Typography>
                   </Box>
                   <Typography variant="caption" color="text.secondary">
@@ -1039,7 +1207,8 @@ export function DivisorsMultiplesView() {
             </Typography>
 
             <Typography variant="body1" paragraph>
-              <strong>Ước số</strong> của một số tự nhiên n là những số tự nhiên chia hết cho n.
+              <strong>Ước số</strong> của một số tự nhiên n là những số tự nhiên
+              chia hết cho n.
             </Typography>
 
             <Box sx={{ ml: 2 }}>
@@ -1059,15 +1228,18 @@ export function DivisorsMultiplesView() {
             </Typography>
 
             <Typography variant="body1" paragraph>
-              <strong>Bội số</strong> của một số tự nhiên n là những số chia hết cho n.
+              <strong>Bội số</strong> của một số tự nhiên n là những số chia hết
+              cho n.
             </Typography>
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="body1" paragraph>
-                • <strong>Ví dụ:</strong> Bội số của 3 là: 3, 6, 9, 12, 15, 18, ...
+                • <strong>Ví dụ:</strong> Bội số của 3 là: 3, 6, 9, 12, 15, 18,
+                ...
               </Typography>
               <Typography variant="body1" paragraph>
-                • <strong>Công thức:</strong> Bội số của n có dạng n × k (k = 1, 2, 3, ...)
+                • <strong>Công thức:</strong> Bội số của n có dạng n × k (k = 1,
+                2, 3, ...)
               </Typography>
               <Typography variant="body1" paragraph>
                 • <strong>Tính chất:</strong> Có vô số bội số của một số
@@ -1086,7 +1258,8 @@ export function DivisorsMultiplesView() {
                 • <strong>LCM(a,b):</strong> Số nhỏ nhất chia hết cho cả a và b
               </Typography>
               <Typography variant="body1" paragraph>
-                • <strong>Thuật toán Euclid:</strong> Tìm GCD bằng phép chia liên tiếp
+                • <strong>Thuật toán Euclid:</strong> Tìm GCD bằng phép chia
+                liên tiếp
               </Typography>
               <Typography variant="body1" paragraph>
                 • <strong>Công thức:</strong> GCD(a,b) × LCM(a,b) = a × b
@@ -1102,13 +1275,16 @@ export function DivisorsMultiplesView() {
                 • <strong>Số nguyên tố:</strong> Chỉ có 2 ước số: 1 và chính nó
               </Typography>
               <Typography variant="body1" paragraph>
-                • <strong>Số chính phương:</strong> Là bình phương của một số nguyên
+                • <strong>Số chính phương:</strong> Là bình phương của một số
+                nguyên
               </Typography>
               <Typography variant="body1" paragraph>
-                • <strong>Số hoàn hảo:</strong> Bằng tổng tất cả ước thực sự của nó
+                • <strong>Số hoàn hảo:</strong> Bằng tổng tất cả ước thực sự của
+                nó
               </Typography>
               <Typography variant="body1" paragraph>
-                • <strong>Ví dụ số hoàn hảo:</strong> 6 = 1 + 2 + 3, 28 = 1 + 2 + 4 + 7 + 14
+                • <strong>Ví dụ số hoàn hảo:</strong> 6 = 1 + 2 + 3, 28 = 1 + 2
+                + 4 + 7 + 14
               </Typography>
             </Box>
 
@@ -1138,9 +1314,21 @@ export function DivisorsMultiplesView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="divisors" label="Tìm ước số" icon={<Iconify icon="solar:restart-bold" />} />
-      <Tab value="multiples" label="Tìm bội số" icon={<Iconify icon="solar:list-bold" />} />
-      <Tab value="gcd-lcm" label="GCD & LCM" icon={<Iconify icon="solar:forward-bold" />} />
+      <Tab
+        value="divisors"
+        label="Tìm ước số"
+        icon={<Iconify icon="solar:restart-bold" />}
+      />
+      <Tab
+        value="multiples"
+        label="Tìm bội số"
+        icon={<Iconify icon="solar:list-bold" />}
+      />
+      <Tab
+        value="gcd-lcm"
+        label="GCD & LCM"
+        icon={<Iconify icon="solar:forward-bold" />}
+      />
       <Tab
         value="quick-tools"
         label="Công cụ nhanh"
@@ -1151,7 +1339,11 @@ export function DivisorsMultiplesView() {
         label={`Lịch sử (${history.length})`}
         icon={<Iconify icon="solar:clock-circle-bold" />}
       />
-      <Tab value="guide" label="Hướng dẫn" icon={<Iconify icon="solar:notebook-bold-duotone" />} />
+      <Tab
+        value="guide"
+        label="Hướng dẫn"
+        icon={<Iconify icon="solar:notebook-bold-duotone" />}
+      />
     </CustomTabs>
   );
 

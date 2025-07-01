@@ -20,9 +20,15 @@ interface AddColumnDialogProps {
   onAddColumn: (name: string, type: 'number' | 'string' | 'boolean') => boolean;
 }
 
-export function AddColumnDialog({ open, onClose, onAddColumn }: AddColumnDialogProps) {
+export function AddColumnDialog({
+  open,
+  onClose,
+  onAddColumn,
+}: AddColumnDialogProps) {
   const [newColumnName, setNewColumnName] = useState('');
-  const [newColumnType, setNewColumnType] = useState<'number' | 'string' | 'boolean'>('number');
+  const [newColumnType, setNewColumnType] = useState<
+    'number' | 'string' | 'boolean'
+  >('number');
 
   const handleAddColumn = () => {
     const success = onAddColumn(newColumnName, newColumnType);

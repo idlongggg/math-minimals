@@ -36,7 +36,8 @@ export function DashboardPageWithTabsLayoutAndMetadata({
   title: titleOverride,
   description: descriptionOverride,
 }: Props) {
-  const { title: metadataTitle, description: metadataDescription } = usePageInfo(pageKey);
+  const { title: metadataTitle, description: metadataDescription } =
+    usePageInfo(pageKey);
 
   const title = titleOverride || metadataTitle;
   const description = descriptionOverride || metadataDescription;
@@ -49,7 +50,11 @@ export function DashboardPageWithTabsLayoutAndMetadata({
       sx={sx}
       headerSx={headerSx}
     >
-      <DashboardPageWithTabsContent tabs={tabs} tabsSx={tabsSx} contentSx={contentSx}>
+      <DashboardPageWithTabsContent
+        tabs={tabs}
+        tabsSx={tabsSx}
+        contentSx={contentSx}
+      >
         {children}
       </DashboardPageWithTabsContent>
     </DashboardPageContainer>

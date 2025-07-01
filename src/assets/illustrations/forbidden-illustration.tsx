@@ -57,7 +57,10 @@ function ForbiddenIllustration({ hideBackground, sx, ...other }: SvgProps) {
         opacity="0.12"
       />
 
-      <path fill="#FFD666" d="M111.045 121c30.8-.5 30.8-46.3 0-46.8-30.8.5-30.8 46.3 0 46.8z" />
+      <path
+        fill="#FFD666"
+        d="M111.045 121c30.8-.5 30.8-46.3 0-46.8-30.8.5-30.8 46.3 0 46.8z"
+      />
 
       <path
         fill="#FBCDBE"

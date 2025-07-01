@@ -176,7 +176,8 @@ export function SimpleLineChart({
   // Table functions
   const addRow = () => {
     const newId = String(Date.now());
-    const newX = tableData.length > 0 ? Math.max(...tableData.map((d) => d.x)) + 1 : 1;
+    const newX =
+      tableData.length > 0 ? Math.max(...tableData.map((d) => d.x)) + 1 : 1;
     const newY = 0;
 
     setTableData([...tableData, { id: newId, x: newX, y: newY }]);
@@ -189,7 +190,11 @@ export function SimpleLineChart({
   const updateCell = (id: string, field: 'x' | 'y', value: string) => {
     const numValue = parseFloat(value);
     if (!isNaN(numValue)) {
-      setTableData(tableData.map((row) => (row.id === id ? { ...row, [field]: numValue } : row)));
+      setTableData(
+        tableData.map((row) =>
+          row.id === id ? { ...row, [field]: numValue } : row
+        )
+      );
     }
   };
 
@@ -234,7 +239,9 @@ export function SimpleLineChart({
                         size="small"
                         type="number"
                         value={row.x}
-                        onChange={(e) => updateCell(row.id, 'x', e.target.value)}
+                        onChange={(e) =>
+                          updateCell(row.id, 'x', e.target.value)
+                        }
                         sx={{ width: 80 }}
                       />
                     </TableCell>
@@ -243,7 +250,9 @@ export function SimpleLineChart({
                         size="small"
                         type="number"
                         value={row.y}
-                        onChange={(e) => updateCell(row.id, 'y', e.target.value)}
+                        onChange={(e) =>
+                          updateCell(row.id, 'y', e.target.value)
+                        }
                         sx={{ width: 80 }}
                       />
                     </TableCell>
@@ -285,7 +294,8 @@ export function SimpleLineChart({
           </Box>
 
           <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-            💡 Mẹo: Sử dụng chuột để phóng to/thu nhỏ và kéo để di chuyển biểu đồ
+            💡 Mẹo: Sử dụng chuột để phóng to/thu nhỏ và kéo để di chuyển biểu
+            đồ
           </Typography>
         </CardContent>
       </Card>

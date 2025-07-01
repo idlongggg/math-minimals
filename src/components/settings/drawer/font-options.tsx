@@ -56,7 +56,9 @@ export function FontFamilyOptions({
             })}
           >
             {icon}
-            {option.endsWith('Variable') ? option.replace(' Variable', '') : option}
+            {option.endsWith('Variable')
+              ? option.replace(' Variable', '')
+              : option}
           </OptionButton>
         );
       })}
@@ -90,7 +92,9 @@ export function FontSizeOptions({
       value={value}
       min={options[0]}
       max={options[1]}
-      onChange={(event: Event, newOption: number | number[]) => onChangeOption(newOption as number)}
+      onChange={(event: Event, newOption: number | number[]) =>
+        onChangeOption(newOption as number)
+      }
       sx={[
         (theme) => ({
           [`& .${sliderClasses.rail}`]: {

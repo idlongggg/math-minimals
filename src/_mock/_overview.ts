@@ -24,14 +24,16 @@ export const _appRelated = [
   price: [2, 4].includes(index) ? _mock.number.price(index) : 0,
 }));
 
-export const _appInstalled = ['Vietnam', 'China', 'England'].map((country, index) => ({
-  id: _mock.id(index),
-  countryName: country,
-  android: _mock.number.nativeL(index),
-  windows: _mock.number.nativeL(index + 1),
-  apple: _mock.number.nativeL(index + 2),
-  countryCode: ['vn', 'cn', 'gb'][index],
-}));
+export const _appInstalled = ['Vietnam', 'China', 'England'].map(
+  (country, index) => ({
+    id: _mock.id(index),
+    countryName: country,
+    android: _mock.number.nativeL(index),
+    windows: _mock.number.nativeL(index + 1),
+    apple: _mock.number.nativeL(index + 2),
+    countryCode: ['vn', 'cn', 'gb'][index],
+  })
+);
 
 export const _appAuthors = Array.from({ length: 3 }, (_, index) => ({
   id: _mock.id(index),
@@ -120,16 +122,24 @@ export const _analyticTraffic = [
 // ECOMMERCE
 // ----------------------------------------------------------------------
 
-export const _ecommerceSalesOverview = ['Total profit', 'Total income', 'Total expenses'].map(
-  (label, index) => ({
-    label,
-    totalAmount: _mock.number.price(index) * 100,
-    value: _mock.number.percent(index),
-  })
-);
+export const _ecommerceSalesOverview = [
+  'Total profit',
+  'Total income',
+  'Total expenses',
+].map((label, index) => ({
+  label,
+  totalAmount: _mock.number.price(index) * 100,
+  value: _mock.number.percent(index),
+}));
 
 export const _ecommerceBestSalesman = Array.from({ length: 5 }, (_, index) => {
-  const category = ['CAP', 'Branded shoes', 'Headphone', 'Cell phone', 'Earings'][index];
+  const category = [
+    'CAP',
+    'Branded shoes',
+    'Headphone',
+    'Cell phone',
+    'Earings',
+  ][index];
 
   return {
     id: _mock.id(index),
@@ -143,21 +153,36 @@ export const _ecommerceBestSalesman = Array.from({ length: 5 }, (_, index) => {
   };
 });
 
-export const _ecommerceLatestProducts = Array.from({ length: 5 }, (_, index) => {
-  const colors = (index === 0 && ['#2EC4B6', '#E71D36', '#FF9F1C', '#011627']) ||
-    (index === 1 && ['#92140C', '#FFCF99']) ||
-    (index === 2 && ['#0CECDD', '#FFF338', '#FF67E7', '#C400FF', '#52006A', '#046582']) ||
-    (index === 3 && ['#845EC2', '#E4007C', '#2A1A5E']) || ['#090088'];
+export const _ecommerceLatestProducts = Array.from(
+  { length: 5 },
+  (_, index) => {
+    const colors = (index === 0 && [
+      '#2EC4B6',
+      '#E71D36',
+      '#FF9F1C',
+      '#011627',
+    ]) ||
+      (index === 1 && ['#92140C', '#FFCF99']) ||
+      (index === 2 && [
+        '#0CECDD',
+        '#FFF338',
+        '#FF67E7',
+        '#C400FF',
+        '#52006A',
+        '#046582',
+      ]) ||
+      (index === 3 && ['#845EC2', '#E4007C', '#2A1A5E']) || ['#090088'];
 
-  return {
-    id: _mock.id(index),
-    colors,
-    name: _mock.productName(index),
-    price: _mock.number.price(index),
-    coverUrl: _mock.image.product(index),
-    priceSale: [1, 3].includes(index) ? _mock.number.price(index) : 0,
-  };
-});
+    return {
+      id: _mock.id(index),
+      colors,
+      name: _mock.productName(index),
+      price: _mock.number.price(index),
+      coverUrl: _mock.image.product(index),
+      priceSale: [1, 3].includes(index) ? _mock.number.price(index) : 0,
+    };
+  }
+);
 
 export const _ecommerceNewProducts = Array.from({ length: 4 }, (_, index) => ({
   id: _mock.id(index),

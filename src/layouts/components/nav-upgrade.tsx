@@ -23,12 +23,21 @@ export function NavUpgrade({ sx, ...other }: BoxProps) {
 
   return (
     <Box
-      sx={[{ px: 2, py: 5, textAlign: 'center' }, ...(Array.isArray(sx) ? sx : [sx])]}
+      sx={[
+        { px: 2, py: 5, textAlign: 'center' },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
       {...other}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+      <Box
+        sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}
+      >
         <Box sx={{ position: 'relative' }}>
-          <Avatar src={user?.photoURL} alt={user?.displayName} sx={{ width: 48, height: 48 }}>
+          <Avatar
+            src={user?.photoURL}
+            alt={user?.displayName}
+            sx={{ width: 48, height: 48 }}
+          >
             {user?.displayName?.charAt(0).toUpperCase()}
           </Avatar>
 
@@ -66,7 +75,12 @@ export function NavUpgrade({ sx, ...other }: BoxProps) {
           </Typography>
         </Box>
 
-        <Button variant="contained" href={paths.minimalStore} target="_blank" rel="noopener">
+        <Button
+          variant="contained"
+          href={paths.minimalStore}
+          target="_blank"
+          rel="noopener"
+        >
           Upgrade to Pro
         </Button>
       </Box>

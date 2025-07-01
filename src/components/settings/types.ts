@@ -13,7 +13,13 @@ export type SettingsState = {
   contrast?: 'default' | 'hight';
   navColor?: 'integrate' | 'apparent';
   navLayout?: 'vertical' | 'horizontal' | 'mini';
-  primaryColor?: 'default' | 'preset1' | 'preset2' | 'preset3' | 'preset4' | 'preset5';
+  primaryColor?:
+    | 'default'
+    | 'preset1'
+    | 'preset2'
+    | 'preset3'
+    | 'preset4'
+    | 'preset5';
 };
 
 export type SettingsContextValue = {
@@ -21,7 +27,10 @@ export type SettingsContextValue = {
   canReset: boolean;
   onReset: () => void;
   setState: (updateValue: Partial<SettingsState>) => void;
-  setField: (name: keyof SettingsState, updateValue: SettingsState[keyof SettingsState]) => void;
+  setField: (
+    name: keyof SettingsState,
+    updateValue: SettingsState[keyof SettingsState]
+  ) => void;
   // Drawer
   openDrawer: boolean;
   onCloseDrawer: () => void;

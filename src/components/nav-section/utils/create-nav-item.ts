@@ -15,7 +15,8 @@ type CreateNavItemReturn = {
   renderInfo: React.ReactNode;
 };
 
-type CreateNavItemProps = Pick<NavItemDataProps, 'path' | 'icon' | 'info'> & NavItemOptionsProps;
+type CreateNavItemProps = Pick<NavItemDataProps, 'path' | 'icon' | 'info'> &
+  NavItemOptionsProps;
 
 export function createNavItem({
   path,
@@ -35,7 +36,8 @@ export function createNavItem({
     ? { href: path, target: '_blank', rel: 'noopener' }
     : { component: RouterLink, href: path };
 
-  const baseProps = hasChild && !enabledRootRedirect ? { component: 'div' } : linkProps;
+  const baseProps =
+    hasChild && !enabledRootRedirect ? { component: 'div' } : linkProps;
 
   /**
    * Render @icon

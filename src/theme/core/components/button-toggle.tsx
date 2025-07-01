@@ -7,13 +7,23 @@ import { toggleButtonClasses } from '@mui/material/ToggleButton';
 
 // ----------------------------------------------------------------------
 
-const COLORS = ['primary', 'secondary', 'info', 'success', 'warning', 'error'] as const;
+const COLORS = [
+  'primary',
+  'secondary',
+  'info',
+  'success',
+  'warning',
+  'error',
+] as const;
 
 type PaletteColor = (typeof COLORS)[number];
 
 // ----------------------------------------------------------------------
 
-function styleColors(ownerState: ToggleButtonProps, styles: (val: PaletteColor) => CSSObject) {
+function styleColors(
+  ownerState: ToggleButtonProps,
+  styles: (val: PaletteColor) => CSSObject
+) {
   const outputStyle = COLORS.reduce((acc, color) => {
     if (!ownerState.disabled && ownerState.color === color) {
       acc = styles(color);
@@ -82,7 +92,10 @@ const MuiToggleButtonGroup: Components<Theme>['MuiToggleButtonGroup'] = {
       border: `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
     }),
     grouped: {
-      [`&.${toggleButtonClasses.root}`]: { border: 'none', borderRadius: 'inherit' },
+      [`&.${toggleButtonClasses.root}`]: {
+        border: 'none',
+        borderRadius: 'inherit',
+      },
       [`&.${toggleButtonClasses.selected}`]: { boxShadow: 'none' },
     },
   },

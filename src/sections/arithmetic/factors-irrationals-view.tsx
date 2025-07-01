@@ -46,10 +46,30 @@ const COMMON_IRRATIONALS = [
     latex: '\\pi',
     description: 'Tỉ số chu vi và đường kính hình tròn',
   },
-  { name: 'e (Euler)', value: Math.E, latex: 'e', description: 'Cơ số logarit tự nhiên' },
-  { name: '√2', value: Math.sqrt(2), latex: '\\sqrt{2}', description: 'Căn bậc hai của 2' },
-  { name: '√3', value: Math.sqrt(3), latex: '\\sqrt{3}', description: 'Căn bậc hai của 3' },
-  { name: '√5', value: Math.sqrt(5), latex: '\\sqrt{5}', description: 'Căn bậc hai của 5' },
+  {
+    name: 'e (Euler)',
+    value: Math.E,
+    latex: 'e',
+    description: 'Cơ số logarit tự nhiên',
+  },
+  {
+    name: '√2',
+    value: Math.sqrt(2),
+    latex: '\\sqrt{2}',
+    description: 'Căn bậc hai của 2',
+  },
+  {
+    name: '√3',
+    value: Math.sqrt(3),
+    latex: '\\sqrt{3}',
+    description: 'Căn bậc hai của 3',
+  },
+  {
+    name: '√5',
+    value: Math.sqrt(5),
+    latex: '\\sqrt{5}',
+    description: 'Căn bậc hai của 5',
+  },
   {
     name: 'φ (Golden ratio)',
     value: (1 + Math.sqrt(5)) / 2,
@@ -62,7 +82,12 @@ const COMMON_IRRATIONALS = [
     latex: '\\sqrt{\\pi}',
     description: 'Căn bậc hai của π',
   },
-  { name: 'ln(2)', value: Math.log(2), latex: '\\ln(2)', description: 'Logarit tự nhiên của 2' },
+  {
+    name: 'ln(2)',
+    value: Math.log(2),
+    latex: '\\ln(2)',
+    description: 'Logarit tự nhiên của 2',
+  },
 ];
 
 // ----------------------------------------------------------------------
@@ -102,9 +127,12 @@ export function FactorsIrrationalsView() {
     }>
   >([]);
 
-  const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleTabChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setCurrentTab(newValue);
+    },
+    []
+  );
 
   // Tìm tất cả ước số của một số
   const findAllFactors = useCallback((num: number): number[] => {
@@ -121,31 +149,34 @@ export function FactorsIrrationalsView() {
   }, []);
 
   // Phân tích thành thừa số nguyên tố
-  const primeFactorization = useCallback((num: number): { [key: number]: number } => {
-    const factors: { [key: number]: number } = {};
-    let temp = num;
+  const primeFactorization = useCallback(
+    (num: number): { [key: number]: number } => {
+      const factors: { [key: number]: number } = {};
+      let temp = num;
 
-    // Kiểm tra từ 2
-    while (temp % 2 === 0) {
-      factors[2] = (factors[2] || 0) + 1;
-      temp /= 2;
-    }
-
-    // Kiểm tra từ 3 trở đi (chỉ số lẻ)
-    for (let i = 3; i <= Math.sqrt(temp); i += 2) {
-      while (temp % i === 0) {
-        factors[i] = (factors[i] || 0) + 1;
-        temp /= i;
+      // Kiểm tra từ 2
+      while (temp % 2 === 0) {
+        factors[2] = (factors[2] || 0) + 1;
+        temp /= 2;
       }
-    }
 
-    // Nếu temp > 2 thì temp là số nguyên tố
-    if (temp > 2) {
-      factors[temp] = 1;
-    }
+      // Kiểm tra từ 3 trở đi (chỉ số lẻ)
+      for (let i = 3; i <= Math.sqrt(temp); i += 2) {
+        while (temp % i === 0) {
+          factors[i] = (factors[i] || 0) + 1;
+          temp /= i;
+        }
+      }
 
-    return factors;
-  }, []);
+      // Nếu temp > 2 thì temp là số nguyên tố
+      if (temp > 2) {
+        factors[temp] = 1;
+      }
+
+      return factors;
+    },
+    []
+  );
 
   // Kiểm tra số chính phương
   const isPerfectSquare = useCallback((num: number): boolean => {
@@ -176,7 +207,10 @@ export function FactorsIrrationalsView() {
   }, []);
 
   // Tìm bội chung nhỏ nhất (LCM)
-  const lcm = useCallback((a: number, b: number): number => Math.abs(a * b) / gcd(a, b), [gcd]);
+  const lcm = useCallback(
+    (a: number, b: number): number => Math.abs(a * b) / gcd(a, b),
+    [gcd]
+  );
 
   // Xử lý tìm ước số và phân tích thành thừa số
   const handleFactorAnalysis = useCallback(() => {
@@ -217,7 +251,13 @@ export function FactorsIrrationalsView() {
       timestamp: new Date(),
     };
     setHistory((prev) => [historyItem, ...prev.slice(0, 49)]);
-  }, [inputNumber, findAllFactors, primeFactorization, isPerfectSquare, isPrime]);
+  }, [
+    inputNumber,
+    findAllFactors,
+    primeFactorization,
+    isPerfectSquare,
+    isPrime,
+  ]);
 
   // Xử lý tính GCD và LCM
   const handleGcdLcm = useCallback(() => {
@@ -464,7 +504,12 @@ export function FactorsIrrationalsView() {
               >
                 Phân tích
               </Button>
-              <Button variant="outlined" size="large" onClick={handleReset} sx={{ minWidth: 120 }}>
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={handleReset}
+                sx={{ minWidth: 120 }}
+              >
                 Reset
               </Button>
             </Box>
@@ -481,17 +526,27 @@ export function FactorsIrrationalsView() {
                       </Typography>
                       <Box sx={{ display: 'flex', gap: 1 }}>
                         {factorResult.isPrime && (
-                          <Chip label="Số nguyên tố" color="success" size="small" />
+                          <Chip
+                            label="Số nguyên tố"
+                            color="success"
+                            size="small"
+                          />
                         )}
                         {factorResult.isPerfectSquare && (
-                          <Chip label="Số chính phương" color="info" size="small" />
+                          <Chip
+                            label="Số chính phương"
+                            color="info"
+                            size="small"
+                          />
                         )}
                       </Box>
                     </Box>
                   }
                 />
                 <CardContent>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  <Box
+                    sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
+                  >
                     {/* Tất cả ước số */}
                     <Box>
                       <Typography variant="h6" gutterBottom>
@@ -538,15 +593,26 @@ export function FactorsIrrationalsView() {
                               .join(' \\times ')}`}
                           />
                         </Typography>
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 1 }}>
-                          {Object.entries(factorResult.primeFactorization).map(([prime, count]) => (
-                            <Chip
-                              key={prime}
-                              label={count === 1 ? prime : `${prime}^${count}`}
-                              color="secondary"
-                              size="small"
-                            />
-                          ))}
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: 1,
+                            mt: 1,
+                          }}
+                        >
+                          {Object.entries(factorResult.primeFactorization).map(
+                            ([prime, count]) => (
+                              <Chip
+                                key={prime}
+                                label={
+                                  count === 1 ? prime : `${prime}^${count}`
+                                }
+                                color="secondary"
+                                size="small"
+                              />
+                            )
+                          )}
                         </Box>
                       </Box>
                     </Box>
@@ -556,17 +622,28 @@ export function FactorsIrrationalsView() {
                       <Typography variant="h6" gutterBottom>
                         Thông tin bổ sung:
                       </Typography>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 1,
+                        }}
+                      >
                         <Typography variant="body2">
                           • <strong>Tổng tất cả ước số:</strong>{' '}
-                          {factorResult.factors.reduce((sum, factor) => sum + factor, 0)}
+                          {factorResult.factors.reduce(
+                            (sum, factor) => sum + factor,
+                            0
+                          )}
                         </Typography>
                         <Typography variant="body2">
-                          • <strong>Số lượng ước số:</strong> {factorResult.factors.length}
+                          • <strong>Số lượng ước số:</strong>{' '}
+                          {factorResult.factors.length}
                         </Typography>
                         {factorResult.isPerfectSquare && (
                           <Typography variant="body2">
-                            • <strong>Căn bậc hai:</strong> √{factorResult.number} ={' '}
+                            • <strong>Căn bậc hai:</strong> √
+                            {factorResult.number} ={' '}
                             {Math.sqrt(factorResult.number)}
                           </Typography>
                         )}
@@ -640,12 +717,22 @@ export function FactorsIrrationalsView() {
                   }
                 />
                 <CardContent>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  <Box
+                    sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
+                  >
                     <Box
-                      sx={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center' }}
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        textAlign: 'center',
+                      }}
                     >
                       <Box>
-                        <Typography variant="h4" color="primary.main" fontWeight="bold">
+                        <Typography
+                          variant="h4"
+                          color="primary.main"
+                          fontWeight="bold"
+                        >
                           {gcdLcmResult.gcd}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
@@ -653,7 +740,11 @@ export function FactorsIrrationalsView() {
                         </Typography>
                       </Box>
                       <Box>
-                        <Typography variant="h4" color="secondary.main" fontWeight="bold">
+                        <Typography
+                          variant="h4"
+                          color="secondary.main"
+                          fontWeight="bold"
+                        >
                           {gcdLcmResult.lcm}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
@@ -687,9 +778,12 @@ export function FactorsIrrationalsView() {
                       </Box>
                     </Box>
 
-                    <Box sx={{ p: 2, bgcolor: 'info.lighter', borderRadius: 1 }}>
+                    <Box
+                      sx={{ p: 2, bgcolor: 'info.lighter', borderRadius: 1 }}
+                    >
                       <Typography variant="body2" color="info.dark">
-                        💡 <strong>Quan hệ:</strong> GCD × LCM = tích của hai số ban đầu
+                        💡 <strong>Quan hệ:</strong> GCD × LCM = tích của hai số
+                        ban đầu
                       </Typography>
                     </Box>
                   </Box>
@@ -735,10 +829,18 @@ export function FactorsIrrationalsView() {
                 <CardHeader
                   title={
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography variant="h6">Kết quả cho số {irationalResult.number}</Typography>
+                      <Typography variant="h6">
+                        Kết quả cho số {irationalResult.number}
+                      </Typography>
                       <Chip
-                        label={irationalResult.isRational ? 'Số hữu tỷ' : 'Có thể là số vô tỷ'}
-                        color={irationalResult.isRational ? 'success' : 'warning'}
+                        label={
+                          irationalResult.isRational
+                            ? 'Số hữu tỷ'
+                            : 'Có thể là số vô tỷ'
+                        }
+                        color={
+                          irationalResult.isRational ? 'success' : 'warning'
+                        }
                         sx={{ fontWeight: 'bold' }}
                       />
                     </Box>
@@ -750,7 +852,14 @@ export function FactorsIrrationalsView() {
                   </Typography>
 
                   {irationalResult.simplifiedFraction && (
-                    <Box sx={{ mt: 2, p: 2, bgcolor: 'success.lighter', borderRadius: 1 }}>
+                    <Box
+                      sx={{
+                        mt: 2,
+                        p: 2,
+                        bgcolor: 'success.lighter',
+                        borderRadius: 1,
+                      }}
+                    >
                       <Typography variant="body1">
                         <strong>Biểu diễn phân số:</strong>{' '}
                         <InlineMath
@@ -775,16 +884,24 @@ export function FactorsIrrationalsView() {
               <Card key={index} variant="outlined">
                 <CardContent sx={{ py: 2 }}>
                   <Box
-                    sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
                   >
                     <Box>
                       <Typography variant="h6" gutterBottom>
-                        <InlineMath math={irrational.latex} /> = {irrational.name}
+                        <InlineMath math={irrational.latex} /> ={' '}
+                        {irrational.name}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {irrational.description}
                       </Typography>
-                      <Typography variant="body2" sx={{ fontFamily: 'monospace', mt: 1 }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ fontFamily: 'monospace', mt: 1 }}
+                      >
                         ≈ {irrational.value.toFixed(10)}
                       </Typography>
                     </Box>
@@ -815,7 +932,11 @@ export function FactorsIrrationalsView() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: {
+            xs: '1fr',
+            sm: 'repeat(2, 1fr)',
+            md: 'repeat(3, 1fr)',
+          },
           gap: 2,
         }}
       >
@@ -833,22 +954,41 @@ export function FactorsIrrationalsView() {
             onClick={() => handleQuickFactorization(quickFactor)}
           >
             <CardContent>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1,
+                  textAlign: 'center',
+                }}
+              >
                 <Typography variant="subtitle1" fontWeight="bold">
                   {quickFactor.label}
                 </Typography>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
                 >
                   <Typography variant="body2" color="text.secondary">
                     Số:
                   </Typography>
-                  <Typography variant="h6" color="primary.main" fontWeight="bold">
+                  <Typography
+                    variant="h6"
+                    color="primary.main"
+                    fontWeight="bold"
+                  >
                     {quickFactor.example}
                   </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                  <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                  <Iconify
+                    icon="eva:arrowhead-right-fill"
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Box>
               </Box>
             </CardContent>
@@ -881,25 +1021,48 @@ export function FactorsIrrationalsView() {
             onClick={() => handleQuickGcdLcm(quickGcdLcm)}
           >
             <CardContent>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1,
+                  textAlign: 'center',
+                }}
+              >
                 <Typography variant="subtitle1" fontWeight="bold">
                   {quickGcdLcm.label}
                 </Typography>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
                 >
-                  <Typography variant="h6" color="primary.main" fontWeight="bold">
+                  <Typography
+                    variant="h6"
+                    color="primary.main"
+                    fontWeight="bold"
+                  >
                     {quickGcdLcm.a}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     và
                   </Typography>
-                  <Typography variant="h6" color="primary.main" fontWeight="bold">
+                  <Typography
+                    variant="h6"
+                    color="primary.main"
+                    fontWeight="bold"
+                  >
                     {quickGcdLcm.b}
                   </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                  <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                  <Iconify
+                    icon="eva:arrowhead-right-fill"
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Box>
               </Box>
             </CardContent>
@@ -911,7 +1074,13 @@ export function FactorsIrrationalsView() {
 
   const renderHistory = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography variant="h6">Lịch sử tính toán</Typography>
         {history.length > 0 && (
           <Button
@@ -958,7 +1127,11 @@ export function FactorsIrrationalsView() {
             >
               <CardContent sx={{ py: 2 }}>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Chip
@@ -972,9 +1145,13 @@ export function FactorsIrrationalsView() {
                       color="primary"
                       size="small"
                     />
-                    <Typography variant="body1" sx={{ fontFamily: 'monospace' }}>
+                    <Typography
+                      variant="body1"
+                      sx={{ fontFamily: 'monospace' }}
+                    >
                       {item.type === 'factor' && item.data.number}
-                      {item.type === 'gcd-lcm' && `${item.data.a}, ${item.data.b}`}
+                      {item.type === 'gcd-lcm' &&
+                        `${item.data.a}, ${item.data.b}`}
                       {item.type === 'irrational' && item.data.number}
                     </Typography>
                   </Box>
@@ -1001,7 +1178,8 @@ export function FactorsIrrationalsView() {
             </Typography>
 
             <Typography variant="body1" paragraph>
-              <strong>Ước số</strong> của một số tự nhiên n là những số tự nhiên chia hết cho n.
+              <strong>Ước số</strong> của một số tự nhiên n là những số tự nhiên
+              chia hết cho n.
             </Typography>
 
             <Box sx={{ ml: 2 }}>
@@ -1018,8 +1196,8 @@ export function FactorsIrrationalsView() {
             </Typography>
 
             <Typography variant="body1" paragraph>
-              Mọi số tự nhiên lớn hơn 1 đều có thể phân tích duy nhất thành tích các thừa số nguyên
-              tố.
+              Mọi số tự nhiên lớn hơn 1 đều có thể phân tích duy nhất thành tích
+              các thừa số nguyên tố.
             </Typography>
 
             <Box sx={{ p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
@@ -1027,7 +1205,8 @@ export function FactorsIrrationalsView() {
                 <strong>Ví dụ:</strong> 60 = 2² × 3 × 5
               </Typography>
               <Typography variant="body1">
-                <strong>Cách làm:</strong> Chia liên tiếp cho các số nguyên tố 2, 3, 5, 7, ...
+                <strong>Cách làm:</strong> Chia liên tiếp cho các số nguyên tố
+                2, 3, 5, 7, ...
               </Typography>
             </Box>
 
@@ -1053,10 +1232,12 @@ export function FactorsIrrationalsView() {
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="body1" paragraph>
-                • <strong>Số hữu tỷ:</strong> Số có thể biểu diễn dưới dạng phân số a/b (b ≠ 0)
+                • <strong>Số hữu tỷ:</strong> Số có thể biểu diễn dưới dạng phân
+                số a/b (b ≠ 0)
               </Typography>
               <Typography variant="body1" paragraph>
-                • <strong>Số vô tỷ:</strong> Số không thể biểu diễn dưới dạng phân số
+                • <strong>Số vô tỷ:</strong> Số không thể biểu diễn dưới dạng
+                phân số
               </Typography>
               <Typography variant="body1" paragraph>
                 • <strong>Ví dụ số vô tỷ:</strong> π, e, √2, √3, φ (tỉ lệ vàng)
@@ -1069,16 +1250,19 @@ export function FactorsIrrationalsView() {
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="body1" paragraph>
-                • <strong>Mật mã học:</strong> Phân tích thành thừa số nguyên tố trong RSA
+                • <strong>Mật mã học:</strong> Phân tích thành thừa số nguyên tố
+                trong RSA
               </Typography>
               <Typography variant="body1" paragraph>
                 • <strong>Âm nhạc:</strong> Tỉ số tần số trong hòa âm
               </Typography>
               <Typography variant="body1" paragraph>
-                • <strong>Thiết kế:</strong> Tỉ lệ vàng trong kiến trúc và nghệ thuật
+                • <strong>Thiết kế:</strong> Tỉ lệ vàng trong kiến trúc và nghệ
+                thuật
               </Typography>
               <Typography variant="body1" paragraph>
-                • <strong>Khoa học:</strong> Hằng số π trong hình học, e trong vi tích phân
+                • <strong>Khoa học:</strong> Hằng số π trong hình học, e trong
+                vi tích phân
               </Typography>
             </Box>
           </Box>
@@ -1089,9 +1273,21 @@ export function FactorsIrrationalsView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="factors" label="Ước số & thừa số" icon={<Iconify icon="solar:restart-bold" />} />
-      <Tab value="gcd-lcm" label="GCD & LCM" icon={<Iconify icon="solar:forward-bold" />} />
-      <Tab value="irrational" label="Số vô tỷ" icon={<Iconify icon="solar:settings-bold" />} />
+      <Tab
+        value="factors"
+        label="Ước số & thừa số"
+        icon={<Iconify icon="solar:restart-bold" />}
+      />
+      <Tab
+        value="gcd-lcm"
+        label="GCD & LCM"
+        icon={<Iconify icon="solar:forward-bold" />}
+      />
+      <Tab
+        value="irrational"
+        label="Số vô tỷ"
+        icon={<Iconify icon="solar:settings-bold" />}
+      />
       <Tab
         value="quick-tools"
         label="Công cụ nhanh"
@@ -1102,7 +1298,11 @@ export function FactorsIrrationalsView() {
         label={`Lịch sử (${history.length})`}
         icon={<Iconify icon="solar:clock-circle-bold" />}
       />
-      <Tab value="guide" label="Hướng dẫn" icon={<Iconify icon="solar:notebook-bold-duotone" />} />
+      <Tab
+        value="guide"
+        label="Hướng dẫn"
+        icon={<Iconify icon="solar:notebook-bold-duotone" />}
+      />
     </CustomTabs>
   );
 

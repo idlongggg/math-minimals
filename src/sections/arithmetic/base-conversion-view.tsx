@@ -86,9 +86,12 @@ export function BaseConversionView() {
     }>
   >([]);
 
-  const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleTabChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setCurrentTab(newValue);
+    },
+    []
+  );
 
   const isValidDigit = (digit: string, base: number): boolean => {
     const charCode = digit.toUpperCase().charCodeAt(0);
@@ -106,53 +109,56 @@ export function BaseConversionView() {
     return value.split('').every((digit) => isValidDigit(digit, base));
   };
 
-  const convertBase = useCallback((value: string, fromBase: number, toBase: number): string => {
-    if (!value) return '';
+  const convertBase = useCallback(
+    (value: string, fromBase: number, toBase: number): string => {
+      if (!value) return '';
 
-    try {
-      // Convert to decimal first
-      let decimal = 0;
-      const digits = value.toUpperCase().split('').reverse();
+      try {
+        // Convert to decimal first
+        let decimal = 0;
+        const digits = value.toUpperCase().split('').reverse();
 
-      for (let i = 0; i < digits.length; i++) {
-        const digit = digits[i];
-        let digitValue: number;
+        for (let i = 0; i < digits.length; i++) {
+          const digit = digits[i];
+          let digitValue: number;
 
-        if (digit >= '0' && digit <= '9') {
-          digitValue = parseInt(digit);
-        } else if (digit >= 'A' && digit <= 'Z') {
-          digitValue = digit.charCodeAt(0) - 65 + 10;
-        } else {
-          throw new Error('Invalid character');
+          if (digit >= '0' && digit <= '9') {
+            digitValue = parseInt(digit);
+          } else if (digit >= 'A' && digit <= 'Z') {
+            digitValue = digit.charCodeAt(0) - 65 + 10;
+          } else {
+            throw new Error('Invalid character');
+          }
+
+          if (digitValue >= fromBase) {
+            throw new Error(`Invalid digit '${digit}' for base ${fromBase}`);
+          }
+
+          decimal += digitValue * Math.pow(fromBase, i);
         }
 
-        if (digitValue >= fromBase) {
-          throw new Error(`Invalid digit '${digit}' for base ${fromBase}`);
+        if (toBase === 10) {
+          return decimal.toString();
         }
 
-        decimal += digitValue * Math.pow(fromBase, i);
+        // Convert from decimal to target base
+        if (decimal === 0) return '0';
+
+        const digits_map = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let result = '';
+
+        while (decimal > 0) {
+          result = digits_map[decimal % toBase] + result;
+          decimal = Math.floor(decimal / toBase);
+        }
+
+        return result;
+      } catch (err) {
+        throw new Error('Conversion failed');
       }
-
-      if (toBase === 10) {
-        return decimal.toString();
-      }
-
-      // Convert from decimal to target base
-      if (decimal === 0) return '0';
-
-      const digits_map = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      let result = '';
-
-      while (decimal > 0) {
-        result = digits_map[decimal % toBase] + result;
-        decimal = Math.floor(decimal / toBase);
-      }
-
-      return result;
-    } catch (err) {
-      throw new Error('Conversion failed');
-    }
-  }, []);
+    },
+    []
+  );
 
   const handleConvert = useCallback(() => {
     setError('');
@@ -217,7 +223,11 @@ export function BaseConversionView() {
       setCurrentTab('converter'); // Convert immediately
       setTimeout(() => {
         try {
-          const converted = convertBase(quickConv.example, quickConv.from, quickConv.to);
+          const converted = convertBase(
+            quickConv.example,
+            quickConv.from,
+            quickConv.to
+          );
           setResult(converted);
           setError('');
 
@@ -242,7 +252,13 @@ export function BaseConversionView() {
 
   const renderConverter = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-      <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 3,
+          flexDirection: { xs: 'column', md: 'row' },
+        }}
+      >
         <Box sx={{ flex: 1 }}>
           <Card>
             <CardHeader title="Số gốc" />
@@ -273,7 +289,9 @@ export function BaseConversionView() {
                     inputValue && (
                       <Box component="span">
                         Bạn đang nhập:{' '}
-                        <InlineMath math={`${inputValue}_{${BASE_LATEX_NOTATION[fromBase]}}`} />
+                        <InlineMath
+                          math={`${inputValue}_{${BASE_LATEX_NOTATION[fromBase]}}`}
+                        />
                       </Box>
                     )
                   }
@@ -318,7 +336,11 @@ export function BaseConversionView() {
                     readOnly: true,
                     endAdornment: (
                       <InputAdornment position="end">
-                        <Chip label={`Base ${toBase}`} size="small" color="primary" />
+                        <Chip
+                          label={`Base ${toBase}`}
+                          size="small"
+                          color="primary"
+                        />
                       </InputAdornment>
                     ),
                   }}
@@ -341,7 +363,11 @@ export function BaseConversionView() {
                       textAlign: 'center',
                     }}
                   >
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      gutterBottom
+                    >
                       Kết quả chuyển đổi:
                     </Typography>
                     <Box component="div" sx={{ fontSize: '1.2rem' }}>
@@ -393,7 +419,11 @@ export function BaseConversionView() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: {
+            xs: '1fr',
+            sm: 'repeat(2, 1fr)',
+            md: 'repeat(3, 1fr)',
+          },
           gap: 2,
         }}
       >
@@ -411,12 +441,24 @@ export function BaseConversionView() {
             onClick={() => handleQuickConversion(quickConv)}
           >
             <CardContent>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1,
+                  textAlign: 'center',
+                }}
+              >
                 <Typography variant="subtitle1" fontWeight="bold">
                   {quickConv.label}
                 </Typography>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
                 >
                   <Typography variant="body2" color="text.secondary">
                     Ví dụ:
@@ -428,10 +470,15 @@ export function BaseConversionView() {
                     icon="eva:arrow-forward-fill"
                     sx={{ color: 'primary.main', fontSize: 16 }}
                   />
-                  <InlineMath math={`?_{${BASE_LATEX_NOTATION[quickConv.to]}}`} />
+                  <InlineMath
+                    math={`?_{${BASE_LATEX_NOTATION[quickConv.to]}}`}
+                  />
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                  <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                  <Iconify
+                    icon="eva:arrowhead-right-fill"
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Box>
               </Box>
             </CardContent>
@@ -446,23 +493,52 @@ export function BaseConversionView() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr>
-                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                  <th
+                    style={{
+                      padding: 12,
+                      borderBottom: '2px solid #ddd',
+                      textAlign: 'center',
+                    }}
+                  >
                     <InlineMath math="N_{(10)}" />
                   </th>
-                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                  <th
+                    style={{
+                      padding: 12,
+                      borderBottom: '2px solid #ddd',
+                      textAlign: 'center',
+                    }}
+                  >
                     <InlineMath math="N_{(2)}" />
                   </th>
-                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                  <th
+                    style={{
+                      padding: 12,
+                      borderBottom: '2px solid #ddd',
+                      textAlign: 'center',
+                    }}
+                  >
                     <InlineMath math="N_{(8)}" />
                   </th>
-                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                  <th
+                    style={{
+                      padding: 12,
+                      borderBottom: '2px solid #ddd',
+                      textAlign: 'center',
+                    }}
+                  >
                     <InlineMath math="N_{(16)}" />
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {Array.from({ length: 16 }, (_, i) => (
-                  <tr key={i} style={{ backgroundColor: i % 2 === 0 ? '#f9f9f9' : 'white' }}>
+                  <tr
+                    key={i}
+                    style={{
+                      backgroundColor: i % 2 === 0 ? '#f9f9f9' : 'white',
+                    }}
+                  >
                     <td
                       style={{
                         padding: 8,
@@ -515,7 +591,13 @@ export function BaseConversionView() {
 
   const renderHistory = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography variant="h6">Lịch sử chuyển đổi</Typography>
         {history.length > 0 && (
           <Button
@@ -562,7 +644,11 @@ export function BaseConversionView() {
             >
               <CardContent sx={{ py: 2 }}>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Box
@@ -574,16 +660,35 @@ export function BaseConversionView() {
                         fontSize: '0.9rem',
                       }}
                     >
-                      <Chip label={`Base ${item.fromBase}`} size="small" variant="outlined" />
-                      <Box component="span" sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
+                      <Chip
+                        label={`Base ${item.fromBase}`}
+                        size="small"
+                        variant="outlined"
+                      />
+                      <Box
+                        component="span"
+                        sx={{ fontWeight: 'bold', fontSize: '1rem' }}
+                      >
                         <InlineMath
                           math={`${item.input}_{${BASE_LATEX_NOTATION[item.fromBase]}}`}
                         />
                       </Box>
-                      <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.secondary' }} />
-                      <Chip label={`Base ${item.toBase}`} size="small" color="primary" />
-                      <Box component="span" sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
-                        <InlineMath math={`${item.result}_{${BASE_LATEX_NOTATION[item.toBase]}}`} />
+                      <Iconify
+                        icon="eva:arrow-forward-fill"
+                        sx={{ color: 'text.secondary' }}
+                      />
+                      <Chip
+                        label={`Base ${item.toBase}`}
+                        size="small"
+                        color="primary"
+                      />
+                      <Box
+                        component="span"
+                        sx={{ fontWeight: 'bold', fontSize: '1rem' }}
+                      >
+                        <InlineMath
+                          math={`${item.result}_{${BASE_LATEX_NOTATION[item.toBase]}}`}
+                        />
                       </Box>
                     </Box>
                   </Box>
@@ -591,7 +696,10 @@ export function BaseConversionView() {
                     <Typography variant="caption" color="text.secondary">
                       {item.timestamp.toLocaleTimeString('vi-VN')}
                     </Typography>
-                    <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.disabled' }} />
+                    <Iconify
+                      icon="eva:arrow-forward-fill"
+                      sx={{ color: 'text.disabled' }}
+                    />
                   </Box>
                 </Box>
               </CardContent>
@@ -610,13 +718,19 @@ export function BaseConversionView() {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             <Typography variant="h6">Các hệ cơ số phổ biến:</Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}
+            >
               <Box>
                 <Typography variant="body1" component="div">
                   • <strong>Nhị phân (Base 2):</strong> Chỉ sử dụng các chữ số{' '}
                   <InlineMath math="\{0, 1\}" />
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 2 }}
+                >
                   Ví dụ: <InlineMath math="1010_{(2)} = 10_{(10)}" />
                 </Typography>
               </Box>
@@ -626,7 +740,11 @@ export function BaseConversionView() {
                   • <strong>Bát phân (Base 8):</strong> Sử dụng các chữ số{' '}
                   <InlineMath math="\{0, 1, 2, 3, 4, 5, 6, 7\}" />
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 2 }}
+                >
                   Ví dụ: <InlineMath math="377_{(8)} = 255_{(10)}" />
                 </Typography>
               </Box>
@@ -634,9 +752,14 @@ export function BaseConversionView() {
               <Box>
                 <Typography variant="body1" component="div">
                   • <strong>Thập phân (Base 10):</strong> Sử dụng các chữ số{' '}
-                  <InlineMath math="\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}" /> (hệ thông thường)
+                  <InlineMath math="\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}" /> (hệ
+                  thông thường)
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 2 }}
+                >
                   Ví dụ: <InlineMath math="255_{(10)}" />
                 </Typography>
               </Box>
@@ -646,7 +769,11 @@ export function BaseConversionView() {
                   • <strong>Thập lục phân (Base 16):</strong> Sử dụng{' '}
                   <InlineMath math="\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F\}" />
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 2 }}
+                >
                   Ví dụ: <InlineMath math="FF_{(16)} = 255_{(10)}" />
                 </Typography>
               </Box>
@@ -656,16 +783,22 @@ export function BaseConversionView() {
               Công thức chuyển đổi:
             </Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}
+            >
               <Box>
                 <Typography variant="body1" gutterBottom>
                   <strong>1. Từ hệ cơ số b sang thập phân:</strong>
                 </Typography>
                 <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
                   <BlockMath math="N_{(b)} = \sum_{i=0}^{n-1} d_i \times b^i" />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                    Trong đó: <InlineMath math="d_i" /> là chữ số thứ i từ phải sang trái,{' '}
-                    <InlineMath math="b" /> là cơ số
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1 }}
+                  >
+                    Trong đó: <InlineMath math="d_i" /> là chữ số thứ i từ phải
+                    sang trái, <InlineMath math="b" /> là cơ số
                   </Typography>
                 </Box>
               </Box>
@@ -682,7 +815,11 @@ export function BaseConversionView() {
                   <BlockMath math="q_1 \div b = q_2 \text{ dư } r_2" />
                   <BlockMath math="\vdots" />
                   <BlockMath math="q_{n-1} \div b = 0 \text{ dư } r_n" />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1 }}
+                  >
                     Kết quả: <InlineMath math="r_n r_{n-1} \ldots r_2 r_1" />
                   </Typography>
                 </Box>
@@ -715,7 +852,10 @@ export function BaseConversionView() {
                 <strong>Chuyển đổi từ thập phân sang nhị phân:</strong>
               </Typography>
               <Box sx={{ ml: 2 }}>
-                <Typography variant="body2" sx={{ fontFamily: 'monospace', mb: 1 }}>
+                <Typography
+                  variant="body2"
+                  sx={{ fontFamily: 'monospace', mb: 1 }}
+                >
                   Chuyển 13₁₀ sang nhị phân:
                 </Typography>
                 <BlockMath math="13 \div 2 = 6 \text{ dư } 1" />
@@ -735,7 +875,11 @@ export function BaseConversionView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="converter" label="Chuyển đổi" icon={<Iconify icon="solar:restart-bold" />} />
+      <Tab
+        value="converter"
+        label="Chuyển đổi"
+        icon={<Iconify icon="solar:restart-bold" />}
+      />
       <Tab
         value="quick-tools"
         label="Công cụ nhanh"
@@ -746,7 +890,11 @@ export function BaseConversionView() {
         label={`Lịch sử (${history.length})`}
         icon={<Iconify icon="solar:clock-circle-bold" />}
       />
-      <Tab value="guide" label="Hướng dẫn" icon={<Iconify icon="solar:notebook-bold-duotone" />} />
+      <Tab
+        value="guide"
+        label="Hướng dẫn"
+        icon={<Iconify icon="solar:notebook-bold-duotone" />}
+      />
     </CustomTabs>
   );
 

@@ -33,11 +33,13 @@ const QUICK_CHECKS = [
 
 // Danh sách 100 số nguyên tố đầu tiên
 const FIRST_100_PRIMES = [
-  2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97,
-  101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193,
-  197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307,
-  311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421,
-  431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547,
+  2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
+  73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151,
+  157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233,
+  239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317,
+  331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419,
+  421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503,
+  509, 521, 523, 541, 547,
 ];
 
 // ----------------------------------------------------------------------
@@ -64,9 +66,12 @@ export function PrimeNumbersView() {
     }>
   >([]);
 
-  const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleTabChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setCurrentTab(newValue);
+    },
+    []
+  );
 
   // Kiểm tra số nguyên tố bằng thuật toán cơ bản
   const isPrime = useCallback((num: number): boolean => {
@@ -264,7 +269,12 @@ export function PrimeNumbersView() {
               >
                 Kiểm tra
               </Button>
-              <Button variant="outlined" size="large" onClick={handleReset} sx={{ minWidth: 120 }}>
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={handleReset}
+                sx={{ minWidth: 120 }}
+              >
                 Reset
               </Button>
             </Box>
@@ -276,9 +286,15 @@ export function PrimeNumbersView() {
                 <CardHeader
                   title={
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography variant="h6">Kết quả cho số {result.number}</Typography>
+                      <Typography variant="h6">
+                        Kết quả cho số {result.number}
+                      </Typography>
                       <Chip
-                        label={result.isPrime ? 'Số nguyên tố' : 'Không phải số nguyên tố'}
+                        label={
+                          result.isPrime
+                            ? 'Số nguyên tố'
+                            : 'Không phải số nguyên tố'
+                        }
                         color={result.isPrime ? 'success' : 'error'}
                         sx={{ fontWeight: 'bold' }}
                       />
@@ -306,9 +322,17 @@ export function PrimeNumbersView() {
                   )}
 
                   {result.isPrime && (
-                    <Box sx={{ mt: 2, p: 2, bgcolor: 'success.lighter', borderRadius: 1 }}>
+                    <Box
+                      sx={{
+                        mt: 2,
+                        p: 2,
+                        bgcolor: 'success.lighter',
+                        borderRadius: 1,
+                      }}
+                    >
                       <Typography variant="body2" color="success.dark">
-                        💡 <strong>Thông tin thêm:</strong> Số {result.number} là số nguyên tố thứ{' '}
+                        💡 <strong>Thông tin thêm:</strong> Số {result.number}{' '}
+                        là số nguyên tố thứ{' '}
                         {FIRST_100_PRIMES.indexOf(result.number) + 1 > 0
                           ? FIRST_100_PRIMES.indexOf(result.number) + 1
                           : '?'}{' '}
@@ -421,7 +445,11 @@ export function PrimeNumbersView() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: {
+            xs: '1fr',
+            sm: 'repeat(2, 1fr)',
+            md: 'repeat(3, 1fr)',
+          },
           gap: 2,
         }}
       >
@@ -439,22 +467,41 @@ export function PrimeNumbersView() {
             onClick={() => handleQuickCheck(quickCheck)}
           >
             <CardContent>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1,
+                  textAlign: 'center',
+                }}
+              >
                 <Typography variant="subtitle1" fontWeight="bold">
                   {quickCheck.label}
                 </Typography>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
                 >
                   <Typography variant="body2" color="text.secondary">
                     Số:
                   </Typography>
-                  <Typography variant="h6" color="primary.main" fontWeight="bold">
+                  <Typography
+                    variant="h6"
+                    color="primary.main"
+                    fontWeight="bold"
+                  >
                     {quickCheck.example}
                   </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                  <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                  <Iconify
+                    icon="eva:arrowhead-right-fill"
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Box>
               </Box>
             </CardContent>
@@ -495,7 +542,13 @@ export function PrimeNumbersView() {
 
   const renderHistory = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography variant="h6">Lịch sử kiểm tra</Typography>
         {history.length > 0 && (
           <Button
@@ -542,7 +595,11 @@ export function PrimeNumbersView() {
             >
               <CardContent sx={{ py: 2 }}>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Typography variant="h6" sx={{ fontFamily: 'monospace' }}>
@@ -577,12 +634,16 @@ export function PrimeNumbersView() {
             </Typography>
 
             <Typography variant="body1" paragraph>
-              Số nguyên tố là số tự nhiên lớn hơn 1 và chỉ có đúng hai ước số dương: 1 và chính nó.
+              Số nguyên tố là số tự nhiên lớn hơn 1 và chỉ có đúng hai ước số
+              dương: 1 và chính nó.
             </Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, ml: 2 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 2, ml: 2 }}
+            >
               <Typography variant="body1">
-                • <strong>Ví dụ số nguyên tố:</strong> 2, 3, 5, 7, 11, 13, 17, 19, 23, 29...
+                • <strong>Ví dụ số nguyên tố:</strong> 2, 3, 5, 7, 11, 13, 17,
+                19, 23, 29...
               </Typography>
               <Typography variant="body1">
                 • <strong>Số 2:</strong> Là số nguyên tố duy nhất là số chẵn
@@ -596,19 +657,23 @@ export function PrimeNumbersView() {
               Thuật toán kiểm tra số nguyên tố:
             </Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, ml: 2 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 1, ml: 2 }}
+            >
               <Typography variant="body1">
-                1. <strong>Kiểm tra đặc biệt:</strong> Nếu n ≤ 1 thì không phải số nguyên tố
+                1. <strong>Kiểm tra đặc biệt:</strong> Nếu n ≤ 1 thì không phải
+                số nguyên tố
               </Typography>
               <Typography variant="body1">
                 2. <strong>Kiểm tra số 2:</strong> Nếu n = 2 thì là số nguyên tố
               </Typography>
               <Typography variant="body1">
-                3. <strong>Kiểm tra số chẵn:</strong> Nếu n chẵn và n {'>'} 2 thì không phải số
-                nguyên tố
+                3. <strong>Kiểm tra số chẵn:</strong> Nếu n chẵn và n {'>'} 2
+                thì không phải số nguyên tố
               </Typography>
               <Typography variant="body1">
-                4. <strong>Kiểm tra chia hết:</strong> Kiểm tra từ 3 đến √n, chỉ cần kiểm tra số lẻ
+                4. <strong>Kiểm tra chia hết:</strong> Kiểm tra từ 3 đến √n, chỉ
+                cần kiểm tra số lẻ
               </Typography>
             </Box>
 
@@ -639,7 +704,9 @@ export function PrimeNumbersView() {
                   <strong>Bước 3:</strong> Kiểm tra từ 3 đến √17 ≈ 4.12
                 </Typography>
                 <Box sx={{ ml: 2 }}>
-                  <Typography variant="body1">• 17 ÷ 3 = 5 dư 2 (không chia hết)</Typography>
+                  <Typography variant="body1">
+                    • 17 ÷ 3 = 5 dư 2 (không chia hết)
+                  </Typography>
                 </Box>
                 <Typography
                   variant="body1"
@@ -654,7 +721,9 @@ export function PrimeNumbersView() {
               Ứng dụng của số nguyên tố:
             </Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, ml: 2 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 1, ml: 2 }}
+            >
               <Typography variant="body1">
                 • <strong>Mật mã học:</strong> RSA và các hệ mã hóa khác
               </Typography>
@@ -662,10 +731,12 @@ export function PrimeNumbersView() {
                 • <strong>Toán học:</strong> Định lý cơ bản của số học
               </Typography>
               <Typography variant="body1">
-                • <strong>Khoa học máy tính:</strong> Hash function, kiểm tra tính ngẫu nhiên
+                • <strong>Khoa học máy tính:</strong> Hash function, kiểm tra
+                tính ngẫu nhiên
               </Typography>
               <Typography variant="body1">
-                • <strong>Phân tích số:</strong> Phân tích thành thừa số nguyên tố
+                • <strong>Phân tích số:</strong> Phân tích thành thừa số nguyên
+                tố
               </Typography>
             </Box>
           </Box>
@@ -717,7 +788,11 @@ export function PrimeNumbersView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="checker" label="Kiểm tra" icon={<Iconify icon="solar:shield-check-bold" />} />
+      <Tab
+        value="checker"
+        label="Kiểm tra"
+        icon={<Iconify icon="solar:shield-check-bold" />}
+      />
       <Tab
         value="range-finder"
         label="Tìm trong khoảng"
@@ -733,12 +808,19 @@ export function PrimeNumbersView() {
         label={`Lịch sử (${history.length})`}
         icon={<Iconify icon="solar:clock-circle-bold" />}
       />
-      <Tab value="guide" label="Hướng dẫn" icon={<Iconify icon="solar:notebook-bold-duotone" />} />
+      <Tab
+        value="guide"
+        label="Hướng dẫn"
+        icon={<Iconify icon="solar:notebook-bold-duotone" />}
+      />
     </CustomTabs>
   );
 
   return (
-    <DashboardPageWithTabsLayoutAndMetadata pageKey="arithmetic.primeNumbers" tabs={renderTabs()}>
+    <DashboardPageWithTabsLayoutAndMetadata
+      pageKey="arithmetic.primeNumbers"
+      tabs={renderTabs()}
+    >
       {currentTab === 'checker' && renderChecker()}
       {currentTab === 'range-finder' && renderRangeFinder()}
       {currentTab === 'quick-tools' && renderQuickTools()}

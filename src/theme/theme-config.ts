@@ -1,7 +1,11 @@
 import type { CommonColors } from '@mui/material/styles';
 
 import type { PaletteColorNoChannels } from './core/palette';
-import type { ThemeDirection, ThemeColorScheme, ThemeCssVariables } from './types';
+import type {
+  ThemeDirection,
+  ThemeColorScheme,
+  ThemeCssVariables,
+} from './types';
 
 // ----------------------------------------------------------------------
 
@@ -19,7 +23,16 @@ type ThemeConfig = {
   > & {
     common: Pick<CommonColors, 'black' | 'white'>;
     grey: Record<
-      '50' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900',
+      | '50'
+      | '100'
+      | '200'
+      | '300'
+      | '400'
+      | '500'
+      | '600'
+      | '700'
+      | '800'
+      | '900',
       string
     >;
   };

@@ -1,6 +1,11 @@
 import type { ChipProps } from '@mui/material/Chip';
 import type { SvgIconProps } from '@mui/material/SvgIcon';
-import type { Theme, CSSObject, Components, ComponentsVariants } from '@mui/material/styles';
+import type {
+  Theme,
+  CSSObject,
+  Components,
+  ComponentsVariants,
+} from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -37,11 +42,21 @@ const ChipDeleteIcon = (props: SvgIconProps) => (
 
 // ----------------------------------------------------------------------
 
-const COLORS = ['primary', 'secondary', 'info', 'success', 'warning', 'error'] as const;
+const COLORS = [
+  'primary',
+  'secondary',
+  'info',
+  'success',
+  'warning',
+  'error',
+] as const;
 
 type PaletteColor = (typeof COLORS)[number];
 
-function styleColors(ownerState: ChipProps, styles: (val: PaletteColor) => CSSObject) {
+function styleColors(
+  ownerState: ChipProps,
+  styles: (val: PaletteColor) => CSSObject
+) {
   const outputStyle = COLORS.reduce((acc, color) => {
     if (!ownerState.disabled && ownerState.color === color) {
       acc = styles(color);
@@ -55,11 +70,15 @@ function styleColors(ownerState: ChipProps, styles: (val: PaletteColor) => CSSOb
 const softVariant: Record<string, ComponentsVariants<Theme>['MuiChip']> = {
   colors: COLORS.map((color) => ({
     props: ({ ownerState }) =>
-      !ownerState.disabled && ownerState.variant === 'soft' && ownerState.color === color,
+      !ownerState.disabled &&
+      ownerState.variant === 'soft' &&
+      ownerState.color === color,
     style: ({ theme }) => ({
       color: theme.vars.palette[color].dark,
       backgroundColor: varAlpha(theme.vars.palette[color].mainChannel, 0.16),
-      '&:hover': { backgroundColor: varAlpha(theme.vars.palette[color].mainChannel, 0.32) },
+      '&:hover': {
+        backgroundColor: varAlpha(theme.vars.palette[color].mainChannel, 0.32),
+      },
       ...theme.applyStyles('dark', {
         color: theme.vars.palette[color].light,
       }),
@@ -67,10 +86,16 @@ const softVariant: Record<string, ComponentsVariants<Theme>['MuiChip']> = {
   })),
   inheritColor: [
     {
-      props: ({ ownerState }) => ownerState.variant === 'soft' && ownerState.color === 'default',
+      props: ({ ownerState }) =>
+        ownerState.variant === 'soft' && ownerState.color === 'default',
       style: ({ theme }) => ({
         backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.16),
-        '&:hover': { backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.32) },
+        '&:hover': {
+          backgroundColor: varAlpha(
+            theme.vars.palette.grey['500Channel'],
+            0.32
+          ),
+        },
       }),
     },
   ],
@@ -138,7 +163,9 @@ const MuiChip: Components<Theme>['MuiChip'] = {
      * @sizes
      */
     sizeMedium: ({ theme }) => ({ borderRadius: theme.shape.borderRadius }),
-    sizeSmall: ({ theme }) => ({ borderRadius: theme.shape.borderRadius * 0.75 }),
+    sizeSmall: ({ theme }) => ({
+      borderRadius: theme.shape.borderRadius * 0.75,
+    }),
     /**
      * @variant filled
      */
@@ -149,7 +176,9 @@ const MuiChip: Components<Theme>['MuiChip'] = {
             ownerState.color === 'default' && {
               color: theme.vars.palette.common.white,
               backgroundColor: theme.vars.palette.text.primary,
-              [`& .${chipClasses.avatar}`]: { color: theme.vars.palette.text.primary },
+              [`& .${chipClasses.avatar}`]: {
+                color: theme.vars.palette.text.primary,
+              },
               '&:hover': { backgroundColor: theme.vars.palette.grey[700] },
               ...theme.applyStyles('dark', {
                 color: theme.vars.palette.grey[800],
@@ -168,7 +197,10 @@ const MuiChip: Components<Theme>['MuiChip'] = {
         defaultColor: {
           ...(!ownerState.disabled &&
             ownerState.color === 'default' && {
-              borderColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.32),
+              borderColor: varAlpha(
+                theme.vars.palette.grey['500Channel'],
+                0.32
+              ),
             }),
         },
       };

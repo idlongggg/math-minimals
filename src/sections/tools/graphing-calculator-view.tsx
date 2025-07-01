@@ -62,7 +62,10 @@ export function GraphingCalculatorView() {
   const [zoom, setZoom] = useState(1);
   const [error, setError] = useState('');
   const [history, setHistory] = useState<string[]>([]);
-  const [hoveredPoint, setHoveredPoint] = useState<{ x: number; y: number } | null>(null);
+  const [hoveredPoint, setHoveredPoint] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
 
   // Fluent Design card style
   const cardStyle = {
@@ -74,33 +77,36 @@ export function GraphingCalculatorView() {
   };
 
   // Parse and evaluate mathematical expression
-  const evaluateExpression = useCallback((expression: string, x: number): number => {
-    try {
-      // Replace mathematical functions and constants
-      const expr = expression
-        .replace(/\^/g, '**')
-        .replace(/sin/g, 'Math.sin')
-        .replace(/cos/g, 'Math.cos')
-        .replace(/tan/g, 'Math.tan')
-        .replace(/log/g, 'Math.log10')
-        .replace(/ln/g, 'Math.log')
-        .replace(/sqrt/g, 'Math.sqrt')
-        .replace(/abs/g, 'Math.abs')
-        .replace(/pi/g, 'Math.PI')
-        .replace(/e/g, 'Math.E')
-        .replace(/x/g, x.toString());
+  const evaluateExpression = useCallback(
+    (expression: string, x: number): number => {
+      try {
+        // Replace mathematical functions and constants
+        const expr = expression
+          .replace(/\^/g, '**')
+          .replace(/sin/g, 'Math.sin')
+          .replace(/cos/g, 'Math.cos')
+          .replace(/tan/g, 'Math.tan')
+          .replace(/log/g, 'Math.log10')
+          .replace(/ln/g, 'Math.log')
+          .replace(/sqrt/g, 'Math.sqrt')
+          .replace(/abs/g, 'Math.abs')
+          .replace(/pi/g, 'Math.PI')
+          .replace(/e/g, 'Math.E')
+          .replace(/x/g, x.toString());
 
-      // Simple validation to prevent dangerous code execution
-      if (!/^[0-9+\-*/().\s Math.sincotanlgqrbspiPIE]+$/.test(expr)) {
-        throw new Error('Invalid expression');
+        // Simple validation to prevent dangerous code execution
+        if (!/^[0-9+\-*/().\s Math.sincotanlgqrbspiPIE]+$/.test(expr)) {
+          throw new Error('Invalid expression');
+        }
+
+        const result = eval(expr);
+        return typeof result === 'number' ? result : NaN;
+      } catch {
+        return NaN;
       }
-
-      const result = eval(expr);
-      return typeof result === 'number' ? result : NaN;
-    } catch {
-      return NaN;
-    }
-  }, []);
+    },
+    []
+  );
 
   // Generate points for a function
   const generatePoints = useCallback(
@@ -211,7 +217,12 @@ export function GraphingCalculatorView() {
           const canvasX = transformX(point.x);
           const canvasY = transformY(point.y);
 
-          if (canvasX >= 0 && canvasX <= width && canvasY >= 0 && canvasY <= height) {
+          if (
+            canvasX >= 0 &&
+            canvasX <= width &&
+            canvasY >= 0 &&
+            canvasY <= height
+          ) {
             if (isFirstPoint) {
               ctx.moveTo(canvasX, canvasY);
               isFirstPoint = false;
@@ -295,15 +306,22 @@ export function GraphingCalculatorView() {
   );
 
   // Update function expression
-  const updateFunctionExpression = useCallback((id: string, expression: string) => {
-    setFunctions((prev) => prev.map((func) => (func.id === id ? { ...func, expression } : func)));
-    setError('');
-  }, []);
+  const updateFunctionExpression = useCallback(
+    (id: string, expression: string) => {
+      setFunctions((prev) =>
+        prev.map((func) => (func.id === id ? { ...func, expression } : func))
+      );
+      setError('');
+    },
+    []
+  );
 
   // Toggle function visibility
   const toggleFunctionVisibility = useCallback((id: string) => {
     setFunctions((prev) =>
-      prev.map((func) => (func.id === id ? { ...func, visible: !func.visible } : func))
+      prev.map((func) =>
+        func.id === id ? { ...func, visible: !func.visible } : func
+      )
     );
   }, []);
 
@@ -348,7 +366,9 @@ export function GraphingCalculatorView() {
     drawGraph();
   }, [drawGraph]);
 
-  const selectedFunction = functions.find((func) => func.id === selectedFunctionId);
+  const selectedFunction = functions.find(
+    (func) => func.id === selectedFunctionId
+  );
 
   return (
     <DashboardPageLayout
@@ -356,11 +376,22 @@ export function GraphingCalculatorView() {
       description="Vẽ và phân tích đồ thị của các hàm số toán học"
       maxWidth="xl"
     >
-      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 400px' }, gap: 3 }}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', lg: '1fr 400px' },
+          gap: 3,
+        }}
+      >
         {/* Graph Canvas */}
         <Card sx={cardStyle}>
           <Box
-            sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            sx={{
+              mb: 2,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
           >
             <Typography variant="h6">Biểu đồ</Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
@@ -413,7 +444,12 @@ export function GraphingCalculatorView() {
           {/* Functions */}
           <Card sx={cardStyle}>
             <Box
-              sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                mb: 2,
+              }}
             >
               <Typography variant="h6">Hàm số</Typography>
               <Button
@@ -428,7 +464,10 @@ export function GraphingCalculatorView() {
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {functions.map((func) => (
-                <Box key={func.id} sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Box
+                  key={func.id}
+                  sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
+                >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Box
                       sx={{
@@ -445,7 +484,9 @@ export function GraphingCalculatorView() {
                     <TextField
                       size="small"
                       value={func.expression}
-                      onChange={(e) => updateFunctionExpression(func.id, e.target.value)}
+                      onChange={(e) =>
+                        updateFunctionExpression(func.id, e.target.value)
+                      }
                       placeholder="x^2, sin(x), log(x), ..."
                       sx={{ flex: 1 }}
                     />
@@ -454,7 +495,13 @@ export function GraphingCalculatorView() {
                       onClick={() => toggleFunctionVisibility(func.id)}
                       color={func.visible ? 'primary' : 'default'}
                     >
-                      <Iconify icon={func.visible ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+                      <Iconify
+                        icon={
+                          func.visible
+                            ? 'solar:eye-bold'
+                            : 'solar:eye-closed-bold'
+                        }
+                      />
                     </IconButton>
                     {functions.length > 1 && (
                       <IconButton
@@ -483,7 +530,9 @@ export function GraphingCalculatorView() {
               Phạm vi hiển thị
             </Typography>
 
-            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+            <Box
+              sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}
+            >
               <TextField
                 label="X min"
                 type="number"

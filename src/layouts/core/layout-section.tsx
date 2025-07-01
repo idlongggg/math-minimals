@@ -32,7 +32,11 @@ export function LayoutSection({
   ...other
 }: LayoutSectionProps) {
   const inputGlobalStyles = (
-    <GlobalStyles styles={(theme) => ({ body: { ...layoutSectionVars(theme), ...cssVars } })} />
+    <GlobalStyles
+      styles={(theme) => ({
+        body: { ...layoutSectionVars(theme), ...cssVars },
+      })}
+    />
   );
 
   return (

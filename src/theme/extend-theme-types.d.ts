@@ -14,7 +14,10 @@ import type { ButtonExtendVariant } from './core/components/button';
 import type { FabExtendVariant } from './core/components/button-fab';
 import type { AvatarGroupExtendVariant } from './core/components/avatar';
 import type { ButtonGroupExtendVariant } from './core/components/button-group';
-import type { PaginationExtendColor, PaginationExtendVariant } from './core/components/pagination';
+import type {
+  PaginationExtendColor,
+  PaginationExtendVariant,
+} from './core/components/pagination';
 import type {
   GreyExtend,
   TypeTextExtend,

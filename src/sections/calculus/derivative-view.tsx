@@ -14,7 +14,9 @@ export function DerivativeView({ sx, ...other }: BoxProps) {
       description="Công cụ tính đạo hàm, phân tích và vẽ đồ thị đạo hàm của các hàm số."
     >
       <Box>
-        <Typography variant="body1">Công cụ tính đạo hàm sẽ được phát triển tại đây.</Typography>
+        <Typography variant="body1">
+          Công cụ tính đạo hàm sẽ được phát triển tại đây.
+        </Typography>
       </Box>
     </DashboardPageLayout>
   );

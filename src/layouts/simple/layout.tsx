@@ -45,7 +45,9 @@ export function SimpleLayout({
   layoutQuery = 'md',
 }: SimpleLayoutProps) {
   const renderHeader = () => {
-    const headerSlotProps: HeaderSectionProps['slotProps'] = { container: { maxWidth: false } };
+    const headerSlotProps: HeaderSectionProps['slotProps'] = {
+      container: { maxWidth: false },
+    };
 
     const headerSlots: HeaderSectionProps['slots'] = {
       topArea: (
@@ -55,7 +57,13 @@ export function SimpleLayout({
       ),
       leftArea: <Logo />,
       rightArea: (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: { xs: 1, sm: 1.5 },
+          }}
+        >
           {/** @slot Help link */}
           <Link
             href={paths.faqs}

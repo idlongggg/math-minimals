@@ -1,4 +1,8 @@
-import type { CardProps, CardHeaderProps, CardContentProps } from '@mui/material';
+import type {
+  CardProps,
+  CardHeaderProps,
+  CardContentProps,
+} from '@mui/material';
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';

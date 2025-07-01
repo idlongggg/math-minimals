@@ -35,7 +35,11 @@ const MuiRadio: Components<Theme>['MuiRadio'] = {
   /** **************************************
    * DEFAULT PROPS
    *************************************** */
-  defaultProps: { size: 'small', icon: <RadioIcon />, checkedIcon: <RadioCheckedIcon /> },
+  defaultProps: {
+    size: 'small',
+    icon: <RadioIcon />,
+    checkedIcon: <RadioCheckedIcon />,
+  },
 
   /** **************************************
    * STYLE
@@ -44,9 +48,13 @@ const MuiRadio: Components<Theme>['MuiRadio'] = {
     root: ({ ownerState, theme }) => ({
       padding: theme.spacing(1),
       ...(ownerState.color === 'default' && {
-        [`&.${radioClasses.checked}`]: { color: theme.vars.palette.text.primary },
+        [`&.${radioClasses.checked}`]: {
+          color: theme.vars.palette.text.primary,
+        },
       }),
-      [`&.${radioClasses.disabled}`]: { color: theme.vars.palette.action.disabled },
+      [`&.${radioClasses.disabled}`]: {
+        color: theme.vars.palette.action.disabled,
+      },
     }),
   },
 };

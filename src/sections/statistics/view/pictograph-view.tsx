@@ -19,8 +19,15 @@ import {
 } from '@mui/material';
 
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
-import { PictographChart, type PictographData } from 'src/components/pictograph-chart';
-import { CustomCard, CustomCardHeader, CustomCardContent } from 'src/components/custom-card';
+import {
+  PictographChart,
+  type PictographData,
+} from 'src/components/pictograph-chart';
+import {
+  CustomCard,
+  CustomCardHeader,
+  CustomCardContent,
+} from 'src/components/custom-card';
 
 // Sample data sets
 const sampleDataSets = {
@@ -140,7 +147,8 @@ const colors = [
 
 export function PictographView() {
   const theme = useTheme();
-  const [selectedDataSet, setSelectedDataSet] = useState<keyof typeof sampleDataSets>('fruits');
+  const [selectedDataSet, setSelectedDataSet] =
+    useState<keyof typeof sampleDataSets>('fruits');
   const [customData, setCustomData] = useState<PictographData[]>([
     { category: 'Danh mục A', value: 10, icon: '🔵', color: '#3b82f6' },
   ]);
@@ -149,7 +157,9 @@ export function PictographView() {
   const [maxIconsPerRow, setMaxIconsPerRow] = useState(10);
   const [iconSize, setIconSize] = useState(40);
 
-  const currentData = useCustomData ? customData : sampleDataSets[selectedDataSet];
+  const currentData = useCustomData
+    ? customData
+    : sampleDataSets[selectedDataSet];
 
   const addCustomCategory = () => {
     const newCategory: PictographData = {
@@ -161,7 +171,11 @@ export function PictographView() {
     setCustomData([...customData, newCategory]);
   };
 
-  const updateCustomCategory = (index: number, field: keyof PictographData, value: any) => {
+  const updateCustomCategory = (
+    index: number,
+    field: keyof PictographData,
+    value: any
+  ) => {
     const updated = [...customData];
     updated[index] = { ...updated[index], [field]: value };
     setCustomData(updated);
@@ -172,7 +186,9 @@ export function PictographView() {
   };
 
   const resetData = () => {
-    setCustomData([{ category: 'Danh mục A', value: 10, icon: '🔵', color: '#3b82f6' }]);
+    setCustomData([
+      { category: 'Danh mục A', value: 10, icon: '🔵', color: '#3b82f6' },
+    ]);
   };
 
   return (
@@ -180,7 +196,13 @@ export function PictographView() {
       title="Biểu đồ tranh (Pictograph)"
       description="Biểu đồ tranh sử dụng biểu tượng để hiển thị dữ liệu một cách trực quan và dễ hiểu. Mỗi biểu tượng đại diện cho một giá trị nhất định."
     >
-      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 2fr' }, gap: 3 }}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: '1fr 2fr' },
+          gap: 3,
+        }}
+      >
         {/* Controls Panel */}
         <Box>
           <CustomCard
@@ -230,7 +252,9 @@ export function PictographView() {
                     value={selectedDataSet}
                     label="Chọn bộ dữ liệu"
                     onChange={(e) =>
-                      setSelectedDataSet(e.target.value as keyof typeof sampleDataSets)
+                      setSelectedDataSet(
+                        e.target.value as keyof typeof sampleDataSets
+                      )
                     }
                   >
                     <MenuItem value="fruits">🍎 Trái cây</MenuItem>
@@ -241,8 +265,17 @@ export function PictographView() {
                 </FormControl>
               ) : (
                 <Box sx={{ mb: 3 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-                    <Typography variant="subtitle2">Dữ liệu tùy chỉnh</Typography>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1,
+                      mb: 2,
+                    }}
+                  >
+                    <Typography variant="subtitle2">
+                      Dữ liệu tùy chỉnh
+                    </Typography>
                     <IconButton
                       size="small"
                       onClick={addCustomCategory}
@@ -283,16 +316,30 @@ export function PictographView() {
                         transition: 'all 0.2s ease',
                         '&:hover': {
                           borderColor: theme.palette.primary.main,
-                          boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
+                          boxShadow:
+                            theme.vars?.customShadows?.z4 || theme.shadows[4],
                         },
                       }}
                     >
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                          mb: 1,
+                        }}
+                      >
                         <TextField
                           size="small"
                           label="Tên danh mục"
                           value={item.category}
-                          onChange={(e) => updateCustomCategory(index, 'category', e.target.value)}
+                          onChange={(e) =>
+                            updateCustomCategory(
+                              index,
+                              'category',
+                              e.target.value
+                            )
+                          }
                           sx={{ flex: 1 }}
                         />
                         <IconButton
@@ -318,7 +365,11 @@ export function PictographView() {
                         type="number"
                         value={item.value}
                         onChange={(e) =>
-                          updateCustomCategory(index, 'value', Number(e.target.value))
+                          updateCustomCategory(
+                            index,
+                            'value',
+                            Number(e.target.value)
+                          )
                         }
                         sx={{ mb: 1, width: '100%' }}
                       />
@@ -329,7 +380,13 @@ export function PictographView() {
                           <Select
                             value={item.icon}
                             label="Biểu tượng"
-                            onChange={(e) => updateCustomCategory(index, 'icon', e.target.value)}
+                            onChange={(e) =>
+                              updateCustomCategory(
+                                index,
+                                'icon',
+                                e.target.value
+                              )
+                            }
                           >
                             {availableIcons.map((icon) => (
                               <MenuItem key={icon} value={icon}>
@@ -344,11 +401,23 @@ export function PictographView() {
                           <Select
                             value={item.color}
                             label="Màu sắc"
-                            onChange={(e) => updateCustomCategory(index, 'color', e.target.value)}
+                            onChange={(e) =>
+                              updateCustomCategory(
+                                index,
+                                'color',
+                                e.target.value
+                              )
+                            }
                           >
                             {colors.map((color) => (
                               <MenuItem key={color} value={color}>
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <Box
+                                  sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 1,
+                                  }}
+                                >
                                   <Box
                                     sx={{
                                       width: 16,
@@ -483,14 +552,20 @@ export function PictographView() {
             </Box>
 
             <Typography variant="body2" color="text.secondary">
-              Tổng cộng: {currentData.reduce((sum, item) => sum + item.value, 0)} đơn vị
+              Tổng cộng:{' '}
+              {currentData.reduce((sum, item) => sum + item.value, 0)} đơn vị
               {' • '}
               Tổng số biểu tượng:{' '}
-              {Math.ceil(currentData.reduce((sum, item) => sum + item.value, 0) / unitValue)}
+              {Math.ceil(
+                currentData.reduce((sum, item) => sum + item.value, 0) /
+                  unitValue
+              )}
               {' • '}
               Trung bình mỗi danh mục:{' '}
               {Math.round(
-                (currentData.reduce((sum, item) => sum + item.value, 0) / currentData.length) * 10
+                (currentData.reduce((sum, item) => sum + item.value, 0) /
+                  currentData.length) *
+                  10
               ) / 10}
             </Typography>
           </CustomCardContent>

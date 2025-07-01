@@ -2,7 +2,12 @@
 
 import type { AppBarProps } from '@mui/material/AppBar';
 import type { ContainerProps } from '@mui/material/Container';
-import type { Theme, SxProps, CSSObject, Breakpoint } from '@mui/material/styles';
+import type {
+  Theme,
+  SxProps,
+  CSSObject,
+  Breakpoint,
+} from '@mui/material/styles';
 
 import { useScrollOffsetTop } from 'minimal-shared/hooks';
 import { varAlpha, mergeClasses } from 'minimal-shared/utils';
@@ -67,7 +72,9 @@ export function HeaderSection({
       <HeaderContainer layoutQuery={layoutQuery} {...slotProps?.container}>
         {slots?.leftArea}
 
-        <HeaderCenterArea {...slotProps?.centerArea}>{slots?.centerArea}</HeaderCenterArea>
+        <HeaderCenterArea {...slotProps?.centerArea}>
+          {slots?.centerArea}
+        </HeaderCenterArea>
 
         {slots?.rightArea}
       </HeaderContainer>
@@ -79,7 +86,10 @@ export function HeaderSection({
 
 // ----------------------------------------------------------------------
 
-type HeaderRootProps = Pick<HeaderSectionProps, 'disableOffset' | 'disableElevation'> & {
+type HeaderRootProps = Pick<
+  HeaderSectionProps,
+  'disableOffset' | 'disableElevation'
+> & {
   isOffset: boolean;
 };
 
@@ -136,13 +146,17 @@ const HeaderRoot = styled(AppBar, {
 
 const HeaderContainer = styled(Container, {
   shouldForwardProp: (prop: string) => !['layoutQuery', 'sx'].includes(prop),
-})<Pick<HeaderSectionProps, 'layoutQuery'>>(({ layoutQuery = 'md', theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  color: 'var(--color)',
-  height: 'var(--layout-header-mobile-height)',
-  [theme.breakpoints.up(layoutQuery)]: { height: 'var(--layout-header-desktop-height)' },
-}));
+})<Pick<HeaderSectionProps, 'layoutQuery'>>(
+  ({ layoutQuery = 'md', theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    color: 'var(--color)',
+    height: 'var(--layout-header-mobile-height)',
+    [theme.breakpoints.up(layoutQuery)]: {
+      height: 'var(--layout-header-desktop-height)',
+    },
+  })
+);
 
 const HeaderCenterArea = styled('div')(() => ({
   display: 'flex',

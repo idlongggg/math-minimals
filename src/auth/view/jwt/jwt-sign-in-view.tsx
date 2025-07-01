@@ -81,7 +81,11 @@ export function JwtSignInView() {
 
   const renderForm = () => (
     <Box sx={{ gap: 3, display: 'flex', flexDirection: 'column' }}>
-      <Field.Text name="email" label="Email address" slotProps={{ inputLabel: { shrink: true } }} />
+      <Field.Text
+        name="email"
+        label="Email address"
+        slotProps={{ inputLabel: { shrink: true } }}
+      />
 
       <Box sx={{ gap: 1.5, display: 'flex', flexDirection: 'column' }}>
         <Link
@@ -106,7 +110,11 @@ export function JwtSignInView() {
                 <InputAdornment position="end">
                   <IconButton onClick={showPassword.onToggle} edge="end">
                     <Iconify
-                      icon={showPassword.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
+                      icon={
+                        showPassword.value
+                          ? 'solar:eye-bold'
+                          : 'solar:eye-closed-bold'
+                      }
                     />
                   </IconButton>
                 </InputAdornment>
@@ -137,7 +145,11 @@ export function JwtSignInView() {
         description={
           <>
             {`Don’t have an account? `}
-            <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
+            <Link
+              component={RouterLink}
+              href={paths.auth.jwt.signUp}
+              variant="subtitle2"
+            >
               Get started
             </Link>
           </>

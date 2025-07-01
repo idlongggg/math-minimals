@@ -56,8 +56,16 @@ export function LargeBlock({
     <LargeBlockRoot sx={sx} {...other}>
       <LargeLabel>
         {canReset && (
-          <ButtonBase disableRipple onClick={onReset} sx={{ ml: -0.5, mr: 0.5 }}>
-            <Iconify width={14} icon="solar:restart-bold" sx={{ opacity: 0.64 }} />
+          <ButtonBase
+            disableRipple
+            onClick={onReset}
+            sx={{ ml: -0.5, mr: 0.5 }}
+          >
+            <Iconify
+              width={14}
+              icon="solar:restart-bold"
+              sx={{ opacity: 0.64 }}
+            />
           </ButtonBase>
         )}
         {title}
@@ -119,10 +127,21 @@ const SmallLabel = styled(ButtonBase, {
   ],
 }));
 
-export function SmallBlock({ label, canReset, onReset, sx, children, ...other }: SmallBlockProps) {
+export function SmallBlock({
+  label,
+  canReset,
+  onReset,
+  sx,
+  children,
+  ...other
+}: SmallBlockProps) {
   return (
     <SmallBlockRoot sx={sx} {...other}>
-      <SmallLabel disableRipple canReset={canReset} onClick={canReset ? onReset : undefined}>
+      <SmallLabel
+        disableRipple
+        canReset={canReset}
+        onClick={canReset ? onReset : undefined}
+      >
         {canReset && <Iconify width={14} icon="solar:restart-bold" />}
         {label}
       </SmallLabel>
@@ -137,7 +156,12 @@ export type OptionButtonProps = ButtonBaseProps & {
   selected?: boolean;
 };
 
-export function OptionButton({ selected, sx, children, ...other }: OptionButtonProps) {
+export function OptionButton({
+  selected,
+  sx,
+  children,
+  ...other
+}: OptionButtonProps) {
   return (
     <ButtonBase
       disableRipple

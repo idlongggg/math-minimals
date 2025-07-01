@@ -8,12 +8,14 @@ export const PAGE_METADATA: Record<string, PageMetadata> = {
   // Arithmetic pages
   'arithmetic.primeNumbers': {
     title: 'Số nguyên tố',
-    description: 'Công cụ kiểm tra và tìm số nguyên tố với các thuật toán tối ưu.',
+    description:
+      'Công cụ kiểm tra và tìm số nguyên tố với các thuật toán tối ưu.',
     keywords: ['số nguyên tố', 'prime numbers', 'số học', 'arithmetic'],
   },
   'arithmetic.gcd': {
     title: 'Ước chung lớn nhất',
-    description: 'Tính ước chung lớn nhất (GCD) và bội chung nhỏ nhất (LCM) của các số.',
+    description:
+      'Tính ước chung lớn nhất (GCD) và bội chung nhỏ nhất (LCM) của các số.',
     keywords: ['gcd', 'lcm', 'ước chung', 'bội chung'],
   },
   'arithmetic.factors': {
@@ -25,31 +27,36 @@ export const PAGE_METADATA: Record<string, PageMetadata> = {
   // Algebra pages
   'algebra.linear.matrix': {
     title: 'Máy tính ma trận',
-    description: 'Tính toán với ma trận: cộng, trừ, nhân, định thức, nghịch đảo.',
+    description:
+      'Tính toán với ma trận: cộng, trừ, nhân, định thức, nghịch đảo.',
     keywords: ['ma trận', 'matrix', 'đại số tuyến tính'],
   },
   'algebra.linear.system': {
     title: 'Hệ phương trình tuyến tính',
-    description: 'Giải hệ phương trình tuyến tính bằng các phương pháp khác nhau.',
+    description:
+      'Giải hệ phương trình tuyến tính bằng các phương pháp khác nhau.',
     keywords: ['hệ phương trình', 'linear system', 'đại số'],
   },
 
   // Geometry pages
   'geometry.basic.area': {
     title: 'Tính diện tích',
-    description: 'Tính diện tích các hình học cơ bản: tam giác, tứ giác, hình tròn.',
+    description:
+      'Tính diện tích các hình học cơ bản: tam giác, tứ giác, hình tròn.',
     keywords: ['diện tích', 'area', 'hình học'],
   },
   'geometry.basic.volume': {
     title: 'Tính thể tích',
-    description: 'Tính thể tích các khối hình học: hình cầu, hình trụ, hình nón.',
+    description:
+      'Tính thể tích các khối hình học: hình cầu, hình trụ, hình nón.',
     keywords: ['thể tích', 'volume', 'hình học không gian'],
   },
 
   // Calculus pages
   'calculus.derivative': {
     title: 'Đạo hàm',
-    description: 'Tính đạo hàm của các hàm số với công cụ symbolic và numerical.',
+    description:
+      'Tính đạo hàm của các hàm số với công cụ symbolic và numerical.',
     keywords: ['đạo hàm', 'derivative', 'giải tích'],
   },
   'calculus.integral': {
@@ -61,7 +68,8 @@ export const PAGE_METADATA: Record<string, PageMetadata> = {
   // Statistics pages
   'statistics.descriptive': {
     title: 'Thống kê mô tả',
-    description: 'Tính toán các chỉ số thống kê: trung bình, trung vị, độ lệch chuẩn.',
+    description:
+      'Tính toán các chỉ số thống kê: trung bình, trung vị, độ lệch chuẩn.',
     keywords: ['thống kê', 'statistics', 'mô tả'],
   },
   'statistics.probability': {
@@ -73,7 +81,8 @@ export const PAGE_METADATA: Record<string, PageMetadata> = {
   // Trigonometry pages
   'trigonometry.basic': {
     title: 'Lượng giác cơ bản',
-    description: 'Tính toán các hàm lượng giác: sin, cos, tan và các hàm ngược.',
+    description:
+      'Tính toán các hàm lượng giác: sin, cos, tan và các hàm ngược.',
     keywords: ['lượng giác', 'trigonometry', 'sin', 'cos', 'tan'],
   },
   'trigonometry.identities': {
@@ -97,7 +106,8 @@ export const PAGE_METADATA: Record<string, PageMetadata> = {
   // Dashboard page
   dashboard: {
     title: 'Bảng điều khiển',
-    description: 'Trang chính hiển thị tổng quan về các công cụ toán học và thống kê sử dụng.',
+    description:
+      'Trang chính hiển thị tổng quan về các công cụ toán học và thống kê sử dụng.',
     keywords: ['dashboard', 'bảng điều khiển', 'tổng quan', 'math tools'],
   },
 
@@ -109,23 +119,14 @@ export const PAGE_METADATA: Record<string, PageMetadata> = {
   },
 } as const;
 
-/**
- * Get page metadata by key
- */
 export function getPageMetadata(key: string): PageMetadata {
   return PAGE_METADATA[key] || PAGE_METADATA.default;
 }
 
-/**
- * Get page title by key
- */
 export function getPageTitle(key: string): string {
   return getPageMetadata(key).title;
 }
 
-/**
- * Get page description by key
- */
 export function getPageDescription(key: string): string {
   return getPageMetadata(key).description;
 }

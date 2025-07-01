@@ -122,10 +122,14 @@ export function LineChart({
             );
 
             // Thêm chú thích
-            boardRef.current.create('text', [-10, 2 - index * 0.3, series.name], {
-              fontSize: 12,
-              color: series.color || `hsl(${index * 60}, 70%, 50%)`,
-            });
+            boardRef.current.create(
+              'text',
+              [-10, 2 - index * 0.3, series.name],
+              {
+                fontSize: 12,
+                color: series.color || `hsl(${index * 60}, 70%, 50%)`,
+              }
+            );
           });
 
           // Thêm nhãn cho trục

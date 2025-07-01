@@ -36,22 +36,47 @@ const MuiDataGrid: Components<Theme>['MuiDataGrid'] = {
           sx={{ color: 'text.disabled' }}
         />
       ),
-      columnMenuIcon: (props: SvgIconProps) => <DataGridMoreIcon width={20} {...props} />,
-      columnMenuSortAscendingIcon: (props: SvgIconProps) => <DataGridArrowUpIcon {...props} />,
-      columnMenuSortDescendingIcon: (props: SvgIconProps) => <DataGridArrowDownIcon {...props} />,
-      columnMenuFilterIcon: (props: SvgIconProps) => <DataGridFilterIcon {...props} />,
-      columnMenuHideIcon: (props: SvgIconProps) => <DataGridEyeCloseIcon {...props} />,
-      columnMenuManageColumnsIcon: (props: SvgIconProps) => <DataGridEyeIcon {...props} />,
-      columnSelectorIcon: (props: SvgIconProps) => <DataGridEyeIcon {...props} />,
+      columnMenuIcon: (props: SvgIconProps) => (
+        <DataGridMoreIcon width={20} {...props} />
+      ),
+      columnMenuSortAscendingIcon: (props: SvgIconProps) => (
+        <DataGridArrowUpIcon {...props} />
+      ),
+      columnMenuSortDescendingIcon: (props: SvgIconProps) => (
+        <DataGridArrowDownIcon {...props} />
+      ),
+      columnMenuFilterIcon: (props: SvgIconProps) => (
+        <DataGridFilterIcon {...props} />
+      ),
+      columnMenuHideIcon: (props: SvgIconProps) => (
+        <DataGridEyeCloseIcon {...props} />
+      ),
+      columnMenuManageColumnsIcon: (props: SvgIconProps) => (
+        <DataGridEyeIcon {...props} />
+      ),
+      columnSelectorIcon: (props: SvgIconProps) => (
+        <DataGridEyeIcon {...props} />
+      ),
       /* Filter */
-      filterPanelDeleteIcon: (props: SvgIconProps) => <DataGridCloseIcon {...props} />,
-      openFilterButtonIcon: (props: SvgIconProps) => <DataGridFilterIcon {...props} />,
+      filterPanelDeleteIcon: (props: SvgIconProps) => (
+        <DataGridCloseIcon {...props} />
+      ),
+      openFilterButtonIcon: (props: SvgIconProps) => (
+        <DataGridFilterIcon {...props} />
+      ),
       columnFilteredIcon: (props: SvgIconProps) => (
-        <DataGridFilterIcon sx={{ width: 16, color: 'text.primary' }} {...props} />
+        <DataGridFilterIcon
+          sx={{ width: 16, color: 'text.primary' }}
+          {...props}
+        />
       ),
       /* Density */
-      densityCompactIcon: (props: SvgIconProps) => <DataGridDensityCompactIcon {...props} />,
-      densityStandardIcon: (props: SvgIconProps) => <DataGridDensityStandardIcon {...props} />,
+      densityCompactIcon: (props: SvgIconProps) => (
+        <DataGridDensityCompactIcon {...props} />
+      ),
+      densityStandardIcon: (props: SvgIconProps) => (
+        <DataGridDensityStandardIcon {...props} />
+      ),
       densityComfortableIcon: (props: SvgIconProps) => (
         <DataGridDensityComfortableIcon {...props} />
       ),
@@ -59,9 +84,14 @@ const MuiDataGrid: Components<Theme>['MuiDataGrid'] = {
       exportIcon: (props: SvgIconProps) => <DataGridExportIcon {...props} />,
       /*  Quick Filter */
       quickFilterIcon: (props: SvgIconProps) => (
-        <DataGridSearchIcon sx={{ width: 24, height: 24, color: 'text.secondary' }} {...props} />
+        <DataGridSearchIcon
+          sx={{ width: 24, height: 24, color: 'text.secondary' }}
+          {...props}
+        />
       ),
-      quickFilterClearIcon: (props: SvgIconProps) => <DataGridCloseIcon {...props} />,
+      quickFilterClearIcon: (props: SvgIconProps) => (
+        <DataGridCloseIcon {...props} />
+      ),
     },
     slotProps: {
       basePopper: { placement: 'bottom-end' },
@@ -173,7 +203,10 @@ const MuiDataGrid: Components<Theme>['MuiDataGrid'] = {
     /**
      * Paper
      */
-    paper: ({ theme }) => ({ ...theme.mixins.paperStyles(theme, { dropdown: true }), padding: 0 }),
+    paper: ({ theme }) => ({
+      ...theme.mixins.paperStyles(theme, { dropdown: true }),
+      padding: 0,
+    }),
     menu: ({ theme }) => ({
       [`& .${paperClasses.root}`]: {
         ...theme.mixins.paperStyles(theme, { dropdown: true }),
@@ -181,7 +214,10 @@ const MuiDataGrid: Components<Theme>['MuiDataGrid'] = {
       },
       [`& .${listClasses.root}`]: {
         padding: 0,
-        [`& .${listItemIconClasses.root}`]: { minWidth: 0, marginRight: theme.spacing(2) },
+        [`& .${listItemIconClasses.root}`]: {
+          minWidth: 0,
+          marginRight: theme.spacing(2),
+        },
       },
     }),
     /**
@@ -205,7 +241,9 @@ const MuiDataGrid: Components<Theme>['MuiDataGrid'] = {
     footerContainer: { minHeight: 'auto', borderTopStyle: 'dashed' },
     selectedRowCount: { display: 'none', whiteSpace: 'nowrap' },
     overlay: ({ theme }) => ({
-      [`& .${circularProgressClasses.root}`]: { color: theme.vars.palette.text.primary },
+      [`& .${circularProgressClasses.root}`]: {
+        color: theme.vars.palette.text.primary,
+      },
     }),
     /**
      * Column panel
@@ -235,7 +273,9 @@ const MuiDataGrid: Components<Theme>['MuiDataGrid'] = {
       gap: theme.spacing(1.5),
       padding: theme.spacing(2),
       /* Fix label with input variant === 'outlined' */
-      [`& .${inputLabelClasses.shrink}`]: { transform: 'translate(14px, -9px) scale(0.75)' },
+      [`& .${inputLabelClasses.shrink}`]: {
+        transform: 'translate(14px, -9px) scale(0.75)',
+      },
     }),
     filterFormDeleteIcon: ({ theme }) => ({
       [`& .${iconButtonClasses.root}`]: {
@@ -253,7 +293,10 @@ export const dataGrid = { MuiDataGrid };
 
 const svgIconProps = (props: SvgIconProps) => ({
   ...props,
-  sx: [{ width: 20, height: 20 }, ...(Array.isArray(props?.sx) ? (props?.sx ?? []) : [props?.sx])],
+  sx: [
+    { width: 20, height: 20 },
+    ...(Array.isArray(props?.sx) ? (props?.sx ?? []) : [props?.sx]),
+  ],
 });
 
 /**
@@ -318,7 +361,10 @@ const DataGridExportIcon = (props: SvgIconProps) => (
 /** https://icon-sets.iconify.design/solar/eye-bold/ */
 const DataGridEyeIcon = (props: SvgIconProps) => (
   <SvgIcon {...svgIconProps(props)}>
-    <path fill="currentColor" d="M9.75 12a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0" />
+    <path
+      fill="currentColor"
+      d="M9.75 12a2.25 2.25 0 1 1 4.5 0a2.25 2.25 0 0 1-4.5 0"
+    />
     <path
       fill="currentColor"
       fillRule="evenodd"

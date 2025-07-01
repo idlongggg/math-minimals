@@ -67,7 +67,11 @@ export function BasicCalculatorView() {
     [display, previousValue, operation]
   );
 
-  const calculate = (firstValue: number, secondValue: number, operation: string): number => {
+  const calculate = (
+    firstValue: number,
+    secondValue: number,
+    operation: string
+  ): number => {
     switch (operation) {
       case '+':
         return firstValue + secondValue;
@@ -200,9 +204,19 @@ export function BasicCalculatorView() {
         </Box>
 
         {/* Calculator Buttons */}
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 1 }}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: 1,
+          }}
+        >
           {/* Row 1 */}
-          <Button variant="contained" sx={{ ...clearStyle, gridColumn: 'span 2' }} onClick={clear}>
+          <Button
+            variant="contained"
+            sx={{ ...clearStyle, gridColumn: 'span 2' }}
+            onClick={clear}
+          >
             Clear
           </Button>
           <Button
@@ -218,49 +232,101 @@ export function BasicCalculatorView() {
           >
             ⌫
           </Button>
-          <Button variant="contained" sx={operatorStyle} onClick={() => performOperation('÷')}>
+          <Button
+            variant="contained"
+            sx={operatorStyle}
+            onClick={() => performOperation('÷')}
+          >
             ÷
           </Button>
 
           {/* Row 2 */}
-          <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('7')}>
+          <Button
+            variant="outlined"
+            sx={buttonStyle}
+            onClick={() => inputDigit('7')}
+          >
             7
           </Button>
-          <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('8')}>
+          <Button
+            variant="outlined"
+            sx={buttonStyle}
+            onClick={() => inputDigit('8')}
+          >
             8
           </Button>
-          <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('9')}>
+          <Button
+            variant="outlined"
+            sx={buttonStyle}
+            onClick={() => inputDigit('9')}
+          >
             9
           </Button>
-          <Button variant="contained" sx={operatorStyle} onClick={() => performOperation('×')}>
+          <Button
+            variant="contained"
+            sx={operatorStyle}
+            onClick={() => performOperation('×')}
+          >
             ×
           </Button>
 
           {/* Row 3 */}
-          <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('4')}>
+          <Button
+            variant="outlined"
+            sx={buttonStyle}
+            onClick={() => inputDigit('4')}
+          >
             4
           </Button>
-          <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('5')}>
+          <Button
+            variant="outlined"
+            sx={buttonStyle}
+            onClick={() => inputDigit('5')}
+          >
             5
           </Button>
-          <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('6')}>
+          <Button
+            variant="outlined"
+            sx={buttonStyle}
+            onClick={() => inputDigit('6')}
+          >
             6
           </Button>
-          <Button variant="contained" sx={operatorStyle} onClick={() => performOperation('-')}>
+          <Button
+            variant="contained"
+            sx={operatorStyle}
+            onClick={() => performOperation('-')}
+          >
             −
           </Button>
 
           {/* Row 4 */}
-          <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('1')}>
+          <Button
+            variant="outlined"
+            sx={buttonStyle}
+            onClick={() => inputDigit('1')}
+          >
             1
           </Button>
-          <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('2')}>
+          <Button
+            variant="outlined"
+            sx={buttonStyle}
+            onClick={() => inputDigit('2')}
+          >
             2
           </Button>
-          <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('3')}>
+          <Button
+            variant="outlined"
+            sx={buttonStyle}
+            onClick={() => inputDigit('3')}
+          >
             3
           </Button>
-          <Button variant="contained" sx={operatorStyle} onClick={() => performOperation('+')}>
+          <Button
+            variant="contained"
+            sx={operatorStyle}
+            onClick={() => performOperation('+')}
+          >
             +
           </Button>
 
@@ -275,7 +341,11 @@ export function BasicCalculatorView() {
           <Button variant="outlined" sx={buttonStyle} onClick={inputDecimal}>
             .
           </Button>
-          <Button variant="contained" sx={equalsStyle} onClick={() => performOperation('=')}>
+          <Button
+            variant="contained"
+            sx={equalsStyle}
+            onClick={() => performOperation('=')}
+          >
             =
           </Button>
         </Box>

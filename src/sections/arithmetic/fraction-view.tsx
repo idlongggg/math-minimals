@@ -65,8 +65,16 @@ const QUICK_OPERATIONS = [
       { numerator: 2, denominator: 3 },
     ],
   },
-  { label: '3/4 ⇄ 0.75', operation: 'convert', fractions: [{ numerator: 3, denominator: 4 }] },
-  { label: '1/5 ⇄ 20%', operation: 'convert', fractions: [{ numerator: 1, denominator: 5 }] },
+  {
+    label: '3/4 ⇄ 0.75',
+    operation: 'convert',
+    fractions: [{ numerator: 3, denominator: 4 }],
+  },
+  {
+    label: '1/5 ⇄ 20%',
+    operation: 'convert',
+    fractions: [{ numerator: 1, denominator: 5 }],
+  },
 ];
 
 const CONVERSION_TYPES = {
@@ -94,7 +102,9 @@ export function FractionView() {
   const [num2, setNum2] = useState('');
   const [den2, setDen2] = useState('');
   const [operation, setOperation] = useState('add');
-  const [calculatorResult, setCalculatorResult] = useState<Fraction | null>(null);
+  const [calculatorResult, setCalculatorResult] = useState<Fraction | null>(
+    null
+  );
 
   const [error, setError] = useState('');
   const [history, setHistory] = useState<
@@ -107,9 +117,12 @@ export function FractionView() {
     }>
   >([]);
 
-  const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleTabChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setCurrentTab(newValue);
+    },
+    []
+  );
 
   // Helper functions
   const gcd = (a: number, b: number): number => {
@@ -169,17 +182,22 @@ export function FractionView() {
     const denominator = Math.pow(10, decimalPlaces);
     const numerator = decimal * denominator;
 
-    return simplifyFraction({ numerator: sign * Math.round(numerator), denominator });
+    return simplifyFraction({
+      numerator: sign * Math.round(numerator),
+      denominator,
+    });
   };
 
   const addFractions = (f1: Fraction, f2: Fraction): Fraction => {
-    const numerator = f1.numerator * f2.denominator + f2.numerator * f1.denominator;
+    const numerator =
+      f1.numerator * f2.denominator + f2.numerator * f1.denominator;
     const denominator = f1.denominator * f2.denominator;
     return simplifyFraction({ numerator, denominator });
   };
 
   const subtractFractions = (f1: Fraction, f2: Fraction): Fraction => {
-    const numerator = f1.numerator * f2.denominator - f2.numerator * f1.denominator;
+    const numerator =
+      f1.numerator * f2.denominator - f2.numerator * f1.denominator;
     const denominator = f1.denominator * f2.denominator;
     return simplifyFraction({ numerator, denominator });
   };
@@ -330,7 +348,14 @@ export function FractionView() {
       const n2 = parseInt(num2);
       const d2 = parseInt(den2);
 
-      if (isNaN(n1) || isNaN(d1) || isNaN(n2) || isNaN(d2) || d1 === 0 || d2 === 0) {
+      if (
+        isNaN(n1) ||
+        isNaN(d1) ||
+        isNaN(n2) ||
+        isNaN(d2) ||
+        d1 === 0 ||
+        d2 === 0
+      ) {
         setError('Tử số và mẫu số phải là số nguyên, mẫu số khác 0');
         return;
       }
@@ -404,87 +429,96 @@ export function FractionView() {
     setHistory([]);
   }, []);
 
-  const handleQuickOperation = useCallback((quickOp: (typeof QUICK_OPERATIONS)[0]) => {
-    if (quickOp.operation === 'convert') {
-      const fraction = quickOp.fractions[0];
-      setNumerator1(fraction.numerator.toString());
-      setDenominator1(fraction.denominator.toString());
-      setConversionType('fraction');
-      setCurrentTab('converter');
-      setTimeout(() => {
-        const decimal = fractionToDecimal(fraction);
-        const percentage = decimal * 100;
+  const handleQuickOperation = useCallback(
+    (quickOp: (typeof QUICK_OPERATIONS)[0]) => {
+      if (quickOp.operation === 'convert') {
+        const fraction = quickOp.fractions[0];
+        setNumerator1(fraction.numerator.toString());
+        setDenominator1(fraction.denominator.toString());
+        setConversionType('fraction');
+        setCurrentTab('converter');
+        setTimeout(() => {
+          const decimal = fractionToDecimal(fraction);
+          const percentage = decimal * 100;
 
-        const result =
-          `Phân số: $${formatFraction(fraction)}$\\n` +
-          `Số thập phân: ${decimal}\\n` +
-          `Phần trăm: ${percentage}%`;
-        setConversionResult(result);
-
-        const historyItem = {
-          id: Date.now().toString(),
-          expression: formatFraction(fraction),
-          result: `${formatFraction(fraction)} = ${decimal} = ${percentage}%`,
-          timestamp: new Date(),
-          type: 'conversion',
-        };
-        setHistory((prev) => [historyItem, ...prev.slice(0, 49)]);
-      }, 100);
-    } else {
-      const [f1, f2] = quickOp.fractions;
-      setNum1(f1.numerator.toString());
-      setDen1(f1.denominator.toString());
-      setNum2(f2.numerator.toString());
-      setDen2(f2.denominator.toString());
-      setOperation(quickOp.operation);
-      setCurrentTab('calculator');
-
-      setTimeout(() => {
-        try {
-          let result: Fraction;
-          let operationSymbol = '';
-
-          switch (quickOp.operation) {
-            case 'add':
-              result = addFractions(f1, f2);
-              operationSymbol = '+';
-              break;
-            case 'subtract':
-              result = subtractFractions(f1, f2);
-              operationSymbol = '-';
-              break;
-            case 'multiply':
-              result = multiplyFractions(f1, f2);
-              operationSymbol = '\\times';
-              break;
-            case 'divide':
-              result = divideFractions(f1, f2);
-              operationSymbol = '\\div';
-              break;
-            default:
-              return;
-          }
-
-          setCalculatorResult(result);
+          const result =
+            `Phân số: $${formatFraction(fraction)}$\\n` +
+            `Số thập phân: ${decimal}\\n` +
+            `Phần trăm: ${percentage}%`;
+          setConversionResult(result);
 
           const historyItem = {
             id: Date.now().toString(),
-            expression: `${formatFraction(f1)} ${operationSymbol} ${formatFraction(f2)}`,
-            result: formatFraction(result),
+            expression: formatFraction(fraction),
+            result: `${formatFraction(fraction)} = ${decimal} = ${percentage}%`,
             timestamp: new Date(),
-            type: 'calculation',
+            type: 'conversion',
           };
           setHistory((prev) => [historyItem, ...prev.slice(0, 49)]);
-        } catch (err) {
-          setError('Có lỗi xảy ra khi tính toán');
-        }
-      }, 100);
-    }
-  }, []);
+        }, 100);
+      } else {
+        const [f1, f2] = quickOp.fractions;
+        setNum1(f1.numerator.toString());
+        setDen1(f1.denominator.toString());
+        setNum2(f2.numerator.toString());
+        setDen2(f2.denominator.toString());
+        setOperation(quickOp.operation);
+        setCurrentTab('calculator');
+
+        setTimeout(() => {
+          try {
+            let result: Fraction;
+            let operationSymbol = '';
+
+            switch (quickOp.operation) {
+              case 'add':
+                result = addFractions(f1, f2);
+                operationSymbol = '+';
+                break;
+              case 'subtract':
+                result = subtractFractions(f1, f2);
+                operationSymbol = '-';
+                break;
+              case 'multiply':
+                result = multiplyFractions(f1, f2);
+                operationSymbol = '\\times';
+                break;
+              case 'divide':
+                result = divideFractions(f1, f2);
+                operationSymbol = '\\div';
+                break;
+              default:
+                return;
+            }
+
+            setCalculatorResult(result);
+
+            const historyItem = {
+              id: Date.now().toString(),
+              expression: `${formatFraction(f1)} ${operationSymbol} ${formatFraction(f2)}`,
+              result: formatFraction(result),
+              timestamp: new Date(),
+              type: 'calculation',
+            };
+            setHistory((prev) => [historyItem, ...prev.slice(0, 49)]);
+          } catch (err) {
+            setError('Có lỗi xảy ra khi tính toán');
+          }
+        }, 100);
+      }
+    },
+    []
+  );
 
   const renderConverter = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
-      <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 3,
+          flexDirection: { xs: 'column', md: 'row' },
+        }}
+      >
         <Box sx={{ flex: 1 }}>
           <Card>
             <CardHeader title="Nhập liệu" />
@@ -598,7 +632,10 @@ export function FractionView() {
                       {line.includes('$') ? (
                         <InlineMath math={line.replace(/\$/g, '')} />
                       ) : (
-                        <Typography variant="body1" sx={{ fontFamily: 'monospace' }}>
+                        <Typography
+                          variant="body1"
+                          sx={{ fontFamily: 'monospace' }}
+                        >
                           {line}
                         </Typography>
                       )}
@@ -615,7 +652,10 @@ export function FractionView() {
                     borderRadius: 1,
                   }}
                 >
-                  <Iconify icon="mingcute:dot-grid-fill" sx={{ width: 48, height: 48, mb: 2 }} />
+                  <Iconify
+                    icon="mingcute:dot-grid-fill"
+                    sx={{ width: 48, height: 48, mb: 2 }}
+                  />
                   <Typography variant="body2">
                     Nhập dữ liệu và nhấn "Chuyển đổi" để xem kết quả
                   </Typography>
@@ -657,7 +697,13 @@ export function FractionView() {
 
   const renderCalculator = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
-      <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 3,
+          flexDirection: { xs: 'column', md: 'row' },
+        }}
+      >
         <Box sx={{ flex: 1 }}>
           <Card>
             <CardHeader title="Phân số thứ nhất" />
@@ -695,7 +741,14 @@ export function FractionView() {
           </Card>
         </Box>
 
-        <Box sx={{ flex: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Box
+          sx={{
+            flex: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <FormControl sx={{ minWidth: 120 }}>
             <InputLabel>Phép toán</InputLabel>
             <Select
@@ -820,7 +873,11 @@ export function FractionView() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: {
+            xs: '1fr',
+            sm: 'repeat(2, 1fr)',
+            md: 'repeat(3, 1fr)',
+          },
           gap: 2,
         }}
       >
@@ -838,12 +895,22 @@ export function FractionView() {
             onClick={() => handleQuickOperation(quickOp)}
           >
             <CardContent>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1,
+                  textAlign: 'center',
+                }}
+              >
                 <Typography variant="subtitle1" fontWeight="bold">
                   {quickOp.label}
                 </Typography>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                  <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                  <Iconify
+                    icon="eva:arrowhead-right-fill"
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Box>
               </Box>
             </CardContent>
@@ -858,13 +925,31 @@ export function FractionView() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr>
-                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                  <th
+                    style={{
+                      padding: 12,
+                      borderBottom: '2px solid #ddd',
+                      textAlign: 'center',
+                    }}
+                  >
                     Phân số
                   </th>
-                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                  <th
+                    style={{
+                      padding: 12,
+                      borderBottom: '2px solid #ddd',
+                      textAlign: 'center',
+                    }}
+                  >
                     Thập phân
                   </th>
-                  <th style={{ padding: 12, borderBottom: '2px solid #ddd', textAlign: 'center' }}>
+                  <th
+                    style={{
+                      padding: 12,
+                      borderBottom: '2px solid #ddd',
+                      textAlign: 'center',
+                    }}
+                  >
                     Phần trăm
                   </th>
                 </tr>
@@ -883,10 +968,18 @@ export function FractionView() {
                   const decimal = fraction.n / fraction.d;
                   const percentage = decimal * 100;
                   return (
-                    <tr key={i} style={{ backgroundColor: i % 2 === 0 ? '#f9f9f9' : 'white' }}>
+                    <tr
+                      key={i}
+                      style={{
+                        backgroundColor: i % 2 === 0 ? '#f9f9f9' : 'white',
+                      }}
+                    >
                       <td style={{ padding: 8, textAlign: 'center' }}>
                         <InlineMath
-                          math={formatFraction({ numerator: fraction.n, denominator: fraction.d })}
+                          math={formatFraction({
+                            numerator: fraction.n,
+                            denominator: fraction.d,
+                          })}
                         />
                       </td>
                       <td
@@ -922,7 +1015,13 @@ export function FractionView() {
 
   const renderHistory = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography variant="h6">Lịch sử tính toán</Typography>
         {history.length > 0 && (
           <Button
@@ -969,11 +1068,17 @@ export function FractionView() {
             >
               <CardContent sx={{ py: 2 }}>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Chip
-                      label={item.type === 'conversion' ? 'Chuyển đổi' : 'Tính toán'}
+                      label={
+                        item.type === 'conversion' ? 'Chuyển đổi' : 'Tính toán'
+                      }
                       size="small"
                       color={item.type === 'conversion' ? 'info' : 'primary'}
                     />
@@ -981,7 +1086,10 @@ export function FractionView() {
                       <InlineMath math={item.expression} />
                       {item.type === 'calculation' && (
                         <>
-                          <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.secondary' }} />
+                          <Iconify
+                            icon="eva:arrow-forward-fill"
+                            sx={{ color: 'text.secondary' }}
+                          />
                           <InlineMath math={item.result} />
                         </>
                       )}
@@ -1007,26 +1115,44 @@ export function FractionView() {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             <Typography variant="h6">Khái niệm phân số:</Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}
+            >
               <Box>
                 <Typography variant="body1" component="div">
-                  • <strong>Phân số</strong> là một số có dạng <InlineMath math="\frac{a}{b}" /> với{' '}
-                  <InlineMath math="a, b \in \mathbb{Z}" /> và <InlineMath math="b \neq 0" />
+                  • <strong>Phân số</strong> là một số có dạng{' '}
+                  <InlineMath math="\frac{a}{b}" /> với{' '}
+                  <InlineMath math="a, b \in \mathbb{Z}" /> và{' '}
+                  <InlineMath math="b \neq 0" />
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 2 }}
+                >
                   - <InlineMath math="a" />: Tử số (numerator)
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 2 }}
+                >
                   - <InlineMath math="b" />: Mẫu số (denominator)
                 </Typography>
               </Box>
 
               <Box>
                 <Typography variant="body1" component="div">
-                  • <strong>Phân số tối giản:</strong> <InlineMath math="\gcd(a, b) = 1" />
+                  • <strong>Phân số tối giản:</strong>{' '}
+                  <InlineMath math="\gcd(a, b) = 1" />
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
-                  Ví dụ: <InlineMath math="\frac{6}{8} = \frac{3}{4}" /> (tối giản)
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 2 }}
+                >
+                  Ví dụ: <InlineMath math="\frac{6}{8} = \frac{3}{4}" /> (tối
+                  giản)
                 </Typography>
               </Box>
             </Box>
@@ -1035,14 +1161,20 @@ export function FractionView() {
               Các phép toán với phân số:
             </Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}
+            >
               <Box>
                 <Typography variant="body1" gutterBottom>
                   <strong>1. Phép cộng:</strong>
                 </Typography>
                 <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
                   <BlockMath math="\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd}" />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1 }}
+                  >
                     Ví dụ:{' '}
                     <InlineMath math="\frac{1}{3} + \frac{1}{4} = \frac{1 \times 4 + 1 \times 3}{3 \times 4} = \frac{7}{12}" />
                   </Typography>
@@ -1055,7 +1187,11 @@ export function FractionView() {
                 </Typography>
                 <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
                   <BlockMath math="\frac{a}{b} - \frac{c}{d} = \frac{ad - bc}{bd}" />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1 }}
+                  >
                     Ví dụ:{' '}
                     <InlineMath math="\frac{3}{4} - \frac{1}{6} = \frac{3 \times 6 - 1 \times 4}{4 \times 6} = \frac{14}{24} = \frac{7}{12}" />
                   </Typography>
@@ -1068,7 +1204,11 @@ export function FractionView() {
                 </Typography>
                 <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
                   <BlockMath math="\frac{a}{b} \times \frac{c}{d} = \frac{ac}{bd}" />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1 }}
+                  >
                     Ví dụ:{' '}
                     <InlineMath math="\frac{2}{3} \times \frac{3}{5} = \frac{2 \times 3}{3 \times 5} = \frac{6}{15} = \frac{2}{5}" />
                   </Typography>
@@ -1081,7 +1221,11 @@ export function FractionView() {
                 </Typography>
                 <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
                   <BlockMath math="\frac{a}{b} \div \frac{c}{d} = \frac{a}{b} \times \frac{d}{c} = \frac{ad}{bc}" />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mt: 1 }}
+                  >
                     Ví dụ:{' '}
                     <InlineMath math="\frac{5}{8} \div \frac{2}{3} = \frac{5}{8} \times \frac{3}{2} = \frac{15}{16}" />
                   </Typography>
@@ -1107,7 +1251,8 @@ export function FractionView() {
               </Typography>
               <Box sx={{ ml: 2 }}>
                 <Typography variant="body2" sx={{ mb: 1 }}>
-                  • Phân số → Thập phân: <InlineMath math="\frac{a}{b} = a \div b" />
+                  • Phân số → Thập phân:{' '}
+                  <InlineMath math="\frac{a}{b} = a \div b" />
                 </Typography>
                 <Typography variant="body2" sx={{ mb: 1 }}>
                   • Thập phân → Phân số: Dùng thuật toán phân số liên tục
@@ -1122,10 +1267,12 @@ export function FractionView() {
               </Typography>
               <Box sx={{ ml: 2 }}>
                 <Typography variant="body2" sx={{ mb: 1 }}>
-                  • Phân số → Phần trăm: <InlineMath math="\frac{a}{b} \times 100\%" />
+                  • Phân số → Phần trăm:{' '}
+                  <InlineMath math="\frac{a}{b} \times 100\%" />
                 </Typography>
                 <Typography variant="body2" sx={{ mb: 1 }}>
-                  • Phần trăm → Phân số: <InlineMath math="x\% = \frac{x}{100}" />
+                  • Phần trăm → Phân số:{' '}
+                  <InlineMath math="x\% = \frac{x}{100}" />
                 </Typography>
                 <Typography variant="body2" color="primary.main">
                   Ví dụ: <InlineMath math="\frac{1}{5} = 20\% = 0.2" />
@@ -1140,8 +1287,16 @@ export function FractionView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="converter" label="Chuyển đổi" icon={<Iconify icon="solar:restart-bold" />} />
-      <Tab value="calculator" label="Tính toán" icon={<Iconify icon="mingcute:dot-grid-fill" />} />
+      <Tab
+        value="converter"
+        label="Chuyển đổi"
+        icon={<Iconify icon="solar:restart-bold" />}
+      />
+      <Tab
+        value="calculator"
+        label="Tính toán"
+        icon={<Iconify icon="mingcute:dot-grid-fill" />}
+      />
       <Tab
         value="quick-tools"
         label="Công cụ nhanh"
@@ -1152,7 +1307,11 @@ export function FractionView() {
         label={`Lịch sử (${history.length})`}
         icon={<Iconify icon="solar:clock-circle-bold" />}
       />
-      <Tab value="guide" label="Hướng dẫn" icon={<Iconify icon="solar:notebook-bold-duotone" />} />
+      <Tab
+        value="guide"
+        label="Hướng dẫn"
+        icon={<Iconify icon="solar:notebook-bold-duotone" />}
+      />
     </CustomTabs>
   );
 

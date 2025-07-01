@@ -127,11 +127,20 @@ function MaintenanceIllustration({ hideBackground, sx, ...other }: SvgProps) {
         opacity="0.2"
       />
 
-      <path fill="#FF5630" d="M118.108 103.182a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+      <path
+        fill="#FF5630"
+        d="M118.108 103.182a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
+      />
 
-      <path fill="#FFAB00" d="M126.108 103.182a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+      <path
+        fill="#FFAB00"
+        d="M126.108 103.182a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
+      />
 
-      <path fill="#36B37E" d="M134.108 103.182a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+      <path
+        fill="#36B37E"
+        d="M134.108 103.182a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
+      />
 
       <defs>
         <linearGradient

@@ -39,7 +39,11 @@ export function DashboardPageWithTabsLayout({
       sx={sx}
       headerSx={headerSx}
     >
-      <DashboardPageWithTabsContent tabs={tabs} tabsSx={tabsSx} contentSx={contentSx}>
+      <DashboardPageWithTabsContent
+        tabs={tabs}
+        tabsSx={tabsSx}
+        contentSx={contentSx}
+      >
         {children}
       </DashboardPageWithTabsContent>
     </DashboardPageContainer>

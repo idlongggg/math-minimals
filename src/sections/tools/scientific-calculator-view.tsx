@@ -73,7 +73,9 @@ export function ScientificCalculatorView() {
         const newValue = calculate(currentValue, inputValue, operation);
 
         if (nextOperation === '=') {
-          addToHistory(`${currentValue} ${operation} ${inputValue} = ${newValue}`);
+          addToHistory(
+            `${currentValue} ${operation} ${inputValue} = ${newValue}`
+          );
         }
 
         setDisplay(String(newValue));
@@ -93,15 +95,21 @@ export function ScientificCalculatorView() {
 
       switch (func) {
         case 'sin':
-          result = Math.sin(isRadianMode ? inputValue : (inputValue * Math.PI) / 180);
+          result = Math.sin(
+            isRadianMode ? inputValue : (inputValue * Math.PI) / 180
+          );
           addToHistory(`sin(${inputValue}) = ${result}`);
           break;
         case 'cos':
-          result = Math.cos(isRadianMode ? inputValue : (inputValue * Math.PI) / 180);
+          result = Math.cos(
+            isRadianMode ? inputValue : (inputValue * Math.PI) / 180
+          );
           addToHistory(`cos(${inputValue}) = ${result}`);
           break;
         case 'tan':
-          result = Math.tan(isRadianMode ? inputValue : (inputValue * Math.PI) / 180);
+          result = Math.tan(
+            isRadianMode ? inputValue : (inputValue * Math.PI) / 180
+          );
           addToHistory(`tan(${inputValue}) = ${result}`);
           break;
         case 'log':
@@ -170,7 +178,11 @@ export function ScientificCalculatorView() {
     return result;
   };
 
-  const calculate = (firstValue: number, secondValue: number, operation: string): number => {
+  const calculate = (
+    firstValue: number,
+    secondValue: number,
+    operation: string
+  ): number => {
     switch (operation) {
       case '+':
         return firstValue + secondValue;
@@ -319,7 +331,13 @@ export function ScientificCalculatorView() {
       description="Máy tính khoa học với các hàm toán học nâng cao"
       maxWidth="lg"
     >
-      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' }, gap: 3 }}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' },
+          gap: 3,
+        }}
+      >
         {/* Calculator */}
         <Card
           sx={{
@@ -340,7 +358,12 @@ export function ScientificCalculatorView() {
               sx={{ cursor: 'pointer' }}
             />
             {memory !== 0 && (
-              <Chip label={`M: ${memory}`} color="info" size="small" variant="outlined" />
+              <Chip
+                label={`M: ${memory}`}
+                color="info"
+                size="small"
+                variant="outlined"
+              />
             )}
           </Box>
 
@@ -367,7 +390,14 @@ export function ScientificCalculatorView() {
           </Box>
 
           {/* Scientific Functions Row 1 */}
-          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 1, mb: 1 }}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              gap: 1,
+              mb: 1,
+            }}
+          >
             <Button
               variant="contained"
               sx={scientificStyle}
@@ -413,7 +443,14 @@ export function ScientificCalculatorView() {
           </Box>
 
           {/* Scientific Functions Row 2 */}
-          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 1, mb: 1 }}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              gap: 1,
+              mb: 1,
+            }}
+          >
             <Button
               variant="contained"
               sx={scientificStyle}
@@ -421,7 +458,11 @@ export function ScientificCalculatorView() {
             >
               x²
             </Button>
-            <Button variant="contained" sx={scientificStyle} onClick={() => performOperation('^')}>
+            <Button
+              variant="contained"
+              sx={scientificStyle}
+              onClick={() => performOperation('^')}
+            >
               x^y
             </Button>
             <Button
@@ -445,13 +486,24 @@ export function ScientificCalculatorView() {
             >
               1/x
             </Button>
-            <Button variant="contained" sx={operatorStyle} onClick={() => performOperation('mod')}>
+            <Button
+              variant="contained"
+              sx={operatorStyle}
+              onClick={() => performOperation('mod')}
+            >
               mod
             </Button>
           </Box>
 
           {/* Constants Row */}
-          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 1, mb: 1 }}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              gap: 1,
+              mb: 1,
+            }}
+          >
             <Button
               variant="contained"
               sx={scientificStyle}
@@ -466,22 +518,44 @@ export function ScientificCalculatorView() {
             >
               e
             </Button>
-            <Button variant="contained" sx={memoryStyle} onClick={() => handleMemory('MC')}>
+            <Button
+              variant="contained"
+              sx={memoryStyle}
+              onClick={() => handleMemory('MC')}
+            >
               MC
             </Button>
-            <Button variant="contained" sx={memoryStyle} onClick={() => handleMemory('MR')}>
+            <Button
+              variant="contained"
+              sx={memoryStyle}
+              onClick={() => handleMemory('MR')}
+            >
               MR
             </Button>
-            <Button variant="contained" sx={memoryStyle} onClick={() => handleMemory('MS')}>
+            <Button
+              variant="contained"
+              sx={memoryStyle}
+              onClick={() => handleMemory('MS')}
+            >
               MS
             </Button>
-            <Button variant="contained" sx={memoryStyle} onClick={() => handleMemory('M+')}>
+            <Button
+              variant="contained"
+              sx={memoryStyle}
+              onClick={() => handleMemory('M+')}
+            >
               M+
             </Button>
           </Box>
 
           {/* Main Calculator Buttons */}
-          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 1 }}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(5, 1fr)',
+              gap: 1,
+            }}
+          >
             {/* Row 1 */}
             <Button variant="contained" sx={clearStyle} onClick={clearAll}>
               AC
@@ -502,55 +576,115 @@ export function ScientificCalculatorView() {
             >
               ⌫
             </Button>
-            <Button variant="contained" sx={memoryStyle} onClick={() => handleMemory('M-')}>
+            <Button
+              variant="contained"
+              sx={memoryStyle}
+              onClick={() => handleMemory('M-')}
+            >
               M-
             </Button>
-            <Button variant="contained" sx={operatorStyle} onClick={() => performOperation('÷')}>
+            <Button
+              variant="contained"
+              sx={operatorStyle}
+              onClick={() => performOperation('÷')}
+            >
               ÷
             </Button>
 
             {/* Row 2 */}
-            <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('7')}>
+            <Button
+              variant="outlined"
+              sx={buttonStyle}
+              onClick={() => inputDigit('7')}
+            >
               7
             </Button>
-            <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('8')}>
+            <Button
+              variant="outlined"
+              sx={buttonStyle}
+              onClick={() => inputDigit('8')}
+            >
               8
             </Button>
-            <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('9')}>
+            <Button
+              variant="outlined"
+              sx={buttonStyle}
+              onClick={() => inputDigit('9')}
+            >
               9
             </Button>
-            <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('(')}>
+            <Button
+              variant="outlined"
+              sx={buttonStyle}
+              onClick={() => inputDigit('(')}
+            >
               (
             </Button>
-            <Button variant="contained" sx={operatorStyle} onClick={() => performOperation('×')}>
+            <Button
+              variant="contained"
+              sx={operatorStyle}
+              onClick={() => performOperation('×')}
+            >
               ×
             </Button>
 
             {/* Row 3 */}
-            <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('4')}>
+            <Button
+              variant="outlined"
+              sx={buttonStyle}
+              onClick={() => inputDigit('4')}
+            >
               4
             </Button>
-            <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('5')}>
+            <Button
+              variant="outlined"
+              sx={buttonStyle}
+              onClick={() => inputDigit('5')}
+            >
               5
             </Button>
-            <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('6')}>
+            <Button
+              variant="outlined"
+              sx={buttonStyle}
+              onClick={() => inputDigit('6')}
+            >
               6
             </Button>
-            <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit(')')}>
+            <Button
+              variant="outlined"
+              sx={buttonStyle}
+              onClick={() => inputDigit(')')}
+            >
               )
             </Button>
-            <Button variant="contained" sx={operatorStyle} onClick={() => performOperation('-')}>
+            <Button
+              variant="contained"
+              sx={operatorStyle}
+              onClick={() => performOperation('-')}
+            >
               −
             </Button>
 
             {/* Row 4 */}
-            <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('1')}>
+            <Button
+              variant="outlined"
+              sx={buttonStyle}
+              onClick={() => inputDigit('1')}
+            >
               1
             </Button>
-            <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('2')}>
+            <Button
+              variant="outlined"
+              sx={buttonStyle}
+              onClick={() => inputDigit('2')}
+            >
               2
             </Button>
-            <Button variant="outlined" sx={buttonStyle} onClick={() => inputDigit('3')}>
+            <Button
+              variant="outlined"
+              sx={buttonStyle}
+              onClick={() => inputDigit('3')}
+            >
               3
             </Button>
             <Button
@@ -560,7 +694,11 @@ export function ScientificCalculatorView() {
             >
               ±
             </Button>
-            <Button variant="contained" sx={operatorStyle} onClick={() => performOperation('+')}>
+            <Button
+              variant="contained"
+              sx={operatorStyle}
+              onClick={() => performOperation('+')}
+            >
               +
             </Button>
 
@@ -582,19 +720,27 @@ export function ScientificCalculatorView() {
             >
               |x|
             </Button>
-            <Button variant="contained" sx={equalsStyle} onClick={() => performOperation('=')}>
+            <Button
+              variant="contained"
+              sx={equalsStyle}
+              onClick={() => performOperation('=')}
+            >
               =
             </Button>
           </Box>
 
           {/* Keyboard Instructions */}
-          <Box sx={{ mt: 3, p: 2, backgroundColor: 'grey.50', borderRadius: 1 }}>
+          <Box
+            sx={{ mt: 3, p: 2, backgroundColor: 'grey.50', borderRadius: 1 }}
+          >
             <Typography variant="subtitle2" sx={{ mb: 1 }}>
               Hướng dẫn bàn phím:
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              • Số 0-9: Nhập số • +, -, *, /, %, ^: Phép toán • Enter/=: Tính toán
-              <br />• Escape/C: Xóa • Backspace: Xóa ký tự cuối • .: Dấu thập phân
+              • Số 0-9: Nhập số • +, -, *, /, %, ^: Phép toán • Enter/=: Tính
+              toán
+              <br />• Escape/C: Xóa • Backspace: Xóa ký tự cuối • .: Dấu thập
+              phân
             </Typography>
           </Box>
         </Card>
@@ -616,7 +762,11 @@ export function ScientificCalculatorView() {
           </Typography>
 
           {history.length === 0 ? (
-            <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', py: 4 }}>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ textAlign: 'center', py: 4 }}
+            >
               Chưa có phép tính nào
             </Typography>
           ) : (

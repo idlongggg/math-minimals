@@ -92,7 +92,11 @@ export function JwtSignUpView() {
   const renderForm = () => (
     <Box sx={{ gap: 3, display: 'flex', flexDirection: 'column' }}>
       <Box
-        sx={{ display: 'flex', gap: { xs: 3, sm: 2 }, flexDirection: { xs: 'column', sm: 'row' } }}
+        sx={{
+          display: 'flex',
+          gap: { xs: 3, sm: 2 },
+          flexDirection: { xs: 'column', sm: 'row' },
+        }}
       >
         <Field.Text
           name="firstName"
@@ -106,7 +110,11 @@ export function JwtSignUpView() {
         />
       </Box>
 
-      <Field.Text name="email" label="Email address" slotProps={{ inputLabel: { shrink: true } }} />
+      <Field.Text
+        name="email"
+        label="Email address"
+        slotProps={{ inputLabel: { shrink: true } }}
+      />
 
       <Field.Text
         name="password"
@@ -119,7 +127,13 @@ export function JwtSignUpView() {
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton onClick={showPassword.onToggle} edge="end">
-                  <Iconify icon={showPassword.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+                  <Iconify
+                    icon={
+                      showPassword.value
+                        ? 'solar:eye-bold'
+                        : 'solar:eye-closed-bold'
+                    }
+                  />
                 </IconButton>
               </InputAdornment>
             ),
@@ -148,7 +162,11 @@ export function JwtSignUpView() {
         description={
           <>
             {`Already have an account? `}
-            <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
+            <Link
+              component={RouterLink}
+              href={paths.auth.jwt.signIn}
+              variant="subtitle2"
+            >
               Get started
             </Link>
           </>

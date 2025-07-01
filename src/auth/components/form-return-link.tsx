@@ -14,7 +14,14 @@ type FormReturnLinkProps = LinkProps & {
   label?: React.ReactNode;
 };
 
-export function FormReturnLink({ sx, href, label, icon, children, ...other }: FormReturnLinkProps) {
+export function FormReturnLink({
+  sx,
+  href,
+  label,
+  icon,
+  children,
+  ...other
+}: FormReturnLinkProps) {
   return (
     <Link
       component={RouterLink}

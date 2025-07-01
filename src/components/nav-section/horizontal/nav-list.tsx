@@ -111,7 +111,9 @@ export function NavList({
         }}
         sx={{
           ...cssVars,
-          [`& .${popoverClasses.paper}`]: { ...(depth === 1 && { pt: 1, ml: -0.75 }) },
+          [`& .${popoverClasses.paper}`]: {
+            ...(depth === 1 && { pt: 1, ml: -0.75 }),
+          },
         }}
       >
         <NavDropdownPaper
@@ -132,7 +134,11 @@ export function NavList({
     );
 
   // Hidden item by role
-  if (data.allowedRoles && checkPermissions && checkPermissions(data.allowedRoles)) {
+  if (
+    data.allowedRoles &&
+    checkPermissions &&
+    checkPermissions(data.allowedRoles)
+  ) {
     return null;
   }
 

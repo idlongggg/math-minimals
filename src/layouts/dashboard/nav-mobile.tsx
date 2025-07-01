@@ -51,7 +51,11 @@ export function NavMobile({
       onClose={onClose}
       slotProps={{
         paper: {
-          className: mergeClasses([layoutClasses.nav.root, layoutClasses.nav.vertical, className]),
+          className: mergeClasses([
+            layoutClasses.nav.root,
+            layoutClasses.nav.vertical,
+            className,
+          ]),
           sx: [
             {
               overflow: 'unset',

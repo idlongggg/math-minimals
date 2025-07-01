@@ -9,7 +9,8 @@ import { SettingsContext } from './settings-context';
 export function useSettingsContext() {
   const context = use(SettingsContext);
 
-  if (!context) throw new Error('useSettingsContext must be use inside SettingsProvider');
+  if (!context)
+    throw new Error('useSettingsContext must be use inside SettingsProvider');
 
   return context;
 }

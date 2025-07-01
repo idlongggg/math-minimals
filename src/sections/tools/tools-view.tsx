@@ -70,8 +70,9 @@ export function ToolsView() {
           Công cụ toán học cơ bản
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Các công cụ toán học thiết yếu giúp bạn giải quyết các bài toán từ cơ bản đến nâng cao. Từ
-          máy tính đơn giản đến các công cụ chuyển đổi và giải phương trình phức tạp.
+          Các công cụ toán học thiết yếu giúp bạn giải quyết các bài toán từ cơ
+          bản đến nâng cao. Từ máy tính đơn giản đến các công cụ chuyển đổi và
+          giải phương trình phức tạp.
         </Typography>
 
         <Box

@@ -32,7 +32,8 @@ export function DashboardPageLayoutWithMetadata({
   title: titleOverride,
   description: descriptionOverride,
 }: Props) {
-  const { title: metadataTitle, description: metadataDescription } = usePageInfo(pageKey);
+  const { title: metadataTitle, description: metadataDescription } =
+    usePageInfo(pageKey);
 
   const title = titleOverride || metadataTitle;
   const description = descriptionOverride || metadataDescription;

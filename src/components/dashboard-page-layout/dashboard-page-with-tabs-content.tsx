@@ -16,7 +16,12 @@ type Props = {
   contentSx?: SxProps<Theme>;
 };
 
-export function DashboardPageWithTabsContent({ tabs, children, tabsSx, contentSx }: Props) {
+export function DashboardPageWithTabsContent({
+  tabs,
+  children,
+  tabsSx,
+  contentSx,
+}: Props) {
   return (
     <>
       {/* Fixed Tabs */}

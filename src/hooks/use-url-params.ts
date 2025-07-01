@@ -1,9 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
-
-// ----------------------------------------------------------------------
+import { useMemo } from 'react';
 
 export function useUrlParams() {
   const searchParams = useSearchParams();

@@ -13,7 +13,11 @@ export interface BottomDrawerFabProps {
   sx?: object;
 }
 
-export function BottomDrawerFab({ onClick, sx, ...other }: BottomDrawerFabProps) {
+export function BottomDrawerFab({
+  onClick,
+  sx,
+  ...other
+}: BottomDrawerFabProps) {
   const { isVisible, onToggle } = useBottomDrawer();
 
   const handleClick = () => {

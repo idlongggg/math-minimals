@@ -32,7 +32,9 @@ export function GuestGuard({ children }: GuestGuardProps) {
 
     // Nếu có query parameters khác, bảo tồn chúng với redirectPath
     const allParams = searchParams.toString();
-    return allParams ? `${CONFIG.auth.redirectPath}?${allParams}` : CONFIG.auth.redirectPath;
+    return allParams
+      ? `${CONFIG.auth.redirectPath}?${allParams}`
+      : CONFIG.auth.redirectPath;
   };
 
   const [isChecking, setIsChecking] = useState(true);

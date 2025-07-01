@@ -25,8 +25,8 @@ export function Windows11ShadowShowcase() {
       </Typography>
 
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Improved shadow system with layered, softer shadows that match Windows 11's Fluent Design
-        system.
+        Improved shadow system with layered, softer shadows that match Windows
+        11's Fluent Design system.
       </Typography>
 
       <Box
@@ -119,8 +119,8 @@ export function Windows11ShadowShowcase() {
             Acrylic Material
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            This demonstrates Windows 11's acrylic material effect with blur, tint, and subtle noise
-            texture.
+            This demonstrates Windows 11's acrylic material effect with blur,
+            tint, and subtle noise texture.
           </Typography>
         </Paper>
       </Box>
@@ -144,8 +144,8 @@ export function Windows11ShadowShowcase() {
             Fluent Blur
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            Enhanced blur effect with saturation boost for a more modern, Windows 11-like
-            appearance.
+            Enhanced blur effect with saturation boost for a more modern,
+            Windows 11-like appearance.
           </Typography>
         </Paper>
       </Box>

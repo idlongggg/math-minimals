@@ -1,10 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-
-import { useState, useContext, createContext } from 'react';
-
-// ----------------------------------------------------------------------
+import { createContext, useContext, useState } from 'react';
 
 export interface BottomDrawerContextValue {
   isOpen: boolean;
@@ -16,9 +13,9 @@ export interface BottomDrawerContextValue {
   onHide: () => void;
 }
 
-const BottomDrawerContext = createContext<BottomDrawerContextValue | undefined>(undefined);
-
-// ----------------------------------------------------------------------
+const BottomDrawerContext = createContext<BottomDrawerContextValue | undefined>(
+  undefined
+);
 
 export interface BottomDrawerProviderProps {
   children: ReactNode;
@@ -38,16 +35,20 @@ export function BottomDrawerProvider({ children }: BottomDrawerProviderProps) {
     onHide: () => setIsVisible(false),
   };
 
-  return <BottomDrawerContext.Provider value={value}>{children}</BottomDrawerContext.Provider>;
+  return (
+    <BottomDrawerContext.Provider value={value}>
+      {children}
+    </BottomDrawerContext.Provider>
+  );
 }
-
-// ----------------------------------------------------------------------
 
 export function useBottomDrawer(): BottomDrawerContextValue {
   const context = useContext(BottomDrawerContext);
 
   if (!context) {
-    throw new Error('useBottomDrawer must be used within a BottomDrawerProvider');
+    throw new Error(
+      'useBottomDrawer must be used within a BottomDrawerProvider'
+    );
   }
 
   return context;

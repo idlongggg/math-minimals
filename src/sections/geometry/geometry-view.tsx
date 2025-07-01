@@ -59,9 +59,9 @@ export function GeometryView() {
           Các lĩnh vực hình học
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Hình học là ngành toán học nghiên cứu về hình dạng, kích thước, vị trí tương đối của các
-          hình và tính chất của không gian. Từ hình học phẳng cơ bản đến hình học không gian phức
-          tạp.
+          Hình học là ngành toán học nghiên cứu về hình dạng, kích thước, vị trí
+          tương đối của các hình và tính chất của không gian. Từ hình học phẳng
+          cơ bản đến hình học không gian phức tạp.
         </Typography>
 
         <Box

@@ -12,7 +12,10 @@ import { themeConfig } from './theme-config';
 import { components } from './core/components';
 import { typography } from './core/typography';
 import { customShadows } from './core/custom-shadows';
-import { updateCoreWithSettings, updateComponentsWithSettings } from './with-settings';
+import {
+  updateCoreWithSettings,
+  updateComponentsWithSettings,
+} from './with-settings';
 
 import type { ThemeOptions } from './types';
 
@@ -54,7 +57,9 @@ export function createTheme({
   localeComponents = {},
 }: CreateThemeProps = {}): Theme {
   // Update core theme settings
-  const updatedCore = settingsState ? updateCoreWithSettings(baseTheme, settingsState) : baseTheme;
+  const updatedCore = settingsState
+    ? updateCoreWithSettings(baseTheme, settingsState)
+    : baseTheme;
 
   // Update component settings
   const updatedComponents = settingsState
@@ -62,7 +67,12 @@ export function createTheme({
     : {};
 
   // Create and return the final theme
-  const theme = createMuiTheme(updatedCore, updatedComponents, localeComponents, themeOverrides);
+  const theme = createMuiTheme(
+    updatedCore,
+    updatedComponents,
+    localeComponents,
+    themeOverrides
+  );
 
   return theme;
 }

@@ -1,4 +1,8 @@
-import type { Theme, Components, ComponentsVariants } from '@mui/material/styles';
+import type {
+  Theme,
+  Components,
+  ComponentsVariants,
+} from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -17,7 +21,14 @@ export type AvatarGroupExtendVariant = {
 
 // ----------------------------------------------------------------------
 
-const COLORS = ['primary', 'secondary', 'info', 'success', 'warning', 'error'] as const;
+const COLORS = [
+  'primary',
+  'secondary',
+  'info',
+  'success',
+  'warning',
+  'error',
+] as const;
 
 type PaletteColor = (typeof COLORS)[number] | 'default';
 
@@ -74,7 +85,10 @@ const MuiAvatar: Components<Theme>['MuiAvatar'] = {
               }
             : {
                 color: theme.vars.palette.text.secondary,
-                backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.24),
+                backgroundColor: varAlpha(
+                  theme.vars.palette.grey['500Channel'],
+                  0.24
+                ),
               }),
         }),
       };

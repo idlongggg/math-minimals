@@ -41,12 +41,31 @@ export const MATH_ICONS = {
 
 // Icon categories for better organization
 export const ICON_CATEGORIES = {
-  tools: ['ic-tools', 'ic-calculator', 'ic-converter', 'ic-solver', 'ic-generator'],
+  tools: [
+    'ic-tools',
+    'ic-calculator',
+    'ic-converter',
+    'ic-solver',
+    'ic-generator',
+  ],
   basic: ['ic-function', 'ic-integral'],
-  geometry: ['ic-geometry', 'ic-square', 'ic-cube', 'ic-coordinate', 'ic-triangle'],
+  geometry: [
+    'ic-geometry',
+    'ic-square',
+    'ic-cube',
+    'ic-coordinate',
+    'ic-triangle',
+  ],
   advanced: ['ic-matrix', 'ic-vector'],
   statistics: ['ic-chart-bar', 'ic-chart-line', 'ic-dice', 'ic-bell-curve'],
-  specialized: ['ic-number', 'ic-network', 'ic-logic', 'ic-money', 'ic-tree', 'ic-graph'],
+  specialized: [
+    'ic-number',
+    'ic-network',
+    'ic-logic',
+    'ic-money',
+    'ic-tree',
+    'ic-graph',
+  ],
 } as const;
 
 // Icon descriptions for documentation

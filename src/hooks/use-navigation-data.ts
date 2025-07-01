@@ -1,10 +1,6 @@
-import type { NavSectionProps } from 'src/components/nav-section';
-
 import { useMemo } from 'react';
-
+import type { NavSectionProps } from 'src/components/nav-section';
 import { useWorkspaceContext } from 'src/contexts/workspace-context';
-
-// ----------------------------------------------------------------------
 
 export function useNavigationData(baseNavData: NavSectionProps['data']) {
   const { currentWorkspace, isAllTools } = useWorkspaceContext();
@@ -39,7 +35,9 @@ export function useNavigationData(baseNavData: NavSectionProps['data']) {
           const functionsAlgebraSection = baseNavData.find(
             (section) => section.subheader === 'Hàm số và Đại số nâng cao'
           );
-          const analysisSection = baseNavData.find((section) => section.subheader === 'Giải tích');
+          const analysisSection = baseNavData.find(
+            (section) => section.subheader === 'Giải tích'
+          );
 
           if (arithmeticAlgebraSection) {
             filteredData.push(arithmeticAlgebraSection);

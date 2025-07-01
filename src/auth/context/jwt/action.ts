@@ -22,7 +22,10 @@ export type SignUpParams = {
 /** **************************************
  * Sign in
  *************************************** */
-export const signInWithPassword = async ({ email, password }: SignInParams): Promise<void> => {
+export const signInWithPassword = async ({
+  email,
+  password,
+}: SignInParams): Promise<void> => {
   try {
     const params = { email, password };
 

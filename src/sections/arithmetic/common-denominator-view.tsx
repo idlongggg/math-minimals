@@ -58,9 +58,12 @@ export function CommonDenominatorView() {
     }>
   >([]);
 
-  const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleTabChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setCurrentTab(newValue);
+    },
+    []
+  );
 
   // Tính ước số chung lớn nhất (GCD)
   const gcd = (a: number, b: number): number => {
@@ -76,7 +79,8 @@ export function CommonDenominatorView() {
   const lcm = (a: number, b: number): number => Math.abs(a * b) / gcd(a, b);
 
   // Tính LCM của nhiều số
-  const lcmMultiple = (numbers: number[]): number => numbers.reduce((acc, num) => lcm(acc, num), 1);
+  const lcmMultiple = (numbers: number[]): number =>
+    numbers.reduce((acc, num) => lcm(acc, num), 1);
 
   // Parse phân số từ string
   const parseFraction = (input: string): Fraction | null => {
@@ -105,7 +109,10 @@ export function CommonDenominatorView() {
 
   // Rút gọn phân số
   const simplifyFraction = (fraction: Fraction): Fraction => {
-    const divisor = gcd(Math.abs(fraction.numerator), Math.abs(fraction.denominator));
+    const divisor = gcd(
+      Math.abs(fraction.numerator),
+      Math.abs(fraction.denominator)
+    );
     return {
       numerator: fraction.numerator / divisor,
       denominator: fraction.denominator / divisor,
@@ -148,7 +155,8 @@ export function CommonDenominatorView() {
     const commonDenominator = lcmMultiple(denominators);
 
     const convertedFractions = fractions.map((fraction) => ({
-      numerator: fraction.numerator * (commonDenominator / fraction.denominator),
+      numerator:
+        fraction.numerator * (commonDenominator / fraction.denominator),
       denominator: commonDenominator,
     }));
 
@@ -195,54 +203,58 @@ export function CommonDenominatorView() {
     setHistory([]);
   }, []);
 
-  const handleQuickExample = useCallback((example: (typeof QUICK_EXAMPLES)[0]) => {
-    const newInputs = [...example.fractions];
-    while (newInputs.length < 6) {
-      newInputs.push('');
-    }
-    setFractionInputs(newInputs);
-    setCurrentTab('calculator');
+  const handleQuickExample = useCallback(
+    (example: (typeof QUICK_EXAMPLES)[0]) => {
+      const newInputs = [...example.fractions];
+      while (newInputs.length < 6) {
+        newInputs.push('');
+      }
+      setFractionInputs(newInputs);
+      setCurrentTab('calculator');
 
-    // Calculate immediately
-    setTimeout(() => {
-      const fractions: Fraction[] = [];
+      // Calculate immediately
+      setTimeout(() => {
+        const fractions: Fraction[] = [];
 
-      for (const input of example.fractions) {
-        const fraction = parseFraction(input);
-        if (fraction) {
-          fractions.push(simplifyFraction(fraction));
+        for (const input of example.fractions) {
+          const fraction = parseFraction(input);
+          if (fraction) {
+            fractions.push(simplifyFraction(fraction));
+          }
         }
-      }
 
-      if (fractions.length >= 2) {
-        const denominators = fractions.map((f) => f.denominator);
-        const commonDenominator = lcmMultiple(denominators);
+        if (fractions.length >= 2) {
+          const denominators = fractions.map((f) => f.denominator);
+          const commonDenominator = lcmMultiple(denominators);
 
-        const convertedFractions = fractions.map((fraction) => ({
-          numerator: fraction.numerator * (commonDenominator / fraction.denominator),
-          denominator: commonDenominator,
-        }));
+          const convertedFractions = fractions.map((fraction) => ({
+            numerator:
+              fraction.numerator * (commonDenominator / fraction.denominator),
+            denominator: commonDenominator,
+          }));
 
-        setResult({
-          lcm: commonDenominator,
-          fractions,
-          convertedFractions,
-        });
-        setError('');
+          setResult({
+            lcm: commonDenominator,
+            fractions,
+            convertedFractions,
+          });
+          setError('');
 
-        // Add to history
-        const historyItem = {
-          id: Date.now().toString(),
-          inputFractions: example.fractions,
-          lcm: commonDenominator,
-          fractions,
-          convertedFractions,
-          timestamp: new Date(),
-        };
-        setHistory((prev) => [historyItem, ...prev.slice(0, 49)]); // Keep max 50 items
-      }
-    }, 100);
-  }, []);
+          // Add to history
+          const historyItem = {
+            id: Date.now().toString(),
+            inputFractions: example.fractions,
+            lcm: commonDenominator,
+            fractions,
+            convertedFractions,
+            timestamp: new Date(),
+          };
+          setHistory((prev) => [historyItem, ...prev.slice(0, 49)]); // Keep max 50 items
+        }
+      }, 100);
+    },
+    []
+  );
 
   const addFractionInput = () => {
     if (fractionInputs.length < 6) {
@@ -289,7 +301,10 @@ export function CommonDenominatorView() {
             }}
           >
             {fractionInputs.map((input, index) => (
-              <Box key={index} sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}>
+              <Box
+                key={index}
+                sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}
+              >
                 <TextField
                   fullWidth
                   label={`Phân số ${index + 1}`}
@@ -331,7 +346,12 @@ export function CommonDenominatorView() {
         >
           Tìm mẫu số chung
         </Button>
-        <Button variant="outlined" size="large" onClick={handleReset} sx={{ minWidth: 120 }}>
+        <Button
+          variant="outlined"
+          size="large"
+          onClick={handleReset}
+          sx={{ minWidth: 120 }}
+        >
           Reset
         </Button>
       </Box>
@@ -360,7 +380,10 @@ export function CommonDenominatorView() {
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                   {result.fractions.map((original, index) => (
-                    <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Box
+                      key={index}
+                      sx={{ display: 'flex', alignItems: 'center', gap: 2 }}
+                    >
                       <Box
                         sx={{
                           minWidth: 80,
@@ -375,7 +398,10 @@ export function CommonDenominatorView() {
                           math={`\\frac{${original.numerator}}{${original.denominator}}`}
                         />
                       </Box>
-                      <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                      <Iconify
+                        icon="eva:arrowhead-right-fill"
+                        sx={{ color: 'primary.main' }}
+                      />
                       <Box
                         sx={{
                           minWidth: 100,
@@ -412,7 +438,11 @@ export function CommonDenominatorView() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: {
+            xs: '1fr',
+            sm: 'repeat(2, 1fr)',
+            md: 'repeat(3, 1fr)',
+          },
           gap: 2,
         }}
       >
@@ -430,7 +460,14 @@ export function CommonDenominatorView() {
             onClick={() => handleQuickExample(example)}
           >
             <CardContent>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, textAlign: 'center' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1,
+                  textAlign: 'center',
+                }}
+              >
                 <Typography variant="subtitle1" fontWeight="bold">
                   {example.description}
                 </Typography>
@@ -444,12 +481,19 @@ export function CommonDenominatorView() {
                   }}
                 >
                   {example.fractions.map((fraction, index) => (
-                    <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <Box
+                      key={index}
+                      sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                    >
                       <InlineMath
                         math={`\\frac{${fraction.split('/')[0]}}{${fraction.split('/')[1] || '1'}}`}
                       />
                       {index < example.fractions.length - 1 && (
-                        <Typography variant="body2" color="text.secondary" sx={{ mx: 0.5 }}>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ mx: 0.5 }}
+                        >
                           ,
                         </Typography>
                       )}
@@ -457,7 +501,10 @@ export function CommonDenominatorView() {
                   ))}
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                  <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                  <Iconify
+                    icon="eva:arrowhead-right-fill"
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Box>
               </Box>
             </CardContent>
@@ -472,10 +519,18 @@ export function CommonDenominatorView() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr>
-                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>Phân số 1</th>
-                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>Phân số 2</th>
-                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>Mẫu số chung</th>
-                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>Kết quả</th>
+                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>
+                    Phân số 1
+                  </th>
+                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>
+                    Phân số 2
+                  </th>
+                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>
+                    Mẫu số chung
+                  </th>
+                  <th style={{ padding: 8, borderBottom: '1px solid #ddd' }}>
+                    Kết quả
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -527,7 +582,13 @@ export function CommonDenominatorView() {
 
   const renderHistory = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography variant="h6">Lịch sử tính toán</Typography>
         {history.length > 0 && (
           <Button
@@ -574,7 +635,11 @@ export function CommonDenominatorView() {
             >
               <CardContent sx={{ py: 2 }}>
                 <Box
-                  sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Box
@@ -586,16 +651,31 @@ export function CommonDenominatorView() {
                         fontSize: '0.9rem',
                       }}
                     >
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                      <Box
+                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                      >
                         {item.inputFractions.map((fraction, index) => (
-                          <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                            <Box component="span" sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
+                          <Box
+                            key={index}
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 0.5,
+                            }}
+                          >
+                            <Box
+                              component="span"
+                              sx={{ fontWeight: 'bold', fontSize: '1rem' }}
+                            >
                               <InlineMath
                                 math={`\\frac{${item.fractions[index].numerator}}{${item.fractions[index].denominator}}`}
                               />
                             </Box>
                             {index < item.inputFractions.length - 1 && (
-                              <Typography variant="body2" color="text.secondary">
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                              >
                                 ,
                               </Typography>
                             )}
@@ -618,12 +698,22 @@ export function CommonDenominatorView() {
                     <Typography variant="caption" color="text.secondary">
                       {item.timestamp.toLocaleTimeString('vi-VN')}
                     </Typography>
-                    <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.disabled' }} />
+                    <Iconify
+                      icon="eva:arrow-forward-fill"
+                      sx={{ color: 'text.disabled' }}
+                    />
                   </Box>
                 </Box>
 
                 {/* Show converted fractions */}
-                <Box sx={{ mt: 2, pt: 1, borderTop: '1px solid', borderColor: 'divider' }}>
+                <Box
+                  sx={{
+                    mt: 2,
+                    pt: 1,
+                    borderTop: '1px solid',
+                    borderColor: 'divider',
+                  }}
+                >
                   <Typography
                     variant="caption"
                     color="text.secondary"
@@ -631,10 +721,23 @@ export function CommonDenominatorView() {
                   >
                     Kết quả chuyển đổi:
                   </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1,
+                      flexWrap: 'wrap',
+                    }}
+                  >
                     {item.convertedFractions.map((converted, index) => (
-                      <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                        <Box component="span" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                      <Box
+                        key={index}
+                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                      >
+                        <Box
+                          component="span"
+                          sx={{ fontWeight: 'bold', color: 'primary.main' }}
+                        >
                           <InlineMath
                             math={`\\frac{${converted.numerator}}{${converted.denominator}}`}
                           />
@@ -666,9 +769,9 @@ export function CommonDenominatorView() {
           </Typography>
 
           <Typography variant="body1" paragraph>
-            Mẫu số chung là một số mà tất cả các mẫu số của các phân số đều chia hết. Mẫu số chung
-            nhỏ nhất (MSCNN) hay bội số chung nhỏ nhất (LCM) là số nhỏ nhất có thể làm mẫu số chung
-            cho tất cả các phân số.
+            Mẫu số chung là một số mà tất cả các mẫu số của các phân số đều chia
+            hết. Mẫu số chung nhỏ nhất (MSCNN) hay bội số chung nhỏ nhất (LCM)
+            là số nhỏ nhất có thể làm mẫu số chung cho tất cả các phân số.
           </Typography>
 
           <Typography variant="h6" gutterBottom>
@@ -677,10 +780,12 @@ export function CommonDenominatorView() {
 
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, ml: 2 }}>
             <Typography variant="body1">
-              • <strong>Cộng/trừ phân số:</strong> Chỉ có thể cộng/trừ khi có cùng mẫu số
+              • <strong>Cộng/trừ phân số:</strong> Chỉ có thể cộng/trừ khi có
+              cùng mẫu số
             </Typography>
             <Typography variant="body1">
-              • <strong>So sánh phân số:</strong> Dễ dàng so sánh khi có cùng mẫu số
+              • <strong>So sánh phân số:</strong> Dễ dàng so sánh khi có cùng
+              mẫu số
             </Typography>
             <Typography variant="body1">
               • <strong>Sắp xếp phân số:</strong> Xếp theo thứ tự tăng/giảm dần
@@ -693,17 +798,20 @@ export function CommonDenominatorView() {
 
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, ml: 2 }}>
             <Typography variant="body1">
-              1. <strong>Liệt kê các mẫu số:</strong> Ghi ra tất cả mẫu số của các phân số
+              1. <strong>Liệt kê các mẫu số:</strong> Ghi ra tất cả mẫu số của
+              các phân số
             </Typography>
             <Typography variant="body1">
-              2. <strong>Phân tích thành thừa số nguyên tố:</strong> Mỗi mẫu số thành tích các số
-              nguyên tố
+              2. <strong>Phân tích thành thừa số nguyên tố:</strong> Mỗi mẫu số
+              thành tích các số nguyên tố
             </Typography>
             <Typography variant="body1">
-              3. <strong>Tìm LCM:</strong> Lấy tích của các thừa số nguyên tố với lũy thừa cao nhất
+              3. <strong>Tìm LCM:</strong> Lấy tích của các thừa số nguyên tố
+              với lũy thừa cao nhất
             </Typography>
             <Typography variant="body1">
-              4. <strong>Chuyển đổi phân số:</strong> Nhân tử và mẫu với số thích hợp
+              4. <strong>Chuyển đổi phân số:</strong> Nhân tử và mẫu với số
+              thích hợp
             </Typography>
           </Box>
 
@@ -726,7 +834,8 @@ export function CommonDenominatorView() {
             </Typography>
 
             <Typography variant="body1" sx={{ mb: 1 }}>
-              <strong>Bước 1:</strong> Phân tích các mẫu số thành thừa số nguyên tố
+              <strong>Bước 1:</strong> Phân tích các mẫu số thành thừa số nguyên
+              tố
             </Typography>
             <Box sx={{ ml: 2, mb: 2 }}>
               <Typography variant="body1">
@@ -738,7 +847,8 @@ export function CommonDenominatorView() {
             </Box>
 
             <Typography variant="body1" sx={{ mb: 1 }}>
-              <strong>Bước 2:</strong> Tìm LCM bằng cách lấy tích các thừa số với lũy thừa cao nhất
+              <strong>Bước 2:</strong> Tìm LCM bằng cách lấy tích các thừa số
+              với lũy thừa cao nhất
             </Typography>
             <Box sx={{ ml: 2, mb: 2 }}>
               <Typography variant="body1">
@@ -758,8 +868,13 @@ export function CommonDenominatorView() {
               </Typography>
             </Box>
 
-            <Box sx={{ mt: 2, p: 2, bgcolor: 'success.lighter', borderRadius: 1 }}>
-              <Typography variant="body1" sx={{ fontWeight: 'bold', color: 'success.dark' }}>
+            <Box
+              sx={{ mt: 2, p: 2, bgcolor: 'success.lighter', borderRadius: 1 }}
+            >
+              <Typography
+                variant="body1"
+                sx={{ fontWeight: 'bold', color: 'success.dark' }}
+              >
                 Kết quả: <InlineMath math="\frac{1}{6} = \frac{4}{24}" /> và{' '}
                 <InlineMath math="\frac{1}{8} = \frac{3}{24}" />
               </Typography>
@@ -777,8 +892,10 @@ export function CommonDenominatorView() {
             }}
           >
             <Typography variant="body1" sx={{ fontWeight: 'bold', mb: 2 }}>
-              Ví dụ nâng cao: Tìm mẫu số chung của <InlineMath math="\frac{1}{4}" />,{' '}
-              <InlineMath math="\frac{1}{6}" /> và <InlineMath math="\frac{1}{8}" />
+              Ví dụ nâng cao: Tìm mẫu số chung của{' '}
+              <InlineMath math="\frac{1}{4}" />,{' '}
+              <InlineMath math="\frac{1}{6}" /> và{' '}
+              <InlineMath math="\frac{1}{8}" />
             </Typography>
 
             <Typography variant="body1" sx={{ mb: 1 }}>
@@ -823,9 +940,12 @@ export function CommonDenominatorView() {
 
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, ml: 2 }}>
             <Typography variant="body1">
-              • Nếu một mẫu số chia hết cho mẫu số khác, mẫu số lớn hơn chính là MSCNN
+              • Nếu một mẫu số chia hết cho mẫu số khác, mẫu số lớn hơn chính là
+              MSCNN
             </Typography>
-            <Typography variant="body1">• Với 2 số nguyên tố, MSCNN = tích của 2 số đó</Typography>
+            <Typography variant="body1">
+              • Với 2 số nguyên tố, MSCNN = tích của 2 số đó
+            </Typography>
             <Typography variant="body1">
               • Có thể sử dụng công thức:{' '}
               <InlineMath math="\text{LCM}(a,b) = \frac{a \times b}{\text{GCD}(a,b)}" />
@@ -842,14 +962,26 @@ export function CommonDenominatorView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="calculator" label="Tính toán" icon={<Iconify icon="solar:restart-bold" />} />
-      <Tab value="quick-tools" label="Ví dụ nhanh" icon={<Iconify icon="custom:flash-outline" />} />
+      <Tab
+        value="calculator"
+        label="Tính toán"
+        icon={<Iconify icon="solar:restart-bold" />}
+      />
+      <Tab
+        value="quick-tools"
+        label="Ví dụ nhanh"
+        icon={<Iconify icon="custom:flash-outline" />}
+      />
       <Tab
         value="history"
         label={`Lịch sử (${history.length})`}
         icon={<Iconify icon="solar:clock-circle-bold" />}
       />
-      <Tab value="guide" label="Hướng dẫn" icon={<Iconify icon="solar:notebook-bold-duotone" />} />
+      <Tab
+        value="guide"
+        label="Hướng dẫn"
+        icon={<Iconify icon="solar:notebook-bold-duotone" />}
+      />
     </CustomTabs>
   );
 

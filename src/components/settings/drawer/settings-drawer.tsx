@@ -128,7 +128,9 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
       selected={settings.state.direction === 'rtl'}
       icon={<SvgIcon>{settingIcons.alignRight}</SvgIcon>}
       onChangeOption={() =>
-        settings.setState({ direction: settings.state.direction === 'ltr' ? 'rtl' : 'ltr' })
+        settings.setState({
+          direction: settings.state.direction === 'ltr' ? 'rtl' : 'ltr',
+        })
       }
     />
   );
@@ -139,7 +141,9 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
       label="Compact"
       selected={!!settings.state.compactLayout}
       icon={<SvgIcon>{settingIcons.autofitWidth}</SvgIcon>}
-      onChangeOption={() => settings.setState({ compactLayout: !settings.state.compactLayout })}
+      onChangeOption={() =>
+        settings.setState({ compactLayout: !settings.state.compactLayout })
+      }
     />
   );
 
@@ -147,10 +151,16 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
     <LargeBlock
       title="Màu chủ đạo"
       canReset={settings.state.primaryColor !== defaultSettings.primaryColor}
-      onReset={() => settings.setState({ primaryColor: defaultSettings.primaryColor })}
+      onReset={() =>
+        settings.setState({ primaryColor: defaultSettings.primaryColor })
+      }
     >
       <PresetsOptions
-        icon={<SvgIcon sx={{ width: 28, height: 28 }}>{settingIcons.siderbarDuotone}</SvgIcon>}
+        icon={
+          <SvgIcon sx={{ width: 28, height: 28 }}>
+            {settingIcons.siderbarDuotone}
+          </SvgIcon>
+        }
         options={
           Object.keys(primaryColorPresets).map((key) => ({
             name: key,
@@ -158,38 +168,56 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
           })) as { name: SettingsState['primaryColor']; value: string }[]
         }
         value={settings.state.primaryColor}
-        onChangeOption={(newOption) => settings.setState({ primaryColor: newOption })}
+        onChangeOption={(newOption) =>
+          settings.setState({ primaryColor: newOption })
+        }
       />
     </LargeBlock>
   );
 
   const renderNav = () => (
-    <LargeBlock title="Thanh điều hướng" tooltip="Chỉ áp dụng cho Dashboard" sx={{ gap: 2.5 }}>
+    <LargeBlock
+      title="Thanh điều hướng"
+      tooltip="Chỉ áp dụng cho Dashboard"
+      sx={{ gap: 2.5 }}
+    >
       {isNavLayoutVisible && (
         <SmallBlock
           label="Bố cục"
           canReset={settings.state.navLayout !== defaultSettings.navLayout}
-          onReset={() => settings.setState({ navLayout: defaultSettings.navLayout })}
+          onReset={() =>
+            settings.setState({ navLayout: defaultSettings.navLayout })
+          }
         >
           <NavLayoutOptions
             value={settings.state.navLayout}
-            onChangeOption={(newOption) => settings.setState({ navLayout: newOption })}
+            onChangeOption={(newOption) =>
+              settings.setState({ navLayout: newOption })
+            }
             options={[
               {
                 value: 'vertical',
                 icon: (
-                  <SvgIcon sx={{ width: 1, height: 'auto' }}>{settingIcons.navVertical}</SvgIcon>
+                  <SvgIcon sx={{ width: 1, height: 'auto' }}>
+                    {settingIcons.navVertical}
+                  </SvgIcon>
                 ),
               },
               {
                 value: 'horizontal',
                 icon: (
-                  <SvgIcon sx={{ width: 1, height: 'auto' }}>{settingIcons.navHorizontal}</SvgIcon>
+                  <SvgIcon sx={{ width: 1, height: 'auto' }}>
+                    {settingIcons.navHorizontal}
+                  </SvgIcon>
                 ),
               },
               {
                 value: 'mini',
-                icon: <SvgIcon sx={{ width: 1, height: 'auto' }}>{settingIcons.navMini}</SvgIcon>,
+                icon: (
+                  <SvgIcon sx={{ width: 1, height: 'auto' }}>
+                    {settingIcons.navMini}
+                  </SvgIcon>
+                ),
               },
             ]}
           />
@@ -199,11 +227,15 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
         <SmallBlock
           label="Màu sắc"
           canReset={settings.state.navColor !== defaultSettings.navColor}
-          onReset={() => settings.setState({ navColor: defaultSettings.navColor })}
+          onReset={() =>
+            settings.setState({ navColor: defaultSettings.navColor })
+          }
         >
           <NavColorOptions
             value={settings.state.navColor}
-            onChangeOption={(newOption) => settings.setState({ navColor: newOption })}
+            onChangeOption={(newOption) =>
+              settings.setState({ navColor: newOption })
+            }
             options={[
               {
                 label: 'Tích hợp',
@@ -228,18 +260,26 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
         <SmallBlock
           label="Family"
           canReset={settings.state.fontFamily !== defaultSettings.fontFamily}
-          onReset={() => settings.setState({ fontFamily: defaultSettings.fontFamily })}
+          onReset={() =>
+            settings.setState({ fontFamily: defaultSettings.fontFamily })
+          }
         >
           <FontFamilyOptions
             value={settings.state.fontFamily}
-            onChangeOption={(newOption) => settings.setState({ fontFamily: newOption })}
+            onChangeOption={(newOption) =>
+              settings.setState({ fontFamily: newOption })
+            }
             options={[
               themeConfig.fontFamily.primary,
               'Inter Variable',
               'DM Sans Variable',
               'Nunito Sans Variable',
             ]}
-            icon={<SvgIcon sx={{ width: 28, height: 28 }}>{settingIcons.font}</SvgIcon>}
+            icon={
+              <SvgIcon sx={{ width: 28, height: 28 }}>
+                {settingIcons.font}
+              </SvgIcon>
+            }
           />
         </SmallBlock>
       )}
@@ -247,13 +287,17 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
         <SmallBlock
           label="Size"
           canReset={settings.state.fontSize !== defaultSettings.fontSize}
-          onReset={() => settings.setState({ fontSize: defaultSettings.fontSize })}
+          onReset={() =>
+            settings.setState({ fontSize: defaultSettings.fontSize })
+          }
           sx={{ gap: 5 }}
         >
           <FontSizeOptions
             options={[12, 20]}
             value={settings.state.fontSize}
-            onChangeOption={(newOption) => settings.setState({ fontSize: newOption })}
+            onChangeOption={(newOption) =>
+              settings.setState({ fontSize: newOption })
+            }
           />
         </SmallBlock>
       )}
@@ -271,7 +315,10 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
           sx: [
             (theme) => ({
               ...theme.mixins.paperStyles(theme, {
-                color: varAlpha(theme.vars.palette.background.defaultChannel, 0.9),
+                color: varAlpha(
+                  theme.vars.palette.background.defaultChannel,
+                  0.9
+                ),
               }),
               width: 360,
             }),
@@ -292,7 +339,13 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
             flexDirection: 'column',
           }}
         >
-          <Box sx={{ gap: 2, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+          <Box
+            sx={{
+              gap: 2,
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+            }}
+          >
             {/* Dark mode button hidden as requested */}
             {/* {isColorSchemeVisible && renderMode()} */}
             {isContrastVisible && renderContrast()}

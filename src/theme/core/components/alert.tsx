@@ -66,7 +66,10 @@ const COLORS = ['info', 'success', 'warning', 'error'] as const;
 
 type PaletteColor = (typeof COLORS)[number];
 
-function styleColors(ownerState: AlertProps, styles: (val: PaletteColor) => CSSObject) {
+function styleColors(
+  ownerState: AlertProps,
+  styles: (val: PaletteColor) => CSSObject
+) {
   const outputStyle = COLORS.reduce((acc, color) => {
     if (ownerState.severity === color) {
       acc = styles(color);
@@ -138,13 +141,18 @@ const MuiAlert: Components<Theme>['MuiAlert'] = {
     outlined: ({ ownerState, theme }) => {
       const styled = {
         colors: styleColors(ownerState, (color) => ({
-          backgroundColor: varAlpha(theme.vars.palette[color].mainChannel, 0.08),
+          backgroundColor: varAlpha(
+            theme.vars.palette[color].mainChannel,
+            0.08
+          ),
           color: theme.vars.palette[color].dark,
           border: `solid 1px ${varAlpha(theme.vars.palette[color].mainChannel, 0.16)}`,
           ...theme.applyStyles('dark', {
             color: theme.vars.palette[color].light,
           }),
-          [`& .${alertClasses.icon}`]: { color: theme.vars.palette[color].main },
+          [`& .${alertClasses.icon}`]: {
+            color: theme.vars.palette[color].main,
+          },
         })),
       };
 

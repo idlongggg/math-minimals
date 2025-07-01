@@ -68,8 +68,9 @@ export function TrigonometryView() {
           Lượng giác cơ bản
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-          Lượng giác là nhánh toán học nghiên cứu về mối quan hệ giữa các góc và cạnh của tam giác.
-          Đây là nền tảng cho nhiều ứng dụng trong vật lý, kỹ thuật và khoa học.
+          Lượng giác là nhánh toán học nghiên cứu về mối quan hệ giữa các góc và
+          cạnh của tam giác. Đây là nền tảng cho nhiều ứng dụng trong vật lý, kỹ
+          thuật và khoa học.
         </Typography>
 
         <Box

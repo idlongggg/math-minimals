@@ -54,7 +54,10 @@ function ComingSoonIllustration({ hideBackground, sx, ...other }: SvgProps) {
         opacity="0.24"
       />
 
-      <path fill="var(--primary-dark)" d="M58.778 79.4l14.6-6 80.2 7.5v7.6l-94.8.3v-9.4z" />
+      <path
+        fill="var(--primary-dark)"
+        d="M58.778 79.4l14.6-6 80.2 7.5v7.6l-94.8.3v-9.4z"
+      />
       <path fill="var(--primary-main)" d="M85.279 71h-14.4v199.5h14.4V71z" />
       <path
         fill="#fff"

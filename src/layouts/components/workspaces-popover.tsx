@@ -33,7 +33,11 @@ export type WorkspacesPopoverProps = ButtonBaseProps & {
   }[];
 };
 
-export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopoverProps) {
+export function WorkspacesPopover({
+  data = [],
+  sx,
+  ...other
+}: WorkspacesPopoverProps) {
   const mediaQuery = 'sm';
 
   const { open, anchorEl, onClose, onOpen } = usePopover();
@@ -116,7 +120,10 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
 
       <Box
         component="span"
-        sx={{ typography: 'subtitle2', display: { xs: 'none', [mediaQuery]: 'inline-flex' } }}
+        sx={{
+          typography: 'subtitle2',
+          display: { xs: 'none', [mediaQuery]: 'inline-flex' },
+        }}
       >
         {isAllTools ? 'Tất cả công cụ toán học' : currentWorkspace?.name}
       </Box>
@@ -134,7 +141,11 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
         </Label>
       )}
 
-      <Iconify width={16} icon="carbon:chevron-sort" sx={{ color: 'text.disabled' }} />
+      <Iconify
+        width={16}
+        icon="carbon:chevron-sort"
+        sx={{ color: 'text.disabled' }}
+      />
     </ButtonBase>
   );
 
@@ -181,7 +192,11 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
               onClick={() => handleChangeWorkspace(option)}
               sx={{ height: 48 }}
             >
-              <Avatar alt={option.name} src={option.logo} sx={{ width: 24, height: 24 }} />
+              <Avatar
+                alt={option.name}
+                src={option.logo}
+                sx={{ width: 24, height: 24 }}
+              />
 
               <Typography
                 noWrap
@@ -192,7 +207,9 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
                 {option.name}
               </Typography>
 
-              <Label color={option.plan === 'Chưa có' ? 'default' : 'info'}>{option.plan}</Label>
+              <Label color={option.plan === 'Chưa có' ? 'default' : 'info'}>
+                {option.plan}
+              </Label>
             </MenuItem>
           ))}
         </MenuList>

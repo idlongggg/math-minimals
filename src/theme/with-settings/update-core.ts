@@ -1,7 +1,11 @@
 import type { ColorSystem } from '@mui/material/styles';
 import type { SettingsState } from 'src/components/settings';
 
-import { setFont, hexToRgbChannel, createPaletteChannel } from 'minimal-shared/utils';
+import {
+  setFont,
+  hexToRgbChannel,
+  createPaletteChannel,
+} from 'minimal-shared/utils';
 
 import { primaryColorPresets } from './color-presets';
 import { createShadowColor } from '../core/custom-shadows';
@@ -30,9 +34,12 @@ export function updateCoreWithSettings(
   const isDefaultContrast = contrast === 'default';
   const isDefaultPrimaryColor = primaryColor === 'default';
 
-  const lightPalette = theme.colorSchemes?.light.palette as ColorSystem['palette'];
+  const lightPalette = theme.colorSchemes?.light
+    .palette as ColorSystem['palette'];
 
-  const updatedPrimaryColor = createPaletteChannel(primaryColorPresets[primaryColor]);
+  const updatedPrimaryColor = createPaletteChannel(
+    primaryColorPresets[primaryColor]
+  );
   // const updatedSecondaryColor = createPaletteChannel(SECONDARY_COLORS[primaryColor!]);
 
   const updateColorScheme = (scheme: ThemeColorScheme) => {

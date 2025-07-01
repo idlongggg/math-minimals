@@ -19,8 +19,12 @@ type ComponentSlot<
 function getSlotStyles<
   Name extends keyof ComponentsOverrides<Theme>,
   Slot extends keyof NonNullable<ComponentsOverrides<Theme>[Name]>,
->(slot: ComponentSlot<Name, Slot>, props?: ComponentsPropsList[Name]): CSSObject {
-  const slotStyles = typeof slot === 'function' && props ? slot(props) : (slot ?? {});
+>(
+  slot: ComponentSlot<Name, Slot>,
+  props?: ComponentsPropsList[Name]
+): CSSObject {
+  const slotStyles =
+    typeof slot === 'function' && props ? slot(props) : (slot ?? {});
 
   return slotStyles;
 }

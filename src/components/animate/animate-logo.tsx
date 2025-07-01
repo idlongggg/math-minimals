@@ -19,7 +19,12 @@ export type AnimateLogoProps = React.ComponentProps<'div'> & {
   };
 };
 
-export function AnimateLogoZoom({ logo, slotProps, sx, ...other }: AnimateLogoProps) {
+export function AnimateLogoZoom({
+  logo,
+  slotProps,
+  sx,
+  ...other
+}: AnimateLogoProps) {
   return (
     <LogoZoomRoot sx={sx} {...other}>
       <m.span
@@ -93,7 +98,12 @@ const LogoZoomSecondaryOutline = styled(m.span)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export function AnimateLogoRotate({ logo, sx, slotProps, ...other }: AnimateLogoProps) {
+export function AnimateLogoRotate({
+  logo,
+  sx,
+  slotProps,
+  ...other
+}: AnimateLogoProps) {
   return (
     <LogoRotateRoot sx={sx} {...other}>
       {logo ?? (

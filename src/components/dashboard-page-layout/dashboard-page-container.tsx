@@ -42,7 +42,11 @@ export function DashboardPageContainer({
       ]}
     >
       {/* Fixed Header */}
-      <DashboardPageHeader title={title} description={description} sx={headerSx} />
+      <DashboardPageHeader
+        title={title}
+        description={description}
+        sx={headerSx}
+      />
 
       {/* Dynamic Content */}
       {children}

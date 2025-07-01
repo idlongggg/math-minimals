@@ -33,7 +33,13 @@ dayjs.extend(relativeTime);
 
 // ----------------------------------------------------------------------
 
-export type DatePickerFormat = Dayjs | Date | string | number | null | undefined;
+export type DatePickerFormat =
+  | Dayjs
+  | Date
+  | string
+  | number
+  | null
+  | undefined;
 
 export const formatPatterns = {
   dateTime: 'DD MMM YYYY h:mm a', // 17 Apr 2022 12:00 am
@@ -133,7 +139,11 @@ export function fIsBetween(
   startDate: DatePickerFormat,
   endDate: DatePickerFormat
 ): boolean {
-  if (!isValidDate(inputDate) || !isValidDate(startDate) || !isValidDate(endDate)) {
+  if (
+    !isValidDate(inputDate) ||
+    !isValidDate(startDate) ||
+    !isValidDate(endDate)
+  ) {
     return false;
   }
 
@@ -149,7 +159,10 @@ export function fIsBetween(
     return false;
   }
 
-  return formattedInputDate >= formattedStartDate && formattedInputDate <= formattedEndDate;
+  return (
+    formattedInputDate >= formattedStartDate &&
+    formattedInputDate <= formattedEndDate
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -157,7 +170,10 @@ export function fIsBetween(
 /**
  * @output boolean
  */
-export function fIsAfter(startDate: DatePickerFormat, endDate: DatePickerFormat): boolean {
+export function fIsAfter(
+  startDate: DatePickerFormat,
+  endDate: DatePickerFormat
+): boolean {
   if (!isValidDate(startDate) || !isValidDate(endDate)) {
     return false;
   }
@@ -194,7 +210,11 @@ export function fDateRangeShortLabel(
   endDate: DatePickerFormat,
   initial?: boolean
 ): string {
-  if (!isValidDate(startDate) || !isValidDate(endDate) || fIsAfter(startDate, endDate)) {
+  if (
+    !isValidDate(startDate) ||
+    !isValidDate(endDate) ||
+    fIsAfter(startDate, endDate)
+  ) {
     return 'Invalid date';
   }
 

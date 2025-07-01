@@ -5,13 +5,23 @@ import { varAlpha } from 'minimal-shared/utils';
 
 // ----------------------------------------------------------------------
 
-const COLORS = ['primary', 'secondary', 'info', 'success', 'warning', 'error'] as const;
+const COLORS = [
+  'primary',
+  'secondary',
+  'info',
+  'success',
+  'warning',
+  'error',
+] as const;
 
 type PaletteColor = (typeof COLORS)[number];
 
 // ----------------------------------------------------------------------
 
-function styleColors(ownerState: LinearProgressProps, styles: (val: PaletteColor) => CSSObject) {
+function styleColors(
+  ownerState: LinearProgressProps,
+  styles: (val: PaletteColor) => CSSObject
+) {
   const outputStyle = COLORS.reduce((acc, color) => {
     if (ownerState.color === color) {
       acc = styles(color);
@@ -30,18 +40,27 @@ const MuiLinearProgress: Components<Theme>['MuiLinearProgress'] = {
     root: ({ theme, ownerState }) => {
       const styled = {
         colors: styleColors(ownerState, (color) => ({
-          backgroundColor: varAlpha(theme.vars.palette[color].mainChannel, 0.24),
+          backgroundColor: varAlpha(
+            theme.vars.palette[color].mainChannel,
+            0.24
+          ),
         })),
         inheritColor: {
           ...(ownerState.color === 'inherit' && {
             '&::before': { display: 'none' },
-            backgroundColor: varAlpha(theme.vars.palette.text.primaryChannel, 0.24),
+            backgroundColor: varAlpha(
+              theme.vars.palette.text.primaryChannel,
+              0.24
+            ),
           }),
         },
       };
       return {
         borderRadius: 3,
-        ...(ownerState.variant !== 'buffer' && { ...styled.inheritColor, ...styled.colors }),
+        ...(ownerState.variant !== 'buffer' && {
+          ...styled.inheritColor,
+          ...styled.colors,
+        }),
       };
     },
     bar: { borderRadius: 'inherit' },

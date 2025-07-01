@@ -39,7 +39,9 @@ export function useJSXGraph({
         if (containerRef.current && rows.length > 0) {
           // Get numeric columns only
           const numericColumns = columns.filter((col) => col.type === 'number');
-          const validXColumn = numericColumns.find((col) => col.field === xAxisColumn);
+          const validXColumn = numericColumns.find(
+            (col) => col.field === xAxisColumn
+          );
           const validYColumns = yAxisColumns.filter((col) =>
             numericColumns.some((numCol) => numCol.field === col)
           );
@@ -99,7 +101,9 @@ export function useJSXGraph({
           // Draw lines for each Y column
           validYColumns.forEach((yColumn, index) => {
             const color = chartColors[index % chartColors.length];
-            const validRowsForColumn = validRows.filter((row) => typeof row[yColumn] === 'number');
+            const validRowsForColumn = validRows.filter(
+              (row) => typeof row[yColumn] === 'number'
+            );
 
             if (validRowsForColumn.length > 1) {
               // Create line

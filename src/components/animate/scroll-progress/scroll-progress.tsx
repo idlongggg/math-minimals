@@ -1,27 +1,24 @@
 'use client';
 
 import type { BoxProps } from '@mui/material/Box';
-import type { Theme, SxProps } from '@mui/material/styles';
-import type { MotionProps, MotionValue } from 'framer-motion';
-
-import { Fragment } from 'react';
-import { mergeClasses } from 'minimal-shared/utils';
-import { m, useSpring, useTransform } from 'framer-motion';
-
 import Box from '@mui/material/Box';
 import Portal from '@mui/material/Portal';
+import type { SxProps, Theme } from '@mui/material/styles';
 import { styled, useTheme } from '@mui/material/styles';
-
+import type { MotionProps, MotionValue } from 'framer-motion';
+import { m, useSpring, useTransform } from 'framer-motion';
+import { mergeClasses } from 'minimal-shared/utils';
+import { Fragment } from 'react';
 import { createClasses } from 'src/theme/create-classes';
-
-// ----------------------------------------------------------------------
 
 export const scrollProgressClasses = {
   circular: createClasses('scroll__progress__circular'),
   linear: createClasses('scroll__progress__linear'),
 };
 
-type BaseProps = MotionProps & React.ComponentProps<'svg'> & React.ComponentProps<'div'>;
+type BaseProps = MotionProps &
+  React.ComponentProps<'svg'> &
+  React.ComponentProps<'div'>;
 
 export interface ScrollProgressProps extends BaseProps {
   size?: number;
@@ -31,7 +28,14 @@ export interface ScrollProgressProps extends BaseProps {
   whenScroll?: 'x' | 'y';
   progress: MotionValue<number>;
   variant: 'linear' | 'circular';
-  color?: 'inherit' | 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
+  color?:
+    | 'inherit'
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error';
   slotProps?: {
     wrapper?: BoxProps;
   };
@@ -56,9 +60,14 @@ export function ScrollProgress({
 
   const transformProgress = useTransform(progressProps, [0, -1], [0, 1]);
 
-  const progress = isRtl && whenScroll === 'x' ? transformProgress : progressProps;
+  const progress =
+    isRtl && whenScroll === 'x' ? transformProgress : progressProps;
 
-  const scaleX = useSpring(progress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const scaleX = useSpring(progress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   const progressSize = variant === 'circular' ? (size ?? 64) : (size ?? 3);
 

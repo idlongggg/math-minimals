@@ -50,7 +50,10 @@ export function NotificationItem({ notification }: NotificationItemProps) {
   const renderAvatar = () => (
     <ListItemAvatar>
       {notification.avatarUrl ? (
-        <Avatar src={notification.avatarUrl} sx={{ bgcolor: 'background.neutral' }} />
+        <Avatar
+          src={notification.avatarUrl}
+          sx={{ bgcolor: 'background.neutral' }}
+        />
       ) : (
         <Box
           sx={{
@@ -63,7 +66,9 @@ export function NotificationItem({ notification }: NotificationItemProps) {
             bgcolor: 'background.neutral',
           }}
         >
-          <SvgIcon sx={{ width: 24, height: 24 }}>{renderIcon(notification.type)}</SvgIcon>
+          <SvgIcon sx={{ width: 24, height: 24 }}>
+            {renderIcon(notification.type)}
+          </SvgIcon>
         </Box>
       )}
     </ListItemAvatar>
@@ -77,7 +82,12 @@ export function NotificationItem({ notification }: NotificationItemProps) {
           {fToNow(notification.createdAt)}
           <Box
             component="span"
-            sx={{ width: 2, height: 2, borderRadius: '50%', bgcolor: 'currentColor' }}
+            sx={{
+              width: 2,
+              height: 2,
+              borderRadius: '50%',
+              bgcolor: 'currentColor',
+            }}
           />
           {notification.category}
         </>

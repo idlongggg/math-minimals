@@ -24,7 +24,11 @@ export type LanguagePopoverProps = IconButtonProps & {
   }[];
 };
 
-export function LanguagePopover({ data = [], sx, ...other }: LanguagePopoverProps) {
+export function LanguagePopover({
+  data = [],
+  sx,
+  ...other
+}: LanguagePopoverProps) {
   const { open, anchorEl, onClose, onOpen } = usePopover();
 
   const [locale, setLocale] = useState<string>(data[0].value);

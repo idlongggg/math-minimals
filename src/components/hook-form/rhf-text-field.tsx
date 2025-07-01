@@ -1,7 +1,11 @@
 import type { TextFieldProps } from '@mui/material/TextField';
 
 import { Controller, useFormContext } from 'react-hook-form';
-import { transformValue, transformValueOnBlur, transformValueOnChange } from 'minimal-shared/utils';
+import {
+  transformValue,
+  transformValueOnBlur,
+  transformValueOnChange,
+} from 'minimal-shared/utils';
 
 import TextField from '@mui/material/TextField';
 
@@ -53,7 +57,10 @@ export function RHFTextField({
             htmlInput: {
               autoComplete: 'off',
               ...slotProps?.htmlInput,
-              ...(isNumberType && { inputMode: 'decimal', pattern: '[0-9]*\\.?[0-9]*' }),
+              ...(isNumberType && {
+                inputMode: 'decimal',
+                pattern: '[0-9]*\\.?[0-9]*',
+              }),
             },
           }}
           {...other}

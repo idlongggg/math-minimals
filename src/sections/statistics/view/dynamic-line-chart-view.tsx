@@ -19,7 +19,10 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
-import { type DataSeries, DynamicLineChart } from 'src/components/dynamic-line-chart';
+import {
+  type DataSeries,
+  DynamicLineChart,
+} from 'src/components/dynamic-line-chart';
 
 // Sample data sets
 const sampleDataSets = {
@@ -143,9 +146,9 @@ const sampleDataSets = {
 
 export function DynamicLineChartView() {
   const theme = useTheme();
-  const [selectedDataSet, setSelectedDataSet] = useState<keyof typeof sampleDataSets | 'custom'>(
-    'custom'
-  );
+  const [selectedDataSet, setSelectedDataSet] = useState<
+    keyof typeof sampleDataSets | 'custom'
+  >('custom');
   const [currentData, setCurrentData] = useState<DataSeries[]>([]);
 
   const loadSampleData = (dataSetKey: keyof typeof sampleDataSets) => {
@@ -171,7 +174,11 @@ export function DynamicLineChartView() {
         />
         <CardContent>
           <Box
-            sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' }, gap: 2 }}
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' },
+              gap: 2,
+            }}
           >
             <Box>
               <Typography variant="subtitle2" color="primary" gutterBottom>
@@ -223,14 +230,18 @@ export function DynamicLineChartView() {
               Doanh số bán hàng
             </Button>
             <Button
-              variant={selectedDataSet === 'temperature' ? 'contained' : 'outlined'}
+              variant={
+                selectedDataSet === 'temperature' ? 'contained' : 'outlined'
+              }
               onClick={() => loadSampleData('temperature')}
               startIcon={<Iconify icon="solar:chart-square-outline" />}
             >
               Nhiệt độ theo tháng
             </Button>
             <Button
-              variant={selectedDataSet === 'math_scores' ? 'contained' : 'outlined'}
+              variant={
+                selectedDataSet === 'math_scores' ? 'contained' : 'outlined'
+              }
               onClick={() => loadSampleData('math_scores')}
               startIcon={<Iconify icon="solar:file-text-bold" />}
             >
@@ -281,12 +292,18 @@ export function DynamicLineChartView() {
       {/* Additional Information */}
       <Box sx={{ mt: 3 }}>
         <Accordion>
-          <AccordionSummary expandIcon={<Iconify icon="eva:arrow-downward-fill" />}>
+          <AccordionSummary
+            expandIcon={<Iconify icon="eva:arrow-downward-fill" />}
+          >
             <Typography variant="h6">Thông tin chi tiết về JSXGraph</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Box
-              sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+                gap: 3,
+              }}
             >
               <Box>
                 <Typography variant="subtitle2" gutterBottom>

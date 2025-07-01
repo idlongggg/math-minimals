@@ -56,7 +56,13 @@ export function ControlsPopover({
     >
       <Box sx={{ p: 2 }}>
         <Stack spacing={3}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
             <Typography variant="h6" sx={{ fontSize: '1rem' }}>
               Điều khiển biểu đồ
             </Typography>
@@ -79,7 +85,11 @@ export function ControlsPopover({
                 <Chip
                   key={col.id}
                   label={`${col.headerName} (${col.type})`}
-                  onDelete={columns.length > 1 ? () => onDeleteColumn(col.id) : undefined}
+                  onDelete={
+                    columns.length > 1
+                      ? () => onDeleteColumn(col.id)
+                      : undefined
+                  }
                   color={col.type === 'number' ? 'primary' : 'default'}
                   variant="outlined"
                   size="small"
@@ -110,7 +120,11 @@ export function ControlsPopover({
                 </FormControl>
 
                 <Box>
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
                     Trục Y (có thể chọn nhiều):
                   </Typography>
                   <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
@@ -119,8 +133,16 @@ export function ControlsPopover({
                         key={col.field}
                         label={col.headerName}
                         onClick={() => onToggleYAxisColumn(col.field)}
-                        color={yAxisColumns.includes(col.field) ? 'primary' : 'default'}
-                        variant={yAxisColumns.includes(col.field) ? 'filled' : 'outlined'}
+                        color={
+                          yAxisColumns.includes(col.field)
+                            ? 'primary'
+                            : 'default'
+                        }
+                        variant={
+                          yAxisColumns.includes(col.field)
+                            ? 'filled'
+                            : 'outlined'
+                        }
                         size="small"
                       />
                     ))}

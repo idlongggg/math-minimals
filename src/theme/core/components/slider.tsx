@@ -41,7 +41,10 @@ const MuiSlider: Components<Theme>['MuiSlider'] = {
           style: () => ({
             [`& .${sliderClasses.markActive}`]: {
               ...theme.applyStyles('dark', {
-                backgroundColor: varAlpha(theme.vars.palette.grey['800Channel'], 0.48),
+                backgroundColor: varAlpha(
+                  theme.vars.palette.grey['800Channel'],
+                  0.48
+                ),
               }),
             },
           }),
@@ -109,7 +112,10 @@ const MuiSlider: Components<Theme>['MuiSlider'] = {
       }),
     }),
     sizeSmall: {
-      [`& .${sliderClasses.thumb}`]: { width: SIZE.thumb.small, height: SIZE.thumb.small },
+      [`& .${sliderClasses.thumb}`]: {
+        width: SIZE.thumb.small,
+        height: SIZE.thumb.small,
+      },
       [`& .${sliderClasses.rail}`]: { height: SIZE.rail.small },
       [`& .${sliderClasses.track}`]: { height: SIZE.rail.small },
       [`& .${sliderClasses.mark}`]: { height: SIZE.mark.small },

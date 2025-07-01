@@ -2,7 +2,13 @@ import type { UseInViewOptions } from 'framer-motion';
 import type { TypographyProps } from '@mui/material/Typography';
 
 import { useRef, useEffect } from 'react';
-import { m, animate, useInView, useTransform, useMotionValue } from 'framer-motion';
+import {
+  m,
+  animate,
+  useInView,
+  useTransform,
+  useMotionValue,
+} from 'framer-motion';
 
 import Typography from '@mui/material/Typography';
 
@@ -76,7 +82,9 @@ function isFloat(n: number | string) {
   return typeof n === 'number' && !Number.isInteger(n);
 }
 
-function shortenNumber(value: number): { unit: string; value: number } | undefined {
+function shortenNumber(
+  value: number
+): { unit: string; value: number } | undefined {
   if (value >= 1e9) {
     return { unit: 'b', value: value / 1e9 };
   }

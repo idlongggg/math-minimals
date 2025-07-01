@@ -35,7 +35,10 @@ export const _addressBooks = Array.from({ length: 24 }, (_, index) => ({
 
 export const _contacts = Array.from({ length: 20 }, (_, index) => {
   const status =
-    (index % 2 && 'online') || (index % 3 && 'offline') || (index % 4 && 'always') || 'busy';
+    (index % 2 && 'online') ||
+    (index % 3 && 'offline') ||
+    (index % 4 && 'always') ||
+    'busy';
 
   return {
     id: _mock.id(index),
@@ -66,9 +69,17 @@ export const _notifications = Array.from({ length: 9 }, (_, index) => ({
     null,
     null,
   ][index],
-  type: ['friend', 'project', 'file', 'tags', 'payment', 'order', 'delivery', 'chat', 'mail'][
-    index
-  ],
+  type: [
+    'friend',
+    'project',
+    'file',
+    'tags',
+    'payment',
+    'order',
+    'delivery',
+    'chat',
+    'mail',
+  ][index],
   category: [
     'Communication',
     'Project UI',
@@ -83,7 +94,8 @@ export const _notifications = Array.from({ length: 9 }, (_, index) => ({
   isUnRead: _mock.boolean(index),
   createdAt: _mock.time(index),
   title:
-    (index === 0 && `<p><strong>Deja Brady</strong> sent you a friend request</p>`) ||
+    (index === 0 &&
+      `<p><strong>Deja Brady</strong> sent you a friend request</p>`) ||
     (index === 1 &&
       `<p><strong>Jayvon Hull</strong> mentioned you in <strong><a href='#'>Minimal UI</a></strong></p>`) ||
     (index === 2 &&
@@ -102,8 +114,16 @@ export const _notifications = Array.from({ length: 9 }, (_, index) => ({
 // ----------------------------------------------------------------------
 
 export const _mapContact = [
-  { latlng: [33, 65], address: _mock.fullAddress(1), phoneNumber: _mock.phoneNumber(1) },
-  { latlng: [-12.5, 18.5], address: _mock.fullAddress(2), phoneNumber: _mock.phoneNumber(2) },
+  {
+    latlng: [33, 65],
+    address: _mock.fullAddress(1),
+    phoneNumber: _mock.phoneNumber(1),
+  },
+  {
+    latlng: [-12.5, 18.5],
+    address: _mock.fullAddress(2),
+    phoneNumber: _mock.phoneNumber(2),
+  },
 ];
 
 // ----------------------------------------------------------------------

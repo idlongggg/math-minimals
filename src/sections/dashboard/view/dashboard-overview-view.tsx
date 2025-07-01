@@ -17,11 +17,21 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
-import { CustomCard, CustomCardHeader, CustomCardContent } from 'src/components/custom-card';
+import {
+  CustomCard,
+  CustomCardHeader,
+  CustomCardContent,
+} from 'src/components/custom-card';
 
 // ----------------------------------------------------------------------
 
-type StatColor = 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
+type StatColor =
+  | 'primary'
+  | 'secondary'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error';
 
 const OVERVIEW_STATS = [
   {
@@ -134,7 +144,11 @@ export function DashboardOverviewView() {
         gap: 3,
         mb: 4,
         '& > *': {
-          flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(25% - 18px)' },
+          flex: {
+            xs: '1 1 100%',
+            sm: '1 1 calc(50% - 12px)',
+            md: '1 1 calc(25% - 18px)',
+          },
         },
       }}
     >
@@ -164,7 +178,11 @@ export function DashboardOverviewView() {
               bgcolor: alpha(theme.palette[stat.color].main, 0.1),
             }}
           >
-            <Iconify icon={stat.icon} width={32} sx={{ color: theme.palette[stat.color].main }} />
+            <Iconify
+              icon={stat.icon}
+              width={32}
+              sx={{ color: theme.palette[stat.color].main }}
+            />
           </Box>
           <Typography variant="h3" sx={{ mb: 1 }}>
             {stat.value}
@@ -195,7 +213,11 @@ export function DashboardOverviewView() {
             flexWrap: 'wrap',
             gap: 3,
             '& > *': {
-              flex: { xs: '1 1 100%', sm: '1 1 calc(50% - 12px)', md: '1 1 calc(33.333% - 16px)' },
+              flex: {
+                xs: '1 1 100%',
+                sm: '1 1 calc(50% - 12px)',
+                md: '1 1 calc(33.333% - 16px)',
+              },
             },
           }}
         >
@@ -242,7 +264,11 @@ export function DashboardOverviewView() {
                   <Typography variant="subtitle1" sx={{ mb: 0.5 }}>
                     {tool.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mb: 1 }}
+                  >
                     {tool.description}
                   </Typography>
                   <Typography variant="caption" color="primary.main">
@@ -289,7 +315,11 @@ export function DashboardOverviewView() {
                   <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
                     {activity.action}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mb: 0.5 }}
+                  >
                     {activity.result}
                   </Typography>
                   <Typography variant="caption" color="text.disabled">
@@ -297,13 +327,18 @@ export function DashboardOverviewView() {
                   </Typography>
                 </Box>
               </Stack>
-              {index < RECENT_ACTIVITIES.length - 1 && <Divider sx={{ mt: 2 }} />}
+              {index < RECENT_ACTIVITIES.length - 1 && (
+                <Divider sx={{ mt: 2 }} />
+              )}
             </Box>
           ))}
         </Stack>
 
         <Box sx={{ mt: 3, textAlign: 'center' }}>
-          <Button variant="outlined" startIcon={<Iconify icon="solar:list-bold" />}>
+          <Button
+            variant="outlined"
+            startIcon={<Iconify icon="solar:list-bold" />}
+          >
             Xem tất cả hoạt động
           </Button>
         </Box>
@@ -409,7 +444,9 @@ export function DashboardOverviewView() {
               <Stack spacing={1}>
                 <Typography variant="body2">Frontend: v2.1.0</Typography>
                 <Typography variant="body2">Backend API: v1.8.3</Typography>
-                <Typography variant="body2">Database: PostgreSQL 14.2</Typography>
+                <Typography variant="body2">
+                  Database: PostgreSQL 14.2
+                </Typography>
               </Stack>
             </Box>
           </Box>
@@ -424,13 +461,15 @@ export function DashboardOverviewView() {
               Ví dụ Section {i + 1}
             </Typography>
             <Typography variant="body1" paragraph>
-              Đây là nội dung ví dụ để minh họa việc cuộn trang. Trang dashboard này được thiết kế
-              với header cố định và phần nội dung có thể cuộn được. Metadata đã được cấu hình đầy đủ
-              với tiêu đề và mô tả phù hợp.
+              Đây là nội dung ví dụ để minh họa việc cuộn trang. Trang dashboard
+              này được thiết kế với header cố định và phần nội dung có thể cuộn
+              được. Metadata đã được cấu hình đầy đủ với tiêu đề và mô tả phù
+              hợp.
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Bạn có thể thêm nhiều nội dung khác vào đây để tạo ra một trang dashboard đầy đủ tính
-              năng. Layout này sử dụng Material-UI components và tuân theo best practices của React.
+              Bạn có thể thêm nhiều nội dung khác vào đây để tạo ra một trang
+              dashboard đầy đủ tính năng. Layout này sử dụng Material-UI
+              components và tuân theo best practices của React.
             </Typography>
           </CardContent>
           <CardActions>

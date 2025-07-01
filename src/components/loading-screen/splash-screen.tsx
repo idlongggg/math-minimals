@@ -19,7 +19,12 @@ export type SplashScreenProps = React.ComponentProps<'div'> & {
   };
 };
 
-export function SplashScreen({ portal = true, slotProps, sx, ...other }: SplashScreenProps) {
+export function SplashScreen({
+  portal = true,
+  slotProps,
+  sx,
+  ...other
+}: SplashScreenProps) {
   const PortalWrapper = portal ? Portal : Fragment;
 
   return (

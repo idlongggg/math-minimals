@@ -24,7 +24,10 @@ type Props = {
 };
 
 export function AuthProvider({ children }: Props) {
-  const { state, setState } = useSetState<AuthState>({ user: null, loading: true });
+  const { state, setState } = useSetState<AuthState>({
+    user: null,
+    loading: true,
+  });
 
   const checkUserSession = useCallback(async () => {
     try {
@@ -60,7 +63,9 @@ export function AuthProvider({ children }: Props) {
 
   const memoizedValue = useMemo(
     () => ({
-      user: state.user ? { ...state.user, role: state.user?.role ?? 'admin' } : null,
+      user: state.user
+        ? { ...state.user, role: state.user?.role ?? 'admin' }
+        : null,
       checkUserSession,
       loading: status === 'loading',
       authenticated: status === 'authenticated',

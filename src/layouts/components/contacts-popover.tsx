@@ -35,7 +35,11 @@ export type ContactsPopoverProps = IconButtonProps & {
   }[];
 };
 
-export function ContactsPopover({ data = [], sx, ...other }: ContactsPopoverProps) {
+export function ContactsPopover({
+  data = [],
+  sx,
+  ...other
+}: ContactsPopoverProps) {
   const { open, anchorEl, onClose, onOpen } = usePopover();
 
   const renderMenuList = () => (
@@ -53,13 +57,20 @@ export function ContactsPopover({ data = [], sx, ...other }: ContactsPopoverProp
         <MenuList>
           {data.map((contact) => (
             <MenuItem key={contact.id} sx={{ p: 1 }}>
-              <Badge variant={contact.status as BadgeProps['variant']} badgeContent="">
+              <Badge
+                variant={contact.status as BadgeProps['variant']}
+                badgeContent=""
+              >
                 <Avatar alt={contact.name} src={contact.avatarUrl} />
               </Badge>
 
               <ListItemText
                 primary={contact.name}
-                secondary={contact.status === 'offline' ? fToNow(contact.lastActivity) : ''}
+                secondary={
+                  contact.status === 'offline'
+                    ? fToNow(contact.lastActivity)
+                    : ''
+                }
                 slotProps={{
                   secondary: {
                     sx: { typography: 'caption', color: 'text.disabled' },
@@ -83,7 +94,9 @@ export function ContactsPopover({ data = [], sx, ...other }: ContactsPopoverProp
         aria-label="Contacts button"
         onClick={onOpen}
         sx={[
-          (theme) => ({ ...(open && { bgcolor: theme.vars.palette.action.selected }) }),
+          (theme) => ({
+            ...(open && { bgcolor: theme.vars.palette.action.selected }),
+          }),
           ...(Array.isArray(sx) ? sx : [sx]),
         ]}
         {...other}

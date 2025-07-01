@@ -76,14 +76,18 @@ const cyanShape =
 const redShape =
   'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSJ1cmwoI3BhaW50MF9yYWRpYWxfNDQ2NF81NTMzNykiIGZpbGwtb3BhY2l0eT0iMC4xIi8+CjxkZWZzPgo8cmFkaWFsR3JhZGllbnQgaWQ9InBhaW50MF9yYWRpYWxfNDQ2NF81NTMzNyIgY3g9IjAiIGN5PSIwIiByPSIxIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgZ3JhZGllbnRUcmFuc2Zvcm09InRyYW5zbGF0ZSgwIDEyMCkgcm90YXRlKDEzNSkgc2NhbGUoMTIzLjI1KSI+CjxzdG9wIHN0b3AtY29sb3I9IiNGRjU2MzAiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRkY1NjMwIiBzdG9wLW9wYWNpdHk9IjAiLz4KPC9yYWRpYWxHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K';
 
-export function paperStyles(theme: Theme, options?: PaperStyleOptions): CSSObject {
+export function paperStyles(
+  theme: Theme,
+  options?: PaperStyleOptions
+): CSSObject {
   const { blur = 30, color, dropdown } = options ?? {};
 
   // Windows 11 Fluent Design paper styles
   const base = {
     backdropFilter: `blur(${blur}px) saturate(1.1)`,
     WebkitBackdropFilter: `blur(${blur}px) saturate(1.1)`,
-    backgroundColor: color ?? varAlpha(theme.vars.palette.background.paperChannel, 0.85),
+    backgroundColor:
+      color ?? varAlpha(theme.vars.palette.background.paperChannel, 0.85),
     // Subtle border for depth
     border: `1px solid ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
     // Windows 11 style rounded corners
@@ -99,7 +103,8 @@ export function paperStyles(theme: Theme, options?: PaperStyleOptions): CSSObjec
       backdropFilter: `blur(${blur + 10}px) saturate(1.2)`,
       WebkitBackdropFilter: `blur(${blur + 10}px) saturate(1.2)`,
       // Slightly more opaque for floating elements
-      backgroundColor: color ?? varAlpha(theme.vars.palette.background.paperChannel, 0.9),
+      backgroundColor:
+        color ?? varAlpha(theme.vars.palette.background.paperChannel, 0.9),
     };
   }
 

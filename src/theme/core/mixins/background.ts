@@ -29,7 +29,12 @@ export type BgGradientProps = {
   repeats?: string[];
 };
 
-export function bgGradient({ sizes, repeats, images, positions }: BgGradientProps): CSSObject {
+export function bgGradient({
+  sizes,
+  repeats,
+  images,
+  positions,
+}: BgGradientProps): CSSObject {
   return {
     backgroundImage: images?.join(', '),
     backgroundSize: sizes?.join(', ') ?? 'cover',
@@ -141,7 +146,11 @@ export function acrylicMaterial({
 }
 
 // Enhanced blur for Windows 11 style
-export function fluentBlur({ color, blur = 20, imgUrl }: BgBlurProps): CSSObject {
+export function fluentBlur({
+  color,
+  blur = 20,
+  imgUrl,
+}: BgBlurProps): CSSObject {
   const base = {
     backdropFilter: `blur(${blur}px) saturate(1.2)`,
     WebkitBackdropFilter: `blur(${blur}px) saturate(1.2)`,

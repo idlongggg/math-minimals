@@ -27,7 +27,9 @@ const MuiTable: Components<Theme>['MuiTable'] = {
    * STYLE
    *************************************** */
   styleOverrides: {
-    root: ({ theme }) => ({ '--palette-TableCell-border': theme.vars.palette.divider }),
+    root: ({ theme }) => ({
+      '--palette-TableCell-border': theme.vars.palette.divider,
+    }),
   },
 };
 
@@ -41,9 +43,16 @@ const MuiTableRow: Components<Theme>['MuiTableRow'] = {
     root: ({ theme }) => ({
       [`&.${tableRowClasses.selected}`]: {
         backgroundColor: varAlpha(theme.vars.palette.primary.darkChannel, 0.04),
-        '&:hover': { backgroundColor: varAlpha(theme.vars.palette.primary.darkChannel, 0.08) },
+        '&:hover': {
+          backgroundColor: varAlpha(
+            theme.vars.palette.primary.darkChannel,
+            0.08
+          ),
+        },
       },
-      '&:last-of-type': { [`& .${tableCellClasses.root}`]: { borderColor: 'transparent' } },
+      '&:last-of-type': {
+        [`& .${tableCellClasses.root}`]: { borderColor: 'transparent' },
+      },
     }),
   },
 };

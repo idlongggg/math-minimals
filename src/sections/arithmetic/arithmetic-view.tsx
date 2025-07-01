@@ -95,9 +95,21 @@ export function ArithmeticView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <CustomTab value="overview" label="Tổng quan" icon={<Iconify icon="solar:flag-bold" />} />
-      <CustomTab value="topics" label="Chủ đề" icon={<Iconify icon="solar:list-bold" />} />
-      <CustomTab value="practice" label="Luyện tập" icon={<Iconify icon="solar:pen-bold" />} />
+      <CustomTab
+        value="overview"
+        label="Tổng quan"
+        icon={<Iconify icon="solar:flag-bold" />}
+      />
+      <CustomTab
+        value="topics"
+        label="Chủ đề"
+        icon={<Iconify icon="solar:list-bold" />}
+      />
+      <CustomTab
+        value="practice"
+        label="Luyện tập"
+        icon={<Iconify icon="solar:pen-bold" />}
+      />
       <CustomTab
         value="guide"
         label="Hướng dẫn"
@@ -112,9 +124,10 @@ export function ArithmeticView() {
         Số học cơ bản
       </Typography>
       <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-        Số học cơ bản là nền tảng của toán học, bao gồm các phép toán cơ bản với số tự nhiên, số
-        nguyên, phân số và số thập phân. Tại đây bạn sẽ học về các khái niệm cơ bản như chuyển đổi
-        hệ cơ số, số nguyên tố, ước số, bội số và các phép toán với phân số.
+        Số học cơ bản là nền tảng của toán học, bao gồm các phép toán cơ bản với
+        số tự nhiên, số nguyên, phân số và số thập phân. Tại đây bạn sẽ học về
+        các khái niệm cơ bản như chuyển đổi hệ cơ số, số nguyên tố, ước số, bội
+        số và các phép toán với phân số.
       </Typography>
 
       <Box
@@ -201,7 +214,13 @@ export function ArithmeticView() {
             onClick={() => handleTopicClick(topic.path)}
           >
             <CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Box
                     sx={{
@@ -225,7 +244,10 @@ export function ArithmeticView() {
                     </Typography>
                   </Box>
                 </Box>{' '}
-                <Button variant="outlined" onClick={() => handleTopicClick(topic.path)}>
+                <Button
+                  variant="outlined"
+                  onClick={() => handleTopicClick(topic.path)}
+                >
                   Học ngay
                 </Button>
               </Box>
@@ -242,8 +264,8 @@ export function ArithmeticView() {
         Luyện tập
       </Typography>
       <Typography variant="body1" color="text.secondary">
-        Phần luyện tập đang được phát triển. Sẽ có các bài tập thực hành cho từng chủ đề số học cơ
-        bản.
+        Phần luyện tập đang được phát triển. Sẽ có các bài tập thực hành cho
+        từng chủ đề số học cơ bản.
       </Typography>
     </Box>
   );
@@ -258,14 +280,16 @@ export function ArithmeticView() {
       </Typography>
       <Box component="ol" sx={{ pl: 2 }}>
         <Typography component="li" sx={{ mb: 1 }}>
-          <strong>Chọn chủ đề:</strong> Nhấp vào từng thẻ chủ đề để học về lĩnh vực cụ thể
+          <strong>Chọn chủ đề:</strong> Nhấp vào từng thẻ chủ đề để học về lĩnh
+          vực cụ thể
         </Typography>
         <Typography component="li" sx={{ mb: 1 }}>
-          <strong>Sử dụng công cụ:</strong> Mỗi chủ đề có các tab riêng với công cụ tính toán và
-          hướng dẫn
+          <strong>Sử dụng công cụ:</strong> Mỗi chủ đề có các tab riêng với công
+          cụ tính toán và hướng dẫn
         </Typography>
         <Typography component="li" sx={{ mb: 1 }}>
-          <strong>Thực hành:</strong> Sử dụng các ví dụ nhanh để hiểu rõ khái niệm
+          <strong>Thực hành:</strong> Sử dụng các ví dụ nhanh để hiểu rõ khái
+          niệm
         </Typography>
         <Typography component="li" sx={{ mb: 1 }}>
           <strong>Lịch sử:</strong> Xem lại các phép toán đã thực hiện

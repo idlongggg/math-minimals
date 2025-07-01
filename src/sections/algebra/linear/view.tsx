@@ -48,11 +48,17 @@ export function LinearAlgebraView({ sx, ...other }: BoxProps) {
         >
           {tools.map((tool) => (
             <Card key={tool.title} sx={{ height: 1 }}>
-              <CardContent sx={{ height: 1, display: 'flex', flexDirection: 'column' }}>
+              <CardContent
+                sx={{ height: 1, display: 'flex', flexDirection: 'column' }}
+              >
                 <Typography variant="h6" sx={{ mb: 1 }}>
                   {tool.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2, flexGrow: 1 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mb: 2, flexGrow: 1 }}
+                >
                   {tool.description}
                 </Typography>
                 <Stack direction="row" spacing={1}>

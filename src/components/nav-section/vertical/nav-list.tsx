@@ -68,7 +68,13 @@ export function NavList({
 
   const renderCollapse = () =>
     !!data.children && (
-      <NavCollapse mountOnEnter unmountOnExit depth={depth} in={open} data-group={data.title}>
+      <NavCollapse
+        mountOnEnter
+        unmountOnExit
+        depth={depth}
+        in={open}
+        data-group={data.title}
+      >
         <NavSubList
           data={data.children}
           render={render}
@@ -81,7 +87,11 @@ export function NavList({
     );
 
   // Hidden item by role
-  if (data.allowedRoles && checkPermissions && checkPermissions(data.allowedRoles)) {
+  if (
+    data.allowedRoles &&
+    checkPermissions &&
+    checkPermissions(data.allowedRoles)
+  ) {
     return null;
   }
 
@@ -90,7 +100,9 @@ export function NavList({
       disabled={data.disabled}
       sx={{
         ...(!!data.children && {
-          [`& .${navSectionClasses.li}`]: { '&:first-of-type': { mt: 'var(--nav-item-gap)' } },
+          [`& .${navSectionClasses.li}`]: {
+            '&:first-of-type': { mt: 'var(--nav-item-gap)' },
+          },
         }),
       }}
     >

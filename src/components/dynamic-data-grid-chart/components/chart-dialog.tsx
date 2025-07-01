@@ -1,17 +1,17 @@
 import {
-    Alert,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    Chip,
-    Dialog,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    Stack,
-    Typography,
+  Alert,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Dialog,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  Typography,
 } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
@@ -104,7 +104,11 @@ export function ChartDialog({
                       <Chip
                         key={col.id}
                         label={`${col.headerName} (${col.type})`}
-                        onDelete={columns.length > 1 ? () => onDeleteColumn(col.id) : undefined}
+                        onDelete={
+                          columns.length > 1
+                            ? () => onDeleteColumn(col.id)
+                            : undefined
+                        }
                         color={col.type === 'number' ? 'primary' : 'default'}
                         variant="outlined"
                         size="small"
@@ -135,17 +139,34 @@ export function ChartDialog({
                       </FormControl>
 
                       <Box>
-                        <Typography variant="body2" color="text.secondary" gutterBottom>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          gutterBottom
+                        >
                           Trục Y (có thể chọn nhiều):
                         </Typography>
-                        <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          flexWrap="wrap"
+                          useFlexGap
+                        >
                           {numericColumns.map((col) => (
                             <Chip
                               key={col.field}
                               label={col.headerName}
                               onClick={() => onToggleYAxisColumn(col.field)}
-                              color={yAxisColumns.includes(col.field) ? 'primary' : 'default'}
-                              variant={yAxisColumns.includes(col.field) ? 'filled' : 'outlined'}
+                              color={
+                                yAxisColumns.includes(col.field)
+                                  ? 'primary'
+                                  : 'default'
+                              }
+                              variant={
+                                yAxisColumns.includes(col.field)
+                                  ? 'filled'
+                                  : 'outlined'
+                              }
                               size="small"
                             />
                           ))}
@@ -166,10 +187,13 @@ export function ChartDialog({
 
           {/* Chart Panel */}
           <Card sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-            <CardContent sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <CardContent
+              sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+            >
               {yAxisColumns.length === 0 ? (
                 <Alert severity="info" sx={{ mb: 2 }}>
-                  Vui lòng chọn ít nhất một cột cho trục Y từ panel điều khiển để hiển thị biểu đồ.
+                  Vui lòng chọn ít nhất một cột cho trục Y từ panel điều khiển
+                  để hiển thị biểu đồ.
                 </Alert>
               ) : (
                 <Box
@@ -189,8 +213,9 @@ export function ChartDialog({
               )}
 
               <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                💡 Mẹo: Sử dụng chuột để phóng to/thu nhỏ và kéo để di chuyển biểu đồ. Bạn có thể
-                chọn nhiều cột cho trục Y để so sánh dữ liệu.
+                💡 Mẹo: Sử dụng chuột để phóng to/thu nhỏ và kéo để di chuyển
+                biểu đồ. Bạn có thể chọn nhiều cột cho trục Y để so sánh dữ
+                liệu.
               </Typography>
             </CardContent>
           </Card>

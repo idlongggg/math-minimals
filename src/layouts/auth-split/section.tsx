@@ -72,7 +72,9 @@ export function AuthSplitSection({
         </Typography>
 
         {subtitle && (
-          <Typography sx={{ color: 'text.secondary', textAlign: 'center', mt: 2 }}>
+          <Typography
+            sx={{ color: 'text.secondary', textAlign: 'center', mt: 2 }}
+          >
             {subtitle}
           </Typography>
         )}

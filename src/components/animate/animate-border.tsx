@@ -63,7 +63,10 @@ export function AnimateBorder({
 
   const [isHidden, setIsHidden] = useState(false);
 
-  const secondaryBorderStyles = useComputedElementStyles(theme, primaryBorderRef);
+  const secondaryBorderStyles = useComputedElementStyles(
+    theme,
+    primaryBorderRef
+  );
 
   useEffect(() => {
     const handleVisibility = () => {
@@ -101,7 +104,9 @@ export function AnimateBorder({
       size={slotProps?.primaryBorder?.size}
       sx={[
         {
-          ...theme.mixins.borderGradient({ padding: slotProps?.primaryBorder?.width }),
+          ...theme.mixins.borderGradient({
+            padding: slotProps?.primaryBorder?.width,
+          }),
         },
         ...(Array.isArray(slotProps?.primaryBorder?.sx)
           ? (slotProps?.primaryBorder?.sx ?? [])
@@ -114,11 +119,15 @@ export function AnimateBorder({
     slotProps?.secondaryBorder && (
       <MovingBorder
         {...borderProps}
-        size={slotProps?.secondaryBorder?.size ?? slotProps?.primaryBorder?.size}
+        size={
+          slotProps?.secondaryBorder?.size ?? slotProps?.primaryBorder?.size
+        }
         sx={[
           {
             ...theme.mixins.borderGradient({
-              padding: slotProps?.secondaryBorder?.width ?? secondaryBorderStyles.padding,
+              padding:
+                slotProps?.secondaryBorder?.width ??
+                secondaryBorderStyles.padding,
             }),
             borderRadius: secondaryBorderStyles.borderRadius,
             transform: 'scale(-1, -1)',
@@ -205,7 +214,9 @@ function MovingBorder({
     }
   };
 
-  useAnimationFrame((time) => (!isHidden ? updateAnimationFrame(time) : undefined));
+  useAnimationFrame((time) =>
+    !isHidden ? updateAnimationFrame(time) : undefined
+  );
 
   const x = useTransform(progress, (val) => calculateTransform(val).x);
   const y = useTransform(progress, (val) => calculateTransform(val).y);
@@ -225,7 +236,14 @@ function MovingBorder({
         className={animateBorderClasses.svgWrapper}
         style={{ position: 'absolute' }}
       >
-        <rect ref={svgRectRef} fill="none" width="100%" height="100%" rx={rx} ry={ry} />
+        <rect
+          ref={svgRectRef}
+          fill="none"
+          width="100%"
+          height="100%"
+          rx={rx}
+          ry={ry}
+        />
       </svg>
 
       <Box
@@ -246,7 +264,10 @@ function MovingBorder({
 
 // ----------------------------------------------------------------------
 
-function useComputedElementStyles(theme: Theme, ref: React.RefObject<HTMLSpanElement | null>) {
+function useComputedElementStyles(
+  theme: Theme,
+  ref: React.RefObject<HTMLSpanElement | null>
+) {
   const [computedStyles, setComputedStyles] = useState<CSSObject | null>(null);
 
   const isRtl = theme.direction === 'rtl';
@@ -259,10 +280,18 @@ function useComputedElementStyles(theme: Theme, ref: React.RefObject<HTMLSpanEle
         paddingBottom: style.paddingTop,
         paddingLeft: isRtl ? style.paddingLeft : style.paddingRight,
         paddingRight: isRtl ? style.paddingRight : style.paddingLeft,
-        borderTopLeftRadius: isRtl ? style.borderBottomLeftRadius : style.borderBottomRightRadius,
-        borderTopRightRadius: isRtl ? style.borderBottomRightRadius : style.borderBottomLeftRadius,
-        borderBottomLeftRadius: isRtl ? style.borderTopLeftRadius : style.borderTopRightRadius,
-        borderBottomRightRadius: isRtl ? style.borderTopRightRadius : style.borderTopLeftRadius,
+        borderTopLeftRadius: isRtl
+          ? style.borderBottomLeftRadius
+          : style.borderBottomRightRadius,
+        borderTopRightRadius: isRtl
+          ? style.borderBottomRightRadius
+          : style.borderBottomLeftRadius,
+        borderBottomLeftRadius: isRtl
+          ? style.borderTopLeftRadius
+          : style.borderTopRightRadius,
+        borderBottomRightRadius: isRtl
+          ? style.borderTopRightRadius
+          : style.borderTopLeftRadius,
       });
     }
   }, [ref, isRtl]);

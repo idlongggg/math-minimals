@@ -57,7 +57,11 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
         primaryBorder: { size: 120, sx: { color: 'primary.main' } },
       }}
     >
-      <Avatar src={user?.photoURL} alt={user?.displayName} sx={{ width: 1, height: 1 }}>
+      <Avatar
+        src={user?.photoURL}
+        alt={user?.displayName}
+        sx={{ width: 1, height: 1 }}
+      >
         {user?.displayName?.charAt(0).toUpperCase()}
       </Avatar>
     </AnimateBorder>
@@ -77,8 +81,12 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
       ]}
     >
       {data.map((option) => {
-        const rootLabel = pathname.includes('/dashboard') ? 'Home' : 'Dashboard';
-        const rootHref = pathname.includes('/dashboard') ? '/' : paths.dashboard.root;
+        const rootLabel = pathname.includes('/dashboard')
+          ? 'Home'
+          : 'Dashboard';
+        const rootHref = pathname.includes('/dashboard')
+          ? '/'
+          : paths.dashboard.root;
 
         return (
           <MenuItem key={option.label}>
@@ -163,7 +171,11 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
               {user?.displayName}
             </Typography>
 
-            <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }} noWrap>
+            <Typography
+              variant="body2"
+              sx={{ color: 'text.secondary', mt: 0.5 }}
+              noWrap
+            >
               {user?.email}
             </Typography>
           </Box>
@@ -194,7 +206,10 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
               <IconButton
                 sx={[
                   (theme) => ({
-                    bgcolor: varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
+                    bgcolor: varAlpha(
+                      theme.vars.palette.grey['500Channel'],
+                      0.08
+                    ),
                     border: `dashed 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.32)}`,
                   }),
                 ]}

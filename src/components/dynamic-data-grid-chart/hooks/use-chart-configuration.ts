@@ -15,7 +15,10 @@ export function useChartConfiguration() {
   };
 
   // Update chart configuration when columns are deleted
-  const updateConfigurationAfterColumnDelete = (deletedField: string, numericColumns: any[]) => {
+  const updateConfigurationAfterColumnDelete = (
+    deletedField: string,
+    numericColumns: any[]
+  ) => {
     if (xAxisColumn === deletedField) {
       if (numericColumns.length > 0) {
         setXAxisColumn(numericColumns[0].field);
