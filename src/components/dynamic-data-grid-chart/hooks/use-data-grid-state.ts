@@ -322,6 +322,19 @@ export function useDataGridState() {
     return true;
   };
 
+  // Delete multiple rows
+  const handleDeleteRows = (rowIds: string[]) => {
+    // Check if deleting all selected rows would leave no rows
+    if (rowIds.length >= rows.length) {
+      alert('Không thể xóa tất cả các hàng! Phải giữ lại ít nhất một hàng.');
+      return false;
+    }
+
+    // Delete all selected rows at once
+    setRows(rows.filter((row) => !rowIds.includes(row.id)));
+    return true;
+  };
+
   return {
     columns,
     rows,
@@ -330,5 +343,6 @@ export function useDataGridState() {
     handleDeleteColumn,
     handleAddRow,
     handleDeleteRow,
+    handleDeleteRows,
   };
 }

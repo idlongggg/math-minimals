@@ -23,6 +23,7 @@ export function DynamicDataGridChart({
     handleDeleteColumn,
     handleAddRow,
     handleDeleteRow,
+    handleDeleteRows,
   } = useDataGridState();
 
   const {
@@ -83,6 +84,7 @@ export function DynamicDataGridChart({
         rows={rows}
         onProcessRowUpdate={handleProcessRowUpdate}
         onDeleteRow={handleDeleteRow}
+        onDeleteRows={handleDeleteRows}
         onAddRow={handleAddRow}
         onOpenChart={() => setChartDialog(true)}
         onOpenAddColumn={() => setAddColumnDialog(true)}

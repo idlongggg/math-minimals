@@ -13,6 +13,7 @@ interface DataGridSectionProps {
   rows: ChartDataRow[];
   onProcessRowUpdate: (newRow: ChartDataRow) => ChartDataRow;
   onDeleteRow: (rowId: string) => void;
+  onDeleteRows: (rowIds: string[]) => void;
   onAddRow: () => void;
   onOpenChart: () => void;
   onOpenAddColumn: () => void;
@@ -23,6 +24,7 @@ export function DataGridSection({
   rows,
   onProcessRowUpdate,
   onDeleteRow,
+  onDeleteRows,
   onAddRow,
   onOpenChart,
   onOpenAddColumn,
@@ -38,9 +40,8 @@ export function DataGridSection({
 
   // Handle delete selected rows
   const handleDeleteSelected = () => {
-    selectedRowIds.forEach((rowId) => {
-      onDeleteRow(String(rowId));
-    });
+    const rowIds = selectedRowIds.map(id => String(id));
+    onDeleteRows(rowIds);
     setSelectedRowIds([]);
   };
 
