@@ -15,6 +15,7 @@ import Select from '@mui/material/Select';
 import Tab from '@mui/material/Tab';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 import 'katex/dist/katex.min.css';
 import { useCallback, useState } from 'react';
 import { BlockMath, InlineMath } from 'react-katex';
@@ -62,6 +63,7 @@ const BASE_LATEX_NOTATION: Record<number, string> = {
 };
 
 export function BaseConversionView() {
+  const theme = useTheme();
   const [currentTab, setCurrentTab] = useState('converter');
   const [inputValue, setInputValue] = useState('');
   const [fromBase, setFromBase] = useState(10);
@@ -529,7 +531,7 @@ export function BaseConversionView() {
                   <tr
                     key={i}
                     style={{
-                      backgroundColor: i % 2 === 0 ? '#f9f9f9' : 'white',
+                      backgroundColor: i % 2 === 0 ? theme.palette.action.hover : theme.palette.background.paper,
                     }}
                   >
                     <td

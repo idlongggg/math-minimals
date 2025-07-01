@@ -1,7 +1,7 @@
-import type { GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
-import { useState } from 'react';
 import { Button, Card, CardContent, CardHeader, Stack } from '@mui/material';
+import type { GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import { DataGrid } from '@mui/x-data-grid';
+import { useState } from 'react';
 import { Iconify } from 'src/components/iconify';
 import type { ChartDataRow, ColumnDefinition } from '../types';
 
@@ -216,7 +216,7 @@ export function DataGridSection({
             '& .MuiDataGrid-footerContainer': {
               minHeight: '52px',
               borderTop: '1px solid rgba(224, 224, 224, 1)',
-              backgroundColor: '#fff',
+              backgroundColor: 'background.paper',
               flexShrink: 0,
             },
           }}

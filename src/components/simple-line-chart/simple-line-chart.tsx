@@ -1,23 +1,23 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
 import {
-  Box,
-  Card,
-  Paper,
-  Table,
-  Button,
-  TableRow,
-  TableBody,
-  TableCell,
-  TableHead,
-  TextField,
-  CardHeader,
-  IconButton,
-  Typography,
-  CardContent,
-  TableContainer,
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    IconButton,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TextField,
+    Typography,
 } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -38,8 +38,8 @@ export interface SimpleLineChartProps {
 // JSXGraph styles
 const jsxGraphStyles = `
   .jxgbox {
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
+    background-color: var(--mui-palette-background-paper);
+    border: 1px solid var(--mui-palette-divider);
     border-radius: 8px;
     box-sizing: border-box;
   }

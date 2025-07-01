@@ -1,22 +1,23 @@
 'use client';
 
-import 'katex/dist/katex.min.css';
-import { useState, useCallback } from 'react';
-import { BlockMath, InlineMath } from 'react-katex';
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import CardHeader from '@mui/material/CardHeader';
-import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Chip from '@mui/material/Chip';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Iconify } from 'src/components/iconify';
+import { useTheme } from '@mui/material/styles';
+import Tab from '@mui/material/Tab';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import 'katex/dist/katex.min.css';
+import { useCallback, useState } from 'react';
+import { BlockMath, InlineMath } from 'react-katex';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -43,6 +44,7 @@ interface DivisionResult {
 }
 
 export function DivisionWithRemainderView() {
+  const theme = useTheme();
   const [currentTab, setCurrentTab] = useState('calculator');
   const [dividend, setDividend] = useState('');
   const [divisor, setDivisor] = useState('');
@@ -256,7 +258,7 @@ export function DivisionWithRemainderView() {
                   <Box
                     sx={{
                       p: 2,
-                      bgcolor: 'grey.100',
+                      bgcolor: 'action.hover',
                       borderRadius: 1,
                       textAlign: 'center',
                     }}
@@ -422,9 +424,9 @@ export function DivisionWithRemainderView() {
                   sx={{
                     p: 2,
                     border: '1px solid',
-                    borderColor: 'grey.300',
+                    borderColor: 'divider',
                     borderRadius: 1,
-                    bgcolor: step.step % 2 === 0 ? 'grey.50' : 'white',
+                    bgcolor: step.step % 2 === 0 ? 'action.hover' : 'background.paper',
                   }}
                 >
                   <Box
@@ -569,7 +571,7 @@ export function DivisionWithRemainderView() {
                   <tr
                     key={num}
                     style={{
-                      backgroundColor: num % 2 === 0 ? '#f9f9f9' : 'white',
+                      backgroundColor: num % 2 === 0 ? theme.palette.action.hover : theme.palette.background.paper,
                     }}
                   >
                     <td
@@ -753,7 +755,7 @@ export function DivisionWithRemainderView() {
                 <Typography variant="body1" component="div">
                   • <strong>Công thức tổng quát:</strong>
                 </Typography>
-                <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+                <Box sx={{ ml: 2, p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
                   <BlockMath math="a = b \times q + r" />
                   <Typography
                     variant="body2"
@@ -806,7 +808,7 @@ export function DivisionWithRemainderView() {
                 <Typography variant="body1" gutterBottom>
                   <strong>Bước 2:</strong> Tính thương bằng cách làm tròn xuống
                 </Typography>
-                <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+                <Box sx={{ ml: 2, p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
                   <BlockMath math="q = \lfloor \frac{a}{b} \rfloor" />
                   <Typography
                     variant="body2"
@@ -822,7 +824,7 @@ export function DivisionWithRemainderView() {
                 <Typography variant="body1" gutterBottom>
                   <strong>Bước 3:</strong> Tính số dư
                 </Typography>
-                <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+                <Box sx={{ ml: 2, p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
                   <BlockMath math="r = a - (q \times b)" />
                   <Typography
                     variant="body2"
@@ -839,7 +841,7 @@ export function DivisionWithRemainderView() {
                 <Typography variant="body1" gutterBottom>
                   <strong>Bước 4:</strong> Kiểm tra kết quả
                 </Typography>
-                <Box sx={{ ml: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+                <Box sx={{ ml: 2, p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
                   <BlockMath math="q \times b + r = a" />
                   <Typography
                     variant="body2"
@@ -859,10 +861,10 @@ export function DivisionWithRemainderView() {
             <Box
               sx={{
                 p: 3,
-                bgcolor: 'grey.50',
+                bgcolor: 'action.hover',
                 borderRadius: 2,
                 border: '1px solid',
-                borderColor: 'grey.200',
+                borderColor: 'divider',
               }}
             >
               <Typography variant="body1" gutterBottom>

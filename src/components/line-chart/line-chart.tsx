@@ -1,12 +1,12 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 // JSXGraph styles
 const jsxGraphStyles = `
   .jxgbox {
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
+    background-color: var(--mui-palette-background-paper);
+    border: 1px solid var(--mui-palette-divider);
     border-radius: 8px;
     box-sizing: border-box;
   }
