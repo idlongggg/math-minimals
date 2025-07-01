@@ -14,8 +14,8 @@ interface DataGridSectionProps {
   onProcessRowUpdate: (newRow: ChartDataRow) => ChartDataRow;
   onDeleteRow: (rowId: string) => void;
   onAddRow: () => void;
-  onOpenControls: (event: React.MouseEvent<HTMLElement>) => void;
   onOpenChart: () => void;
+  onOpenAddColumn: () => void;
 }
 
 export function DataGridSection({
@@ -24,8 +24,8 @@ export function DataGridSection({
   onProcessRowUpdate,
   onDeleteRow,
   onAddRow,
-  onOpenControls,
   onOpenChart,
+  onOpenAddColumn,
 }: DataGridSectionProps) {
   const [selectedRowIds, setSelectedRowIds] = useState<GridRowSelectionModel>([]);
 
@@ -92,27 +92,20 @@ export function DataGridSection({
         action={
           <Stack direction="row" spacing={1}>
             <Button
-              onClick={onOpenControls}
-              variant="text"
-              color="primary"
-              size="small"
-              sx={{
-                minWidth: 'auto',
-                padding: 1,
-                '&:hover': {
-                  bgcolor: 'action.hover',
-                },
-              }}
-            >
-              <Iconify icon="solar:settings-bold" />
-            </Button>
-            <Button
               variant="outlined"
               startIcon={<Iconify icon="solar:full-screen-square-outline" />}
               onClick={onOpenChart}
               size="small"
             >
               Xem biểu đồ
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<Iconify icon="solar:add-circle-bold" />}
+              onClick={onOpenAddColumn}
+              size="small"
+            >
+              Thêm cột
             </Button>
             <Button
               variant="outlined"

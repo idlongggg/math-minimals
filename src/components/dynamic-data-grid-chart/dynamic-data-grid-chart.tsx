@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import { AddColumnDialog, ChartDialog, DataGridSection } from './components';
 import { jsxGraphStyles } from './constants';
-import { useJSXGraph, useDataGridState, useChartConfiguration } from './hooks';
-import { ChartDialog, AddColumnDialog, ControlsPopover, DataGridSection } from './components';
+import { useChartConfiguration, useDataGridState, useJSXGraph } from './hooks';
 
 import type { DynamicDataGridChartProps } from './types';
 
@@ -45,7 +45,6 @@ export function DynamicDataGridChart({
 
   // Dialog states
   const [addColumnDialog, setAddColumnDialog] = useState(false);
-  const [controlsPopover, setControlsPopover] = useState<HTMLElement | null>(null);
   const [chartDialog, setChartDialog] = useState(false);
 
   // Initialize JSXGraph styles
@@ -83,8 +82,8 @@ export function DynamicDataGridChart({
         onProcessRowUpdate={handleProcessRowUpdate}
         onDeleteRow={handleDeleteRow}
         onAddRow={handleAddRow}
-        onOpenControls={(event) => setControlsPopover(event.currentTarget)}
         onOpenChart={() => setChartDialog(true)}
+        onOpenAddColumn={() => setAddColumnDialog(true)}
       />
 
       {/* Chart Dialog */}
@@ -94,14 +93,6 @@ export function DynamicDataGridChart({
         title={title}
         chartId={id}
         containerRef={containerRef}
-        yAxisColumns={yAxisColumns}
-      />
-
-      {/* Controls Popover */}
-      <ControlsPopover
-        open={!!controlsPopover}
-        anchorEl={controlsPopover}
-        onClose={() => setControlsPopover(null)}
         columns={columns}
         numericColumns={numericColumns}
         xAxisColumn={xAxisColumn}
@@ -109,7 +100,6 @@ export function DynamicDataGridChart({
         onDeleteColumn={handleDeleteColumnWithUpdate}
         onSetXAxisColumn={setXAxisColumn}
         onToggleYAxisColumn={toggleYAxisColumn}
-        onOpenAddColumnDialog={() => setAddColumnDialog(true)}
       />
 
       {/* Add Column Dialog */}
