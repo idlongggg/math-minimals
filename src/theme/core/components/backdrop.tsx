@@ -1,4 +1,4 @@
-import type { Theme, Components } from '@mui/material/styles';
+import type { Components, Theme } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -10,10 +10,10 @@ const MuiBackdrop: Components<Theme>['MuiBackdrop'] = {
    *************************************** */
   styleOverrides: {
     root: ({ theme }) => ({
-      // Windows 11 Fluent Design backdrop with subtle blur
+      // Material Design backdrop with blur
       backgroundColor: varAlpha(theme.vars.palette.grey['900Channel'], 0.32),
-      backdropFilter: 'blur(8px) saturate(1.1)',
-      WebkitBackdropFilter: 'blur(8px) saturate(1.1)',
+      backdropFilter: 'blur(8px)',
+      WebkitBackdropFilter: 'blur(8px)',
     }),
     invisible: {
       background: 'transparent',

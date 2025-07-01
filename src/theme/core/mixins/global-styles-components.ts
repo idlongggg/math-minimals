@@ -1,11 +1,11 @@
-import type { Theme, CSSObject } from '@mui/material/styles';
+import type { CSSObject, Theme } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 
-import { dividerClasses } from '@mui/material/Divider';
-import { checkboxClasses } from '@mui/material/Checkbox';
-import { menuItemClasses } from '@mui/material/MenuItem';
 import { autocompleteClasses } from '@mui/material/Autocomplete';
+import { checkboxClasses } from '@mui/material/Checkbox';
+import { dividerClasses } from '@mui/material/Divider';
+import { menuItemClasses } from '@mui/material/MenuItem';
 
 // ----------------------------------------------------------------------
 
@@ -82,35 +82,27 @@ export function paperStyles(
 ): CSSObject {
   const { blur = 30, color, dropdown } = options ?? {};
 
-  // Windows 11 Fluent Design paper styles
+  // Material Design paper styles
   const base = {
-    backdropFilter: `blur(${blur}px) saturate(1.1)`,
-    WebkitBackdropFilter: `blur(${blur}px) saturate(1.1)`,
+    backdropFilter: `blur(${blur}px)`,
+    WebkitBackdropFilter: `blur(${blur}px)`,
     backgroundColor:
       color ?? varAlpha(theme.vars.palette.background.paperChannel, 0.85),
-    // Subtle border for depth
     border: `1px solid ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
-    // Windows 11 style rounded corners
-    borderRadius: `${theme.shape.borderRadius + 4}px`,
+    borderRadius: `${theme.shape.borderRadius}px`,
   };
 
   if (dropdown) {
     return {
       ...base,
       padding: theme.spacing(0.5),
-      boxShadow: theme.vars.customShadows.flyout,
-      // Enhanced backdrop filter for floating elements
-      backdropFilter: `blur(${blur + 10}px) saturate(1.2)`,
-      WebkitBackdropFilter: `blur(${blur + 10}px) saturate(1.2)`,
-      // Slightly more opaque for floating elements
+      boxShadow: theme.vars.customShadows.dropdown,
+      backdropFilter: `blur(${blur + 10}px)`,
+      WebkitBackdropFilter: `blur(${blur + 10}px)`,
       backgroundColor:
         color ?? varAlpha(theme.vars.palette.background.paperChannel, 0.9),
     };
   }
 
-  return {
-    ...base,
-    // Subtle gradient overlay for depth (Windows 11 style)
-    backgroundImage: `linear-gradient(135deg, ${varAlpha(theme.vars.palette.common.whiteChannel, 0.02)} 0%, transparent 50%)`,
-  };
+  return base;
 }

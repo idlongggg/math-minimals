@@ -1,23 +1,21 @@
 import type { CSSObject, MixinsOptions } from '@mui/material/styles';
 
+import { bgBlur, bgGradient } from './background';
 import { borderGradient } from './border';
+import { menuItemStyles, paperStyles } from './global-styles-components';
 import { maxLine, textGradient } from './text';
-import { paperStyles, menuItemStyles } from './global-styles-components';
-import { bgBlur, bgGradient, fluentBlur, acrylicMaterial } from './background';
 
 // ----------------------------------------------------------------------
 
-export type * from './text';
-export type * from './border';
 export type * from './background';
+export type * from './border';
 export type * from './global-styles-components';
+export type * from './text';
 
 export type MixinsExtend = {
   hideScrollX: CSSObject;
   hideScrollY: CSSObject;
   bgBlur: typeof bgBlur;
-  fluentBlur: typeof fluentBlur;
-  acrylicMaterial: typeof acrylicMaterial;
   maxLine: typeof maxLine;
   bgGradient: typeof bgGradient;
   paperStyles: typeof paperStyles;
@@ -47,8 +45,6 @@ export const mixins: MixinsOptions = {
   borderGradient,
   bgGradient,
   bgBlur,
-  fluentBlur,
-  acrylicMaterial,
   textGradient,
   paperStyles,
   menuItemStyles,

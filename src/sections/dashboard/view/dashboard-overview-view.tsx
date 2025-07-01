@@ -2,26 +2,26 @@
 
 import { useState } from 'react';
 
-import { alpha, useTheme } from '@mui/material/styles';
 import {
-  Box,
-  Card,
-  Paper,
-  Stack,
-  Button,
-  Divider,
-  Typography,
-  CardActions,
-  CardContent,
+    Box,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    Divider,
+    Paper,
+    Stack,
+    Typography,
 } from '@mui/material';
+import { alpha, useTheme } from '@mui/material/styles';
 
-import { Iconify } from 'src/components/iconify';
-import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
 import {
-  CustomCard,
-  CustomCardHeader,
-  CustomCardContent,
+    CustomCard,
+    CustomCardContent,
+    CustomCardHeader,
 } from 'src/components/custom-card';
+import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -159,10 +159,6 @@ export function DashboardOverviewView() {
             p: 3,
             textAlign: 'center',
             transition: 'all 0.3s ease',
-            '&:hover': {
-              transform: 'translateY(-4px)',
-              boxShadow: theme.vars.customShadows?.z8 || theme.shadows[8],
-            },
           }}
         >
           <Box
@@ -233,11 +229,6 @@ export function DashboardOverviewView() {
                   selectedTool === index
                     ? `2px solid ${theme.palette.primary.main}`
                     : '1px solid transparent',
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                  boxShadow: theme.vars?.customShadows?.z4 || theme.shadows[4],
-                  borderColor: theme.palette.primary.main,
-                },
               }}
               onClick={() => setSelectedTool(index)}
             >

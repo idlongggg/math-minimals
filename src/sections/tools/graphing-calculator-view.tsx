@@ -1,19 +1,19 @@
 'use client';
 
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
-import { useTheme } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
-import { Iconify } from 'src/components/iconify';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -67,7 +67,7 @@ export function GraphingCalculatorView() {
     y: number;
   } | null>(null);
 
-  // Fluent Design card style
+  // Material Design card style
   const cardStyle = {
     p: 3,
     borderRadius: 3,

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { Box, Card, CardHeader, Typography, CardContent } from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Typography } from '@mui/material';
 
 export interface PictographData {
   category: string;
@@ -58,10 +58,6 @@ export function PictographChart({
                 : opacity,
             transition: 'opacity 0.2s ease',
             cursor: 'pointer',
-            '&:hover': {
-              transform: 'scale(1.1)',
-              transition: 'transform 0.2s ease',
-            },
           }}
           onMouseEnter={() => setHoveredCategory(category.category)}
           onMouseLeave={() => setHoveredCategory(null)}
@@ -152,11 +148,6 @@ export function PictographChart({
                     sx={{
                       fontSize: 20,
                       color: category.color,
-                      transition: 'transform 0.2s ease',
-                      transform:
-                        hoveredCategory === category.category
-                          ? 'scale(1.2)'
-                          : 'scale(1)',
                     }}
                   >
                     {category.icon}

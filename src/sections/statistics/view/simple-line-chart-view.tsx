@@ -3,8 +3,8 @@
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-import { SimpleLineChart } from 'src/components/simple-line-chart';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
+import { SimpleLineChart } from 'src/components/simple-line-chart';
 
 export function SimpleLineChartView() {
   const theme = useTheme();
@@ -17,10 +17,6 @@ export function SimpleLineChartView() {
       <Box
         sx={{
           transition: 'all 0.3s ease',
-          '&:hover': {
-            transform: 'translateY(-2px)',
-            boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
-          },
         }}
       >
         <SimpleLineChart

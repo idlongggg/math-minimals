@@ -2,23 +2,23 @@
 
 import 'katex/dist/katex.min.css';
 
+import { useCallback, useState } from 'react';
 import { InlineMath } from 'react-katex';
-import { useState, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import CardHeader from '@mui/material/CardHeader';
-import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Chip from '@mui/material/Chip';
+import Tab from '@mui/material/Tab';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
-import { Iconify } from 'src/components/iconify';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -452,10 +452,6 @@ export function CommonDenominatorView() {
             sx={{
               cursor: 'pointer',
               transition: 'all 0.2s',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: (theme) => theme.vars.customShadows.z8,
-              },
             }}
             onClick={() => handleQuickExample(example)}
           >

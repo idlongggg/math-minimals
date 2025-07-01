@@ -1,33 +1,33 @@
 'use client';
 
-import { useState } from 'react';
 import { Icon } from '@iconify/react';
+import { useState } from 'react';
 
-import { alpha, useTheme } from '@mui/material/styles';
 import {
-  Box,
-  Chip,
-  Button,
-  Select,
-  Slider,
-  MenuItem,
-  TextField,
-  IconButton,
-  InputLabel,
-  Typography,
-  FormControl,
+    Box,
+    Button,
+    Chip,
+    FormControl,
+    IconButton,
+    InputLabel,
+    MenuItem,
+    Select,
+    Slider,
+    TextField,
+    Typography,
 } from '@mui/material';
+import { alpha, useTheme } from '@mui/material/styles';
 
+import {
+    CustomCard,
+    CustomCardContent,
+    CustomCardHeader,
+} from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import {
-  PictographChart,
-  type PictographData,
+    PictographChart,
+    type PictographData,
 } from 'src/components/pictograph-chart';
-import {
-  CustomCard,
-  CustomCardHeader,
-  CustomCardContent,
-} from 'src/components/custom-card';
 
 // Sample data sets
 const sampleDataSets = {
@@ -488,9 +488,6 @@ export function PictographView() {
           <Box
             sx={{
               transition: 'all 0.3s ease',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-              },
             }}
           >
             <PictographChart

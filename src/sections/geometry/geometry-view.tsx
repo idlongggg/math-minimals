@@ -7,9 +7,9 @@ import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
 
-import { Iconify } from 'src/components/iconify';
 import { CustomCard, CustomCardContent } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -82,10 +82,6 @@ export function GeometryView() {
                 height: '100%',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
-                '&:hover': {
-                  transform: 'translateY(-4px)',
-                  boxShadow: (theme: any) => theme.shadows[8],
-                },
               }}
               onClick={() => handleTopicClick(topic.path)}
             >

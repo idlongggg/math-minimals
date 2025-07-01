@@ -31,6 +31,9 @@ export function PresetsOptions({
           gap: 1.5,
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
+          minWidth: 0, // Cho phép shrink
+          overflow: 'hidden', // Ngăn overflow
+          maxWidth: '100%', // Đảm bảo không vượt quá container
         },
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}

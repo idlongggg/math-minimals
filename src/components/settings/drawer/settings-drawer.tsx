@@ -14,7 +14,6 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useColorScheme } from '@mui/material/styles';
 
-import { themeConfig } from 'src/theme/theme-config';
 import { primaryColorPresets } from 'src/theme/with-settings';
 
 import { Iconify } from '../../iconify';
@@ -22,7 +21,6 @@ import { Scrollbar } from '../../scrollbar';
 import { useSettingsContext } from '../context/use-settings-context';
 import { cleanSettings } from '../utils/clean-settings';
 import { BaseOption } from './base-option';
-import { FontFamilyOptions, FontSizeOptions } from './font-options';
 import { FullScreenButton } from './fullscreen-button';
 import { settingIcons } from './icons';
 import { NavColorOptions, NavLayoutOptions } from './nav-layout-option';
@@ -49,15 +47,12 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
   }, [mode, systemMode]);
 
   // Visible options by default settings
-  const isFontFamilyVisible = hasKeys(defaultSettings, ['fontFamily']);
-  const isCompactLayoutVisible = hasKeys(defaultSettings, ['compactLayout']);
   const isDirectionVisible = hasKeys(defaultSettings, ['direction']);
   const isColorSchemeVisible = hasKeys(defaultSettings, ['colorScheme']);
   const isContrastVisible = hasKeys(defaultSettings, ['contrast']);
   const isNavColorVisible = hasKeys(defaultSettings, ['navColor']);
   const isNavLayoutVisible = hasKeys(defaultSettings, ['navLayout']);
   const isPrimaryColorVisible = hasKeys(defaultSettings, ['primaryColor']);
-  const isFontSizeVisible = hasKeys(defaultSettings, ['fontSize']);
 
   const handleReset = useCallback(() => {
     settings.onReset();
@@ -131,18 +126,6 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
         settings.setState({
           direction: settings.state.direction === 'ltr' ? 'rtl' : 'ltr',
         })
-      }
-    />
-  );
-
-  const renderCompact = () => (
-    <BaseOption
-      tooltip="Dashboard only and available at large resolutions > 1600px (xl)"
-      label="Compact"
-      selected={!!settings.state.compactLayout}
-      icon={<SvgIcon>{settingIcons.autofitWidth}</SvgIcon>}
-      onChangeOption={() =>
-        settings.setState({ compactLayout: !settings.state.compactLayout })
       }
     />
   );
@@ -254,56 +237,6 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
     </LargeBlock>
   );
 
-  const renderFont = () => (
-    <LargeBlock title="Font" sx={{ gap: 2.5 }}>
-      {isFontFamilyVisible && (
-        <SmallBlock
-          label="Family"
-          canReset={settings.state.fontFamily !== defaultSettings.fontFamily}
-          onReset={() =>
-            settings.setState({ fontFamily: defaultSettings.fontFamily })
-          }
-        >
-          <FontFamilyOptions
-            value={settings.state.fontFamily}
-            onChangeOption={(newOption) =>
-              settings.setState({ fontFamily: newOption })
-            }
-            options={[
-              themeConfig.fontFamily.primary,
-              'Inter Variable',
-              'DM Sans Variable',
-              'Nunito Sans Variable',
-            ]}
-            icon={
-              <SvgIcon sx={{ width: 28, height: 28 }}>
-                {settingIcons.font}
-              </SvgIcon>
-            }
-          />
-        </SmallBlock>
-      )}
-      {isFontSizeVisible && (
-        <SmallBlock
-          label="Size"
-          canReset={settings.state.fontSize !== defaultSettings.fontSize}
-          onReset={() =>
-            settings.setState({ fontSize: defaultSettings.fontSize })
-          }
-          sx={{ gap: 5 }}
-        >
-          <FontSizeOptions
-            options={[12, 20]}
-            value={settings.state.fontSize}
-            onChangeOption={(newOption) =>
-              settings.setState({ fontSize: newOption })
-            }
-          />
-        </SmallBlock>
-      )}
-    </LargeBlock>
-  );
-
   return (
     <Drawer
       anchor="right"
@@ -321,6 +254,8 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
                 ),
               }),
               width: 360,
+              maxWidth: '100vw', // Đảm bảo không vượt quá viewport
+              overflowX: 'hidden', // Ngăn horizontal scroll
             }),
             ...(Array.isArray(sx) ? sx : [sx]),
           ],
@@ -337,6 +272,8 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
             px: 2.5,
             display: 'flex',
             flexDirection: 'column',
+            overflow: 'hidden', // Ngăn horizontal scroll
+            minWidth: 0, // Cho phép flex shrink
           }}
         >
           <Box
@@ -344,18 +281,17 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
               gap: 2,
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
+              minWidth: 0, // Cho phép grid shrink
+              overflow: 'hidden', // Ngăn overflow
             }}
           >
-            {/* Dark mode button hidden as requested */}
-            {/* {isColorSchemeVisible && renderMode()} */}
+            {isColorSchemeVisible && renderMode()}
             {isContrastVisible && renderContrast()}
             {isDirectionVisible && renderRtl()}
-            {isCompactLayoutVisible && renderCompact()}
           </Box>
 
           {(isNavColorVisible || isNavLayoutVisible) && renderNav()}
           {isPrimaryColorVisible && renderPresets()}
-          {/* {(isFontFamilyVisible || isFontSizeVisible) && renderFont()} */}
         </Box>
       </Scrollbar>
     </Drawer>

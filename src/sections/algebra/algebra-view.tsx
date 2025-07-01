@@ -1,19 +1,14 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { alpha, useTheme } from '@mui/material/styles';
-
-import { paths } from 'src/routes/paths';
-
-import { Iconify } from 'src/components/iconify';
+import { useTheme } from '@mui/material/styles';
+import { useRouter } from 'next/navigation';
 import { CustomCard, CustomCardContent } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
-
-// ----------------------------------------------------------------------
+import { Iconify } from 'src/components/iconify';
+import { paths } from 'src/routes/paths';
 
 const ALGEBRA_TOPICS = [
   {
@@ -75,8 +70,6 @@ const ALGEBRA_TOPICS = [
   },
 ];
 
-// ----------------------------------------------------------------------
-
 export function AlgebraView() {
   const router = useRouter();
   const theme = useTheme();
@@ -118,10 +111,6 @@ export function AlgebraView() {
                 height: '100%',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
-                '&:hover': {
-                  transform: 'translateY(-4px)',
-                  boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
-                },
               }}
               onClick={() => handleTopicClick(topic.path)}
             >
@@ -172,10 +161,6 @@ export function AlgebraView() {
               }
               sx={{
                 transition: 'all 0.2s ease',
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                  boxShadow: theme.vars?.customShadows?.z8 || theme.shadows[8],
-                },
               }}
             >
               Bắt đầu với biểu thức đại số
@@ -188,11 +173,6 @@ export function AlgebraView() {
               }
               sx={{
                 transition: 'all 0.2s ease',
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                  borderColor: theme.palette.primary.main,
-                  bgcolor: alpha(theme.palette.primary.main, 0.08),
-                },
               }}
             >
               Khám phá hàm số
