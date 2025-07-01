@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import { usePathname, useRouter } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
-import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/global-config';
 
@@ -19,8 +19,6 @@ type AuthGuardProps = {
 
 const signInPaths = {
   jwt: paths.auth.jwt.signIn,
-  auth0: paths.auth.auth0.signIn,
-  amplify: paths.auth.amplify.signIn,
   firebase: paths.auth.firebase.signIn,
   supabase: paths.auth.supabase.signIn,
 };

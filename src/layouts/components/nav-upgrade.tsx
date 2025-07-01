@@ -3,12 +3,11 @@ import type { BoxProps } from '@mui/material/Box';
 import { m } from 'framer-motion';
 import { varAlpha } from 'minimal-shared/utils';
 
-import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/global-config';
 
@@ -75,14 +74,15 @@ export function NavUpgrade({ sx, ...other }: BoxProps) {
           </Typography>
         </Box>
 
-        <Button
+        {/* Upgrade button commented out as minimalStore route was removed */}
+        {/* <Button
           variant="contained"
           href={paths.minimalStore}
           target="_blank"
           rel="noopener"
         >
           Upgrade to Pro
-        </Button>
+        </Button> */}
       </Box>
     </Box>
   );
