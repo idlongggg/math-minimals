@@ -1,23 +1,23 @@
 'use client';
 
-import type { Breakpoint } from '@mui/material/styles';
-import { merge } from 'es-toolkit';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import { paths } from 'src/routes/paths';
-import { CONFIG } from 'src/global-config';
+import type { Breakpoint } from '@mui/material/styles';
+import { merge } from 'es-toolkit';
 import { Logo } from 'src/components/logo';
+import { CONFIG } from 'src/global-config';
+import { paths } from 'src/routes/paths';
 import { SettingsButton } from '../components/settings-button';
-import { HeaderSection } from '../core/header-section';
-import { LayoutSection } from '../core/layout-section';
-import { MainSection } from '../core/main-section';
-import { AuthSplitContent } from './content';
-import { AuthSplitSection } from './section';
 import type { HeaderSectionProps } from '../core/header-section';
+import { HeaderSection } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';
+import { LayoutSection } from '../core/layout-section';
 import type { MainSectionProps } from '../core/main-section';
+import { MainSection } from '../core/main-section';
 import type { AuthSplitContentProps } from './content';
+import { AuthSplitContent } from './content';
 import type { AuthSplitSectionProps } from './section';
+import { AuthSplitSection } from './section';
 
 // ----------------------------------------------------------------------
 
@@ -121,16 +121,6 @@ export function AuthSplitLayout({
             label: 'Jwt',
             path: paths.auth.jwt.signIn,
             icon: `${CONFIG.assetsDir}/assets/icons/platforms/ic-jwt.svg`,
-          },
-          {
-            label: 'Firebase',
-            path: paths.auth.firebase.signIn,
-            icon: `${CONFIG.assetsDir}/assets/icons/platforms/ic-firebase.svg`,
-          },
-          {
-            label: 'Supabase',
-            path: paths.auth.supabase.signIn,
-            icon: `${CONFIG.assetsDir}/assets/icons/platforms/ic-supabase.svg`,
           },
         ]}
       />
