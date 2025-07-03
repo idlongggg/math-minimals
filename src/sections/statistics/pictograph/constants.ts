@@ -1,0 +1,64 @@
+import type { PictographData } from 'src/components/pictograph-chart';
+
+export const SAMPLE_DATA_SETS = {
+  fruits: [
+    { category: 'Táo', value: 25, icon: '🍎', color: '#ef4444' },
+    { category: 'Chuối', value: 20, icon: '🍌', color: '#f59e0b' },
+    { category: 'Cam', value: 15, icon: '🍊', color: '#f97316' },
+    { category: 'Nho', value: 30, icon: '🍇', color: '#8b5cf6' },
+  ] as PictographData[],
+  vehicles: [
+    { category: 'Xe hơi', value: 45, icon: '🚗', color: '#3b82f6' },
+    { category: 'Xe máy', value: 80, icon: '🏍️', color: '#ef4444' },
+    { category: 'Xe đạp', value: 35, icon: '🚲', color: '#10b981' },
+    { category: 'Xe buýt', value: 12, icon: '🚌', color: '#f59e0b' },
+  ] as PictographData[],
+  animals: [
+    { category: 'Chó', value: 28, icon: '🐕', color: '#8b4513' },
+    { category: 'Mèo', value: 22, icon: '🐱', color: '#6b7280' },
+    { category: 'Thỏ', value: 15, icon: '🐰', color: '#ec4899' },
+    { category: 'Cá', value: 35, icon: '🐟', color: '#06b6d4' },
+  ] as PictographData[],
+  sports: [
+    { category: 'Bóng đá', value: 40, icon: '⚽', color: '#22c55e' },
+    { category: 'Bóng rổ', value: 25, icon: '🏀', color: '#f97316' },
+    { category: 'Bóng chuyền', value: 18, icon: '🏐', color: '#3b82f6' },
+    { category: 'Tennis', value: 12, icon: '🎾', color: '#eab308' },
+  ] as PictographData[],
+} as const;
+
+export const AVAILABLE_ICONS = [
+  '🍎', '🍌', '🍊', '🍇', '🥝', '🍓', '🥭', '🍑',
+  '🚗', '🏍️', '🚲', '🚌', '✈️', '🚢', '🚁', '🚂',
+  '🐕', '🐱', '🐰', '🐟', '🐦', '🐸', '🐘', '🦁',
+  '⚽', '🏀', '🏐', '🎾', '🏓', '🏸', '🥎', '🏈',
+  '👨', '👩', '👶', '👴', '👵', '👦', '👧', '🧑‍💼',
+  '📚', '✏️', '🖊️', '📝', '💻', '📱', '⌚', '🖥️',
+  '🏠', '🏢', '🏪', '🏫', '🏥', '🏦', '🏨', '⛪',
+  '🌞', '☁️', '🌧️', '❄️', '⚡', '🌈', '🌙', '⭐',
+] as const;
+
+export const AVAILABLE_COLORS = [
+  '#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16', '#22c55e',
+  '#10b981', '#14b8a6', '#06b6d4', '#0ea5e9', '#3b82f6', '#6366f1',
+  '#8b5cf6', '#a855f7', '#c084fc', '#d946ef', '#ec4899', '#f43f5e',
+] as const;
+
+export const DEFAULT_SETTINGS = {
+  unitValue: 5,
+  maxIconsPerRow: 10,
+  iconSize: 40,
+} as const;
+
+export const SLIDER_CONFIGS = {
+  unitValue: { min: 1, max: 20, step: 1 },
+  maxIconsPerRow: { min: 5, max: 20, step: 1 },
+  iconSize: { min: 20, max: 60, step: 1 },
+} as const;
+
+export const DATASET_LABELS = {
+  fruits: '🍎 Trái cây',
+  vehicles: '🚗 Phương tiện',
+  animals: '🐕 Động vật',
+  sports: '⚽ Thể thao',
+} as const;

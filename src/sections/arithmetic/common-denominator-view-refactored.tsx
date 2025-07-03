@@ -9,15 +9,15 @@ import Tab from '@mui/material/Tab';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 
-import { DivisorsTab, GcdLcmTab, MultiplesTab } from './divisors-multiples';
-import { useHistory } from './divisors-multiples/hooks';
+import { CommonDenominatorTab } from './common-denominator';
+import { useHistory } from './common-denominator/hooks';
 
 /**
- * Component chính cho trang Ước số và Bội số
+ * Component chính cho trang Mẫu số chung
  * Đã được refactor để tách thành các components và hooks riêng biệt
  */
-export function DivisorsMultiplesView() {
-  const [currentTab, setCurrentTab] = useState('divisors');
+export function CommonDenominatorView() {
+  const [currentTab, setCurrentTab] = useState('calculator');
   const { history, addToHistory, clearHistory } = useHistory();
 
   const handleTabChange = useCallback(
@@ -29,21 +29,15 @@ export function DivisorsMultiplesView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="divisors" label="Ước số" />
-      <Tab value="multiples" label="Bội số" />
-      <Tab value="gcd-lcm" label="GCD & LCM" />
+      <Tab value="calculator" label="Tính toán" />
       <Tab value="history" label={`Lịch sử (${history.length})`} />
     </CustomTabs>
   );
 
   const renderTabContent = () => {
     switch (currentTab) {
-      case 'divisors':
-        return <DivisorsTab onAddToHistory={addToHistory} />;
-      case 'multiples':
-        return <MultiplesTab onAddToHistory={addToHistory} />;
-      case 'gcd-lcm':
-        return <GcdLcmTab onAddToHistory={addToHistory} />;
+      case 'calculator':
+        return <CommonDenominatorTab onAddToHistory={addToHistory} />;
       case 'history':
         return (
           <div>
@@ -55,8 +49,9 @@ export function DivisorsMultiplesView() {
                 <button onClick={clearHistory}>Xóa tất cả</button>
                 {history.map((item) => (
                   <div key={item.id}>
-                    <strong>{item.type}</strong> - {item.timestamp.toLocaleString()}
-                    <pre>{JSON.stringify(item.data, null, 2)}</pre>
+                    <strong>Mẫu số chung</strong> - {item.timestamp.toLocaleString()}
+                    <p>Input: {item.inputFractions.join(', ')}</p>
+                    <p>LCM: {item.lcm}</p>
                   </div>
                 ))}
               </div>
@@ -70,8 +65,8 @@ export function DivisorsMultiplesView() {
 
   return (
     <DashboardPageWithTabsLayout
-      title="Ước số và Bội số"
-      description="Công cụ tìm ước số, bội số và tính GCD/LCM với các thuật toán hiệu quả."
+      title="Mẫu số chung"
+      description="Công cụ tìm mẫu số chung nhỏ nhất và chuyển đổi phân số về cùng mẫu số."
       tabs={renderTabs()}
     >
       {renderTabContent()}
