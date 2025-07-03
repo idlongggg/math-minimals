@@ -3,11 +3,13 @@
 import type { BoxProps } from '@mui/material/Box';
 import type { Breakpoint } from '@mui/material/styles';
 import type { NavSectionProps } from 'src/components/nav-section';
+
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import { varAlpha } from 'minimal-shared/utils';
 import { useBoolean } from 'minimal-shared/hooks';
 import { useState, useEffect, useCallback } from 'react';
+
 import Box from '@mui/material/Box';
 import MenuList from '@mui/material/MenuList';
 import { useTheme } from '@mui/material/styles';
@@ -17,10 +19,12 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Dialog, { dialogClasses } from '@mui/material/Dialog';
 import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
+
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import { SearchNotFound } from 'src/components/search-not-found';
+
 import { ResultItem } from './result-item';
 import { applyFilter, flattenNavSections } from './utils';
 

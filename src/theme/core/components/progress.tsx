@@ -1,5 +1,6 @@
 import type { LinearProgressProps } from '@mui/material/LinearProgress';
 import type { Theme, CSSObject, Components } from '@mui/material/styles';
+
 import { varAlpha } from 'minimal-shared/utils';
 
 // ----------------------------------------------------------------------

@@ -1,27 +1,30 @@
 'use client';
 
-import Alert from '@mui/material/Alert';
+import 'katex/dist/katex.min.css';
+
+import { useState, useCallback } from 'react';
+import { BlockMath, InlineMath } from 'react-katex';
+
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { useTheme } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
+import InputLabel from '@mui/material/InputLabel';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import { useTheme } from '@mui/material/styles';
-import Tab from '@mui/material/Tab';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import 'katex/dist/katex.min.css';
-import { useCallback, useState } from 'react';
-import { BlockMath, InlineMath } from 'react-katex';
+
+import { Iconify } from 'src/components/iconify';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -329,7 +332,15 @@ export function FractionView() {
     } catch (err: any) {
       setError(err.message || 'Có lỗi xảy ra khi chuyển đổi');
     }
-  }, [conversionType, numerator1, denominator1, decimalInput, percentageInput]);
+  }, [
+    conversionType,
+    numerator1,
+    denominator1,
+    decimalInput,
+    percentageInput,
+    decimalToFraction,
+    simplifyFraction,
+  ]);
 
   // Calculator handlers
   const handleCalculate = useCallback(() => {
@@ -399,7 +410,17 @@ export function FractionView() {
     } catch (err: any) {
       setError(err.message || 'Có lỗi xảy ra khi tính toán');
     }
-  }, [num1, den1, num2, den2, operation]);
+  }, [
+    num1,
+    den1,
+    num2,
+    den2,
+    operation,
+    addFractions,
+    subtractFractions,
+    multiplyFractions,
+    divideFractions,
+  ]);
 
   const handleReset = useCallback(() => {
     setNumerator1('');
@@ -500,13 +521,13 @@ export function FractionView() {
               type: 'calculation',
             };
             setHistory((prev) => [historyItem, ...prev.slice(0, 49)]);
-          } catch (err) {
+          } catch (_err) {
             setError('Có lỗi xảy ra khi tính toán');
           }
         }, 100);
       }
     },
-    []
+    [addFractions, subtractFractions, multiplyFractions, divideFractions]
   );
 
   const renderConverter = () => (
@@ -656,7 +677,7 @@ export function FractionView() {
                     sx={{ width: 48, height: 48, mb: 2 }}
                   />
                   <Typography variant="body2">
-                    Nhập dữ liệu và nhấn "Chuyển đổi" để xem kết quả
+                    Nhập dữ liệu và nhấn &quot;Chuyển đổi&quot; để xem kết quả
                   </Typography>
                 </Box>
               )}
@@ -888,7 +909,7 @@ export function FractionView() {
               transition: 'all 0.2s',
               '&:hover': {
                 transform: 'translateY(-2px)',
-                boxShadow: (theme) => theme.vars.customShadows.z8,
+                boxShadow: (themeParam) => themeParam.vars.customShadows.z8,
               },
             }}
             onClick={() => handleQuickOperation(quickOp)}
@@ -970,7 +991,10 @@ export function FractionView() {
                     <tr
                       key={i}
                       style={{
-                        backgroundColor: i % 2 === 0 ? theme.palette.action.hover : theme.palette.background.paper,
+                        backgroundColor:
+                          i % 2 === 0
+                            ? theme.palette.action.hover
+                            : theme.palette.background.paper,
                       }}
                     >
                       <td style={{ padding: 8, textAlign: 'center' }}>

@@ -1,10 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { SplashScreen } from 'src/components/loading-screen';
-import { CONFIG } from 'src/global-config';
-import { usePathname, useRouter } from 'src/routes/hooks';
+import { useState, useEffect } from 'react';
+
 import { paths } from 'src/routes/paths';
+import { useRouter, usePathname } from 'src/routes/hooks';
+
+import { CONFIG } from 'src/global-config';
+
+import { SplashScreen } from 'src/components/loading-screen';
+
 import { useAuthContext } from '../hooks';
 
 // ----------------------------------------------------------------------

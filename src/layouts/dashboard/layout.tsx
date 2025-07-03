@@ -1,43 +1,50 @@
 'use client';
 
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import { iconButtonClasses } from '@mui/material/IconButton';
 import type { Breakpoint } from '@mui/material/styles';
-import { useTheme } from '@mui/material/styles';
+import type { NavItemProps, NavSectionProps } from 'src/components/nav-section';
+
 import { merge } from 'es-toolkit';
 import { useBoolean } from 'minimal-shared/hooks';
-import { _contacts, _notifications } from 'src/_mock';
-import { Logo } from 'src/components/logo';
-import type { NavItemProps, NavSectionProps } from 'src/components/nav-section';
-import { useSettingsContext } from 'src/components/settings';
-import { useNavigationData } from 'src/hooks/use-navigation-data';
+
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import { useTheme } from '@mui/material/styles';
+import { iconButtonClasses } from '@mui/material/IconButton';
+
 import { useUrlParams } from 'src/hooks/use-url-params';
+import { useNavigationData } from 'src/hooks/use-navigation-data';
+
+import { _contacts, _notifications } from 'src/_mock';
+
+import { Logo } from 'src/components/logo';
+import { useSettingsContext } from 'src/components/settings';
 
 import { useMockedUser } from 'src/auth/hooks';
+
+import { NavMobile } from './nav-mobile';
+import { VerticalDivider } from './content';
+import { NavVertical } from './nav-vertical';
+import { layoutClasses } from '../core/classes';
+import { _account } from '../nav-config-account';
+import { NavHorizontal } from './nav-horizontal';
+import { MainSection } from '../core/main-section';
+import { Searchbar } from '../components/searchbar';
+import { _workspaces } from '../nav-config-workspace';
+import { MenuButton } from '../components/menu-button';
+import { HeaderSection } from '../core/header-section';
+import { LayoutSection } from '../core/layout-section';
 import { AccountDrawer } from '../components/account-drawer';
+import { SettingsButton } from '../components/settings-button';
 import { ContactsPopover } from '../components/contacts-popover';
 import { LanguagePopover } from '../components/language-popover';
-import { MenuButton } from '../components/menu-button';
-import { NotificationsDrawer } from '../components/notifications-drawer';
-import { Searchbar } from '../components/searchbar';
-import { SettingsButton } from '../components/settings-button';
 import { WorkspacesPopover } from '../components/workspaces-popover';
-import { layoutClasses } from '../core/classes';
-import type { HeaderSectionProps } from '../core/header-section';
-import { HeaderSection } from '../core/header-section';
-import type { LayoutSectionProps } from '../core/layout-section';
-import { LayoutSection } from '../core/layout-section';
-import type { MainSectionProps } from '../core/main-section';
-import { MainSection } from '../core/main-section';
-import { _account } from '../nav-config-account';
 import { navData as dashboardNavData } from '../nav-config-dashboard';
-import { _workspaces } from '../nav-config-workspace';
-import { VerticalDivider } from './content';
 import { dashboardLayoutVars, dashboardNavColorVars } from './css-vars';
-import { NavHorizontal } from './nav-horizontal';
-import { NavMobile } from './nav-mobile';
-import { NavVertical } from './nav-vertical';
+import { NotificationsDrawer } from '../components/notifications-drawer';
+
+import type { MainSectionProps } from '../core/main-section';
+import type { HeaderSectionProps } from '../core/header-section';
+import type { LayoutSectionProps } from '../core/layout-section';
 
 // ----------------------------------------------------------------------
 
@@ -267,9 +274,7 @@ export function DashboardLayout({
       /** **************************************
        * @Sidebar
        *************************************** */
-      sidebarSection={
-        isNavHorizontal || isMenuHidden ? null : renderSidebar()
-      }
+      sidebarSection={isNavHorizontal || isMenuHidden ? null : renderSidebar()}
       /** **************************************
        * @Footer
        *************************************** */

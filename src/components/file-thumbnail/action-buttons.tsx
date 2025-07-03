@@ -1,8 +1,11 @@
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 import type { IconButtonProps } from '@mui/material/IconButton';
+
 import { varAlpha } from 'minimal-shared/utils';
+
 import ButtonBase from '@mui/material/ButtonBase';
 import IconButton from '@mui/material/IconButton';
+
 import { Iconify } from '../iconify';
 
 // ----------------------------------------------------------------------

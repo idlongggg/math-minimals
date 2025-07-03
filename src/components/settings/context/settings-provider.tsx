@@ -4,6 +4,7 @@ import { isEqual } from 'es-toolkit';
 import { getCookie, getStorage } from 'minimal-shared/utils';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import { useCookies, useLocalStorage } from 'minimal-shared/hooks';
+
 import { SettingsContext } from './settings-context';
 import { SETTINGS_STORAGE_KEY } from '../settings-config';
 import {

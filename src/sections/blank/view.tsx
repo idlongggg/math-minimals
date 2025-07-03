@@ -1,8 +1,11 @@
 'use client';
 
 import type { Theme, SxProps } from '@mui/material/styles';
+
 import { varAlpha } from 'minimal-shared/utils';
+
 import Box from '@mui/material/Box';
+
 import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------

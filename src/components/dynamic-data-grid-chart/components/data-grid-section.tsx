@@ -1,10 +1,15 @@
-import { Button, Card, CardContent, CardHeader, Stack } from '@mui/material';
 import type { GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
-import { DataGrid } from '@mui/x-data-grid';
+
 import { useState } from 'react';
+
+import { DataGrid } from '@mui/x-data-grid';
+import { Card, Stack, Button, CardHeader, CardContent } from '@mui/material';
+
 import { Iconify } from 'src/components/iconify';
-import type { ChartDataRow, ColumnDefinition } from '../types';
+
 import { AddColumnDialog } from './add-column-dialog';
+
+import type { ChartDataRow, ColumnDefinition } from '../types';
 
 interface DataGridSectionProps {
   columns: ColumnDefinition[];
@@ -45,7 +50,10 @@ export function DataGridSection({
   };
 
   // Handle add column
-  const handleAddColumn = (name: string, type: 'number' | 'string' | 'boolean') => {
+  const handleAddColumn = (
+    name: string,
+    type: 'number' | 'string' | 'boolean'
+  ) => {
     const success = onAddColumn(name, type);
     if (success) {
       setAddColumnDialog(false);

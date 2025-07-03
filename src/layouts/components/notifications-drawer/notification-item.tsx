@@ -5,9 +5,12 @@ import Button from '@mui/material/Button';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
+
 import { fToNow } from 'src/utils/format-time';
+
 import { Label } from 'src/components/label';
 import { FileThumbnail } from 'src/components/file-thumbnail';
+
 import { notificationIcons } from './icons';
 
 // ----------------------------------------------------------------------

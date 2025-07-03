@@ -2,7 +2,9 @@
 
 import type { ReactNode } from 'react';
 import type { Theme, SxProps } from '@mui/material/styles';
+
 import { usePageInfo } from 'src/hooks/use-page-metadata';
+
 import { DashboardPageContainer } from './dashboard-page-container';
 import { DashboardPageWithTabsContent } from './dashboard-page-with-tabs-content';
 

@@ -1,4 +1,5 @@
 import type { Theme, Components } from '@mui/material/styles';
+
 import { tabClasses } from '@mui/material/Tab';
 
 // ----------------------------------------------------------------------

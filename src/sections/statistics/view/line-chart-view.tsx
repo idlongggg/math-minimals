@@ -2,6 +2,7 @@
 
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import { DynamicDataGridChart } from 'src/components/dynamic-data-grid-chart';
 

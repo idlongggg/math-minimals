@@ -1,21 +1,24 @@
 'use client';
 
 import 'katex/dist/katex.min.css';
-import { useCallback, useState } from 'react';
+
 import { InlineMath } from 'react-katex';
-import Alert from '@mui/material/Alert';
+import { useState, useCallback } from 'react';
+
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import Chip from '@mui/material/Chip';
 import Tab from '@mui/material/Tab';
+import Card from '@mui/material/Card';
+import Chip from '@mui/material/Chip';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+
+import { Iconify } from 'src/components/iconify';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -117,12 +120,12 @@ export function CommonDenominatorView() {
   };
 
   // Format phân số thành string
-  const formatFraction = (fraction: Fraction): string => {
-    if (fraction.denominator === 1) {
-      return fraction.numerator.toString();
-    }
-    return `${fraction.numerator}/${fraction.denominator}`;
-  };
+  // const formatFraction = (fraction: Fraction): string => {
+  //   if (fraction.denominator === 1) {
+  //     return fraction.numerator.toString();
+  //   }
+  //   return `${fraction.numerator}/${fraction.denominator}`;
+  // };
 
   const handleCalculate = useCallback(() => {
     setError('');
@@ -173,7 +176,7 @@ export function CommonDenominatorView() {
       timestamp: new Date(),
     };
     setHistory((prev) => [historyItem, ...prev.slice(0, 49)]); // Keep max 50 items
-  }, [fractionInputs]);
+  }, [fractionInputs, lcmMultiple, simplifyFraction]);
 
   const handleReset = useCallback(() => {
     setFractionInputs(['', '']);
@@ -250,7 +253,7 @@ export function CommonDenominatorView() {
         }
       }, 100);
     },
-    []
+    [lcmMultiple, simplifyFraction]
   );
 
   const addFractionInput = () => {
@@ -473,9 +476,9 @@ export function CommonDenominatorView() {
                     flexWrap: 'wrap',
                   }}
                 >
-                  {example.fractions.map((fraction, index) => (
+                  {example.fractions.map((fraction, fractionIndex) => (
                     <Box
-                      key={index}
+                      key={fractionIndex}
                       sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
                     >
                       <InlineMath

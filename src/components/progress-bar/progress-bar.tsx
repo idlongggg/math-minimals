@@ -1,8 +1,10 @@
 'use client';
 
 import './styles.css';
+
 import NProgress from 'nprogress';
 import { Suspense, useEffect } from 'react';
+
 import { useRouter, usePathname, useSearchParams } from 'src/routes/hooks';
 
 // ----------------------------------------------------------------------

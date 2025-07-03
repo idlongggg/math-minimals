@@ -1,27 +1,30 @@
 'use client';
 
-import Alert from '@mui/material/Alert';
+import 'katex/dist/katex.min.css';
+
+import { useState, useCallback } from 'react';
+import { BlockMath, InlineMath } from 'react-katex';
+
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import { useTheme } from '@mui/material/styles';
+import CardHeader from '@mui/material/CardHeader';
+import InputLabel from '@mui/material/InputLabel';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Tab from '@mui/material/Tab';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
-import 'katex/dist/katex.min.css';
-import { useCallback, useState } from 'react';
-import { BlockMath, InlineMath } from 'react-katex';
+
+import { Iconify } from 'src/components/iconify';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
-import { Iconify } from 'src/components/iconify';
 
 const QUICK_CONVERSIONS = [
   { label: 'Thập phân → Nhị phân', from: 10, to: 2, example: '255' },
@@ -105,7 +108,7 @@ export function BaseConversionView() {
   };
 
   const convertBase = useCallback(
-    (value: string, fromBase: number, toBase: number): string => {
+    (value: string, sourceBase: number, targetBase: number): string => {
       if (!value) return '';
 
       try {
@@ -125,14 +128,14 @@ export function BaseConversionView() {
             throw new Error('Invalid character');
           }
 
-          if (digitValue >= fromBase) {
-            throw new Error(`Invalid digit '${digit}' for base ${fromBase}`);
+          if (digitValue >= sourceBase) {
+            throw new Error(`Invalid digit '${digit}' for base ${sourceBase}`);
           }
 
-          decimal += digitValue * Math.pow(fromBase, i);
+          decimal += digitValue * Math.pow(sourceBase, i);
         }
 
-        if (toBase === 10) {
+        if (targetBase === 10) {
           return decimal.toString();
         }
 
@@ -140,15 +143,15 @@ export function BaseConversionView() {
         if (decimal === 0) return '0';
 
         const digits_map = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        let result = '';
+        let convertedResult = '';
 
         while (decimal > 0) {
-          result = digits_map[decimal % toBase] + result;
-          decimal = Math.floor(decimal / toBase);
+          convertedResult = digits_map[decimal % targetBase] + convertedResult;
+          decimal = Math.floor(decimal / targetBase);
         }
 
-        return result;
-      } catch (err) {
+        return convertedResult;
+      } catch (_err) {
         throw new Error('Conversion failed');
       }
     },
@@ -183,11 +186,11 @@ export function BaseConversionView() {
         timestamp: new Date(),
       };
       setHistory((prev) => [historyItem, ...prev.slice(0, 49)]); // Keep max 50 items
-    } catch (err) {
+    } catch (_err) {
       setError('Có lỗi xảy ra khi chuyển đổi');
       setResult('');
     }
-  }, [inputValue, fromBase, toBase, convertBase]);
+  }, [inputValue, fromBase, toBase, convertBase, isValidNumber]);
 
   const handleReset = useCallback(() => {
     setInputValue('');
@@ -236,7 +239,7 @@ export function BaseConversionView() {
             timestamp: new Date(),
           };
           setHistory((prev) => [historyItem, ...prev.slice(0, 49)]);
-        } catch (err) {
+        } catch (_err) {
           setError('Có lỗi xảy ra khi chuyển đổi');
           setResult('');
         }
@@ -430,7 +433,7 @@ export function BaseConversionView() {
               transition: 'all 0.2s',
               '&:hover': {
                 transform: 'translateY(-2px)',
-                boxShadow: (theme) => theme.vars.customShadows.z8,
+                boxShadow: (themeParam) => themeParam.vars.customShadows.z8,
               },
             }}
             onClick={() => handleQuickConversion(quickConv)}
@@ -531,7 +534,10 @@ export function BaseConversionView() {
                   <tr
                     key={i}
                     style={{
-                      backgroundColor: i % 2 === 0 ? theme.palette.action.hover : theme.palette.background.paper,
+                      backgroundColor:
+                        i % 2 === 0
+                          ? theme.palette.action.hover
+                          : theme.palette.background.paper,
                     }}
                   >
                     <td

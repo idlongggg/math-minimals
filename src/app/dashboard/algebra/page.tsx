@@ -1,4 +1,5 @@
 import { CONFIG } from 'src/global-config';
+
 import { AlgebraView } from 'src/sections/algebra/algebra-view';
 
 // ----------------------------------------------------------------------

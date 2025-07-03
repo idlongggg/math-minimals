@@ -1,7 +1,8 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+
 import { useSettingsContext } from 'src/components/settings';
 
 export function useUrlSettings() {

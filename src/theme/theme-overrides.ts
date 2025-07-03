@@ -1,6 +1,7 @@
 'use client';
 
 import { createPaletteChannel } from 'minimal-shared/utils';
+
 import type { ThemeOptions } from './types';
 
 // ----------------------------------------------------------------------

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 // JSXGraph styles
 const jsxGraphStyles = `
@@ -67,13 +67,18 @@ export function LineChart({
       document.head.appendChild(styleElement);
 
       return () => {
-        document.head.removeChild(styleElement);
+        if (document.head.contains(styleElement)) {
+          document.head.removeChild(styleElement);
+        }
       };
     }
+    return undefined; // Return undefined when document is not available
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return undefined; // Return undefined explicitly
+    }
 
     const initChart = async () => {
       try {
@@ -111,7 +116,7 @@ export function LineChart({
 
           // Vẽ các đường biểu đồ
           data.forEach((series, index) => {
-            const curve = boardRef.current.create(
+            const _curve = boardRef.current.create(
               'curve',
               [series.points.map((p) => p[0]), series.points.map((p) => p[1])],
               {
@@ -153,9 +158,10 @@ export function LineChart({
     return () => {
       if (boardRef.current) {
         try {
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
           const JXG = require('jsxgraph');
           JXG.JSXGraph.freeBoard(boardRef.current);
-        } catch (error) {
+        } catch (_error) {
           // Ignore cleanup errors
         }
       }

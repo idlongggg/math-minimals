@@ -1,13 +1,16 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+
 import { paths } from 'src/routes/paths';
-import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
+
 import { Iconify } from 'src/components/iconify';
+import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 

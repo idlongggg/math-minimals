@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
+
 import type { ChartDataRow, ColumnDefinition } from '../types';
 
 export function useDataGridState() {
@@ -281,7 +282,7 @@ export function useDataGridState() {
     // Remove field from all rows
     setRows(
       rows.map((row) => {
-        const { [columnToDelete.field]: removed, ...rest } = row;
+        const { [columnToDelete.field]: _removed, ...rest } = row;
         return rest as ChartDataRow;
       })
     );

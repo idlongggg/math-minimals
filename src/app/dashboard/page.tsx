@@ -1,4 +1,5 @@
 import { CONFIG } from 'src/global-config';
+
 import { DashboardOverviewView } from 'src/sections/dashboard/view';
 
 // ----------------------------------------------------------------------

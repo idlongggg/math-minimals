@@ -5,6 +5,7 @@ import type {
 } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
+
 import { paginationItemClasses } from '@mui/material/PaginationItem';
 
 // ----------------------------------------------------------------------

@@ -1,5 +1,7 @@
 import type { IconifyJSON } from '@iconify/react';
+
 import { addCollection } from '@iconify/react';
+
 import allIcons from './icon-sets';
 
 // ----------------------------------------------------------------------

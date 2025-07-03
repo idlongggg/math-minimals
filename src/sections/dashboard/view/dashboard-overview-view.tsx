@@ -1,25 +1,27 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material';
+
 import { alpha, useTheme } from '@mui/material/styles';
 import {
-  CustomCard,
-  CustomCardContent,
-  CustomCardHeader,
-} from 'src/components/custom-card';
-import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
+  Box,
+  Card,
+  Paper,
+  Stack,
+  Button,
+  Divider,
+  Typography,
+  CardActions,
+  CardContent,
+} from '@mui/material';
+
 import { Iconify } from 'src/components/iconify';
+import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
+import {
+  CustomCard,
+  CustomCardHeader,
+  CustomCardContent,
+} from 'src/components/custom-card';
 
 // ----------------------------------------------------------------------
 

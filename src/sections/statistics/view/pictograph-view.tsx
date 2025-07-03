@@ -1,30 +1,32 @@
 'use client';
 
-import { Icon } from '@iconify/react';
 import { useState } from 'react';
+import { Icon } from '@iconify/react';
+
+import { alpha, useTheme } from '@mui/material/styles';
 import {
   Box,
   Button,
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
   Select,
   Slider,
+  MenuItem,
   TextField,
+  IconButton,
+  InputLabel,
   Typography,
+  FormControl,
 } from '@mui/material';
-import { alpha, useTheme } from '@mui/material/styles';
-import {
-  CustomCard,
-  CustomCardContent,
-  CustomCardHeader,
-} from 'src/components/custom-card';
+
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 import {
   PictographChart,
   type PictographData,
 } from 'src/components/pictograph-chart';
+import {
+  CustomCard,
+  CustomCardHeader,
+  CustomCardContent,
+} from 'src/components/custom-card';
 
 // Sample data sets
 const sampleDataSets = {

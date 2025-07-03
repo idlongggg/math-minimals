@@ -2,8 +2,10 @@
 
 import type { Theme, SxProps } from '@mui/material/styles';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
+
 import { useCallback } from 'react';
 import { usePopover } from 'minimal-shared/hooks';
+
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
@@ -12,7 +14,9 @@ import MenuList from '@mui/material/MenuList';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import Button, { buttonClasses } from '@mui/material/Button';
+
 import { useWorkspaceContext } from 'src/contexts/workspace-context';
+
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';

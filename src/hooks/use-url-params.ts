@@ -1,7 +1,7 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 export function useUrlParams() {
   const searchParams = useSearchParams();

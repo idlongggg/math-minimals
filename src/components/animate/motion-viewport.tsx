@@ -1,8 +1,11 @@
 import type { MotionProps } from 'framer-motion';
 import type { BoxProps } from '@mui/material/Box';
+
 import { m } from 'framer-motion';
+
 import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
+
 import { varContainer } from './variants';
 
 // ----------------------------------------------------------------------

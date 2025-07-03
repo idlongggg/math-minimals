@@ -1,9 +1,10 @@
 'use client';
 
 import { paths } from 'src/routes/paths';
+
 import {
-  SubjectTabsView,
   type TopicItem,
+  SubjectTabsView,
 } from 'src/components/subject-tabs-view';
 
 const ALGEBRA_TOPICS: TopicItem[] = [

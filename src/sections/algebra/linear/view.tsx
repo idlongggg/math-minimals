@@ -1,4 +1,5 @@
 import type { BoxProps } from '@mui/material/Box';
+
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -6,8 +7,10 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
+
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
+
 import { DashboardContent } from 'src/layouts/dashboard';
 
 // ----------------------------------------------------------------------

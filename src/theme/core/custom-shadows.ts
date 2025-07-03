@@ -1,13 +1,14 @@
 import { varAlpha } from 'minimal-shared/utils';
+
 import {
-  common,
-  error,
   grey,
   info,
+  error,
+  common,
   primary,
-  secondary,
   success,
   warning,
+  secondary,
 } from './palette';
 
 import type { ThemeColorScheme } from '../types';

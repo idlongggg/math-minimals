@@ -1,4 +1,5 @@
 import type { Theme, SxProps } from '@mui/material/styles';
+
 import Divider from '@mui/material/Divider';
 
 // ----------------------------------------------------------------------

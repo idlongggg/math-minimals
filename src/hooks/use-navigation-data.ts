@@ -1,5 +1,7 @@
-import { useMemo } from 'react';
 import type { NavSectionProps } from 'src/components/nav-section';
+
+import { useMemo } from 'react';
+
 import { useWorkspaceContext } from 'src/contexts/workspace-context';
 
 export function useNavigationData(baseNavData: NavSectionProps['data']) {
@@ -27,7 +29,7 @@ export function useNavigationData(baseNavData: NavSectionProps['data']) {
     // Thêm các section tương ứng với workspace
     if (currentWorkspace) {
       switch (currentWorkspace.id) {
-        case 'algebra-analysis':
+        case 'algebra-analysis': {
           // Hiển thị các section liên quan đến đại số và giải tích
           const arithmeticAlgebraSection = baseNavData.find(
             (section) => section.subheader === 'Số học và Đại số cơ bản'
@@ -49,8 +51,9 @@ export function useNavigationData(baseNavData: NavSectionProps['data']) {
             filteredData.push(analysisSection);
           }
           break;
+        }
 
-        case 'geometry-measurement':
+        case 'geometry-measurement': {
           // Hiển thị "Hình học và lượng giác" cho workspace "Hình học và Đo lường"
           const geometrySection = baseNavData.find(
             (section) => section.subheader === 'Hình học và lượng giác'
@@ -59,8 +62,9 @@ export function useNavigationData(baseNavData: NavSectionProps['data']) {
             filteredData.push(geometrySection);
           }
           break;
+        }
 
-        case 'statistics-probability':
+        case 'statistics-probability': {
           // Hiển thị "Thống kê và xác suất" cho workspace "Xác suất và Thống kê"
           const statisticsSection = baseNavData.find(
             (section) => section.subheader === 'Thống kê và xác suất'
@@ -69,6 +73,7 @@ export function useNavigationData(baseNavData: NavSectionProps['data']) {
             filteredData.push(statisticsSection);
           }
           break;
+        }
 
         default:
           // Mặc định hiển thị toàn bộ nếu không match workspace nào

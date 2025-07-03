@@ -35,6 +35,10 @@ export function cleanSettings(settings: any): SettingsState {
  * Loại bỏ các properties deprecated như hideMenu, hideAvatar khỏi settings
  */
 export function removeDeprecatedProperties(settings: any): any {
-  const { hideMenu, hideAvatar, ...cleanSettings } = settings || {};
-  return cleanSettings;
+  const {
+    hideMenu: _hideMenu,
+    hideAvatar: _hideAvatar,
+    ...cleanedSettings
+  } = settings || {};
+  return cleanedSettings;
 }

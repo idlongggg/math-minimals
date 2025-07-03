@@ -1,6 +1,9 @@
 import type { Shadows } from '@mui/material/styles';
+
 import { varAlpha } from 'minimal-shared/utils';
-import { common, grey } from './palette';
+
+import { grey, common } from './palette';
+
 import type { ThemeColorScheme } from '../types';
 
 // ----------------------------------------------------------------------
@@ -9,7 +12,7 @@ function createShadows(colorChannel: string): Shadows {
   // Material Design shadow system
   const ambientShadow = varAlpha(colorChannel, 0.06);
   const keyShadow = varAlpha(colorChannel, 0.12);
-  const directionalShadow = varAlpha(colorChannel, 0.08);
+  // const directionalShadow = varAlpha(colorChannel, 0.08);
 
   return [
     'none',

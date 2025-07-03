@@ -1,7 +1,10 @@
 import SimpleBar from 'simplebar-react';
 import { mergeClasses } from 'minimal-shared/utils';
+
 import { styled } from '@mui/material/styles';
+
 import { scrollbarClasses } from './classes';
+
 import type { ScrollbarProps } from './types';
 
 // ----------------------------------------------------------------------

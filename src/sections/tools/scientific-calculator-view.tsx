@@ -1,13 +1,15 @@
 'use client';
 
+import { useState, useEffect, useCallback } from 'react';
+
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useCallback, useEffect, useState } from 'react';
+
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
@@ -179,9 +181,9 @@ export function ScientificCalculatorView() {
   const calculate = (
     firstValue: number,
     secondValue: number,
-    operation: string
+    currentOperation: string
   ): number => {
-    switch (operation) {
+    switch (currentOperation) {
       case '+':
         return firstValue + secondValue;
       case '-':
@@ -729,7 +731,12 @@ export function ScientificCalculatorView() {
 
           {/* Keyboard Instructions */}
           <Box
-            sx={{ mt: 3, p: 2, backgroundColor: 'action.hover', borderRadius: 1 }}
+            sx={{
+              mt: 3,
+              p: 2,
+              backgroundColor: 'action.hover',
+              borderRadius: 1,
+            }}
           >
             <Typography variant="subtitle2" sx={{ mb: 1 }}>
               Hướng dẫn bàn phím:

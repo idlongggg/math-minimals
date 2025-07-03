@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+
 import { defaultSettings, SETTINGS_STORAGE_KEY } from './settings-config';
 import {
   cleanSettings,

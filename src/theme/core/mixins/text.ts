@@ -1,5 +1,7 @@
 import type { CSSObject, Breakpoint } from '@mui/material/styles';
+
 import { remToPx } from 'minimal-shared/utils';
+
 import { createTheme as getTheme } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------

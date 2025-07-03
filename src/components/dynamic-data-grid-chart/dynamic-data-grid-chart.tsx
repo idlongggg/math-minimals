@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
-import { DataGridSection } from './components';
-import { jsxGraphStyles } from './constants';
+
 import { useDataGridState } from './hooks';
+import { jsxGraphStyles } from './constants';
+import { DataGridSection } from './components';
+
 import type { DynamicDataGridChartProps } from './types';
 
 export function DynamicDataGridChart({
@@ -18,7 +20,7 @@ export function DynamicDataGridChart({
     rows,
     handleProcessRowUpdate,
     handleAddColumn,
-    handleDeleteColumn,
+    // handleDeleteColumn, // Commented out unused variable
     handleAddRow,
     handleDeleteRow,
     handleDeleteRows,
@@ -37,6 +39,7 @@ export function DynamicDataGridChart({
         }
       };
     }
+    return undefined; // Return undefined when document is not available
   }, []);
 
   // Handle chart viewing - log data for future chart rendering
@@ -47,11 +50,11 @@ export function DynamicDataGridChart({
     console.log('Chart Dimensions:', { width, height });
     console.log('Columns:', columns);
     console.log('Rows Data:', rows);
-    
+
     // Filter numeric columns for chart axes
     const numericColumns = columns.filter((col) => col.type === 'number');
     console.log('Numeric Columns (Available for Chart Axes):', numericColumns);
-    
+
     // Prepare data structure for chart rendering
     const chartData = {
       id,
@@ -63,7 +66,7 @@ export function DynamicDataGridChart({
       totalRows: rows.length,
       totalColumns: columns.length,
     };
-    
+
     console.log('Chart Data Structure:', chartData);
     console.log('=== END CHART DATA ===');
   };

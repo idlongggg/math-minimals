@@ -1,12 +1,13 @@
 'use client';
 
 import type { WorkspacesPopoverProps } from 'src/layouts/components/workspaces-popover';
+
 import {
-  createContext,
-  useCallback,
-  useContext,
   useMemo,
   useState,
+  useContext,
+  useCallback,
+  createContext,
 } from 'react';
 
 type WorkspaceItem = NonNullable<WorkspacesPopoverProps['data']>[0];

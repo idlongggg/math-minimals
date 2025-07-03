@@ -1,7 +1,10 @@
 import type { FabProps } from '@mui/material/Fab';
+
 import { cloneElement } from 'react';
 import { useBackToTop } from 'minimal-shared/hooks';
+
 import Fab from '@mui/material/Fab';
+
 import { Iconify } from '../iconify';
 
 // ----------------------------------------------------------------------
