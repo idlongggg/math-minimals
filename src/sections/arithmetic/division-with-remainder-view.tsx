@@ -2,25 +2,25 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { BlockMath, InlineMath } from 'react-katex';
 
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { useTheme } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import CardHeader from '@mui/material/CardHeader';
-import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Chip from '@mui/material/Chip';
 import InputAdornment from '@mui/material/InputAdornment';
+import { useTheme } from '@mui/material/styles';
+import Tab from '@mui/material/Tab';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
-import { Iconify } from 'src/components/iconify';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -200,7 +200,7 @@ export function DivisionWithRemainderView() {
             timestamp: new Date(),
           };
           setHistory((prev) => [historyItem, ...prev.slice(0, 49)]);
-        } catch (_err) {
+        } catch {
           setError('Có lỗi xảy ra khi tính toán');
           setResult(null);
         }

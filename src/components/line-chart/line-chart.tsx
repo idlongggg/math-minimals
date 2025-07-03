@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 // JSXGraph styles
 const jsxGraphStyles = `
@@ -116,7 +116,7 @@ export function LineChart({
 
           // Vẽ các đường biểu đồ
           data.forEach((series, index) => {
-            const _curve = boardRef.current.create(
+            boardRef.current.create(
               'curve',
               [series.points.map((p) => p[0]), series.points.map((p) => p[1])],
               {
@@ -161,7 +161,7 @@ export function LineChart({
           // eslint-disable-next-line @typescript-eslint/no-require-imports
           const JXG = require('jsxgraph');
           JXG.JSXGraph.freeBoard(boardRef.current);
-        } catch (_error) {
+        } catch {
           // Ignore cleanup errors
         }
       }

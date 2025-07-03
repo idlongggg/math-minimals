@@ -2,23 +2,23 @@
 
 import 'katex/dist/katex.min.css';
 
+import { useCallback, useState } from 'react';
 import { InlineMath } from 'react-katex';
-import { useState, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import CardHeader from '@mui/material/CardHeader';
-import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Chip from '@mui/material/Chip';
+import Tab from '@mui/material/Tab';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
-import { Iconify } from 'src/components/iconify';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -76,11 +76,17 @@ export function CommonDenominatorView() {
   };
 
   // Tính bội số chung nhỏ nhất (LCM)
-  const lcm = (a: number, b: number): number => Math.abs(a * b) / gcd(a, b);
+  const lcm = useCallback(
+    (a: number, b: number): number => Math.abs(a * b) / gcd(a, b),
+    []
+  );
 
   // Tính LCM của nhiều số
-  const lcmMultiple = (numbers: number[]): number =>
-    numbers.reduce((acc, num) => lcm(acc, num), 1);
+  const lcmMultiple = useCallback(
+    (numbers: number[]): number =>
+      numbers.reduce((acc, num) => lcm(acc, num), 1),
+    [lcm]
+  );
 
   // Parse phân số từ string
   const parseFraction = (input: string): Fraction | null => {
@@ -108,7 +114,7 @@ export function CommonDenominatorView() {
   };
 
   // Rút gọn phân số
-  const simplifyFraction = (fraction: Fraction): Fraction => {
+  const simplifyFraction = useCallback((fraction: Fraction): Fraction => {
     const divisor = gcd(
       Math.abs(fraction.numerator),
       Math.abs(fraction.denominator)
@@ -117,7 +123,7 @@ export function CommonDenominatorView() {
       numerator: fraction.numerator / divisor,
       denominator: fraction.denominator / divisor,
     };
-  };
+  }, []);
 
   // Format phân số thành string
   // const formatFraction = (fraction: Fraction): string => {

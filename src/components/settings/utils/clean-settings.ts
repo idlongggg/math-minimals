@@ -40,5 +40,10 @@ export function removeDeprecatedProperties(settings: any): any {
     hideAvatar: _hideAvatar,
     ...cleanedSettings
   } = settings || {};
+
+  // These variables are intentionally unused - just removing properties
+  void _hideMenu;
+  void _hideAvatar;
+
   return cleanedSettings;
 }

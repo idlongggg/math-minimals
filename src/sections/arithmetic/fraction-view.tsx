@@ -2,29 +2,29 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { BlockMath, InlineMath } from 'react-katex';
 
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import { useTheme } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import CardHeader from '@mui/material/CardHeader';
-import InputLabel from '@mui/material/InputLabel';
-import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Chip from '@mui/material/Chip';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { useTheme } from '@mui/material/styles';
+import Tab from '@mui/material/Tab';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
-import { Iconify } from 'src/components/iconify';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -138,7 +138,7 @@ export function FractionView() {
     return a;
   };
 
-  const simplifyFraction = (fraction: Fraction): Fraction => {
+  const simplifyFraction = useCallback((fraction: Fraction): Fraction => {
     if (fraction.denominator === 0) {
       throw new Error('Mẫu số không thể bằng 0');
     }
@@ -154,70 +154,85 @@ export function FractionView() {
     }
 
     return { numerator, denominator };
-  };
+  }, []);
 
   const fractionToDecimal = (fraction: Fraction): number =>
     fraction.numerator / fraction.denominator;
 
-  const decimalToFraction = (decimal: number): Fraction => {
-    // Convert decimal to fraction using continued fractions algorithm
-    const sign = decimal < 0 ? -1 : 1;
-    decimal = Math.abs(decimal);
+  const decimalToFraction = useCallback(
+    (decimal: number): Fraction => {
+      // Convert decimal to fraction using continued fractions algorithm
+      const sign = decimal < 0 ? -1 : 1;
+      decimal = Math.abs(decimal);
 
-    // Handle integers
-    if (decimal % 1 === 0) {
-      return { numerator: sign * decimal, denominator: 1 };
-    }
-
-    // Simple method for common decimals
-    const tolerance = 1e-6;
-    for (let denominator = 1; denominator <= 10000; denominator++) {
-      const numerator = Math.round(decimal * denominator);
-      if (Math.abs(decimal - numerator / denominator) < tolerance) {
-        return simplifyFraction({ numerator: sign * numerator, denominator });
+      // Handle integers
+      if (decimal % 1 === 0) {
+        return { numerator: sign * decimal, denominator: 1 };
       }
-    }
 
-    // Fallback: use string method
-    const str = decimal.toString();
-    const decimalPlaces = str.split('.')[1]?.length || 0;
-    const denominator = Math.pow(10, decimalPlaces);
-    const numerator = decimal * denominator;
+      // Simple method for common decimals
+      const tolerance = 1e-6;
+      for (let denominator = 1; denominator <= 10000; denominator++) {
+        const numerator = Math.round(decimal * denominator);
+        if (Math.abs(decimal - numerator / denominator) < tolerance) {
+          return simplifyFraction({ numerator: sign * numerator, denominator });
+        }
+      }
 
-    return simplifyFraction({
-      numerator: sign * Math.round(numerator),
-      denominator,
-    });
-  };
+      // Fallback: use string method
+      const str = decimal.toString();
+      const decimalPlaces = str.split('.')[1]?.length || 0;
+      const denominator = Math.pow(10, decimalPlaces);
+      const numerator = decimal * denominator;
 
-  const addFractions = (f1: Fraction, f2: Fraction): Fraction => {
-    const numerator =
-      f1.numerator * f2.denominator + f2.numerator * f1.denominator;
-    const denominator = f1.denominator * f2.denominator;
-    return simplifyFraction({ numerator, denominator });
-  };
+      return simplifyFraction({
+        numerator: sign * Math.round(numerator),
+        denominator,
+      });
+    },
+    [simplifyFraction]
+  );
 
-  const subtractFractions = (f1: Fraction, f2: Fraction): Fraction => {
-    const numerator =
-      f1.numerator * f2.denominator - f2.numerator * f1.denominator;
-    const denominator = f1.denominator * f2.denominator;
-    return simplifyFraction({ numerator, denominator });
-  };
+  const addFractions = useCallback(
+    (f1: Fraction, f2: Fraction): Fraction => {
+      const numerator =
+        f1.numerator * f2.denominator + f2.numerator * f1.denominator;
+      const denominator = f1.denominator * f2.denominator;
+      return simplifyFraction({ numerator, denominator });
+    },
+    [simplifyFraction]
+  );
 
-  const multiplyFractions = (f1: Fraction, f2: Fraction): Fraction => {
-    const numerator = f1.numerator * f2.numerator;
-    const denominator = f1.denominator * f2.denominator;
-    return simplifyFraction({ numerator, denominator });
-  };
+  const subtractFractions = useCallback(
+    (f1: Fraction, f2: Fraction): Fraction => {
+      const numerator =
+        f1.numerator * f2.denominator - f2.numerator * f1.denominator;
+      const denominator = f1.denominator * f2.denominator;
+      return simplifyFraction({ numerator, denominator });
+    },
+    [simplifyFraction]
+  );
 
-  const divideFractions = (f1: Fraction, f2: Fraction): Fraction => {
-    if (f2.numerator === 0) {
-      throw new Error('Không thể chia cho 0');
-    }
-    const numerator = f1.numerator * f2.denominator;
-    const denominator = f1.denominator * f2.numerator;
-    return simplifyFraction({ numerator, denominator });
-  };
+  const multiplyFractions = useCallback(
+    (f1: Fraction, f2: Fraction): Fraction => {
+      const numerator = f1.numerator * f2.numerator;
+      const denominator = f1.denominator * f2.denominator;
+      return simplifyFraction({ numerator, denominator });
+    },
+    [simplifyFraction]
+  );
+
+  const divideFractions = useCallback(
+    (f1: Fraction, f2: Fraction): Fraction => {
+      if (f2.numerator === 0) {
+        throw new Error('Không thể chia cho 0');
+      }
+      const numerator = f1.numerator * f2.denominator;
+      const denominator = f1.denominator * f2.numerator;
+      return simplifyFraction({ numerator, denominator });
+    },
+    [simplifyFraction]
+  );
 
   const formatFraction = (fraction: Fraction): string => {
     if (fraction.denominator === 1) {
@@ -521,7 +536,7 @@ export function FractionView() {
               type: 'calculation',
             };
             setHistory((prev) => [historyItem, ...prev.slice(0, 49)]);
-          } catch (_err) {
+          } catch {
             setError('Có lỗi xảy ra khi tính toán');
           }
         }, 100);
