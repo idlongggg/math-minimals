@@ -2,30 +2,27 @@
 
 import { useState } from 'react';
 
-import { alpha, useTheme } from '@mui/material/styles';
 import {
-  Box,
-  Card,
-  Paper,
-  Stack,
-  Button,
-  Divider,
-  Typography,
-  CardActions,
-  CardContent,
+    Box,
+    Button,
+    Card,
+    Divider,
+    Paper,
+    Stack,
+    Typography
 } from '@mui/material';
+import { alpha, useTheme } from '@mui/material/styles';
 
-import { Iconify } from 'src/components/iconify';
-import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
 import {
-  CustomCard,
-  CustomCardHeader,
-  CustomCardContent,
+    CustomCard,
+    CustomCardHeader
 } from 'src/components/custom-card';
+import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-type StatColor =
+type StatisticColor =
   | 'primary'
   | 'secondary'
   | 'info'
@@ -33,83 +30,108 @@ type StatColor =
   | 'warning'
   | 'error';
 
-const OVERVIEW_STATS = [
+type SystemStatistic = {
+  title: string;
+  value: string;
+  icon: string;
+  color: StatisticColor;
+  description: string;
+};
+
+type MathTool = {
+  title: string;
+  description: string;
+  category: string;
+  icon: string;
+  color: StatisticColor;
+};
+
+type RecentActivity = {
+  action: string;
+  time: string;
+  result: string;
+};
+
+// Thống kê tổng quan hệ thống
+const SYSTEM_STATISTICS: SystemStatistic[] = [
   {
     title: 'Tổng số công cụ',
     value: '24',
-    icon: 'solar:pen-bold' as const,
-    color: 'primary' as StatColor,
+    icon: 'solar:pen-bold',
+    color: 'primary',
     description: 'Các công cụ toán học có sẵn',
   },
   {
     title: 'Lượt sử dụng hôm nay',
     value: '156',
-    icon: 'solar:eye-bold' as const,
-    color: 'info' as StatColor,
+    icon: 'solar:eye-bold',
+    color: 'info',
     description: 'Số lượt truy cập trong ngày',
   },
   {
     title: 'Công thức được lưu',
     value: '89',
-    icon: 'solar:heart-bold' as const,
-    color: 'success' as StatColor,
+    icon: 'solar:heart-bold',
+    color: 'success',
     description: 'Công thức đã được đánh dấu',
   },
   {
     title: 'Thời gian trực tuyến',
     value: '99.9%',
-    icon: 'solar:info-circle-bold' as const,
-    color: 'warning' as StatColor,
+    icon: 'solar:info-circle-bold',
+    color: 'warning',
     description: 'Tỷ lệ uptime hệ thống',
   },
 ];
 
-const OVERVIEW_TOOLS = [
+// Các công cụ toán học nổi bật
+const FEATURED_MATH_TOOLS: MathTool[] = [
   {
     title: 'Máy tính số nguyên tố',
     description: 'Kiểm tra và tìm các số nguyên tố',
     category: 'Số học',
-    icon: 'solar:pen-bold' as const,
-    color: 'primary' as StatColor,
+    icon: 'solar:pen-bold',
+    color: 'primary',
   },
   {
     title: 'Giải phương trình',
     description: 'Giải các phương trình bậc 1, 2, 3',
     category: 'Đại số',
-    icon: 'solar:pen-bold' as const,
-    color: 'info' as StatColor,
+    icon: 'solar:pen-bold',
+    color: 'info',
   },
   {
     title: 'Tính diện tích hình học',
     description: 'Tính diện tích các hình cơ bản',
     category: 'Hình học',
-    icon: 'solar:copy-bold' as const,
-    color: 'success' as StatColor,
+    icon: 'solar:copy-bold',
+    color: 'success',
   },
   {
     title: 'Đạo hàm và tích phân',
     description: 'Tính toán vi tích phân',
     category: 'Giải tích',
-    icon: 'solar:eye-bold' as const,
-    color: 'warning' as StatColor,
+    icon: 'solar:eye-bold',
+    color: 'warning',
   },
   {
     title: 'Thống kê cơ bản',
     description: 'Tính mean, median, mode',
     category: 'Thống kê',
-    icon: 'solar:info-circle-bold' as const,
-    color: 'error' as StatColor,
+    icon: 'solar:info-circle-bold',
+    color: 'error',
   },
   {
     title: 'Chuyển đổi đơn vị',
     description: 'Chuyển đổi giữa các đơn vị',
     category: 'Công cụ',
-    icon: 'solar:restart-bold' as const,
-    color: 'secondary' as StatColor,
+    icon: 'solar:restart-bold',
+    color: 'secondary',
   },
 ];
 
-const RECENT_ACTIVITIES = [
+// Hoạt động gần đây của người dùng
+const RECENT_USER_ACTIVITIES: RecentActivity[] = [
   {
     action: 'Tính số nguyên tố',
     time: '5 phút trước',
@@ -132,11 +154,15 @@ const RECENT_ACTIVITIES = [
   },
 ];
 
+/**
+ * Dashboard Overview View - Trang tổng quan dashboard
+ * Hiển thị thống kê hệ thống, công cụ nổi bật và hoạt động gần đây
+ */
 export function DashboardOverviewView() {
   const theme = useTheme();
-  const [selectedTool, setSelectedTool] = useState<number | null>(null);
+  const [selectedToolIndex, setSelectedToolIndex] = useState<number | null>(null);
 
-  const renderStats = () => (
+  const renderSystemStatistics = () => (
     <Box
       sx={{
         display: 'flex',
@@ -152,9 +178,9 @@ export function DashboardOverviewView() {
         },
       }}
     >
-      {OVERVIEW_STATS.map((stat, index) => (
+      {SYSTEM_STATISTICS.map((statistic, index) => (
         <CustomCard
-          key={stat.title}
+          key={statistic.title}
           sx={{
             p: 3,
             textAlign: 'center',
@@ -171,33 +197,33 @@ export function DashboardOverviewView() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              bgcolor: alpha(theme.palette[stat.color].main, 0.1),
+              bgcolor: alpha(theme.palette[statistic.color].main, 0.1),
             }}
           >
             <Iconify
-              icon={stat.icon}
+              icon={statistic.icon as any}
               width={32}
-              sx={{ color: theme.palette[stat.color].main }}
+              sx={{ color: theme.palette[statistic.color].main }}
             />
           </Box>
           <Typography variant="h3" sx={{ mb: 1 }}>
-            {stat.value}
+            {statistic.value}
           </Typography>
           <Typography variant="h6" sx={{ mb: 1 }}>
-            {stat.title}
+            {statistic.title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {stat.description}
+            {statistic.description}
           </Typography>
         </CustomCard>
       ))}
     </Box>
   );
 
-  const renderToolGrid = () => (
+  const renderFeaturedMathTools = () => (
     <CustomCard sx={{ mb: 4 }}>
       <CustomCardHeader
-        title="Công cụ toán học"
+        title="Công cụ toán học nổi bật"
         subheader="Các công cụ được sử dụng phổ biến nhất"
         sx={{ pb: 0 }}
       />
@@ -217,20 +243,20 @@ export function DashboardOverviewView() {
             },
           }}
         >
-          {OVERVIEW_TOOLS.map((tool, index) => (
+          {FEATURED_MATH_TOOLS.map((mathTool, index) => (
             <Paper
-              key={tool.title}
+              key={mathTool.title}
               sx={{
                 p: 3,
                 height: '100%',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 border:
-                  selectedTool === index
+                  selectedToolIndex === index
                     ? `2px solid ${theme.palette.primary.main}`
                     : '1px solid transparent',
               }}
-              onClick={() => setSelectedTool(index)}
+              onClick={() => setSelectedToolIndex(index)}
             >
               <Stack spacing={2}>
                 <Box
@@ -241,29 +267,29 @@ export function DashboardOverviewView() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    bgcolor: alpha(theme.palette[tool.color].main, 0.1),
+                    bgcolor: alpha(theme.palette[mathTool.color].main, 0.1),
                   }}
                 >
                   <Iconify
-                    icon={tool.icon}
+                    icon={mathTool.icon as any}
                     width={24}
-                    sx={{ color: theme.palette[tool.color].main }}
+                    sx={{ color: theme.palette[mathTool.color].main }}
                   />
                 </Box>
 
                 <Box>
                   <Typography variant="subtitle1" sx={{ mb: 0.5 }}>
-                    {tool.title}
+                    {mathTool.title}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mb: 1 }}
                   >
-                    {tool.description}
+                    {mathTool.description}
                   </Typography>
                   <Typography variant="caption" color="primary.main">
-                    {tool.category}
+                    {mathTool.category}
                   </Typography>
                 </Box>
               </Stack>
@@ -274,7 +300,7 @@ export function DashboardOverviewView() {
     </CustomCard>
   );
 
-  const renderRecentActivity = () => (
+  const renderRecentUserActivity = () => (
     <Card>
       <Box
         sx={{
@@ -290,7 +316,7 @@ export function DashboardOverviewView() {
 
       <Box sx={{ p: 3 }}>
         <Stack spacing={3}>
-          {RECENT_ACTIVITIES.map((activity, index) => (
+          {RECENT_USER_ACTIVITIES.map((userActivity, index) => (
             <Box key={index}>
               <Stack direction="row" spacing={2} alignItems="flex-start">
                 <Box
@@ -304,21 +330,21 @@ export function DashboardOverviewView() {
                 />
                 <Box sx={{ flex: 1 }}>
                   <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                    {activity.action}
+                    {userActivity.action}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mb: 0.5 }}
                   >
-                    {activity.result}
+                    {userActivity.result}
                   </Typography>
                   <Typography variant="caption" color="text.disabled">
-                    {activity.time}
+                    {userActivity.time}
                   </Typography>
                 </Box>
               </Stack>
-              {index < RECENT_ACTIVITIES.length - 1 && (
+              {index < RECENT_USER_ACTIVITIES.length - 1 && (
                 <Divider sx={{ mt: 2 }} />
               )}
             </Box>
@@ -339,142 +365,66 @@ export function DashboardOverviewView() {
 
   const renderQuickActions = () => (
     <CustomCard sx={{ mb: 4 }}>
-      <CustomCardHeader title="Thao tác nhanh" />
-      <CustomCardContent>
-        <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+      <CustomCardHeader
+        title="Thao tác nhanh"
+        subheader="Các công cụ được sử dụng thường xuyên"
+        sx={{ pb: 0 }}
+      />
+
+      <Box sx={{ p: 3 }}>
+        <Stack direction="row" spacing={2} flexWrap="wrap">
           <Button
             variant="contained"
-            startIcon={<Iconify icon="solar:pen-bold" />}
-            sx={{ minWidth: 200 }}
+            startIcon={<Iconify icon={"solar:calculator-bold" as any} />}
+            sx={{ minWidth: 140 }}
           >
-            Mở máy tính khoa học
+            Máy tính
           </Button>
           <Button
             variant="outlined"
-            startIcon={<Iconify icon="solar:camera-add-bold" />}
-            sx={{ minWidth: 200 }}
+            startIcon={<Iconify icon={"solar:graph-bold" as any} />}
+            sx={{ minWidth: 140 }}
           >
-            Tạo công thức mới
+            Vẽ đồ thị
           </Button>
           <Button
             variant="outlined"
-            startIcon={<Iconify icon="solar:heart-bold" />}
-            sx={{ minWidth: 200 }}
+            startIcon={<Iconify icon={"solar:file-text-bold" as any} />}
+            sx={{ minWidth: 140 }}
           >
-            Công thức đã lưu
+            Công thức
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<Iconify icon={"solar:settings-bold" as any} />}
+            sx={{ minWidth: 140 }}
+          >
+            Cài đặt
           </Button>
         </Stack>
-      </CustomCardContent>
+      </Box>
     </CustomCard>
   );
 
-  const renderExampleContent = () => (
+  const renderDashboardContent = () => (
     <Stack spacing={4}>
       {/* Quick Actions */}
       {renderQuickActions()}
 
-      {/* Stats Grid */}
-      {renderStats()}
+      {/* System Statistics Grid */}
+      {renderSystemStatistics()}
 
-      {/* Tool Grid */}
-      {renderToolGrid()}
+      {/* Featured Math Tools Grid */}
+      {renderFeaturedMathTools()}
 
-      {/* Recent Activity */}
-      {renderRecentActivity()}
-
-      {/* Additional Example Content for Scrolling */}
-      <Card>
-        <Box
-          sx={{
-            p: 3,
-            borderBottom: `1px solid ${theme.vars?.palette?.divider || theme.palette.divider}`,
-          }}
-        >
-          <Typography variant="h5">Thông tin hệ thống</Typography>
-        </Box>
-        <CardContent>
-          <Box
-            sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 3,
-              '& > *': {
-                flex: { xs: '1 1 100%', md: '1 1 calc(50% - 12px)' },
-              },
-            }}
-          >
-            <Box>
-              <Typography variant="h6" gutterBottom>
-                Trạng thái máy chủ
-              </Typography>
-              <Stack spacing={2}>
-                <Stack direction="row" justifyContent="space-between">
-                  <Typography variant="body2">CPU Usage</Typography>
-                  <Typography variant="body2" color="success.main">
-                    23%
-                  </Typography>
-                </Stack>
-                <Stack direction="row" justifyContent="space-between">
-                  <Typography variant="body2">Memory Usage</Typography>
-                  <Typography variant="body2" color="warning.main">
-                    67%
-                  </Typography>
-                </Stack>
-                <Stack direction="row" justifyContent="space-between">
-                  <Typography variant="body2">Disk Space</Typography>
-                  <Typography variant="body2" color="info.main">
-                    45%
-                  </Typography>
-                </Stack>
-              </Stack>
-            </Box>
-            <Box>
-              <Typography variant="h6" gutterBottom>
-                Phiên bản
-              </Typography>
-              <Stack spacing={1}>
-                <Typography variant="body2">Frontend: v2.1.0</Typography>
-                <Typography variant="body2">Backend API: v1.8.3</Typography>
-                <Typography variant="body2">
-                  Database: PostgreSQL 14.2
-                </Typography>
-              </Stack>
-            </Box>
-          </Box>
-        </CardContent>
-      </Card>
-
-      {/* More example content */}
-      {Array.from({ length: 5 }, (_, i) => (
-        <Card key={i}>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Ví dụ Section {i + 1}
-            </Typography>
-            <Typography variant="body1" paragraph>
-              Đây là nội dung ví dụ để minh họa việc cuộn trang. Trang dashboard
-              này được thiết kế với header cố định và phần nội dung có thể cuộn
-              được. Metadata đã được cấu hình đầy đủ với tiêu đề và mô tả phù
-              hợp.
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Bạn có thể thêm nhiều nội dung khác vào đây để tạo ra một trang
-              dashboard đầy đủ tính năng. Layout này sử dụng Material-UI
-              components và tuân theo best practices của React.
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Xem chi tiết</Button>
-            <Button size="small">Chỉnh sửa</Button>
-          </CardActions>
-        </Card>
-      ))}
+      {/* Recent User Activity */}
+      {renderRecentUserActivity()}
     </Stack>
   );
 
   return (
     <DashboardPageLayoutWithMetadata pageKey="dashboard">
-      {renderExampleContent()}
+      {renderDashboardContent()}
     </DashboardPageLayoutWithMetadata>
   );
 }

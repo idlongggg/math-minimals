@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import { usePathname, useRouter } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
-import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/global-config';
 
@@ -17,45 +17,48 @@ type AuthGuardProps = {
   children: React.ReactNode;
 };
 
+/**
+ * Auth Guard - Bảo vệ các route cần xác thực
+ * Chuyển hướng đến trang đăng nhập nếu chưa xác thực
+ */
 export function AuthGuard({ children }: AuthGuardProps) {
   const router = useRouter();
-  const pathname = usePathname();
-
+  const currentPathname = usePathname();
   const { authenticated, loading } = useAuthContext();
 
-  const [isChecking, setIsChecking] = useState(true);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
-  const createRedirectPath = (currentPath: string) => {
-    const queryString = new URLSearchParams({ returnTo: pathname }).toString();
-    return `${currentPath}?${queryString}`;
+  const createSignInRedirectPath = (signInPath: string) => {
+    const returnToParam = new URLSearchParams({ returnTo: currentPathname }).toString();
+    return `${signInPath}?${returnToParam}`;
   };
 
-  const checkPermissions = async (): Promise<void> => {
+  const checkAuthenticationStatus = async (): Promise<void> => {
     if (loading) {
       return;
     }
 
-    // Check if authentication is skipped via config
-    if (CONFIG.auth.skipAuth) {
-      setIsChecking(false);
+    // Kiểm tra xem có bỏ qua xác thực không (cho development)
+    if (CONFIG.authentication.skipAuthCompletely) {
+      setIsCheckingAuth(false);
       return;
     }
 
     if (!authenticated) {
-      const redirectPath = createRedirectPath(paths.auth.jwt.signIn);
-      router.replace(redirectPath);
+      const signInRedirectPath = createSignInRedirectPath(paths.auth.jwt.signIn);
+      router.replace(signInRedirectPath);
       return;
     }
 
-    setIsChecking(false);
+    setIsCheckingAuth(false);
   };
 
   useEffect(() => {
-    checkPermissions();
+    checkAuthenticationStatus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authenticated, loading]);
 
-  if (isChecking) {
+  if (isCheckingAuth) {
     return <SplashScreen />;
   }
 

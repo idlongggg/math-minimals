@@ -7,21 +7,21 @@ import 'src/global.css';
 
 import type { Metadata, Viewport } from 'next';
 
-import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 
 import { CONFIG } from 'src/global-config';
-import { primary } from 'src/theme/core/palette';
 import { themeConfig, ThemeProvider } from 'src/theme';
+import { primary } from 'src/theme/core/palette';
 
-import { ProgressBar } from 'src/components/progress-bar';
 import { MotionLazy } from 'src/components/animate/motion-lazy';
-import { detectSettings } from 'src/components/settings/server';
+import { ProgressBar } from 'src/components/progress-bar';
 import {
-  SettingsDrawer,
-  defaultSettings,
-  SettingsProvider,
+    defaultSettings,
+    SettingsDrawer,
+    SettingsProvider,
 } from 'src/components/settings';
+import { detectSettings } from 'src/components/settings/server';
 
 import { AuthProvider } from 'src/auth/context/jwt';
 
@@ -34,6 +34,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  title: CONFIG.appName,
+  description: 'Nền tảng học toán trực tuyến với đầy đủ công cụ và bài giảng',
   icons: [
     {
       rel: 'icon',
@@ -48,27 +50,31 @@ type RootLayoutProps = {
   children: React.ReactNode;
 };
 
-async function getAppConfig() {
+/**
+ * Hàm lấy cấu hình ứng dụng
+ * Xử lý settings cho static export và server-side rendering
+ */
+async function getApplicationConfiguration() {
   if (CONFIG.isStaticExport) {
     return {
-      cookieSettings: undefined,
-      dir: defaultSettings.direction,
+      userSettings: undefined,
+      textDirection: defaultSettings.direction,
     };
   } else {
-    const [settings] = await Promise.all([detectSettings()]);
+    const [detectedSettings] = await Promise.all([detectSettings()]);
 
     return {
-      cookieSettings: settings,
-      dir: settings.direction,
+      userSettings: detectedSettings,
+      textDirection: detectedSettings.direction,
     };
   }
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
-  const appConfig = await getAppConfig();
+  const applicationConfig = await getApplicationConfiguration();
 
   return (
-    <html lang="en" dir={appConfig.dir} suppressHydrationWarning>
+    <html lang="vi" dir={applicationConfig.textDirection} suppressHydrationWarning>
       <body>
         <InitColorSchemeScript
           modeStorageKey={themeConfig.modeStorageKey}
@@ -80,7 +86,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 
         <AuthProvider>
           <SettingsProvider
-            cookieSettings={appConfig.cookieSettings}
+            cookieSettings={applicationConfig.userSettings}
             defaultSettings={defaultSettings}
           >
             <AppRouterCacheProvider options={{ key: 'css' }}>

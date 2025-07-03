@@ -4,41 +4,41 @@ import packageJson from '../package.json';
 
 // ----------------------------------------------------------------------
 
-export type ConfigValue = {
+export type ApplicationConfig = {
   appName: string;
   appVersion: string;
   serverUrl: string;
   assetsDir: string;
   isStaticExport: boolean;
-  auth: {
+  authentication: {
     method: 'jwt';
-    skip: boolean;
-    skipAuth: boolean;
-    redirectPath: string;
+    skipAuthForDevelopment: boolean;
+    skipAuthCompletely: boolean;
+    defaultRedirectPath: string;
   };
   mapboxApiKey: string;
 };
 
 // ----------------------------------------------------------------------
 
-export const CONFIG: ConfigValue = {
-  appName: 'Minimal UI',
+export const CONFIG: ApplicationConfig = {
+  appName: 'MathHub - Trung tâm Toán học Trực tuyến',
   appVersion: packageJson.version,
   serverUrl: process.env.NEXT_PUBLIC_SERVER_URL ?? '',
   assetsDir: process.env.NEXT_PUBLIC_ASSETS_DIR ?? '',
   isStaticExport: JSON.parse(process.env.BUILD_STATIC_EXPORT ?? 'false'),
   /**
-   * Auth
-   * @method jwt
+   * Cấu hình xác thực người dùng
+   * @method jwt - Sử dụng JSON Web Token cho xác thực
    */
-  auth: {
+  authentication: {
     method: 'jwt',
-    skip: false,
-    skipAuth: process.env.NEXT_PUBLIC_SKIP_AUTH === 'true' || false,
-    redirectPath: paths.dashboard.root,
+    skipAuthForDevelopment: false,
+    skipAuthCompletely: process.env.NEXT_PUBLIC_SKIP_AUTH === 'true' || false,
+    defaultRedirectPath: paths.dashboard.root,
   },
   /**
-   * Mapbox
+   * API Key cho Mapbox (sử dụng trong các công cụ bản đồ)
    */
   mapboxApiKey: process.env.NEXT_PUBLIC_MAPBOX_API_KEY ?? '',
 };

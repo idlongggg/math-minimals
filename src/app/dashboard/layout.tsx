@@ -1,18 +1,22 @@
+import { WorkspaceProvider } from 'src/contexts/workspace-context';
 import { CONFIG } from 'src/global-config';
 import { DashboardLayout } from 'src/layouts/dashboard';
 import { _workspaces } from 'src/layouts/nav-config-workspace';
-import { WorkspaceProvider } from 'src/contexts/workspace-context';
 
 import { AuthGuard } from 'src/auth/guard';
 
 // ----------------------------------------------------------------------
 
-type Props = {
+type DashboardLayoutProps = {
   children: React.ReactNode;
 };
 
-export default function Layout({ children }: Props) {
-  if (CONFIG.auth.skip) {
+/**
+ * Layout chính cho dashboard - Quản lý xác thực và workspace
+ */
+export default function DashboardLayoutWrapper({ children }: DashboardLayoutProps) {
+  // Nếu skip auth trong development, không cần guard
+  if (CONFIG.authentication.skipAuthForDevelopment) {
     return (
       <WorkspaceProvider workspaces={_workspaces}>
         <DashboardLayout>{children}</DashboardLayout>
@@ -20,6 +24,7 @@ export default function Layout({ children }: Props) {
     );
   }
 
+  // Áp dụng auth guard cho production
   return (
     <AuthGuard>
       <WorkspaceProvider workspaces={_workspaces}>

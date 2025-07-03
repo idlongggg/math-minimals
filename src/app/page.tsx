@@ -8,19 +8,23 @@ import { CONFIG } from 'src/global-config';
 
 // ----------------------------------------------------------------------
 
-export default function Page() {
+/**
+ * Trang chủ ứng dụng - Tự động chuyển hướng đến dashboard
+ * Bảo tồn query parameters khi redirect
+ */
+export default function HomePage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const urlSearchParams = useSearchParams();
 
   useEffect(() => {
-    // Bảo tồn query parameters khi redirect
-    const queryString = searchParams.toString();
-    const redirectPath = queryString
-      ? `${CONFIG.auth.redirectPath}?${queryString}`
-      : CONFIG.auth.redirectPath;
+    // Bảo tồn tất cả query parameters khi chuyển hướng
+    const queryString = urlSearchParams.toString();
+    const dashboardPath = queryString
+      ? `${CONFIG.authentication.defaultRedirectPath}?${queryString}`
+      : CONFIG.authentication.defaultRedirectPath;
 
-    router.push(redirectPath);
-  }, [router, searchParams]);
+    router.push(dashboardPath);
+  }, [router, urlSearchParams]);
 
   return null;
 }

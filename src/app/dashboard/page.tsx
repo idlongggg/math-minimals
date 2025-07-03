@@ -4,8 +4,14 @@ import { DashboardOverviewView } from 'src/sections/dashboard/view';
 
 // ----------------------------------------------------------------------
 
-export const metadata = { title: `Dashboard - ${CONFIG.appName}` };
+export const metadata = { 
+  title: `Tổng quan Dashboard - ${CONFIG.appName}`,
+  description: 'Trang tổng quan các công cụ toán học và thống kê sử dụng'
+};
 
-export default function Page() {
+/**
+ * Trang Dashboard chính - Hiển thị tổng quan toàn bộ hệ thống
+ */
+export default function DashboardHomePage() {
   return <DashboardOverviewView />;
 }

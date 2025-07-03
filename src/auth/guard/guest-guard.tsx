@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useRouter, useSearchParams } from 'src/routes/hooks';
 
@@ -18,46 +18,44 @@ type GuestGuardProps = {
 
 export function GuestGuard({ children }: GuestGuardProps) {
   const router = useRouter();
-
   const { loading, authenticated } = useAuthContext();
+  const urlSearchParams = useSearchParams();
 
-  const searchParams = useSearchParams();
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
-  // Bảo tồn tất cả query parameters hoặc sử dụng redirectPath mặc định
-  const getRedirectPath = () => {
-    const returnTo = searchParams.get('returnTo');
+  // Xác định đường dẫn chuyển hướng khi đã đăng nhập
+  const getRedirectPathForAuthenticatedUser = () => {
+    const returnTo = urlSearchParams.get('returnTo');
     if (returnTo) {
       return returnTo;
     }
 
-    // Nếu có query parameters khác, bảo tồn chúng với redirectPath
-    const allParams = searchParams.toString();
+    // Nếu có query parameters khác, bảo tồn chúng với defaultRedirectPath
+    const allParams = urlSearchParams.toString();
     return allParams
-      ? `${CONFIG.auth.redirectPath}?${allParams}`
-      : CONFIG.auth.redirectPath;
+      ? `${CONFIG.authentication.defaultRedirectPath}?${allParams}`
+      : CONFIG.authentication.defaultRedirectPath;
   };
 
-  const [isChecking, setIsChecking] = useState(true);
-
-  const checkPermissions = async (): Promise<void> => {
+  const checkAuthenticationStatus = async (): Promise<void> => {
     if (loading) {
       return;
     }
 
     if (authenticated) {
-      router.replace(getRedirectPath());
+      router.replace(getRedirectPathForAuthenticatedUser());
       return;
     }
 
-    setIsChecking(false);
+    setIsCheckingAuth(false);
   };
 
   useEffect(() => {
-    checkPermissions();
+    checkAuthenticationStatus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authenticated, loading]);
 
-  if (isChecking) {
+  if (isCheckingAuth) {
     return <SplashScreen />;
   }
 
