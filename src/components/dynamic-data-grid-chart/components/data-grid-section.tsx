@@ -4,6 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { Iconify } from 'src/components/iconify';
 import type { ChartDataRow, ColumnDefinition } from '../types';
+import { AddColumnDialog } from './add-column-dialog';
 
 interface DataGridSectionProps {
   columns: ColumnDefinition[];
@@ -12,8 +13,8 @@ interface DataGridSectionProps {
   onDeleteRow: (rowId: string) => void;
   onDeleteRows: (rowIds: string[]) => void;
   onAddRow: () => void;
-  onOpenChart: () => void;
-  onOpenAddColumn: () => void;
+  onViewChart: () => void;
+  onAddColumn: (name: string, type: 'number' | 'string' | 'boolean') => boolean;
 }
 
 export function DataGridSection({
@@ -23,12 +24,13 @@ export function DataGridSection({
   onDeleteRow,
   onDeleteRows,
   onAddRow,
-  onOpenChart,
-  onOpenAddColumn,
+  onViewChart,
+  onAddColumn,
 }: DataGridSectionProps) {
   const [selectedRowIds, setSelectedRowIds] = useState<GridRowSelectionModel>(
     []
   );
+  const [addColumnDialog, setAddColumnDialog] = useState(false);
 
   // Handle row selection
   const handleSelectionChange = (newSelection: GridRowSelectionModel) => {
@@ -40,6 +42,15 @@ export function DataGridSection({
     const rowIds = selectedRowIds.map((id) => String(id));
     onDeleteRows(rowIds);
     setSelectedRowIds([]);
+  };
+
+  // Handle add column
+  const handleAddColumn = (name: string, type: 'number' | 'string' | 'boolean') => {
+    const success = onAddColumn(name, type);
+    if (success) {
+      setAddColumnDialog(false);
+    }
+    return success;
   };
 
   // Generate DataGrid columns
@@ -94,7 +105,7 @@ export function DataGridSection({
             <Button
               variant="outlined"
               startIcon={<Iconify icon="solar:full-screen-square-outline" />}
-              onClick={onOpenChart}
+              onClick={onViewChart}
               size="small"
             >
               Xem biểu đồ
@@ -102,7 +113,7 @@ export function DataGridSection({
             <Button
               variant="outlined"
               startIcon={<Iconify icon="solar:add-circle-bold" />}
-              onClick={onOpenAddColumn}
+              onClick={() => setAddColumnDialog(true)}
               size="small"
             >
               Thêm cột
@@ -222,6 +233,13 @@ export function DataGridSection({
           }}
         />
       </CardContent>
+
+      {/* Add Column Dialog */}
+      <AddColumnDialog
+        open={addColumnDialog}
+        onClose={() => setAddColumnDialog(false)}
+        onAddColumn={handleAddColumn}
+      />
     </Card>
   );
 }

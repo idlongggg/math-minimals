@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { AddColumnDialog, ChartDialog, DataGridSection } from './components';
+import { useEffect } from 'react';
+import { DataGridSection } from './components';
 import { jsxGraphStyles } from './constants';
-import { useChartConfiguration, useDataGridState, useJSXGraph } from './hooks';
+import { useDataGridState } from './hooks';
 import type { DynamicDataGridChartProps } from './types';
 
 export function DynamicDataGridChart({
@@ -24,28 +24,6 @@ export function DynamicDataGridChart({
     handleDeleteRows,
   } = useDataGridState();
 
-  const {
-    xAxisColumn,
-    yAxisColumns,
-    setXAxisColumn,
-    toggleYAxisColumn,
-    updateConfigurationAfterColumnDelete,
-  } = useChartConfiguration();
-
-  // JSXGraph hook
-  const { containerRef } = useJSXGraph({
-    id,
-    title,
-    rows,
-    columns,
-    xAxisColumn,
-    yAxisColumns,
-  });
-
-  // Dialog states
-  const [addColumnDialog, setAddColumnDialog] = useState(false);
-  const [chartDialog, setChartDialog] = useState(false);
-
   // Initialize JSXGraph styles
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -61,18 +39,34 @@ export function DynamicDataGridChart({
     }
   }, []);
 
-  // Handle column deletion with configuration update
-  const handleDeleteColumnWithUpdate = (columnId: string) => {
-    const result = handleDeleteColumn(columnId);
-    if (result && typeof result === 'object' && result.success) {
-      const numericColumns = columns.filter(
-        (col) => col.id !== columnId && col.type === 'number'
-      );
-      updateConfigurationAfterColumnDelete(result.deletedField, numericColumns);
-    }
+  // Handle chart viewing - log data for future chart rendering
+  const handleViewChart = () => {
+    console.log('=== CHART DATA PREPARATION ===');
+    console.log('Chart ID:', id);
+    console.log('Chart Title:', title);
+    console.log('Chart Dimensions:', { width, height });
+    console.log('Columns:', columns);
+    console.log('Rows Data:', rows);
+    
+    // Filter numeric columns for chart axes
+    const numericColumns = columns.filter((col) => col.type === 'number');
+    console.log('Numeric Columns (Available for Chart Axes):', numericColumns);
+    
+    // Prepare data structure for chart rendering
+    const chartData = {
+      id,
+      title,
+      dimensions: { width, height },
+      columns,
+      rows,
+      numericColumns,
+      totalRows: rows.length,
+      totalColumns: columns.length,
+    };
+    
+    console.log('Chart Data Structure:', chartData);
+    console.log('=== END CHART DATA ===');
   };
-
-  const numericColumns = columns.filter((col) => col.type === 'number');
 
   return (
     <>
@@ -84,30 +78,7 @@ export function DynamicDataGridChart({
         onDeleteRow={handleDeleteRow}
         onDeleteRows={handleDeleteRows}
         onAddRow={handleAddRow}
-        onOpenChart={() => setChartDialog(true)}
-        onOpenAddColumn={() => setAddColumnDialog(true)}
-      />
-
-      {/* Chart Dialog */}
-      <ChartDialog
-        open={chartDialog}
-        onClose={() => setChartDialog(false)}
-        title={title}
-        chartId={id}
-        containerRef={containerRef}
-        columns={columns}
-        numericColumns={numericColumns}
-        xAxisColumn={xAxisColumn}
-        yAxisColumns={yAxisColumns}
-        onDeleteColumn={handleDeleteColumnWithUpdate}
-        onSetXAxisColumn={setXAxisColumn}
-        onToggleYAxisColumn={toggleYAxisColumn}
-      />
-
-      {/* Add Column Dialog */}
-      <AddColumnDialog
-        open={addColumnDialog}
-        onClose={() => setAddColumnDialog(false)}
+        onViewChart={handleViewChart}
         onAddColumn={handleAddColumn}
       />
     </>
