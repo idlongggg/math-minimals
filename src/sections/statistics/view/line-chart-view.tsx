@@ -2,8 +2,8 @@
 
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { DynamicLineChart } from 'src/components/dynamic-line-chart';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
+import { DynamicDataGridChart } from 'src/components/dynamic-data-grid-chart';
 
 export function LineChartView() {
   const theme = useTheme();
@@ -22,7 +22,7 @@ export function LineChartView() {
           },
         }}
       >
-        <DynamicLineChart
+        <DynamicDataGridChart
           id="line-chart-main"
           width={800}
           height={500}

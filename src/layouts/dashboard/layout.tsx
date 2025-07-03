@@ -1,48 +1,43 @@
 'use client';
 
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import { iconButtonClasses } from '@mui/material/IconButton';
 import type { Breakpoint } from '@mui/material/styles';
-import type { NavItemProps, NavSectionProps } from 'src/components/nav-section';
+import { useTheme } from '@mui/material/styles';
 import { merge } from 'es-toolkit';
 import { useBoolean } from 'minimal-shared/hooks';
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import { useTheme } from '@mui/material/styles';
-import { iconButtonClasses } from '@mui/material/IconButton';
-import { useUrlParams } from 'src/hooks/use-url-params';
-import { useNavigationData } from 'src/hooks/use-navigation-data';
 import { _contacts, _notifications } from 'src/_mock';
-import { BottomDrawerProvider } from 'src/contexts/bottom-drawer-context';
 import { Logo } from 'src/components/logo';
+import type { NavItemProps, NavSectionProps } from 'src/components/nav-section';
 import { useSettingsContext } from 'src/components/settings';
-import {
-  BottomDrawer,
-  BottomDrawerFab,
-} from 'src/components/bottom-drawer-fab';
+import { useNavigationData } from 'src/hooks/use-navigation-data';
+import { useUrlParams } from 'src/hooks/use-url-params';
 
 import { useMockedUser } from 'src/auth/hooks';
-import { NavMobile } from './nav-mobile';
-import { VerticalDivider } from './content';
-import { NavVertical } from './nav-vertical';
-import { layoutClasses } from '../core/classes';
-import { _account } from '../nav-config-account';
-import { NavHorizontal } from './nav-horizontal';
-import { MainSection } from '../core/main-section';
-import { Searchbar } from '../components/searchbar';
-import { _workspaces } from '../nav-config-workspace';
-import { MenuButton } from '../components/menu-button';
-import { HeaderSection } from '../core/header-section';
-import { LayoutSection } from '../core/layout-section';
 import { AccountDrawer } from '../components/account-drawer';
-import { SettingsButton } from '../components/settings-button';
 import { ContactsPopover } from '../components/contacts-popover';
 import { LanguagePopover } from '../components/language-popover';
-import { WorkspacesPopover } from '../components/workspaces-popover';
-import { navData as dashboardNavData } from '../nav-config-dashboard';
-import { dashboardLayoutVars, dashboardNavColorVars } from './css-vars';
+import { MenuButton } from '../components/menu-button';
 import { NotificationsDrawer } from '../components/notifications-drawer';
-import type { MainSectionProps } from '../core/main-section';
+import { Searchbar } from '../components/searchbar';
+import { SettingsButton } from '../components/settings-button';
+import { WorkspacesPopover } from '../components/workspaces-popover';
+import { layoutClasses } from '../core/classes';
 import type { HeaderSectionProps } from '../core/header-section';
+import { HeaderSection } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';
+import { LayoutSection } from '../core/layout-section';
+import type { MainSectionProps } from '../core/main-section';
+import { MainSection } from '../core/main-section';
+import { _account } from '../nav-config-account';
+import { navData as dashboardNavData } from '../nav-config-dashboard';
+import { _workspaces } from '../nav-config-workspace';
+import { VerticalDivider } from './content';
+import { dashboardLayoutVars, dashboardNavColorVars } from './css-vars';
+import { NavHorizontal } from './nav-horizontal';
+import { NavMobile } from './nav-mobile';
+import { NavVertical } from './nav-vertical';
 
 // ----------------------------------------------------------------------
 
@@ -264,53 +259,49 @@ export function DashboardLayout({
   );
 
   return (
-    <BottomDrawerProvider>
-      <LayoutSection
-        /** **************************************
-         * @Header
-         *************************************** */
-        headerSection={renderHeader()}
-        /** **************************************
-         * @Sidebar
-         *************************************** */
-        sidebarSection={
-          isNavHorizontal || isMenuHidden ? null : renderSidebar()
-        }
-        /** **************************************
-         * @Footer
-         *************************************** */
-        footerSection={renderFooter()}
-        /** **************************************
-         * @Styles
-         *************************************** */
-        cssVars={{
-          ...dashboardLayoutVars(theme),
-          ...navVars.layout,
-          ...cssVars,
-        }}
-        sx={[
-          {
-            [`& .${layoutClasses.sidebarContainer}`]: {
-              [theme.breakpoints.up(layoutQuery)]: {
-                pl: isMenuHidden
-                  ? 0
-                  : isNavMini
-                    ? 'var(--layout-nav-mini-width)'
-                    : 'var(--layout-nav-vertical-width)',
-                transition: theme.transitions.create(['padding-left'], {
-                  easing: 'var(--layout-transition-easing)',
-                  duration: 'var(--layout-transition-duration)',
-                }),
-              },
+    <LayoutSection
+      /** **************************************
+       * @Header
+       *************************************** */
+      headerSection={renderHeader()}
+      /** **************************************
+       * @Sidebar
+       *************************************** */
+      sidebarSection={
+        isNavHorizontal || isMenuHidden ? null : renderSidebar()
+      }
+      /** **************************************
+       * @Footer
+       *************************************** */
+      footerSection={renderFooter()}
+      /** **************************************
+       * @Styles
+       *************************************** */
+      cssVars={{
+        ...dashboardLayoutVars(theme),
+        ...navVars.layout,
+        ...cssVars,
+      }}
+      sx={[
+        {
+          [`& .${layoutClasses.sidebarContainer}`]: {
+            [theme.breakpoints.up(layoutQuery)]: {
+              pl: isMenuHidden
+                ? 0
+                : isNavMini
+                  ? 'var(--layout-nav-mini-width)'
+                  : 'var(--layout-nav-vertical-width)',
+              transition: theme.transitions.create(['padding-left'], {
+                easing: 'var(--layout-transition-easing)',
+                duration: 'var(--layout-transition-duration)',
+              }),
             },
           },
-          ...(Array.isArray(sx) ? sx : [sx]),
-        ]}
-      >
-        {renderMain()}
-        <BottomDrawerFab />
-        <BottomDrawer />
-      </LayoutSection>
-    </BottomDrawerProvider>
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
+    >
+      {renderMain()}
+    </LayoutSection>
   );
 }
