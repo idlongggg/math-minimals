@@ -2,7 +2,7 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -10,13 +10,13 @@ import Tab from '@mui/material/Tab';
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 
-import { useFractionConverter, useFractionCalculator } from './fraction/hooks';
 import {
-  HistoryPanel,
-  FractionConverter,
-  FractionCalculator,
-  QuickOperationsPanel,
+    FractionCalculator,
+    FractionConverter,
+    HistoryPanel,
+    QuickOperationsPanel,
 } from './fraction';
+import { useFractionCalculator, useFractionConverter } from './fraction/hooks';
 
 /**
  * Component chính cho trang Phân số
@@ -24,7 +24,7 @@ import {
  */
 export function FractionView() {
   const [currentTab, setCurrentTab] = useState('converter');
-
+  
   // Sử dụng các hooks đã tách riêng
   const calculatorHook = useFractionCalculator();
   const converterHook = useFractionConverter();
@@ -38,10 +38,26 @@ export function FractionView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="converter" label="Chuyển đổi" sx={{ color: '#2196f3' }} />
-      <Tab value="calculator" label="Máy tính" sx={{ color: '#4caf50' }} />
-      <Tab value="quick" label="Phép toán nhanh" sx={{ color: '#ff9800' }} />
-      <Tab value="history" label="Lịch sử" sx={{ color: '#9c27b0' }} />
+      <Tab
+        value="converter"
+        label="Chuyển đổi"
+        sx={{ color: '#2196f3' }}
+      />
+      <Tab
+        value="calculator" 
+        label="Máy tính"
+        sx={{ color: '#4caf50' }}
+      />
+      <Tab
+        value="quick"
+        label="Phép toán nhanh"
+        sx={{ color: '#ff9800' }}
+      />
+      <Tab
+        value="history"
+        label="Lịch sử" 
+        sx={{ color: '#9c27b0' }}
+      />
     </CustomTabs>
   );
 
@@ -49,13 +65,7 @@ export function FractionView() {
     switch (currentTab) {
       case 'converter':
         return (
-          <Box
-            sx={{
-              display: 'flex',
-              gap: 3,
-              flexDirection: { xs: 'column', md: 'row' },
-            }}
-          >
+          <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
             <Box sx={{ flex: 2 }}>
               <FractionConverter />
             </Box>
@@ -71,13 +81,7 @@ export function FractionView() {
 
       case 'calculator':
         return (
-          <Box
-            sx={{
-              display: 'flex',
-              gap: 3,
-              flexDirection: { xs: 'column', md: 'row' },
-            }}
-          >
+          <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
             <Box sx={{ flex: 2 }}>
               <FractionCalculator />
             </Box>
@@ -100,13 +104,7 @@ export function FractionView() {
 
       case 'history':
         return (
-          <Box
-            sx={{
-              display: 'flex',
-              gap: 3,
-              flexDirection: { xs: 'column', md: 'row' },
-            }}
-          >
+          <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
             <Box sx={{ flex: 1 }}>
               <HistoryPanel
                 title="Lịch sử chuyển đổi"
@@ -135,7 +133,9 @@ export function FractionView() {
       description="Công cụ toàn diện cho phân số: chuyển đổi, tính toán và thực hành"
       tabs={renderTabs()}
     >
-      <Box sx={{ mt: 3 }}>{renderTabContent()}</Box>
+      <Box sx={{ mt: 3 }}>
+        {renderTabContent()}
+      </Box>
     </DashboardPageWithTabsLayout>
   );
 }

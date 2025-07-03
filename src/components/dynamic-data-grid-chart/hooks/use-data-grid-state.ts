@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import type { ChartDataRow, ColumnDefinition } from '../types';
 
