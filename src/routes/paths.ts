@@ -180,13 +180,14 @@ export const paths = {
         basic: `${ROOTS.DASHBOARD}/statistics/probability/basic`,
         conditional: `${ROOTS.DASHBOARD}/statistics/probability/conditional`,
         bayes: `${ROOTS.DASHBOARD}/statistics/probability/bayes`,
-        distributions: {
-          root: `${ROOTS.DASHBOARD}/statistics/probability/distributions`,
-          discrete: `${ROOTS.DASHBOARD}/statistics/probability/distributions/discrete`,
-          continuous: `${ROOTS.DASHBOARD}/statistics/probability/distributions/continuous`,
-          normal: `${ROOTS.DASHBOARD}/statistics/probability/distributions/normal`,
-          binomial: `${ROOTS.DASHBOARD}/statistics/probability/distributions/binomial`,
-        },
+      },
+      // Phân phối xác suất
+      distributions: {
+        root: `${ROOTS.DASHBOARD}/statistics/distributions`,
+        discrete: `${ROOTS.DASHBOARD}/statistics/distributions/discrete`,
+        continuous: `${ROOTS.DASHBOARD}/statistics/distributions/continuous`,
+        normal: `${ROOTS.DASHBOARD}/statistics/distributions/normal`,
+        binomial: `${ROOTS.DASHBOARD}/statistics/distributions/binomial`,
       },
     },
   },

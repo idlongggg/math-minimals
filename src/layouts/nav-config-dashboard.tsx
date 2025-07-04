@@ -463,25 +463,24 @@ export const navData: NavSectionProps['data'] = [
       },
       {
         title: 'Phân phối xác suất',
-        path: paths.dashboard.statistics.probability.distributions.root,
+        path: paths.dashboard.statistics.distributions.root,
         icon: ICONS.distribution,
         children: [
           {
             title: 'Phân phối rời rạc',
-            path: paths.dashboard.statistics.probability.distributions.discrete,
+            path: paths.dashboard.statistics.distributions.discrete,
           },
           {
             title: 'Phân phối liên tục',
-            path: paths.dashboard.statistics.probability.distributions
-              .continuous,
+            path: paths.dashboard.statistics.distributions.continuous,
           },
           {
             title: 'Phân phối chuẩn',
-            path: paths.dashboard.statistics.probability.distributions.normal,
+            path: paths.dashboard.statistics.distributions.normal,
           },
           {
             title: 'Phân phối nhị thức',
-            path: paths.dashboard.statistics.probability.distributions.binomial,
+            path: paths.dashboard.statistics.distributions.binomial,
           },
         ],
       },

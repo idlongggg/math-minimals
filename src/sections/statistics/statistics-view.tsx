@@ -8,9 +8,9 @@ import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
 
-import { Iconify } from 'src/components/iconify';
 import { CustomCard, CustomCardContent } from 'src/components/custom-card';
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ const STATISTICS_TOPICS = [
     id: 'distributions',
     title: 'Phân phối xác suất',
     description: 'Phân phối rời rạc, liên tục, chuẩn và nhị thức',
-    path: paths.dashboard.statistics.probability.distributions.root,
+    path: paths.dashboard.statistics.distributions.root,
     icon: 'solar:graph-down-bold',
     color: '#ef4444',
   },
