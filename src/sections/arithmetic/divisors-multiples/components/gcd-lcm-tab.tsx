@@ -2,32 +2,41 @@
 
 import { BlockMath, InlineMath } from 'react-katex';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
-import Divider from '@mui/material/Divider';
 import Step from '@mui/material/Step';
-import StepContent from '@mui/material/StepContent';
-import StepLabel from '@mui/material/StepLabel';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import Stepper from '@mui/material/Stepper';
+import StepLabel from '@mui/material/StepLabel';
 import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import StepContent from '@mui/material/StepContent';
 
 import { Iconify } from 'src/components/iconify';
 
-import { QUICK_PAIRS } from '../constants';
 import { useGcdLcm } from '../hooks';
+import { QUICK_PAIRS } from '../constants';
 
 interface GcdLcmTabProps {
   onAddToHistory: (item: any) => void;
 }
 
 export function GcdLcmTab({ onAddToHistory }: GcdLcmTabProps) {
-  const { inputA, setInputA, inputB, setInputB, result, error, calculate, clear } = useGcdLcm();
+  const {
+    inputA,
+    setInputA,
+    inputB,
+    setInputB,
+    result,
+    error,
+    calculate,
+    clear,
+  } = useGcdLcm();
 
   const handleCalculate = () => {
     calculate();
@@ -119,8 +128,21 @@ export function GcdLcmTab({ onAddToHistory }: GcdLcmTabProps) {
               avatar={<Iconify icon="solar:flag-bold" />}
             />
             <CardContent>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 3 }}>
-                <Box sx={{ textAlign: 'center', p: 2, bgcolor: 'primary.lighter', borderRadius: 1 }}>
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: 3,
+                }}
+              >
+                <Box
+                  sx={{
+                    textAlign: 'center',
+                    p: 2,
+                    bgcolor: 'primary.lighter',
+                    borderRadius: 1,
+                  }}
+                >
                   <Typography variant="subtitle2" color="primary">
                     Ước chung lớn nhất (GCD)
                   </Typography>
@@ -128,11 +150,20 @@ export function GcdLcmTab({ onAddToHistory }: GcdLcmTabProps) {
                     {result.gcd}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    <InlineMath math={`\\gcd(${result.a}, ${result.b}) = ${result.gcd}`} />
+                    <InlineMath
+                      math={`\\gcd(${result.a}, ${result.b}) = ${result.gcd}`}
+                    />
                   </Typography>
                 </Box>
 
-                <Box sx={{ textAlign: 'center', p: 2, bgcolor: 'secondary.lighter', borderRadius: 1 }}>
+                <Box
+                  sx={{
+                    textAlign: 'center',
+                    p: 2,
+                    bgcolor: 'secondary.lighter',
+                    borderRadius: 1,
+                  }}
+                >
                   <Typography variant="subtitle2" color="secondary">
                     Bội chung nhỏ nhất (LCM)
                   </Typography>
@@ -140,7 +171,9 @@ export function GcdLcmTab({ onAddToHistory }: GcdLcmTabProps) {
                     {result.lcm}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    <InlineMath math={`\\text{lcm}(${result.a}, ${result.b}) = ${result.lcm}`} />
+                    <InlineMath
+                      math={`\\text{lcm}(${result.a}, ${result.b}) = ${result.lcm}`}
+                    />
                   </Typography>
                 </Box>
               </Box>
@@ -151,10 +184,20 @@ export function GcdLcmTab({ onAddToHistory }: GcdLcmTabProps) {
               <Typography variant="h6" gutterBottom>
                 Công thức quan trọng:
               </Typography>
-              <Box sx={{ p: 2, bgcolor: 'background.neutral', borderRadius: 1 }}>
-                <BlockMath math={`\\gcd(a, b) \\times \\text{lcm}(a, b) = a \\times b`} />
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                  Kiểm tra: {result.gcd} × {result.lcm} = {result.gcd * result.lcm} = {result.a} × {result.b} = {result.a * result.b}
+              <Box
+                sx={{ p: 2, bgcolor: 'background.neutral', borderRadius: 1 }}
+              >
+                <BlockMath
+                  math={`\\gcd(a, b) \\times \\text{lcm}(a, b) = a \\times b`}
+                />
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 1 }}
+                >
+                  Kiểm tra: {result.gcd} × {result.lcm} ={' '}
+                  {result.gcd * result.lcm} = {result.a} × {result.b} ={' '}
+                  {result.a * result.b}
                 </Typography>
               </Box>
             </CardContent>
@@ -169,15 +212,25 @@ export function GcdLcmTab({ onAddToHistory }: GcdLcmTabProps) {
             <CardContent>
               <Stepper orientation="vertical">
                 {result.steps.map((step, index) => (
-                  <Step key={index} active={true} completed={true}>
+                  <Step key={index} active completed>
                     <StepLabel>
                       <Typography variant="subtitle2">
                         Bước {step.step}: {step.description}
                       </Typography>
                     </StepLabel>
                     <StepContent>
-                      <Box sx={{ p: 2, bgcolor: 'background.neutral', borderRadius: 1, mb: 1 }}>
-                        <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
+                      <Box
+                        sx={{
+                          p: 2,
+                          bgcolor: 'background.neutral',
+                          borderRadius: 1,
+                          mb: 1,
+                        }}
+                      >
+                        <Typography
+                          variant="body2"
+                          sx={{ fontFamily: 'monospace' }}
+                        >
                           {step.calculation}
                         </Typography>
                       </Box>
@@ -191,8 +244,9 @@ export function GcdLcmTab({ onAddToHistory }: GcdLcmTabProps) {
 
               <Alert severity="info" sx={{ mt: 3 }}>
                 <Typography variant="body2">
-                  <strong>Thuật toán Euclidean:</strong> Để tính GCD(a,b), ta liên tục thực hiện phép chia có dư:
-                  a = b × q + r, sau đó thay a = b, b = r cho đến khi r = 0. Khi đó GCD = b cuối cùng.
+                  <strong>Thuật toán Euclidean:</strong> Để tính GCD(a,b), ta
+                  liên tục thực hiện phép chia có dư: a = b × q + r, sau đó thay
+                  a = b, b = r cho đến khi r = 0. Khi đó GCD = b cuối cùng.
                 </Typography>
               </Alert>
             </CardContent>

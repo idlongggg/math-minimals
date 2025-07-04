@@ -1,6 +1,7 @@
+import type { PictographData } from 'src/components/pictograph-chart';
+
 import Box from '@mui/material/Box';
 
-import type { PictographData } from 'src/components/pictograph-chart';
 import { PictographChart } from 'src/components/pictograph-chart';
 
 import type { DataSetKey, PictographState } from '../types';
@@ -10,7 +11,10 @@ interface ChartDisplayProps {
   currentData: PictographData[];
 }
 
-function getChartTitle(selectedDataSet: DataSetKey, useCustomData: boolean): string {
+function getChartTitle(
+  selectedDataSet: DataSetKey,
+  useCustomData: boolean
+): string {
   if (useCustomData) {
     return 'Biểu đồ tranh tùy chỉnh';
   }

@@ -4,9 +4,9 @@ import { BlockMath, InlineMath } from 'react-katex';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 export function BaseConversionGuide() {
   return (
@@ -17,13 +17,19 @@ export function BaseConversionGuide() {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             <Typography variant="h6">Các hệ cơ số phổ biến:</Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 3, ml: 2 }}
+            >
               <Box>
                 <Typography variant="body1" component="div">
                   • <strong>Nhị phân (Base 2):</strong> Chỉ sử dụng các chữ số{' '}
                   <InlineMath math="\{0, 1\}" />
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 2 }}
+                >
                   Ví dụ: <InlineMath math="1010_{(2)} = 10_{(10)}" />
                 </Typography>
               </Box>
@@ -33,7 +39,11 @@ export function BaseConversionGuide() {
                   • <strong>Bát phân (Base 8):</strong> Sử dụng các chữ số{' '}
                   <InlineMath math="\{0, 1, 2, 3, 4, 5, 6, 7\}" />
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 2 }}
+                >
                   Ví dụ: <InlineMath math="377_{(8)} = 255_{(10)}" />
                 </Typography>
               </Box>
@@ -41,9 +51,14 @@ export function BaseConversionGuide() {
               <Box>
                 <Typography variant="body1" component="div">
                   • <strong>Thập phân (Base 10):</strong> Sử dụng các chữ số{' '}
-                  <InlineMath math="\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}" /> (hệ thông thường)
+                  <InlineMath math="\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}" /> (hệ
+                  thông thường)
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 2 }}
+                >
                   Ví dụ: <InlineMath math="255_{(10)}" />
                 </Typography>
               </Box>
@@ -53,7 +68,11 @@ export function BaseConversionGuide() {
                   • <strong>Thập lục phân (Base 16):</strong> Sử dụng{' '}
                   <InlineMath math="\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F\}" />
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 2 }}
+                >
                   Ví dụ: <InlineMath math="FF_{(16)} = 255_{(10)}" />
                 </Typography>
               </Box>
@@ -83,8 +102,8 @@ function ConversionFormulas() {
           <Box sx={{ ml: 2, p: 2, bgcolor: 'action.hover', borderRadius: 1 }}>
             <BlockMath math="N_{(b)} = \sum_{i=0}^{n-1} d_i \times b^i" />
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              Trong đó: <InlineMath math="d_i" /> là chữ số thứ i từ phải sang trái,{' '}
-              <InlineMath math="b" /> là cơ số
+              Trong đó: <InlineMath math="d_i" /> là chữ số thứ i từ phải sang
+              trái, <InlineMath math="b" /> là cơ số
             </Typography>
           </Box>
         </Box>

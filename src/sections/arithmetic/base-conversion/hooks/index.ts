@@ -1,10 +1,15 @@
 // Custom hooks for base conversion functionality
 
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import { MAX_HISTORY_ITEMS } from '../constants';
-import type { ConversionResult, HistoryItem, QuickConversion } from '../types';
-import { convertBase, generateConversionSteps, validateConversionInput } from '../utils';
+import {
+  convertBase,
+  generateConversionSteps,
+  validateConversionInput,
+} from '../utils';
+
+import type { HistoryItem, QuickConversion, ConversionResult } from '../types';
 
 export function useBaseConverter() {
   const [inputValue, setInputValue] = useState('');
@@ -21,7 +26,11 @@ export function useBaseConverter() {
       return null;
     }
 
-    const validationError = validateConversionInput(inputValue.trim(), fromBase, toBase);
+    const validationError = validateConversionInput(
+      inputValue.trim(),
+      fromBase,
+      toBase
+    );
     if (validationError) {
       setError(validationError);
       setResult('');
@@ -60,7 +69,11 @@ export function useBaseConverter() {
     setInputValue(quickConv.example);
 
     try {
-      const converted = convertBase(quickConv.example, quickConv.from, quickConv.to);
+      const converted = convertBase(
+        quickConv.example,
+        quickConv.from,
+        quickConv.to
+      );
       setResult(converted);
       setError('');
 
@@ -69,7 +82,11 @@ export function useBaseConverter() {
         fromBase: quickConv.from,
         toBase: quickConv.to,
         result: converted,
-        steps: generateConversionSteps(quickConv.example, quickConv.from, quickConv.to),
+        steps: generateConversionSteps(
+          quickConv.example,
+          quickConv.from,
+          quickConv.to
+        ),
       };
     } catch {
       setError('Có lỗi xảy ra khi chuyển đổi');
@@ -115,21 +132,25 @@ export function useConversionHistory() {
       result: conversion.result,
       timestamp: new Date(),
     };
-    setHistory(prev => [historyItem, ...prev.slice(0, MAX_HISTORY_ITEMS - 1)]);
+    setHistory((prev) => [
+      historyItem,
+      ...prev.slice(0, MAX_HISTORY_ITEMS - 1),
+    ]);
   }, []);
 
   const clearHistory = useCallback(() => {
     setHistory([]);
   }, []);
 
-  const selectHistoryItem = useCallback((item: HistoryItem) => {
-    return {
+  const selectHistoryItem = useCallback(
+    (item: HistoryItem) => ({
       inputValue: item.input,
       fromBase: item.fromBase,
       toBase: item.toBase,
       result: item.result,
-    };
-  }, []);
+    }),
+    []
+  );
 
   return {
     history,

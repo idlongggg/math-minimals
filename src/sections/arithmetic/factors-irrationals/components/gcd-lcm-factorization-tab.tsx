@@ -2,28 +2,39 @@
 
 import { BlockMath } from 'react-katex';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 
-import { QUICK_GCD_LCM } from '../constants';
 import { useGcdLcm } from '../hooks';
+import { QUICK_GCD_LCM } from '../constants';
 
 interface GcdLcmFactorizationTabProps {
   onAddToHistory: (item: any) => void;
 }
 
-export function GcdLcmFactorizationTab({ onAddToHistory }: GcdLcmFactorizationTabProps) {
-  const { inputA, setInputA, inputB, setInputB, result, error, calculate, clear } = useGcdLcm();
+export function GcdLcmFactorizationTab({
+  onAddToHistory,
+}: GcdLcmFactorizationTabProps) {
+  const {
+    inputA,
+    setInputA,
+    inputB,
+    setInputB,
+    result,
+    error,
+    calculate,
+    clear,
+  } = useGcdLcm();
 
   const handleCalculate = () => {
     calculate();
@@ -44,7 +55,9 @@ export function GcdLcmFactorizationTab({ onAddToHistory }: GcdLcmFactorizationTa
   const formatFactors = (factors: { prime: number; power: number }[]) => {
     if (factors.length === 0) return '1';
     return factors
-      .map(({ prime, power }) => (power === 1 ? `${prime}` : `${prime}^{${power}}`))
+      .map(({ prime, power }) =>
+        power === 1 ? `${prime}` : `${prime}^{${power}}`
+      )
       .join(' \\times ');
   };
 
@@ -122,28 +135,67 @@ export function GcdLcmFactorizationTab({ onAddToHistory }: GcdLcmFactorizationTa
               avatar={<Iconify icon="solar:flag-bold" />}
             />
             <CardContent>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 3, mb: 3 }}>
-                <Box sx={{ textAlign: 'center', p: 2, bgcolor: 'primary.lighter', borderRadius: 1 }}>
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                  gap: 3,
+                  mb: 3,
+                }}
+              >
+                <Box
+                  sx={{
+                    textAlign: 'center',
+                    p: 2,
+                    bgcolor: 'primary.lighter',
+                    borderRadius: 1,
+                  }}
+                >
                   <Typography variant="subtitle2" color="primary">
                     Ước chung lớn nhất (GCD)
                   </Typography>
                   <Typography variant="h4" color="primary.main">
                     {result.gcd}
                   </Typography>
-                  <Box sx={{ mt: 1, p: 1, bgcolor: 'background.paper', borderRadius: 0.5 }}>
-                    <BlockMath math={`\\gcd(${result.a}, ${result.b}) = ${formatFactors(result.gcdFactors)}`} />
+                  <Box
+                    sx={{
+                      mt: 1,
+                      p: 1,
+                      bgcolor: 'background.paper',
+                      borderRadius: 0.5,
+                    }}
+                  >
+                    <BlockMath
+                      math={`\\gcd(${result.a}, ${result.b}) = ${formatFactors(result.gcdFactors)}`}
+                    />
                   </Box>
                 </Box>
 
-                <Box sx={{ textAlign: 'center', p: 2, bgcolor: 'secondary.lighter', borderRadius: 1 }}>
+                <Box
+                  sx={{
+                    textAlign: 'center',
+                    p: 2,
+                    bgcolor: 'secondary.lighter',
+                    borderRadius: 1,
+                  }}
+                >
                   <Typography variant="subtitle2" color="secondary">
                     Bội chung nhỏ nhất (LCM)
                   </Typography>
                   <Typography variant="h4" color="secondary.main">
                     {result.lcm}
                   </Typography>
-                  <Box sx={{ mt: 1, p: 1, bgcolor: 'background.paper', borderRadius: 0.5 }}>
-                    <BlockMath math={`\\text{lcm}(${result.a}, ${result.b}) = ${formatFactors(result.lcmFactors)}`} />
+                  <Box
+                    sx={{
+                      mt: 1,
+                      p: 1,
+                      bgcolor: 'background.paper',
+                      borderRadius: 0.5,
+                    }}
+                  >
+                    <BlockMath
+                      math={`\\text{lcm}(${result.a}, ${result.b}) = ${formatFactors(result.lcmFactors)}`}
+                    />
                   </Box>
                 </Box>
               </Box>
@@ -162,18 +214,24 @@ export function GcdLcmFactorizationTab({ onAddToHistory }: GcdLcmFactorizationTa
                 </Typography>
                 <Alert severity="info" sx={{ mb: 2 }}>
                   <Typography variant="body2">
-                    GCD được tính bằng cách lấy <strong>lũy thừa nhỏ nhất</strong> của mỗi thừa số nguyên tố chung.
+                    GCD được tính bằng cách lấy{' '}
+                    <strong>lũy thừa nhỏ nhất</strong> của mỗi thừa số nguyên tố
+                    chung.
                   </Typography>
                 </Alert>
-                <Box sx={{ p: 2, bgcolor: 'background.neutral', borderRadius: 1 }}>
+                <Box
+                  sx={{ p: 2, bgcolor: 'background.neutral', borderRadius: 1 }}
+                >
                   {result.gcdFactors.length === 0 ? (
                     <Typography variant="body2">
-                      Hai số nguyên tố cùng nhau (không có thừa số chung) → GCD = 1
+                      Hai số nguyên tố cùng nhau (không có thừa số chung) → GCD
+                      = 1
                     </Typography>
                   ) : (
                     result.gcdFactors.map(({ prime, power }) => (
                       <Typography key={prime} variant="body2" sx={{ mb: 0.5 }}>
-                        • Thừa số {prime}: min(lũy thừa trong {result.a}, lũy thừa trong {result.b}) = {power}
+                        • Thừa số {prime}: min(lũy thừa trong {result.a}, lũy
+                        thừa trong {result.b}) = {power}
                       </Typography>
                     ))
                   )}
@@ -187,13 +245,18 @@ export function GcdLcmFactorizationTab({ onAddToHistory }: GcdLcmFactorizationTa
                 </Typography>
                 <Alert severity="info" sx={{ mb: 2 }}>
                   <Typography variant="body2">
-                    LCM được tính bằng cách lấy <strong>lũy thừa lớn nhất</strong> của mỗi thừa số nguyên tố xuất hiện.
+                    LCM được tính bằng cách lấy{' '}
+                    <strong>lũy thừa lớn nhất</strong> của mỗi thừa số nguyên tố
+                    xuất hiện.
                   </Typography>
                 </Alert>
-                <Box sx={{ p: 2, bgcolor: 'background.neutral', borderRadius: 1 }}>
+                <Box
+                  sx={{ p: 2, bgcolor: 'background.neutral', borderRadius: 1 }}
+                >
                   {result.lcmFactors.map(({ prime, power }) => (
                     <Typography key={prime} variant="body2" sx={{ mb: 0.5 }}>
-                      • Thừa số {prime}: max(lũy thừa trong {result.a}, lũy thừa trong {result.b}) = {power}
+                      • Thừa số {prime}: max(lũy thừa trong {result.a}, lũy thừa
+                      trong {result.b}) = {power}
                     </Typography>
                   ))}
                 </Box>
@@ -201,12 +264,19 @@ export function GcdLcmFactorizationTab({ onAddToHistory }: GcdLcmFactorizationTa
 
               {/* Verification */}
               <Box sx={{ p: 2, bgcolor: 'success.lighter', borderRadius: 1 }}>
-                <Typography variant="subtitle2" color="success.dark" gutterBottom>
+                <Typography
+                  variant="subtitle2"
+                  color="success.dark"
+                  gutterBottom
+                >
                   Kiểm tra công thức:
                 </Typography>
-                <BlockMath math={`\\gcd(a, b) \\times \\text{lcm}(a, b) = a \\times b`} />
+                <BlockMath
+                  math={`\\gcd(a, b) \\times \\text{lcm}(a, b) = a \\times b`}
+                />
                 <Typography variant="body2" color="success.dark">
-                  {result.gcd} × {result.lcm} = {result.gcd * result.lcm} = {result.a} × {result.b} = {result.a * result.b} ✓
+                  {result.gcd} × {result.lcm} = {result.gcd * result.lcm} ={' '}
+                  {result.a} × {result.b} = {result.a * result.b} ✓
                 </Typography>
               </Box>
             </CardContent>

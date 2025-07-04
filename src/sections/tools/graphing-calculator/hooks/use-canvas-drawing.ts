@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useRef } from 'react';
-import type { GraphingCalculatorState } from '../types';
+import { useRef, useEffect, useCallback } from 'react';
+
 import {
-    clearCanvas,
-    drawAxes,
-    drawFunction,
-    drawGrid,
-    drawHoveredPoint,
+  drawAxes,
+  drawGrid,
+  clearCanvas,
+  drawFunction,
+  drawHoveredPoint,
 } from '../utils';
+
+import type { GraphingCalculatorState } from '../types';
 
 export function useCanvasDrawing(state: GraphingCalculatorState) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

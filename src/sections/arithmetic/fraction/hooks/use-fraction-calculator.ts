@@ -1,11 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import {
-    addFractions,
-    divideFractions,
-    formatFraction,
-    multiplyFractions,
-    subtractFractions,
+  addFractions,
+  formatFraction,
+  divideFractions,
+  multiplyFractions,
+  subtractFractions,
 } from '../utils';
 
 import type { Fraction, HistoryEntry } from '../types';

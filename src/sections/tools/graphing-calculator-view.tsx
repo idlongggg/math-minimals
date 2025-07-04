@@ -1,19 +1,20 @@
 'use client';
 
-import Box from '@mui/material/Box';
 import { useEffect } from 'react';
+
+import Box from '@mui/material/Box';
 
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
-import {
-    FunctionPanel,
-    GraphCanvas,
-    HistoryPanel,
-    InstructionsPanel,
-    QuickFunctionsPanel,
-    ViewRangePanel,
-} from './graphing-calculator/components';
 import { useGraphingCalculator } from './graphing-calculator/hooks';
+import {
+  GraphCanvas,
+  HistoryPanel,
+  FunctionPanel,
+  ViewRangePanel,
+  InstructionsPanel,
+  QuickFunctionsPanel,
+} from './graphing-calculator/components';
 
 // ----------------------------------------------------------------------
 

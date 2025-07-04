@@ -1,4 +1,4 @@
-import type { CommonDenominatorResult, Fraction } from '../types';
+import type { Fraction, CommonDenominatorResult } from '../types';
 
 /**
  * Tính ước số chung lớn nhất (GCD)
@@ -15,16 +15,14 @@ export const gcd = (a: number, b: number): number => {
 /**
  * Tính bội số chung nhỏ nhất (LCM) của hai số
  */
-export const lcm = (a: number, b: number): number => {
-  return Math.abs(a * b) / gcd(a, b);
-};
+export const lcm = (a: number, b: number): number =>
+  Math.abs(a * b) / gcd(a, b);
 
 /**
  * Tính LCM của nhiều số
  */
-export const lcmMultiple = (numbers: number[]): number => {
-  return numbers.reduce((acc, num) => lcm(acc, num), 1);
-};
+export const lcmMultiple = (numbers: number[]): number =>
+  numbers.reduce((acc, num) => lcm(acc, num), 1);
 
 /**
  * Rút gọn phân số
@@ -34,7 +32,10 @@ export const simplifyFraction = (fraction: Fraction): Fraction => {
     throw new Error('Mẫu số không thể bằng 0');
   }
 
-  const divisor = gcd(Math.abs(fraction.numerator), Math.abs(fraction.denominator));
+  const divisor = gcd(
+    Math.abs(fraction.numerator),
+    Math.abs(fraction.denominator)
+  );
   let numerator = fraction.numerator / divisor;
   let denominator = fraction.denominator / divisor;
 
@@ -86,11 +87,11 @@ export const convertToCommonDenominator = (
   }
 
   // Tìm LCM của tất cả mẫu số
-  const denominators = fractions.map(f => f.denominator);
+  const denominators = fractions.map((f) => f.denominator);
   const commonDenominator = lcmMultiple(denominators);
 
   // Chuyển đổi tất cả phân số về mẫu số chung
-  const convertedFractions = fractions.map(fraction => ({
+  const convertedFractions = fractions.map((fraction) => ({
     numerator: fraction.numerator * (commonDenominator / fraction.denominator),
     denominator: commonDenominator,
   }));

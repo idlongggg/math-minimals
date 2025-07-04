@@ -4,7 +4,7 @@
 export function factorial(n: number): number {
   if (n < 0 || !Number.isInteger(n)) return NaN;
   if (n === 0 || n === 1) return 1;
-  
+
   let result = 1;
   for (let i = 2; i <= n; i++) {
     result *= i;
@@ -63,7 +63,7 @@ export function performScientificCalculation(
   isRadianMode: boolean = true
 ): number {
   const angleValue = isRadianMode ? value : toRadians(value);
-  
+
   switch (func) {
     case 'sin':
       return Math.sin(angleValue);
@@ -127,7 +127,9 @@ export function formatCalculationForHistory(
     case 'exp':
       return `e^${value} = ${result}`;
     case 'power':
-      return previousValue !== null ? `${previousValue}^${value} = ${result}` : `${value}`;
+      return previousValue !== null
+        ? `${previousValue}^${value} = ${result}`
+        : `${value}`;
     default:
       return `${value} = ${result}`;
   }
@@ -153,17 +155,17 @@ export function isValidResult(result: number): boolean {
  */
 export function formatDisplayValue(value: number): string {
   if (!isValidResult(value)) return 'Error';
-  
+
   // Handle very large or very small numbers
   if (Math.abs(value) >= 1e15 || (Math.abs(value) < 1e-10 && value !== 0)) {
     return value.toExponential(6);
   }
-  
+
   // Handle regular numbers
   const str = value.toString();
   if (str.length > 12) {
     return parseFloat(value.toPrecision(10)).toString();
   }
-  
+
   return str;
 }

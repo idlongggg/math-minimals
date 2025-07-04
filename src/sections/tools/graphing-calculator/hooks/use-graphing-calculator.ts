@@ -1,21 +1,23 @@
-import { useCallback, useState } from 'react';
-import {
-    COLORS,
-    INITIAL_BOUNDS,
-    INITIAL_FUNCTION,
-    INITIAL_SETTINGS,
-    MAX_HISTORY_ITEMS,
-    PLOT_POINTS,
-} from '../constants';
-import type {
-    FunctionData,
-    GraphBounds,
-    GraphingCalculatorState,
-    GraphSettings,
-    HoveredPoint,
-    UseGraphingCalculatorReturn,
-} from '../types';
+import { useState, useCallback } from 'react';
+
 import { generatePoints } from '../utils';
+import {
+  COLORS,
+  PLOT_POINTS,
+  INITIAL_BOUNDS,
+  INITIAL_FUNCTION,
+  INITIAL_SETTINGS,
+  MAX_HISTORY_ITEMS,
+} from '../constants';
+
+import type {
+  GraphBounds,
+  FunctionData,
+  HoveredPoint,
+  GraphSettings,
+  GraphingCalculatorState,
+  UseGraphingCalculatorReturn,
+} from '../types';
 
 export function useGraphingCalculator(): UseGraphingCalculatorReturn {
   const [state, setState] = useState<GraphingCalculatorState>({
@@ -34,24 +36,32 @@ export function useGraphingCalculator(): UseGraphingCalculatorReturn {
     hoveredPoint: null,
   });
 
-  const updateState = useCallback((updates: Partial<GraphingCalculatorState>) => {
-    setState(prev => ({ ...prev, ...updates }));
-  }, []);
+  const updateState = useCallback(
+    (updates: Partial<GraphingCalculatorState>) => {
+      setState((prev) => ({ ...prev, ...updates }));
+    },
+    []
+  );
 
   const updateFunctionPoints = useCallback(() => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
-      functions: prev.functions.map(func => ({
+      functions: prev.functions.map((func) => ({
         ...func,
-        points: func.expression 
-          ? generatePoints(func.expression, prev.bounds.xMin, prev.bounds.xMax, PLOT_POINTS)
+        points: func.expression
+          ? generatePoints(
+              func.expression,
+              prev.bounds.xMin,
+              prev.bounds.xMax,
+              PLOT_POINTS
+            )
           : [],
       })),
     }));
   }, []);
 
   const addFunction = useCallback(() => {
-    setState(prev => {
+    setState((prev) => {
       const newId = (prev.functions.length + 1).toString();
       const newFunction: FunctionData = {
         id: newId,
@@ -70,10 +80,10 @@ export function useGraphingCalculator(): UseGraphingCalculatorReturn {
   }, []);
 
   const removeFunction = useCallback((id: string) => {
-    setState(prev => {
-      const filteredFunctions = prev.functions.filter(func => func.id !== id);
+    setState((prev) => {
+      const filteredFunctions = prev.functions.filter((func) => func.id !== id);
       let newSelectedId = prev.selectedFunctionId;
-      
+
       if (prev.selectedFunctionId === id && filteredFunctions.length > 0) {
         newSelectedId = filteredFunctions[0].id;
       }
@@ -86,34 +96,37 @@ export function useGraphingCalculator(): UseGraphingCalculatorReturn {
     });
   }, []);
 
-  const updateFunctionExpression = useCallback((id: string, expression: string) => {
-    setState(prev => ({
-      ...prev,
-      functions: prev.functions.map(func =>
-        func.id === id ? { ...func, expression } : func
-      ),
-      error: '',
-    }));
-  }, []);
+  const updateFunctionExpression = useCallback(
+    (id: string, expression: string) => {
+      setState((prev) => ({
+        ...prev,
+        functions: prev.functions.map((func) =>
+          func.id === id ? { ...func, expression } : func
+        ),
+        error: '',
+      }));
+    },
+    []
+  );
 
   const toggleFunctionVisibility = useCallback((id: string) => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
-      functions: prev.functions.map(func =>
+      functions: prev.functions.map((func) =>
         func.id === id ? { ...func, visible: !func.visible } : func
       ),
     }));
   }, []);
 
   const setBounds = useCallback((bounds: Partial<GraphBounds>) => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       bounds: { ...prev.bounds, ...bounds },
     }));
   }, []);
 
   const setSettings = useCallback((settings: Partial<GraphSettings>) => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       settings: { ...prev.settings, ...settings },
     }));
@@ -127,7 +140,7 @@ export function useGraphingCalculator(): UseGraphingCalculatorReturn {
   }, [state.settings, updateState]);
 
   const handleZoom = useCallback((zoom: number) => {
-    setState(prev => {
+    setState((prev) => {
       const centerX = (prev.bounds.xMin + prev.bounds.xMax) / 2;
       const centerY = (prev.bounds.yMin + prev.bounds.yMax) / 2;
       const rangeX = 20 / zoom;
@@ -147,7 +160,7 @@ export function useGraphingCalculator(): UseGraphingCalculatorReturn {
   }, []);
 
   const addToHistory = useCallback((expression: string) => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       history: [expression, ...prev.history.slice(0, MAX_HISTORY_ITEMS - 1)],
     }));
@@ -157,13 +170,19 @@ export function useGraphingCalculator(): UseGraphingCalculatorReturn {
     updateState({ history: [] });
   }, [updateState]);
 
-  const setHoveredPoint = useCallback((point: HoveredPoint | null) => {
-    updateState({ hoveredPoint: point });
-  }, [updateState]);
+  const setHoveredPoint = useCallback(
+    (point: HoveredPoint | null) => {
+      updateState({ hoveredPoint: point });
+    },
+    [updateState]
+  );
 
-  const setError = useCallback((error: string) => {
-    updateState({ error });
-  }, [updateState]);
+  const setError = useCallback(
+    (error: string) => {
+      updateState({ error });
+    },
+    [updateState]
+  );
 
   return {
     state,

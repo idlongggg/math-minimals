@@ -1,10 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import {
-    decimalToFraction,
-    formatFraction,
-    fractionToDecimal,
-    simplifyFraction,
+  formatFraction,
+  simplifyFraction,
+  decimalToFraction,
+  fractionToDecimal,
 } from '../utils';
 
 import type { Fraction, HistoryEntry } from '../types';

@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+
 import { BUTTON_STYLES } from '../constants';
+
 import type { MemoryAction } from '../types';
 
 interface BasicButtonsProps {
@@ -177,7 +179,11 @@ export function BasicButtons({
       <Button variant="outlined" sx={BUTTON_STYLES.base} onClick={onDecimal}>
         .
       </Button>
-      <Button variant="outlined" sx={BUTTON_STYLES.base} onClick={onAbsoluteValue}>
+      <Button
+        variant="outlined"
+        sx={BUTTON_STYLES.base}
+        onClick={onAbsoluteValue}
+      >
         |x|
       </Button>
       <Button

@@ -1,7 +1,7 @@
-import { WorkspaceProvider } from 'src/contexts/workspace-context';
 import { CONFIG } from 'src/global-config';
 import { DashboardLayout } from 'src/layouts/dashboard';
 import { _workspaces } from 'src/layouts/nav-config-workspace';
+import { WorkspaceProvider } from 'src/contexts/workspace-context';
 
 import { AuthGuard } from 'src/auth/guard';
 
@@ -14,7 +14,9 @@ type DashboardLayoutProps = {
 /**
  * Layout chính cho dashboard - Quản lý xác thực và workspace
  */
-export default function DashboardLayoutWrapper({ children }: DashboardLayoutProps) {
+export default function DashboardLayoutWrapper({
+  children,
+}: DashboardLayoutProps) {
   // Nếu skip auth trong development, không cần guard
   if (CONFIG.authentication.skipAuthForDevelopment) {
     return (

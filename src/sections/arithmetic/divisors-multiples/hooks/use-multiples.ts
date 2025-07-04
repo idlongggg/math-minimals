@@ -1,6 +1,8 @@
-import { useCallback, useState } from 'react';
-import type { MultipleResult } from '../types';
+import { useState, useCallback } from 'react';
+
 import { findMultiples } from '../utils';
+
+import type { MultipleResult } from '../types';
 
 export const useMultiples = () => {
   const [input, setInput] = useState('');
@@ -8,41 +10,44 @@ export const useMultiples = () => {
   const [result, setResult] = useState<MultipleResult | null>(null);
   const [error, setError] = useState('');
 
-  const calculate = useCallback((numberValue?: string, limitValue?: string) => {
-    const inputValue = numberValue ?? input;
-    const limitInputValue = limitValue ?? limit;
-    setError('');
+  const calculate = useCallback(
+    (numberValue?: string, limitValue?: string) => {
+      const inputValue = numberValue ?? input;
+      const limitInputValue = limitValue ?? limit;
+      setError('');
 
-    if (!inputValue.trim()) {
-      setError('Vui lòng nhập một số');
-      return;
-    }
+      if (!inputValue.trim()) {
+        setError('Vui lòng nhập một số');
+        return;
+      }
 
-    if (!limitInputValue.trim()) {
-      setError('Vui lòng nhập số lượng bội số');
-      return;
-    }
+      if (!limitInputValue.trim()) {
+        setError('Vui lòng nhập số lượng bội số');
+        return;
+      }
 
-    const num = parseInt(inputValue);
-    const count = parseInt(limitInputValue);
+      const num = parseInt(inputValue);
+      const count = parseInt(limitInputValue);
 
-    if (isNaN(num) || num <= 0) {
-      setError('Vui lòng nhập một số nguyên dương');
-      return;
-    }
+      if (isNaN(num) || num <= 0) {
+        setError('Vui lòng nhập một số nguyên dương');
+        return;
+      }
 
-    if (isNaN(count) || count <= 0 || count > 100) {
-      setError('Số lượng bội số phải từ 1 đến 100');
-      return;
-    }
+      if (isNaN(count) || count <= 0 || count > 100) {
+        setError('Số lượng bội số phải từ 1 đến 100');
+        return;
+      }
 
-    try {
-      const multiplesResult = findMultiples(num, count);
-      setResult(multiplesResult);
-    } catch (err) {
-      setError('Có lỗi xảy ra khi tính toán');
-    }
-  }, [input, limit]);
+      try {
+        const multiplesResult = findMultiples(num, count);
+        setResult(multiplesResult);
+      } catch {
+        setError('Có lỗi xảy ra khi tính toán');
+      }
+    },
+    [input, limit]
+  );
 
   const clear = useCallback(() => {
     setInput('');

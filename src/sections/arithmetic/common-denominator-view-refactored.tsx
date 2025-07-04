@@ -2,15 +2,15 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import Tab from '@mui/material/Tab';
 
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 
-import { CommonDenominatorTab } from './common-denominator';
 import { useHistory } from './common-denominator/hooks';
+import { CommonDenominatorTab } from './common-denominator';
 
 /**
  * Component chính cho trang Mẫu số chung
@@ -49,7 +49,8 @@ export function CommonDenominatorView() {
                 <button onClick={clearHistory}>Xóa tất cả</button>
                 {history.map((item) => (
                   <div key={item.id}>
-                    <strong>Mẫu số chung</strong> - {item.timestamp.toLocaleString()}
+                    <strong>Mẫu số chung</strong> -{' '}
+                    {item.timestamp.toLocaleString()}
                     <p>Input: {item.inputFractions.join(', ')}</p>
                     <p>LCM: {item.lcm}</p>
                   </div>

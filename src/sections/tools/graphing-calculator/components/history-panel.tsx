@@ -1,10 +1,13 @@
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
-import type { GraphingCalculatorActions, GraphingCalculatorState } from '../types';
+import type {
+  GraphingCalculatorState,
+  GraphingCalculatorActions,
+} from '../types';
 
 interface HistoryPanelProps {
   state: GraphingCalculatorState;
@@ -25,7 +28,7 @@ export function HistoryPanel({ state, actions }: HistoryPanelProps) {
   };
 
   const selectedFunction = state.functions.find(
-    func => func.id === state.selectedFunctionId
+    (func) => func.id === state.selectedFunctionId
   );
 
   const handleHistoryClick = (expr: string) => {

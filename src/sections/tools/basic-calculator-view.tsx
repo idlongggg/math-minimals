@@ -5,15 +5,18 @@ import { useTheme } from '@mui/material/styles';
 
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
-import { CalculatorButtons, CalculatorDisplay } from './basic-calculator/components';
-import { useBasicCalculator, useKeyboardInput } from './basic-calculator/hooks';
+import { useKeyboardInput, useBasicCalculator } from './basic-calculator/hooks';
+import {
+  CalculatorButtons,
+  CalculatorDisplay,
+} from './basic-calculator/components';
 
 // ----------------------------------------------------------------------
 
 export function BasicCalculatorView() {
   const theme = useTheme();
   const { state, actions } = useBasicCalculator();
-  
+
   // Enable keyboard input
   useKeyboardInput(actions);
 

@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+
 import { BUTTON_STYLES } from '../constants';
+
 import type { MemoryAction, ScientificFunction } from '../types';
 
 interface ScientificButtonsProps {
@@ -9,10 +11,10 @@ interface ScientificButtonsProps {
   onMemoryAction: (action: MemoryAction) => void;
 }
 
-export function ScientificButtons({ 
-  onScientificOperation, 
+export function ScientificButtons({
+  onScientificOperation,
   onOperation,
-  onMemoryAction 
+  onMemoryAction,
 }: ScientificButtonsProps) {
   return (
     <>

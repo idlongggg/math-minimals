@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 
 import { BUTTON_STYLES } from '../constants';
+
 import type { UseBasicCalculatorReturn } from '../types';
 
 interface CalculatorButtonsProps {
@@ -164,9 +165,9 @@ export function CalculatorButtons({ actions }: CalculatorButtonsProps) {
       >
         0
       </Button>
-      <Button 
-        variant="outlined" 
-        sx={buttonStyleWithTheme} 
+      <Button
+        variant="outlined"
+        sx={buttonStyleWithTheme}
         onClick={actions.inputDecimal}
       >
         .

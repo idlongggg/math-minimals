@@ -2,21 +2,21 @@
 
 import { BlockMath, InlineMath } from 'react-katex';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 
-import { QUICK_FACTORIZATIONS } from '../constants';
 import { useFactorization } from '../hooks';
+import { QUICK_FACTORIZATIONS } from '../constants';
 import { eulerTotient, getDivisorsFromFactorization } from '../utils';
 
 interface FactorizationTabProps {
@@ -24,7 +24,8 @@ interface FactorizationTabProps {
 }
 
 export function FactorizationTab({ onAddToHistory }: FactorizationTabProps) {
-  const { input, setInput, result, error, calculate, clear } = useFactorization();
+  const { input, setInput, result, error, calculate, clear } =
+    useFactorization();
 
   const handleCalculate = () => {
     calculate();
@@ -102,7 +103,15 @@ export function FactorizationTab({ onAddToHistory }: FactorizationTabProps) {
           />
           <CardContent>
             {/* Main Factorization */}
-            <Box sx={{ textAlign: 'center', mb: 3, p: 3, bgcolor: 'primary.lighter', borderRadius: 1 }}>
+            <Box
+              sx={{
+                textAlign: 'center',
+                mb: 3,
+                p: 3,
+                bgcolor: 'primary.lighter',
+                borderRadius: 1,
+              }}
+            >
               <Typography variant="h6" color="primary" gutterBottom>
                 Kết quả phân tích:
               </Typography>
@@ -110,7 +119,14 @@ export function FactorizationTab({ onAddToHistory }: FactorizationTabProps) {
             </Box>
 
             {/* Properties Grid */}
-            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 2, mb: 3 }}>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: 2,
+                mb: 3,
+              }}
+            >
               <Box>
                 <Typography variant="subtitle2" color="primary">
                   Số thừa số nguyên tố:
@@ -129,7 +145,9 @@ export function FactorizationTab({ onAddToHistory }: FactorizationTabProps) {
                 <Typography variant="subtitle2" color="primary">
                   Euler φ(n):
                 </Typography>
-                <Typography variant="h6">{eulerTotient(result.number)}</Typography>
+                <Typography variant="h6">
+                  {eulerTotient(result.number)}
+                </Typography>
               </Box>
             </Box>
 
@@ -152,7 +170,9 @@ export function FactorizationTab({ onAddToHistory }: FactorizationTabProps) {
             <Typography variant="subtitle2" gutterBottom>
               Chi tiết phân tích:
             </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 3 }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 3 }}
+            >
               {result.factors.map(({ prime, power }, index) => (
                 <Box
                   key={prime}
@@ -168,7 +188,10 @@ export function FactorizationTab({ onAddToHistory }: FactorizationTabProps) {
                   <Typography variant="body2" sx={{ minWidth: 100 }}>
                     Thừa số {index + 1}:
                   </Typography>
-                  <Chip label={`${prime}${power > 1 ? `^${power}` : ''}`} color="primary" />
+                  <Chip
+                    label={`${prime}${power > 1 ? `^${power}` : ''}`}
+                    color="primary"
+                  />
                   <Typography variant="body2" color="text.secondary">
                     = {Math.pow(prime, power)}
                   </Typography>
@@ -180,15 +203,17 @@ export function FactorizationTab({ onAddToHistory }: FactorizationTabProps) {
             <Typography variant="subtitle2" gutterBottom>
               Tất cả ước số:
             </Typography>
-            <Box sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 1,
-              p: 2,
-              bgcolor: 'background.neutral',
-              borderRadius: 1,
-              mb: 2
-            }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 1,
+                p: 2,
+                bgcolor: 'background.neutral',
+                borderRadius: 1,
+                mb: 2,
+              }}
+            >
               {getDivisorsFromFactorization(result.factors).map((divisor) => (
                 <Chip
                   key={divisor}
@@ -202,8 +227,11 @@ export function FactorizationTab({ onAddToHistory }: FactorizationTabProps) {
             {/* Mathematical explanation */}
             <Alert severity="info">
               <Typography variant="body2">
-                <strong>Định lý cơ bản của số học:</strong> Mọi số nguyên lớn hơn 1 đều có thể phân tích duy nhất thành tích của các thừa số nguyên tố.
-                Công thức số ước: nếu <InlineMath math="n = p_1^{a_1} \times p_2^{a_2} \times ... \times p_k^{a_k}" /> thì số ước của n là{' '}
+                <strong>Định lý cơ bản của số học:</strong> Mọi số nguyên lớn
+                hơn 1 đều có thể phân tích duy nhất thành tích của các thừa số
+                nguyên tố. Công thức số ước: nếu{' '}
+                <InlineMath math="n = p_1^{a_1} \times p_2^{a_2} \times ... \times p_k^{a_k}" />{' '}
+                thì số ước của n là{' '}
                 <InlineMath math="(a_1 + 1)(a_2 + 1)...(a_k + 1)" />
               </Typography>
             </Alert>

@@ -3,18 +3,18 @@
 import { InlineMath } from 'react-katex';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
+import InputLabel from '@mui/material/InputLabel';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -100,7 +100,7 @@ export function BaseConverterForm({
                   sx={{ minWidth: 48, height: 56 }}
                   title="Hoán đổi hệ cơ số"
                 >
-                  <Iconify icon="eva:refresh-outline" />
+                  <Iconify icon="solar:transfer-horizontal-bold-duotone" />
                 </Button>
 
                 <FormControl sx={{ flex: 1 }}>
@@ -128,7 +128,11 @@ export function BaseConverterForm({
                     textAlign: 'center',
                   }}
                 >
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
                     Chuyển đổi:
                   </Typography>
                   <Box component="div" sx={{ fontSize: '1.2rem' }}>
@@ -159,7 +163,11 @@ export function BaseConverterForm({
                     textAlign: 'center',
                   }}
                 >
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
                     Kết quả chuyển đổi:
                   </Typography>
                   <Box component="div" sx={{ fontSize: '1.5rem', mb: 2 }}>
@@ -179,7 +187,11 @@ export function BaseConverterForm({
                       <Typography variant="caption" color="text.secondary">
                         Giá trị gốc
                       </Typography>
-                      <Typography variant="h5" color="text.primary" sx={{ fontFamily: 'monospace' }}>
+                      <Typography
+                        variant="h5"
+                        color="text.primary"
+                        sx={{ fontFamily: 'monospace' }}
+                      >
                         {inputValue}
                       </Typography>
                       <Typography variant="caption" color="text.secondary">
@@ -190,7 +202,11 @@ export function BaseConverterForm({
                       <Typography variant="caption" color="text.secondary">
                         Kết quả
                       </Typography>
-                      <Typography variant="h5" color="primary.main" sx={{ fontFamily: 'monospace' }}>
+                      <Typography
+                        variant="h5"
+                        color="primary.main"
+                        sx={{ fontFamily: 'monospace' }}
+                      >
                         {result}
                       </Typography>
                       <Typography variant="caption" color="text.secondary">
@@ -210,14 +226,41 @@ export function BaseConverterForm({
                     textAlign: 'center',
                   }}
                 >
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
                     Các hệ cơ số phổ biến:
                   </Typography>
-                  <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, flexWrap: 'wrap' }}>
-                    <Chip label="Nhị phân (2)" size="small" variant="outlined" />
-                    <Chip label="Bát phân (8)" size="small" variant="outlined" />
-                    <Chip label="Thập phân (10)" size="small" variant="outlined" />
-                    <Chip label="Thập lục phân (16)" size="small" variant="outlined" />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: 1,
+                      flexWrap: 'wrap',
+                    }}
+                  >
+                    <Chip
+                      label="Nhị phân (2)"
+                      size="small"
+                      variant="outlined"
+                    />
+                    <Chip
+                      label="Bát phân (8)"
+                      size="small"
+                      variant="outlined"
+                    />
+                    <Chip
+                      label="Thập phân (10)"
+                      size="small"
+                      variant="outlined"
+                    />
+                    <Chip
+                      label="Thập lục phân (16)"
+                      size="small"
+                      variant="outlined"
+                    />
                   </Box>
                 </Box>
               </Box>

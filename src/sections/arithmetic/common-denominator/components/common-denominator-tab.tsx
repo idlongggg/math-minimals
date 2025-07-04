@@ -2,29 +2,31 @@
 
 import { BlockMath, InlineMath } from 'react-katex';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 
 import { QUICK_EXAMPLES } from '../constants';
-import { useCommonDenominator } from '../hooks';
 import { formatFractionLatex } from '../utils';
+import { useCommonDenominator } from '../hooks';
 
 interface CommonDenominatorTabProps {
   onAddToHistory: (item: any) => void;
 }
 
-export function CommonDenominatorTab({ onAddToHistory }: CommonDenominatorTabProps) {
+export function CommonDenominatorTab({
+  onAddToHistory,
+}: CommonDenominatorTabProps) {
   const {
     fractionInputs,
     result,
@@ -41,7 +43,7 @@ export function CommonDenominatorTab({ onAddToHistory }: CommonDenominatorTabPro
     calculate();
     if (result) {
       onAddToHistory({
-        inputFractions: fractionInputs.filter(f => f.trim()),
+        inputFractions: fractionInputs.filter((f) => f.trim()),
         lcm: result.lcm,
         fractions: result.fractions,
         convertedFractions: result.convertedFractions,
@@ -71,7 +73,10 @@ export function CommonDenominatorTab({ onAddToHistory }: CommonDenominatorTabPro
         <CardContent>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 2 }}>
             {fractionInputs.map((input, index) => (
-              <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Box
+                key={index}
+                sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+              >
                 <Typography variant="body2" sx={{ minWidth: 80 }}>
                   Phân số {index + 1}:
                 </Typography>
@@ -88,7 +93,7 @@ export function CommonDenominatorTab({ onAddToHistory }: CommonDenominatorTabPro
                     color="error"
                     size="small"
                   >
-                    <Iconify icon="solar:trash-bin-minimalistic-bold" />
+                    <Iconify icon="solar:trash-bin-trash-bold" />
                   </IconButton>
                 )}
               </Box>
@@ -99,7 +104,7 @@ export function CommonDenominatorTab({ onAddToHistory }: CommonDenominatorTabPro
             <Button
               variant="contained"
               onClick={handleCalculate}
-              disabled={fractionInputs.filter(f => f.trim()).length < 2}
+              disabled={fractionInputs.filter((f) => f.trim()).length < 2}
             >
               Tính toán
             </Button>
@@ -144,28 +149,41 @@ export function CommonDenominatorTab({ onAddToHistory }: CommonDenominatorTabPro
           />
           <CardContent>
             {/* Summary */}
-            <Box sx={{ 
-              textAlign: 'center', 
-              mb: 3, 
-              p: 3, 
-              bgcolor: 'primary.lighter', 
-              borderRadius: 1 
-            }}>
+            <Box
+              sx={{
+                textAlign: 'center',
+                mb: 3,
+                p: 3,
+                bgcolor: 'primary.lighter',
+                borderRadius: 1,
+              }}
+            >
               <Typography variant="h6" color="primary" gutterBottom>
                 Mẫu số chung nhỏ nhất: {result.lcm}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                LCM của mẫu số: {result.fractions.map(f => f.denominator).join(', ')} = {result.lcm}
+                LCM của mẫu số:{' '}
+                {result.fractions.map((f) => f.denominator).join(', ')} ={' '}
+                {result.lcm}
               </Typography>
             </Box>
 
             {/* Before and After Comparison */}
-            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 3, mb: 3 }}>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 3,
+                mb: 3,
+              }}
+            >
               <Box>
                 <Typography variant="subtitle2" color="secondary" gutterBottom>
                   Phân số ban đầu:
                 </Typography>
-                <Box sx={{ p: 2, bgcolor: 'background.neutral', borderRadius: 1 }}>
+                <Box
+                  sx={{ p: 2, bgcolor: 'background.neutral', borderRadius: 1 }}
+                >
                   {result.fractions.map((fraction, index) => (
                     <Box key={index} sx={{ mb: 1 }}>
                       <InlineMath math={formatFractionLatex(fraction)} />
@@ -209,10 +227,13 @@ export function CommonDenominatorTab({ onAddToHistory }: CommonDenominatorTabPro
                     }}
                   >
                     <Typography variant="body2" gutterBottom>
-                      Bước {index + 1}: Chuyển đổi {formatFractionLatex(fraction)}
+                      Bước {index + 1}: Chuyển đổi{' '}
+                      {formatFractionLatex(fraction)}
                     </Typography>
                     <Box sx={{ ml: 2 }}>
-                      <BlockMath math={`\\frac{${fraction.numerator}}{${fraction.denominator}} = \\frac{${fraction.numerator} \\times ${multiplier}}{${fraction.denominator} \\times ${multiplier}} = \\frac{${fraction.numerator * multiplier}}{${result.lcm}}`} />
+                      <BlockMath
+                        math={`\\frac{${fraction.numerator}}{${fraction.denominator}} = \\frac{${fraction.numerator} \\times ${multiplier}}{${fraction.denominator} \\times ${multiplier}} = \\frac{${fraction.numerator * multiplier}}{${result.lcm}}`}
+                      />
                     </Box>
                   </Box>
                 );
@@ -222,8 +243,9 @@ export function CommonDenominatorTab({ onAddToHistory }: CommonDenominatorTabPro
             {/* Mathematical explanation */}
             <Alert severity="info" sx={{ mt: 3 }}>
               <Typography variant="body2">
-                <strong>Mẫu số chung nhỏ nhất (LCM):</strong> Để cộng trừ phân số, ta cần chuyển chúng về cùng mẫu số.
-                Mẫu số chung nhỏ nhất là bội chung nhỏ nhất của tất cả các mẫu số.
+                <strong>Mẫu số chung nhỏ nhất (LCM):</strong> Để cộng trừ phân
+                số, ta cần chuyển chúng về cùng mẫu số. Mẫu số chung nhỏ nhất là
+                bội chung nhỏ nhất của tất cả các mẫu số.
               </Typography>
             </Alert>
           </CardContent>

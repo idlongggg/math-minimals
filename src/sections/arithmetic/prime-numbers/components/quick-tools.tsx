@@ -2,14 +2,15 @@
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 
-import { FIRST_100_PRIMES, QUICK_CHECKS } from '../constants';
+import { QUICK_CHECKS, FIRST_100_PRIMES } from '../constants';
+
 import type { QuickCheck } from '../types';
 
 interface QuickToolsProps {
@@ -69,12 +70,19 @@ export function QuickTools({ onQuickCheck, onPrimeClick }: QuickToolsProps) {
                   <Typography variant="body2" color="text.secondary">
                     Số:
                   </Typography>
-                  <Typography variant="h6" color="primary.main" fontWeight="bold">
+                  <Typography
+                    variant="h6"
+                    color="primary.main"
+                    fontWeight="bold"
+                  >
                     {quickCheck.example}
                   </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                  <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                  <Iconify
+                    icon="eva:arrowhead-right-fill"
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Box>
               </Box>
             </CardContent>

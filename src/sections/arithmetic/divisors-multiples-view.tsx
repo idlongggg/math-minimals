@@ -2,15 +2,15 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import Tab from '@mui/material/Tab';
 
 import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 
-import { DivisorsTab, GcdLcmTab, MultiplesTab } from './divisors-multiples';
 import { useHistory } from './divisors-multiples/hooks';
+import { GcdLcmTab, DivisorsTab, MultiplesTab } from './divisors-multiples';
 
 /**
  * Component chính cho trang Ước số và Bội số
@@ -55,7 +55,8 @@ export function DivisorsMultiplesView() {
                 <button onClick={clearHistory}>Xóa tất cả</button>
                 {history.map((item) => (
                   <div key={item.id}>
-                    <strong>{item.type}</strong> - {item.timestamp.toLocaleString()}
+                    <strong>{item.type}</strong> -{' '}
+                    {item.timestamp.toLocaleString()}
                     <pre>{JSON.stringify(item.data, null, 2)}</pre>
                   </div>
                 ))}

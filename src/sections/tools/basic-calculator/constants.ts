@@ -50,12 +50,12 @@ export const KEYBOARD_MAPPINGS = {
     '/': '÷',
   },
   actions: {
-    'Enter': '=',
+    Enter: '=',
     '=': '=',
-    'Escape': 'clear',
-    'c': 'clear',
-    'C': 'clear',
-    'Backspace': 'backspace',
+    Escape: 'clear',
+    c: 'clear',
+    C: 'clear',
+    Backspace: 'backspace',
     '.': 'decimal',
   },
 } as const;

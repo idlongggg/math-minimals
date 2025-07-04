@@ -2,7 +2,7 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -17,10 +17,11 @@ import {
   DivisionGuide,
   QuickExamples,
   DivisionHistory,
+  useDivisionCalculator,
+  useCalculationHistory,
   DivisionCalculatorForm,
   DivisionCalculatorActions,
 } from './division-with-remainder';
-import { useDivisionCalculator, useCalculationHistory } from './division-with-remainder';
 
 // ----------------------------------------------------------------------
 
@@ -39,7 +40,8 @@ export function DivisionWithRemainderView() {
     handleQuickExample,
   } = useDivisionCalculator();
 
-  const { history, addToHistory, clearHistory, selectHistoryItem } = useCalculationHistory();
+  const { history, addToHistory, clearHistory, selectHistoryItem } =
+    useCalculationHistory();
 
   // Add successful calculations to history
   useEffect(() => {
@@ -52,9 +54,12 @@ export function DivisionWithRemainderView() {
     }
   }, [result, dividend, divisor, addToHistory]);
 
-  const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleTabChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setCurrentTab(newValue);
+    },
+    []
+  );
 
   const handleCalculateWithHistory = useCallback(() => {
     handleCalculate();
@@ -121,8 +126,16 @@ export function DivisionWithRemainderView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="calculator" label="Máy tính" icon={<Iconify icon="solar:restart-bold" />} />
-      <Tab value="quick-tools" label="Ví dụ nhanh" icon={<Iconify icon="custom:flash-outline" />} />
+      <Tab
+        value="calculator"
+        label="Máy tính"
+        icon={<Iconify icon="solar:restart-bold" />}
+      />
+      <Tab
+        value="quick-tools"
+        label="Ví dụ nhanh"
+        icon={<Iconify icon="custom:flash-outline" />}
+      />
       <Tab
         value="history"
         label={`Lịch sử (${history.length})`}

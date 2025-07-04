@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
-import { ChartDisplay, ControlsPanel } from '../pictograph/components';
 import { usePictograph } from '../pictograph/hooks';
+import { ChartDisplay, ControlsPanel } from '../pictograph/components';
 
 // ----------------------------------------------------------------------
 

@@ -1,11 +1,12 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 
 import { DATASET_LABELS } from '../constants';
+
 import type { DataSetKey, PictographActions } from '../types';
 
 interface DataSetSelectorProps {

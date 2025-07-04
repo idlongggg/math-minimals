@@ -1,4 +1,4 @@
-import type { FunctionData, GraphBounds, GraphSettings } from './types';
+import type { GraphBounds, FunctionData, GraphSettings } from './types';
 
 export const COLORS = [
   '#1976d2', // blue

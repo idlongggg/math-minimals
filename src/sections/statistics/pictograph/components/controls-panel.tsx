@@ -1,11 +1,16 @@
 import Box from '@mui/material/Box';
 
-import { CustomCard, CustomCardContent, CustomCardHeader } from 'src/components/custom-card';
+import {
+  CustomCard,
+  CustomCardHeader,
+  CustomCardContent,
+} from 'src/components/custom-card';
 
-import type { PictographActions, PictographState } from '../types';
-import { CustomDataEditor } from './custom-data-editor';
 import { DataSetSelector } from './data-set-selector';
 import { SettingsControls } from './settings-controls';
+import { CustomDataEditor } from './custom-data-editor';
+
+import type { PictographState, PictographActions } from '../types';
 
 interface ControlsPanelProps {
   state: PictographState;
@@ -26,10 +31,7 @@ export function ControlsPanel({ state, actions }: ControlsPanelProps) {
           />
 
           {state.useCustomData && (
-            <CustomDataEditor
-              customData={state.customData}
-              actions={actions}
-            />
+            <CustomDataEditor customData={state.customData} actions={actions} />
           )}
 
           <SettingsControls

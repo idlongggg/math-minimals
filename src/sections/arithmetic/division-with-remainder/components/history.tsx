@@ -3,10 +3,10 @@
 import { InlineMath } from 'react-katex';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -95,10 +95,18 @@ export function DivisionHistory({
                       }}
                     >
                       <Box component="span" sx={{ fontWeight: 'bold' }}>
-                        <InlineMath math={`${item.dividend} \\div ${item.divisor}`} />
+                        <InlineMath
+                          math={`${item.dividend} \\div ${item.divisor}`}
+                        />
                       </Box>
-                      <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.secondary' }} />
-                      <Box component="span" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                      <Iconify
+                        icon="eva:arrow-forward-fill"
+                        sx={{ color: 'text.secondary' }}
+                      />
+                      <Box
+                        component="span"
+                        sx={{ fontWeight: 'bold', color: 'primary.main' }}
+                      >
                         <InlineMath
                           math={`${item.result.quotient} \\text{ dư } ${item.result.remainder}`}
                         />
@@ -109,7 +117,10 @@ export function DivisionHistory({
                     <Typography variant="caption" color="text.secondary">
                       {item.timestamp.toLocaleTimeString('vi-VN')}
                     </Typography>
-                    <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.disabled' }} />
+                    <Iconify
+                      icon="eva:arrow-forward-fill"
+                      sx={{ color: 'text.disabled' }}
+                    />
                   </Box>
                 </Box>
               </CardContent>

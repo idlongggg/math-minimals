@@ -4,8 +4,8 @@ import type { Breakpoint } from '@mui/material/styles';
 
 import { merge } from 'es-toolkit';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
 
 import { paths } from 'src/routes/paths';
 
@@ -13,18 +13,18 @@ import { CONFIG } from 'src/global-config';
 
 import { Logo } from 'src/components/logo';
 
-import { SettingsButton } from '../components/settings-button';
-import { HeaderSection } from '../core/header-section';
-import { LayoutSection } from '../core/layout-section';
-import { MainSection } from '../core/main-section';
 import { AuthSplitContent } from './content';
 import { AuthSplitSection } from './section';
+import { MainSection } from '../core/main-section';
+import { HeaderSection } from '../core/header-section';
+import { LayoutSection } from '../core/layout-section';
+import { SettingsButton } from '../components/settings-button';
 
-import type { HeaderSectionProps } from '../core/header-section';
-import type { LayoutSectionProps } from '../core/layout-section';
-import type { MainSectionProps } from '../core/main-section';
 import type { AuthSplitContentProps } from './content';
 import type { AuthSplitSectionProps } from './section';
+import type { MainSectionProps } from '../core/main-section';
+import type { HeaderSectionProps } from '../core/header-section';
+import type { LayoutSectionProps } from '../core/layout-section';
 
 // ----------------------------------------------------------------------
 

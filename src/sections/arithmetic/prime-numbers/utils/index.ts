@@ -1,7 +1,8 @@
 // Utility functions for prime numbers
 
 import { MAX_RANGE_SIZE, MAX_SAFE_NUMBER } from '../constants';
-import type { PrimeCheckResult, SieveStep } from '../types';
+
+import type { SieveStep, PrimeCheckResult } from '../types';
 
 /**
  * Check if a number is prime using basic algorithm

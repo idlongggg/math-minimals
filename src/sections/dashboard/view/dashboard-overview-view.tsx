@@ -2,23 +2,20 @@
 
 import { useState } from 'react';
 
-import {
-    Box,
-    Button,
-    Card,
-    Divider,
-    Paper,
-    Stack,
-    Typography
-} from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-
 import {
-    CustomCard,
-    CustomCardHeader
-} from 'src/components/custom-card';
-import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
+  Box,
+  Card,
+  Paper,
+  Stack,
+  Button,
+  Divider,
+  Typography,
+} from '@mui/material';
+
 import { Iconify } from 'src/components/iconify';
+import { CustomCard, CustomCardHeader } from 'src/components/custom-card';
+import { DashboardPageLayoutWithMetadata } from 'src/components/dashboard-page-layout';
 
 // ----------------------------------------------------------------------
 
@@ -160,7 +157,9 @@ const RECENT_USER_ACTIVITIES: RecentActivity[] = [
  */
 export function DashboardOverviewView() {
   const theme = useTheme();
-  const [selectedToolIndex, setSelectedToolIndex] = useState<number | null>(null);
+  const [selectedToolIndex, setSelectedToolIndex] = useState<number | null>(
+    null
+  );
 
   const renderSystemStatistics = () => (
     <Box
@@ -375,28 +374,28 @@ export function DashboardOverviewView() {
         <Stack direction="row" spacing={2} flexWrap="wrap">
           <Button
             variant="contained"
-            startIcon={<Iconify icon={"solar:calculator-bold" as any} />}
+            startIcon={<Iconify icon={'solar:calculator-bold' as any} />}
             sx={{ minWidth: 140 }}
           >
             Máy tính
           </Button>
           <Button
             variant="outlined"
-            startIcon={<Iconify icon={"solar:graph-bold" as any} />}
+            startIcon={<Iconify icon={'solar:graph-bold' as any} />}
             sx={{ minWidth: 140 }}
           >
             Vẽ đồ thị
           </Button>
           <Button
             variant="outlined"
-            startIcon={<Iconify icon={"solar:file-text-bold" as any} />}
+            startIcon={<Iconify icon={'solar:file-text-bold' as any} />}
             sx={{ minWidth: 140 }}
           >
             Công thức
           </Button>
           <Button
             variant="outlined"
-            startIcon={<Iconify icon={"solar:settings-bold" as any} />}
+            startIcon={<Iconify icon={'solar:settings-bold' as any} />}
             sx={{ minWidth: 140 }}
           >
             Cài đặt

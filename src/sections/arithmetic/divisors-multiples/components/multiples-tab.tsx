@@ -2,27 +2,28 @@
 
 import { InlineMath } from 'react-katex';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 
-import { QUICK_EXAMPLES } from '../constants';
 import { useMultiples } from '../hooks';
+import { QUICK_EXAMPLES } from '../constants';
 
 interface MultiplesTabProps {
   onAddToHistory: (item: any) => void;
 }
 
 export function MultiplesTab({ onAddToHistory }: MultiplesTabProps) {
-  const { input, setInput, limit, setLimit, result, error, calculate, clear } = useMultiples();
+  const { input, setInput, limit, setLimit, result, error, calculate, clear } =
+    useMultiples();
 
   const handleCalculate = () => {
     calculate();
@@ -111,7 +112,14 @@ export function MultiplesTab({ onAddToHistory }: MultiplesTabProps) {
             avatar={<Iconify icon="solar:list-bold" />}
           />
           <CardContent>
-            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 2, mb: 3 }}>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: 2,
+                mb: 3,
+              }}
+            >
               <Box>
                 <Typography variant="subtitle2" color="primary">
                   Số gốc:
@@ -135,15 +143,17 @@ export function MultiplesTab({ onAddToHistory }: MultiplesTabProps) {
             <Typography variant="subtitle2" gutterBottom>
               Danh sách bội số:
             </Typography>
-            <Box sx={{ 
-              display: 'flex', 
-              flexWrap: 'wrap', 
-              gap: 1,
-              p: 2,
-              bgcolor: 'background.neutral',
-              borderRadius: 1,
-              mb: 2
-            }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 1,
+                p: 2,
+                bgcolor: 'background.neutral',
+                borderRadius: 1,
+                mb: 2,
+              }}
+            >
               {result.multiples.map((multiple, index) => (
                 <Chip
                   key={multiple}
@@ -158,7 +168,8 @@ export function MultiplesTab({ onAddToHistory }: MultiplesTabProps) {
             <Alert severity="info">
               <Typography variant="body2">
                 <strong>Công thức:</strong> Bội số thứ k của n là{' '}
-                <InlineMath math="n \times k" /> với <InlineMath math="k = 1, 2, 3, ..." />
+                <InlineMath math="n \times k" /> với{' '}
+                <InlineMath math="k = 1, 2, 3, ..." />
               </Typography>
             </Alert>
           </CardContent>

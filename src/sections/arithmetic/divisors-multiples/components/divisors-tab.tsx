@@ -2,20 +2,20 @@
 
 import { InlineMath } from 'react-katex';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 
-import { QUICK_EXAMPLES } from '../constants';
 import { useDivisors } from '../hooks';
+import { QUICK_EXAMPLES } from '../constants';
 
 interface DivisorsTabProps {
   onAddToHistory: (item: any) => void;
@@ -99,7 +99,14 @@ export function DivisorsTab({ onAddToHistory }: DivisorsTabProps) {
             avatar={<Iconify icon="solar:list-bold" />}
           />
           <CardContent>
-            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 2, mb: 3 }}>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: 2,
+                mb: 3,
+              }}
+            >
               <Box>
                 <Typography variant="subtitle2" color="primary">
                   Tổng số ước:
@@ -116,13 +123,27 @@ export function DivisorsTab({ onAddToHistory }: DivisorsTabProps) {
                 <Typography variant="subtitle2" color="primary">
                   Loại số:
                 </Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 0.5 }}>
-                  {result.isPrime && <Chip label="Số nguyên tố" color="primary" size="small" />}
-                  {result.isPerfectSquare && <Chip label="Số chính phương" color="secondary" size="small" />}
-                  {result.isPerfectNumber && <Chip label="Số hoàn hảo" color="success" size="small" />}
-                  {!result.isPrime && !result.isPerfectSquare && !result.isPerfectNumber && (
-                    <Chip label="Số hợp số" color="default" size="small" />
+                <Box
+                  sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 0.5 }}
+                >
+                  {result.isPrime && (
+                    <Chip label="Số nguyên tố" color="primary" size="small" />
                   )}
+                  {result.isPerfectSquare && (
+                    <Chip
+                      label="Số chính phương"
+                      color="secondary"
+                      size="small"
+                    />
+                  )}
+                  {result.isPerfectNumber && (
+                    <Chip label="Số hoàn hảo" color="success" size="small" />
+                  )}
+                  {!result.isPrime &&
+                    !result.isPerfectSquare &&
+                    !result.isPerfectNumber && (
+                      <Chip label="Số hợp số" color="default" size="small" />
+                    )}
                 </Box>
               </Box>
             </Box>
@@ -130,21 +151,31 @@ export function DivisorsTab({ onAddToHistory }: DivisorsTabProps) {
             <Typography variant="subtitle2" gutterBottom>
               Danh sách ước số:
             </Typography>
-            <Box sx={{ 
-              display: 'flex', 
-              flexWrap: 'wrap', 
-              gap: 1,
-              p: 2,
-              bgcolor: 'background.neutral',
-              borderRadius: 1,
-              mb: 2
-            }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 1,
+                p: 2,
+                bgcolor: 'background.neutral',
+                borderRadius: 1,
+                mb: 2,
+              }}
+            >
               {result.divisors.map((divisor) => (
                 <Chip
                   key={divisor}
                   label={divisor}
-                  variant={divisor === 1 || divisor === result.number ? 'filled' : 'outlined'}
-                  color={divisor === 1 || divisor === result.number ? 'primary' : 'default'}
+                  variant={
+                    divisor === 1 || divisor === result.number
+                      ? 'filled'
+                      : 'outlined'
+                  }
+                  color={
+                    divisor === 1 || divisor === result.number
+                      ? 'primary'
+                      : 'default'
+                  }
                 />
               ))}
             </Box>
@@ -154,14 +185,16 @@ export function DivisorsTab({ onAddToHistory }: DivisorsTabProps) {
                 <Typography variant="subtitle2" gutterBottom>
                   Ước số thực sự (không bao gồm chính nó):
                 </Typography>
-                <Box sx={{ 
-                  display: 'flex', 
-                  flexWrap: 'wrap', 
-                  gap: 1,
-                  p: 2,
-                  bgcolor: 'background.neutral',
-                  borderRadius: 1
-                }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 1,
+                    p: 2,
+                    bgcolor: 'background.neutral',
+                    borderRadius: 1,
+                  }}
+                >
                   {result.properDivisors.map((divisor) => (
                     <Chip key={divisor} label={divisor} variant="outlined" />
                   ))}
@@ -172,8 +205,9 @@ export function DivisorsTab({ onAddToHistory }: DivisorsTabProps) {
             {/* Mathematical explanation */}
             <Alert severity="info" sx={{ mt: 2 }}>
               <Typography variant="body2">
-                <strong>Công thức:</strong> Để tìm ước số của n, ta tìm tất cả số i sao cho{' '}
-                <InlineMath math="n \bmod i = 0" /> với <InlineMath math="1 \leq i \leq n" />
+                <strong>Công thức:</strong> Để tìm ước số của n, ta tìm tất cả
+                số i sao cho <InlineMath math="n \bmod i = 0" /> với{' '}
+                <InlineMath math="1 \leq i \leq n" />
               </Typography>
             </Alert>
           </CardContent>

@@ -12,7 +12,10 @@ export const INITIAL_STATE = {
 
 export const MAX_HISTORY_ITEMS = 10;
 
-export const BUTTON_STYLES: Record<string, ButtonStyleConfig & { [key: string]: any }> = {
+export const BUTTON_STYLES: Record<
+  string,
+  ButtonStyleConfig & { [key: string]: any }
+> = {
   base: {
     minHeight: 50,
     fontSize: '0.9rem',
@@ -81,12 +84,12 @@ export const KEYBOARD_MAPPINGS = {
     '^': '^',
   },
   actions: {
-    'Enter': '=',
+    Enter: '=',
     '=': '=',
-    'Escape': 'clear',
-    'c': 'clear',
-    'C': 'clear',
-    'Backspace': 'backspace',
+    Escape: 'clear',
+    c: 'clear',
+    C: 'clear',
+    Backspace: 'backspace',
     '.': 'decimal',
   },
 } as const;

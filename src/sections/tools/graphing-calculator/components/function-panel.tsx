@@ -1,15 +1,18 @@
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import IconButton from '@mui/material/IconButton';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
 import { Iconify } from 'src/components/iconify';
 
-import type { GraphingCalculatorActions, GraphingCalculatorState } from '../types';
+import type {
+  GraphingCalculatorState,
+  GraphingCalculatorActions,
+} from '../types';
 
 interface FunctionPanelProps {
   state: GraphingCalculatorState;
@@ -83,9 +86,7 @@ export function FunctionPanel({ state, actions }: FunctionPanelProps) {
               >
                 <Iconify
                   icon={
-                    func.visible
-                      ? 'solar:eye-bold'
-                      : 'solar:eye-closed-bold'
+                    func.visible ? 'solar:eye-bold' : 'solar:eye-closed-bold'
                   }
                 />
               </IconButton>

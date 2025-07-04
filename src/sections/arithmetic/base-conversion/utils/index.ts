@@ -27,7 +27,11 @@ export function isValidNumber(value: string, base: number): boolean {
 /**
  * Convert a number from one base to another
  */
-export function convertBase(value: string, sourceBase: number, targetBase: number): string {
+export function convertBase(
+  value: string,
+  sourceBase: number,
+  targetBase: number
+): string {
   if (!value) return '';
 
   try {
@@ -80,8 +84,18 @@ export function generateConversionSteps(
   value: string,
   sourceBase: number,
   targetBase: number
-): Array<{ step: number; description: string; calculation: string; result: string }> {
-  const steps: Array<{ step: number; description: string; calculation: string; result: string }> = [];
+): Array<{
+  step: number;
+  description: string;
+  calculation: string;
+  result: string;
+}> {
+  const steps: Array<{
+    step: number;
+    description: string;
+    calculation: string;
+    result: string;
+  }> = [];
 
   if (sourceBase === targetBase) {
     steps.push({
@@ -111,7 +125,8 @@ export function generateConversionSteps(
 
       if (i > 0) calculation += ' + ';
       calculation += `${digit} \\times ${sourceBase}^{${i}}`;
-      if (i > 0) calculation += ` = ${digitValue} \\times ${Math.pow(sourceBase, i)}`;
+      if (i > 0)
+        calculation += ` = ${digitValue} \\times ${Math.pow(sourceBase, i)}`;
 
       decimal += digitValue * Math.pow(sourceBase, i);
     }
@@ -127,7 +142,8 @@ export function generateConversionSteps(
   }
 
   // Step 2: Convert from decimal to target base
-  const decimalValue = sourceBase === 10 ? parseInt(value) : parseInt(steps[0].result);
+  const decimalValue =
+    sourceBase === 10 ? parseInt(value) : parseInt(steps[0].result);
   if (targetBase !== 10) {
     let remaining = decimalValue;
     let calculation = '';
@@ -136,9 +152,14 @@ export function generateConversionSteps(
     while (remaining > 0) {
       const quotient = Math.floor(remaining / targetBase);
       const remainder = remaining % targetBase;
-      const remainderChar = remainder < 10 ? remainder.toString() : String.fromCharCode(65 + remainder - 10);
+      const remainderChar =
+        remainder < 10
+          ? remainder.toString()
+          : String.fromCharCode(65 + remainder - 10);
 
-      divisions.push(`${remaining} \\div ${targetBase} = ${quotient} \\text{ dư } ${remainderChar}`);
+      divisions.push(
+        `${remaining} \\div ${targetBase} = ${quotient} \\text{ dư } ${remainderChar}`
+      );
       remaining = quotient;
     }
 

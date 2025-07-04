@@ -19,7 +19,11 @@ export interface PictographActions {
   setSelectedDataSet: (dataSet: DataSetKey) => void;
   setUseCustomData: (useCustom: boolean) => void;
   addCustomCategory: () => void;
-  updateCustomCategory: (index: number, field: keyof PictographData, value: any) => void;
+  updateCustomCategory: (
+    index: number,
+    field: keyof PictographData,
+    value: any
+  ) => void;
   removeCustomCategory: (index: number) => void;
   resetCustomData: () => void;
   updateSettings: (settings: Partial<PictographSettings>) => void;

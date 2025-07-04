@@ -1,4 +1,4 @@
-import type { QuickExample, QuickPair } from './types';
+import type { QuickPair, QuickExample } from './types';
 
 // Các ví dụ nhanh cho số đơn lẻ
 export const QUICK_EXAMPLES: QuickExample[] = [

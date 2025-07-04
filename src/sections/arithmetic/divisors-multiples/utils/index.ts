@@ -1,4 +1,4 @@
-import type { DivisorResult, GcdLcmResult, MultipleResult } from '../types';
+import type { GcdLcmResult, DivisorResult, MultipleResult } from '../types';
 
 /**
  * Tìm tất cả ước số của một số
@@ -42,7 +42,7 @@ export const isPerfectSquare = (num: number): boolean => {
  */
 export const isPerfectNumber = (num: number): boolean => {
   const divisors = findAllDivisors(num);
-  const properDivisors = divisors.filter(d => d !== num);
+  const properDivisors = divisors.filter((d) => d !== num);
   const sum = properDivisors.reduce((acc, d) => acc + d, 0);
   return sum === num;
 };
@@ -62,9 +62,8 @@ export const gcd = (a: number, b: number): number => {
 /**
  * Tính LCM bằng công thức: LCM(a,b) = |a*b| / GCD(a,b)
  */
-export const lcm = (a: number, b: number): number => {
-  return Math.abs(a * b) / gcd(a, b);
-};
+export const lcm = (a: number, b: number): number =>
+  Math.abs(a * b) / gcd(a, b);
 
 /**
  * Tính GCD với các bước chi tiết
@@ -85,7 +84,7 @@ export const gcdWithSteps = (a: number, b: number): GcdLcmResult => {
   while (b !== 0) {
     const quotient = Math.floor(a / b);
     const remainder = a % b;
-    
+
     steps.push({
       step: ++stepCount,
       description: `Chia ${a} cho ${b}`,
@@ -121,7 +120,7 @@ export const gcdWithSteps = (a: number, b: number): GcdLcmResult => {
  */
 export const analyzeDivisors = (num: number): DivisorResult => {
   const divisors = findAllDivisors(num);
-  const properDivisors = divisors.filter(d => d !== num);
+  const properDivisors = divisors.filter((d) => d !== num);
   const divisorSum = divisors.reduce((acc, d) => acc + d, 0);
 
   return {

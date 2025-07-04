@@ -1,10 +1,16 @@
 // Custom hooks for prime numbers functionality
 
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import { MAX_HISTORY_ITEMS } from '../constants';
-import type { HistoryItem, PrimeCheckResult, QuickCheck } from '../types';
-import { checkPrime, findPrimesInRange, validatePrimeInput, validateRangeInput } from '../utils';
+import {
+  checkPrime,
+  findPrimesInRange,
+  validatePrimeInput,
+  validateRangeInput,
+} from '../utils';
+
+import type { QuickCheck, HistoryItem, PrimeCheckResult } from '../types';
 
 export function usePrimeChecker() {
   const [inputNumber, setInputNumber] = useState('');
@@ -40,7 +46,7 @@ export function usePrimeChecker() {
 
   const handleQuickCheck = useCallback((quickCheck: QuickCheck) => {
     setInputNumber(quickCheck.example);
-    
+
     const num = parseInt(quickCheck.example);
     const checkResult = checkPrime(num);
     setResult(checkResult);
@@ -116,19 +122,23 @@ export function usePrimeHistory() {
       isPrime,
       timestamp: new Date(),
     };
-    setHistory(prev => [historyItem, ...prev.slice(0, MAX_HISTORY_ITEMS - 1)]);
+    setHistory((prev) => [
+      historyItem,
+      ...prev.slice(0, MAX_HISTORY_ITEMS - 1),
+    ]);
   }, []);
 
   const clearHistory = useCallback(() => {
     setHistory([]);
   }, []);
 
-  const selectHistoryItem = useCallback((item: HistoryItem) => {
-    return {
+  const selectHistoryItem = useCallback(
+    (item: HistoryItem) => ({
       number: item.number.toString(),
       result: checkPrime(item.number),
-    };
-  }, []);
+    }),
+    []
+  );
 
   return {
     history,

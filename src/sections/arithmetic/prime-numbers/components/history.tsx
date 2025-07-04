@@ -1,11 +1,11 @@
 // History component for prime number checks
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 

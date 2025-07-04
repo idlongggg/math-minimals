@@ -4,12 +4,13 @@ import { InlineMath } from 'react-katex';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 
 import { BASE_INFO, QUICK_CONVERSIONS } from '../constants';
+
 import type { QuickConversion } from '../types';
 
 interface QuickConversionsProps {
@@ -63,7 +64,10 @@ export function QuickConversions({ onConversionClick }: QuickConversionsProps) {
                   />
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                  <Iconify icon="eva:arrowhead-right-fill" sx={{ color: 'primary.main' }} />
+                  <Iconify
+                    icon="eva:arrowhead-right-fill"
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Box>
               </Box>
             </CardContent>

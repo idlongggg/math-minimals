@@ -5,7 +5,10 @@ import type { DivisionResult } from '../types';
 /**
  * Calculate division with remainder and detailed steps
  */
-export function calculateDivision(dividend: number, divisor: number): DivisionResult {
+export function calculateDivision(
+  dividend: number,
+  divisor: number
+): DivisionResult {
   if (divisor === 0) {
     throw new Error('Không thể chia cho 0');
   }
@@ -47,7 +50,10 @@ export function calculateDivision(dividend: number, divisor: number): DivisionRe
 /**
  * Validate input values for division
  */
-export function validateDivisionInput(dividend: string, divisor: string): string | null {
+export function validateDivisionInput(
+  dividend: string,
+  divisor: string
+): string | null {
   if (!dividend.trim() || !divisor.trim()) {
     return 'Vui lòng nhập đầy đủ số bị chia và số chia';
   }
@@ -69,8 +75,11 @@ export function validateDivisionInput(dividend: string, divisor: string): string
 /**
  * Generate division table for given number and divisors
  */
-export function generateDivisionTable(num: number, divisors: readonly number[]) {
-  return divisors.map(divisor => ({
+export function generateDivisionTable(
+  num: number,
+  divisors: readonly number[]
+) {
+  return divisors.map((divisor) => ({
     divisor,
     quotient: Math.floor(num / divisor),
     remainder: num % divisor,

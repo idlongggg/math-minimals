@@ -2,9 +2,8 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 
 import { Iconify } from 'src/components/iconify';
@@ -12,13 +11,16 @@ import { CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayoutAndMetadata } from 'src/components/dashboard-page-layout';
 
 import {
-  QuickTools,
   PrimeGuide,
+  QuickTools,
   PrimeHistory,
+  usePrimeRange,
+  usePrimeChecker,
+  usePrimeHistory,
   PrimeCheckerForm,
   PrimeRangeFinder,
 } from './prime-numbers';
-import { usePrimeChecker, usePrimeRange, usePrimeHistory } from './prime-numbers';
+
 import type { QuickCheck } from './prime-numbers';
 
 // ----------------------------------------------------------------------
@@ -44,14 +46,17 @@ export function PrimeNumbersView() {
     primesInRange,
     error: rangeError,
     handleFindPrimes,
-    handleReset: handleResetRange,
   } = usePrimeRange();
 
-  const { history, addToHistory, clearHistory, selectHistoryItem } = usePrimeHistory();
+  const { history, addToHistory, clearHistory, selectHistoryItem } =
+    usePrimeHistory();
 
-  const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleTabChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setCurrentTab(newValue);
+    },
+    []
+  );
 
   const handleCheckWithHistory = useCallback(() => {
     const checkResult = handleCheck();
@@ -123,7 +128,10 @@ export function PrimeNumbersView() {
   );
 
   const renderQuickTools = () => (
-    <QuickTools onQuickCheck={handleQuickCheckWithHistory} onPrimeClick={handlePrimeClick} />
+    <QuickTools
+      onQuickCheck={handleQuickCheckWithHistory}
+      onPrimeClick={handlePrimeClick}
+    />
   );
 
   const renderHistory = () => (

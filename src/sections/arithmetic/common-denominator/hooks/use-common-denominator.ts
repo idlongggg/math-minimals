@@ -1,6 +1,8 @@
-import { useCallback, useState } from 'react';
-import type { CommonDenominatorResult, Fraction } from '../types';
-import { convertToCommonDenominator, parseFraction } from '../utils';
+import { useState, useCallback } from 'react';
+
+import { parseFraction, convertToCommonDenominator } from '../utils';
+
+import type { Fraction, CommonDenominatorResult } from '../types';
 
 export const useCommonDenominator = () => {
   const [fractionInputs, setFractionInputs] = useState(['', '']);
@@ -8,53 +10,59 @@ export const useCommonDenominator = () => {
   const [error, setError] = useState('');
 
   const addFractionInput = useCallback(() => {
-    setFractionInputs(prev => [...prev, '']);
+    setFractionInputs((prev) => [...prev, '']);
   }, []);
 
-  const removeFractionInput = useCallback((index: number) => {
-    if (fractionInputs.length > 2) {
-      setFractionInputs(prev => prev.filter((_, i) => i !== index));
-    }
-  }, [fractionInputs.length]);
+  const removeFractionInput = useCallback(
+    (index: number) => {
+      if (fractionInputs.length > 2) {
+        setFractionInputs((prev) => prev.filter((_, i) => i !== index));
+      }
+    },
+    [fractionInputs.length]
+  );
 
   const updateFractionInput = useCallback((index: number, value: string) => {
-    setFractionInputs(prev => {
+    setFractionInputs((prev) => {
       const newInputs = [...prev];
       newInputs[index] = value;
       return newInputs;
     });
   }, []);
 
-  const calculate = useCallback((inputValues?: string[]) => {
-    const inputs = inputValues || fractionInputs;
-    setError('');
+  const calculate = useCallback(
+    (inputValues?: string[]) => {
+      const inputs = inputValues || fractionInputs;
+      setError('');
 
-    try {
-      // Parse tất cả phân số
-      const fractions: Fraction[] = [];
-      for (const input of inputs) {
-        if (input.trim()) {
-          const fraction = parseFraction(input);
-          if (!fraction) {
-            setError(`Phân số "${input}" không hợp lệ`);
-            return;
+      try {
+        // Parse tất cả phân số
+        const fractions: Fraction[] = [];
+        for (const input of inputs) {
+          if (input.trim()) {
+            const fraction = parseFraction(input);
+            if (!fraction) {
+              setError(`Phân số "${input}" không hợp lệ`);
+              return;
+            }
+            fractions.push(fraction);
           }
-          fractions.push(fraction);
         }
-      }
 
-      if (fractions.length < 2) {
-        setError('Cần ít nhất 2 phân số để tìm mẫu số chung');
-        return;
-      }
+        if (fractions.length < 2) {
+          setError('Cần ít nhất 2 phân số để tìm mẫu số chung');
+          return;
+        }
 
-      // Tính mẫu số chung
-      const result = convertToCommonDenominator(fractions);
-      setResult(result);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Có lỗi xảy ra');
-    }
-  }, [fractionInputs]);
+        // Tính mẫu số chung
+        const calculatedResult = convertToCommonDenominator(fractions);
+        setResult(calculatedResult);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Có lỗi xảy ra');
+      }
+    },
+    [fractionInputs]
+  );
 
   const clear = useCallback(() => {
     setFractionInputs(['', '']);
@@ -62,10 +70,13 @@ export const useCommonDenominator = () => {
     setError('');
   }, []);
 
-  const setQuickExample = useCallback((example: string[]) => {
-    setFractionInputs([...example]);
-    calculate(example);
-  }, [calculate]);
+  const setQuickExample = useCallback(
+    (example: string[]) => {
+      setFractionInputs([...example]);
+      calculate(example);
+    },
+    [calculate]
+  );
 
   return {
     fractionInputs,

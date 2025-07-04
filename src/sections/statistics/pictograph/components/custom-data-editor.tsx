@@ -1,18 +1,21 @@
-import { Icon } from '@iconify/react';
-import Box from '@mui/material/Box';
-import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import { alpha, useTheme } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-
-import { CustomCard } from 'src/components/custom-card';
 import type { PictographData } from 'src/components/pictograph-chart';
 
-import { AVAILABLE_COLORS, AVAILABLE_ICONS } from '../constants';
+import { Icon } from '@iconify/react';
+
+import Box from '@mui/material/Box';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import InputLabel from '@mui/material/InputLabel';
+import Typography from '@mui/material/Typography';
+import FormControl from '@mui/material/FormControl';
+import { alpha, useTheme } from '@mui/material/styles';
+
+import { CustomCard } from 'src/components/custom-card';
+
+import { AVAILABLE_ICONS, AVAILABLE_COLORS } from '../constants';
+
 import type { PictographActions } from '../types';
 
 interface CustomDataEditorProps {
@@ -20,7 +23,10 @@ interface CustomDataEditorProps {
   actions: PictographActions;
 }
 
-export function CustomDataEditor({ customData, actions }: CustomDataEditorProps) {
+export function CustomDataEditor({
+  customData,
+  actions,
+}: CustomDataEditorProps) {
   const theme = useTheme();
 
   return (
@@ -33,9 +39,7 @@ export function CustomDataEditor({ customData, actions }: CustomDataEditorProps)
           mb: 2,
         }}
       >
-        <Typography variant="subtitle2">
-          Dữ liệu tùy chỉnh
-        </Typography>
+        <Typography variant="subtitle2">Dữ liệu tùy chỉnh</Typography>
         <IconButton
           size="small"
           onClick={actions.addCustomCategory}
@@ -120,7 +124,11 @@ export function CustomDataEditor({ customData, actions }: CustomDataEditorProps)
             type="number"
             value={item.value}
             onChange={(e) =>
-              actions.updateCustomCategory(index, 'value', Number(e.target.value))
+              actions.updateCustomCategory(
+                index,
+                'value',
+                Number(e.target.value)
+              )
             }
             sx={{ mb: 1, width: '100%' }}
           />

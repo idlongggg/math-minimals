@@ -3,14 +3,15 @@
 import { InlineMath } from 'react-katex';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 
 import { BASE_NAMES } from '../constants';
+
 import type { HistoryItem } from '../types';
 
 interface ConversionHistoryProps {
@@ -87,7 +88,14 @@ export function ConversionHistory({
                     gap: 2,
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2,
+                      flex: 1,
+                    }}
+                  >
                     <Box
                       sx={{
                         display: 'flex',
@@ -99,21 +107,48 @@ export function ConversionHistory({
                       }}
                     >
                       <Box component="span" sx={{ fontWeight: 'bold' }}>
-                        <InlineMath math={`${item.input}_{(${item.fromBase})}`} />
+                        <InlineMath
+                          math={`${item.input}_{(${item.fromBase})}`}
+                        />
                       </Box>
-                      <Iconify icon="eva:arrow-forward-fill" sx={{ color: 'text.secondary' }} />
-                      <Box component="span" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
-                        <InlineMath math={`${item.result}_{(${item.toBase})}`} />
+                      <Iconify
+                        icon="eva:arrow-forward-fill"
+                        sx={{ color: 'text.secondary' }}
+                      />
+                      <Box
+                        component="span"
+                        sx={{ fontWeight: 'bold', color: 'primary.main' }}
+                      >
+                        <InlineMath
+                          math={`${item.result}_{(${item.toBase})}`}
+                        />
                       </Box>
                     </Box>
                   </Box>
-                  
-                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 0.5 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, fontSize: '0.8rem' }}>
+
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-end',
+                      gap: 0.5,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1,
+                        fontSize: '0.8rem',
+                      }}
+                    >
                       <Typography variant="caption" color="text.secondary">
                         {BASE_NAMES[item.fromBase] || `Cơ số ${item.fromBase}`}
                       </Typography>
-                      <Iconify icon="eva:arrow-forward-fill" sx={{ fontSize: 12, color: 'text.disabled' }} />
+                      <Iconify
+                        icon="eva:arrow-forward-fill"
+                        sx={{ fontSize: 12, color: 'text.disabled' }}
+                      />
                       <Typography variant="caption" color="text.secondary">
                         {BASE_NAMES[item.toBase] || `Cơ số ${item.toBase}`}
                       </Typography>

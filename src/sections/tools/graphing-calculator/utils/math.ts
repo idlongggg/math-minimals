@@ -54,34 +54,58 @@ export function generatePoints(
 /**
  * Transform mathematical coordinates to canvas coordinates
  */
-export function transformX(x: number, xMin: number, xMax: number, width: number): number {
+export function transformX(
+  x: number,
+  xMin: number,
+  xMax: number,
+  width: number
+): number {
   return ((x - xMin) / (xMax - xMin)) * width;
 }
 
-export function transformY(y: number, yMin: number, yMax: number, height: number): number {
+export function transformY(
+  y: number,
+  yMin: number,
+  yMax: number,
+  height: number
+): number {
   return height - ((y - yMin) / (yMax - yMin)) * height;
 }
 
 /**
  * Transform canvas coordinates back to mathematical coordinates
  */
-export function inverseTransformX(canvasX: number, xMin: number, xMax: number, width: number): number {
+export function inverseTransformX(
+  canvasX: number,
+  xMin: number,
+  xMax: number,
+  width: number
+): number {
   return xMin + (canvasX / width) * (xMax - xMin);
 }
 
-export function inverseTransformY(canvasY: number, yMin: number, yMax: number, height: number): number {
+export function inverseTransformY(
+  canvasY: number,
+  yMin: number,
+  yMax: number,
+  height: number
+): number {
   return yMax - (canvasY / height) * (yMax - yMin);
 }
 
 /**
  * Calculate optimal grid step size
  */
-export function calculateGridStep(min: number, max: number, divisions: number = 10): number {
+export function calculateGridStep(
+  min: number,
+  max: number,
+  divisions: number = 10
+): number {
   const range = max - min;
   const roughStep = range / divisions;
   const magnitude = Math.pow(10, Math.floor(Math.log10(roughStep)));
   const normalizedStep = roughStep / magnitude;
-  
+
   if (normalizedStep <= 1) return magnitude;
   if (normalizedStep <= 2) return 2 * magnitude;
   if (normalizedStep <= 5) return 5 * magnitude;
@@ -103,7 +127,10 @@ export function isPointInBounds(
 /**
  * Validate mathematical expression
  */
-export function validateExpression(expression: string): { isValid: boolean; error?: string } {
+export function validateExpression(expression: string): {
+  isValid: boolean;
+  error?: string;
+} {
   if (!expression.trim()) {
     return { isValid: false, error: 'Expression cannot be empty' };
   }
@@ -121,7 +148,7 @@ export function validateExpression(expression: string): { isValid: boolean; erro
       return { isValid: false, error: 'Expression is not valid' };
     }
     return { isValid: true };
-  } catch (error) {
+  } catch {
     return { isValid: false, error: 'Expression evaluation failed' };
   }
 }

@@ -1,15 +1,20 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import Slider from '@mui/material/Slider';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
 import { useCallback } from 'react';
 
-import { CANVAS_CONFIG } from '../constants';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import Button from '@mui/material/Button';
+import Slider from '@mui/material/Slider';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+
 import { useCanvasDrawing } from '../hooks';
-import type { GraphingCalculatorActions, GraphingCalculatorState } from '../types';
+import { CANVAS_CONFIG } from '../constants';
 import { inverseTransformX, inverseTransformY } from '../utils';
+
+import type {
+  GraphingCalculatorState,
+  GraphingCalculatorActions,
+} from '../types';
 
 interface GraphCanvasProps {
   state: GraphingCalculatorState;
@@ -30,8 +35,18 @@ export function GraphCanvas({ state, actions }: GraphCanvasProps) {
       const canvasY = event.clientY - rect.top;
 
       // Transform back to mathematical coordinates
-      const x = inverseTransformX(canvasX, state.bounds.xMin, state.bounds.xMax, canvas.width);
-      const y = inverseTransformY(canvasY, state.bounds.yMin, state.bounds.yMax, canvas.height);
+      const x = inverseTransformX(
+        canvasX,
+        state.bounds.xMin,
+        state.bounds.xMax,
+        canvas.width
+      );
+      const y = inverseTransformY(
+        canvasY,
+        state.bounds.yMin,
+        state.bounds.yMax,
+        canvas.height
+      );
 
       actions.setHoveredPoint({ x, y });
     },
@@ -61,7 +76,9 @@ export function GraphCanvas({ state, actions }: GraphCanvasProps) {
           <Button
             size="small"
             variant={state.settings.gridVisible ? 'contained' : 'outlined'}
-            onClick={() => actions.setSettings({ gridVisible: !state.settings.gridVisible })}
+            onClick={() =>
+              actions.setSettings({ gridVisible: !state.settings.gridVisible })
+            }
           >
             Lưới
           </Button>

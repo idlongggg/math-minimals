@@ -1,22 +1,22 @@
 import { BlockMath } from 'react-katex';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 
 import { QUICK_OPERATIONS } from '../constants';
 import {
-    addFractions,
-    divideFractions,
-    formatFraction,
-    fractionToDecimal,
-    multiplyFractions,
-    subtractFractions,
+  addFractions,
+  formatFraction,
+  divideFractions,
+  fractionToDecimal,
+  multiplyFractions,
+  subtractFractions,
 } from '../utils';
 
 import type { QuickOperation } from '../types';

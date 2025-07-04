@@ -3,14 +3,14 @@
 import { InlineMath } from 'react-katex';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
-import InputAdornment from '@mui/material/InputAdornment';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import InputAdornment from '@mui/material/InputAdornment';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -91,7 +91,11 @@ export function DivisionCalculatorForm({
                     textAlign: 'center',
                   }}
                 >
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
                     Phép chia:
                   </Typography>
                   <Box component="div" sx={{ fontSize: '1.2rem' }}>
@@ -120,7 +124,11 @@ export function DivisionCalculatorForm({
                     textAlign: 'center',
                   }}
                 >
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
                     Kết quả phép chia:
                   </Typography>
                   <Box component="div" sx={{ fontSize: '1.5rem', mb: 2 }}>
@@ -165,7 +173,11 @@ export function DivisionCalculatorForm({
                     textAlign: 'center',
                   }}
                 >
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    gutterBottom
+                  >
                     Công thức tổng quát:
                   </Typography>
                   <Box component="div" sx={{ fontSize: '1.1rem' }}>

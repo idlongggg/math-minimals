@@ -1,11 +1,12 @@
 import { CANVAS_CONFIG } from '../constants';
-import type { GraphBounds, HoveredPoint } from '../types';
 import {
-    calculateGridStep,
-    isPointInBounds,
-    transformX,
-    transformY,
+  transformX,
+  transformY,
+  isPointInBounds,
+  calculateGridStep,
 } from './math';
+
+import type { GraphBounds, HoveredPoint } from '../types';
 
 /**
  * Draw grid lines on canvas
@@ -17,7 +18,7 @@ export function drawGrid(
   height: number
 ): void {
   const { xMin, xMax, yMin, yMax } = bounds;
-  
+
   ctx.strokeStyle = CANVAS_CONFIG.gridColor;
   ctx.lineWidth = CANVAS_CONFIG.gridLineWidth;
 
@@ -52,7 +53,7 @@ export function drawAxes(
   height: number
 ): void {
   const { xMin, xMax, yMin, yMax } = bounds;
-  
+
   ctx.strokeStyle = CANVAS_CONFIG.axisColor;
   ctx.lineWidth = CANVAS_CONFIG.axisLineWidth;
 
@@ -89,13 +90,13 @@ export function drawFunction(
   if (points.length === 0) return;
 
   const { xMin, xMax, yMin, yMax } = bounds;
-  
+
   ctx.strokeStyle = color;
   ctx.lineWidth = CANVAS_CONFIG.lineWidth;
   ctx.beginPath();
 
   let isFirstPoint = true;
-  
+
   for (const point of points) {
     const canvasX = transformX(point.x, xMin, xMax, width);
     const canvasY = transformY(point.y, yMin, yMax, height);
@@ -127,7 +128,7 @@ export function drawHoveredPoint(
   height: number
 ): void {
   const { xMin, xMax, yMin, yMax } = bounds;
-  
+
   const canvasX = transformX(point.x, xMin, xMax, width);
   const canvasY = transformY(point.y, yMin, yMax, height);
 

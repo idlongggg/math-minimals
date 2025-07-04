@@ -9,11 +9,11 @@ interface CalculatorDisplayProps {
   onToggleAngleMode: () => void;
 }
 
-export function CalculatorDisplay({ 
-  display, 
-  isRadianMode, 
-  memory, 
-  onToggleAngleMode 
+export function CalculatorDisplay({
+  display,
+  isRadianMode,
+  memory,
+  onToggleAngleMode,
 }: CalculatorDisplayProps) {
   return (
     <>

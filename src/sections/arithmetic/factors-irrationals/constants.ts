@@ -1,4 +1,4 @@
-import type { IrrationalNumber, QuickFactorization, QuickPair } from './types';
+import type { QuickPair, IrrationalNumber, QuickFactorization } from './types';
 
 export const QUICK_FACTORIZATIONS: QuickFactorization[] = [
   { label: 'Số nhỏ', example: '12' },

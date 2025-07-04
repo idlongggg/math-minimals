@@ -1,16 +1,15 @@
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
+
 import { INITIAL_STATE } from '../constants';
-import type {
-    BasicCalculatorState,
-    UseBasicCalculatorReturn
-} from '../types';
-import { calculate, formatDisplayValue, safeParseFloat } from '../utils';
+import { calculate, safeParseFloat, formatDisplayValue } from '../utils';
+
+import type { BasicCalculatorState, UseBasicCalculatorReturn } from '../types';
 
 export function useBasicCalculator(): UseBasicCalculatorReturn {
   const [state, setState] = useState<BasicCalculatorState>(INITIAL_STATE);
 
   const inputDigit = useCallback((digit: string) => {
-    setState(prev => {
+    setState((prev) => {
       if (prev.waitingForOperand) {
         return {
           ...prev,
@@ -18,7 +17,7 @@ export function useBasicCalculator(): UseBasicCalculatorReturn {
           waitingForOperand: false,
         };
       }
-      
+
       return {
         ...prev,
         display: prev.display === '0' ? digit : prev.display + digit,
@@ -27,7 +26,7 @@ export function useBasicCalculator(): UseBasicCalculatorReturn {
   }, []);
 
   const inputDecimal = useCallback(() => {
-    setState(prev => {
+    setState((prev) => {
       if (prev.waitingForOperand) {
         return {
           ...prev,
@@ -35,14 +34,14 @@ export function useBasicCalculator(): UseBasicCalculatorReturn {
           waitingForOperand: false,
         };
       }
-      
+
       if (prev.display.indexOf('.') === -1) {
         return {
           ...prev,
           display: prev.display + '.',
         };
       }
-      
+
       return prev;
     });
   }, []);
@@ -52,7 +51,7 @@ export function useBasicCalculator(): UseBasicCalculatorReturn {
   }, []);
 
   const performOperation = useCallback((nextOperation: string) => {
-    setState(prev => {
+    setState((prev) => {
       const inputValue = safeParseFloat(prev.display);
 
       if (prev.previousValue === null) {
@@ -63,7 +62,7 @@ export function useBasicCalculator(): UseBasicCalculatorReturn {
           operation: nextOperation,
         };
       }
-      
+
       if (prev.operation) {
         const currentValue = prev.previousValue || 0;
         const newValue = calculate(currentValue, inputValue, prev.operation);
@@ -86,7 +85,7 @@ export function useBasicCalculator(): UseBasicCalculatorReturn {
   }, []);
 
   const backspace = useCallback(() => {
-    setState(prev => {
+    setState((prev) => {
       if (prev.display.length > 1) {
         return { ...prev, display: prev.display.slice(0, -1) };
       }

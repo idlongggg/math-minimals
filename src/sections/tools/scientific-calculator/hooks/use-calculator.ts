@@ -1,35 +1,37 @@
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
+
 import { INITIAL_STATE, MAX_HISTORY_ITEMS } from '../constants';
-import type {
-    CalculatorHookReturn,
-    CalculatorState,
-    MemoryAction,
-    ScientificFunction
-} from '../types';
 import {
-    calculate,
-    formatCalculationForHistory,
-    formatDisplayValue,
-    performScientificCalculation,
-    safeParseFloat,
+  calculate,
+  safeParseFloat,
+  formatDisplayValue,
+  formatCalculationForHistory,
+  performScientificCalculation,
 } from '../utils';
+
+import type {
+  MemoryAction,
+  CalculatorState,
+  ScientificFunction,
+  CalculatorHookReturn,
+} from '../types';
 
 export function useCalculator(): CalculatorHookReturn {
   const [state, setState] = useState<CalculatorState>(INITIAL_STATE);
 
   const updateState = useCallback((updates: Partial<CalculatorState>) => {
-    setState(prev => ({ ...prev, ...updates }));
+    setState((prev) => ({ ...prev, ...updates }));
   }, []);
 
   const addToHistory = useCallback((calculation: string) => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
-      history: [calculation, ...prev.history.slice(0, MAX_HISTORY_ITEMS - 1)]
+      history: [calculation, ...prev.history.slice(0, MAX_HISTORY_ITEMS - 1)],
     }));
   }, []);
 
   const inputDigit = useCallback((digit: string) => {
-    setState(prev => {
+    setState((prev) => {
       if (prev.waitingForOperand) {
         return {
           ...prev,
@@ -37,7 +39,7 @@ export function useCalculator(): CalculatorHookReturn {
           waitingForOperand: false,
         };
       }
-      
+
       return {
         ...prev,
         display: prev.display === '0' ? digit : prev.display + digit,
@@ -46,7 +48,7 @@ export function useCalculator(): CalculatorHookReturn {
   }, []);
 
   const inputDecimal = useCallback(() => {
-    setState(prev => {
+    setState((prev) => {
       if (prev.waitingForOperand) {
         return {
           ...prev,
@@ -54,14 +56,14 @@ export function useCalculator(): CalculatorHookReturn {
           waitingForOperand: false,
         };
       }
-      
+
       if (prev.display.indexOf('.') === -1) {
         return {
           ...prev,
           display: prev.display + '.',
         };
       }
-      
+
       return prev;
     });
   }, []);
@@ -79,90 +81,107 @@ export function useCalculator(): CalculatorHookReturn {
     setState({ ...INITIAL_STATE });
   }, []);
 
-  const performOperation = useCallback((nextOperation: string) => {
-    setState(prev => {
-      const inputValue = safeParseFloat(prev.display);
+  const performOperation = useCallback(
+    (nextOperation: string) => {
+      setState((prev) => {
+        const inputValue = safeParseFloat(prev.display);
 
-      if (prev.previousValue === null) {
-        return {
-          ...prev,
-          previousValue: inputValue,
-          waitingForOperand: true,
-          operation: nextOperation,
-        };
-      }
-      
-      if (prev.operation) {
-        const currentValue = prev.previousValue || 0;
-        const newValue = calculate(currentValue, inputValue, prev.operation);
-
-        if (nextOperation === '=') {
-          addToHistory(
-            `${currentValue} ${prev.operation} ${inputValue} = ${newValue}`
-          );
-        }
-
-        return {
-          ...prev,
-          display: formatDisplayValue(newValue),
-          previousValue: newValue,
-          waitingForOperand: true,
-          operation: nextOperation,
-        };
-      }
-
-      return {
-        ...prev,
-        waitingForOperand: true,
-        operation: nextOperation,
-      };
-    });
-  }, [addToHistory]);
-
-  const performScientificOperation = useCallback((func: ScientificFunction) => {
-    setState(prev => {
-      const inputValue = safeParseFloat(prev.display);
-      let result: number;
-
-      if (func === 'power') {
-        if (prev.previousValue !== null) {
-          result = Math.pow(prev.previousValue, inputValue);
-          addToHistory(formatCalculationForHistory(func, inputValue, result, prev.previousValue));
-          
+        if (prev.previousValue === null) {
           return {
             ...prev,
-            display: formatDisplayValue(result),
-            previousValue: null,
-            operation: null,
+            previousValue: inputValue,
             waitingForOperand: true,
+            operation: nextOperation,
           };
         }
-        return prev;
-      }
 
-      result = performScientificCalculation(func, inputValue, prev.isRadianMode);
-      addToHistory(formatCalculationForHistory(func, inputValue, result));
+        if (prev.operation) {
+          const currentValue = prev.previousValue || 0;
+          const newValue = calculate(currentValue, inputValue, prev.operation);
 
-      return {
-        ...prev,
-        display: formatDisplayValue(result),
-        waitingForOperand: true,
-      };
-    });
-  }, [addToHistory]);
+          if (nextOperation === '=') {
+            addToHistory(
+              `${currentValue} ${prev.operation} ${inputValue} = ${newValue}`
+            );
+          }
+
+          return {
+            ...prev,
+            display: formatDisplayValue(newValue),
+            previousValue: newValue,
+            waitingForOperand: true,
+            operation: nextOperation,
+          };
+        }
+
+        return {
+          ...prev,
+          waitingForOperand: true,
+          operation: nextOperation,
+        };
+      });
+    },
+    [addToHistory]
+  );
+
+  const performScientificOperation = useCallback(
+    (func: ScientificFunction) => {
+      setState((prev) => {
+        const inputValue = safeParseFloat(prev.display);
+        let result: number;
+
+        if (func === 'power') {
+          if (prev.previousValue !== null) {
+            result = Math.pow(prev.previousValue, inputValue);
+            addToHistory(
+              formatCalculationForHistory(
+                func,
+                inputValue,
+                result,
+                prev.previousValue
+              )
+            );
+
+            return {
+              ...prev,
+              display: formatDisplayValue(result),
+              previousValue: null,
+              operation: null,
+              waitingForOperand: true,
+            };
+          }
+          return prev;
+        }
+
+        result = performScientificCalculation(
+          func,
+          inputValue,
+          prev.isRadianMode
+        );
+        addToHistory(formatCalculationForHistory(func, inputValue, result));
+
+        return {
+          ...prev,
+          display: formatDisplayValue(result),
+          waitingForOperand: true,
+        };
+      });
+    },
+    [addToHistory]
+  );
 
   const handleMemory = useCallback((action: MemoryAction) => {
-    setState(prev => {
+    setState((prev) => {
       const currentValue = safeParseFloat(prev.display);
-      
+
       switch (action) {
         case 'MC':
           return { ...prev, memory: 0 };
         case 'MR':
-          return { 
-            ...prev, 
+          return {
+            ...prev,
             display: formatDisplayValue(prev.memory),
-            waitingForOperand: true 
+            waitingForOperand: true,
           };
         case 'MS':
           return { ...prev, memory: currentValue };
@@ -184,29 +203,32 @@ export function useCalculator(): CalculatorHookReturn {
     updateState({ history: [] });
   }, [updateState]);
 
-  const setDisplayFromHistory = useCallback((value: string) => {
-    updateState({ 
-      display: value,
-      waitingForOperand: true 
-    });
-  }, [updateState]);
+  const setDisplayFromHistory = useCallback(
+    (value: string) => {
+      updateState({
+        display: value,
+        waitingForOperand: true,
+      });
+    },
+    [updateState]
+  );
 
   const toggleSign = useCallback(() => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       display: formatDisplayValue(-safeParseFloat(prev.display)),
     }));
   }, []);
 
   const absoluteValue = useCallback(() => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       display: formatDisplayValue(Math.abs(safeParseFloat(prev.display))),
     }));
   }, []);
 
   const backspace = useCallback(() => {
-    setState(prev => {
+    setState((prev) => {
       if (prev.display.length > 1) {
         return { ...prev, display: prev.display.slice(0, -1) };
       }

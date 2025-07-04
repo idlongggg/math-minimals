@@ -10,11 +10,20 @@ export interface CalculatorState {
 
 export type Operation = '+' | '-' | '×' | '÷' | 'mod' | '^' | '=';
 
-export type ScientificFunction = 
-  | 'sin' | 'cos' | 'tan' 
-  | 'log' | 'ln' 
-  | 'sqrt' | 'square' | 'factorial' | 'reciprocal' 
-  | 'pi' | 'e' | 'exp' | 'power';
+export type ScientificFunction =
+  | 'sin'
+  | 'cos'
+  | 'tan'
+  | 'log'
+  | 'ln'
+  | 'sqrt'
+  | 'square'
+  | 'factorial'
+  | 'reciprocal'
+  | 'pi'
+  | 'e'
+  | 'exp'
+  | 'power';
 
 export type MemoryAction = 'MC' | 'MR' | 'MS' | 'M+' | 'M-';
 

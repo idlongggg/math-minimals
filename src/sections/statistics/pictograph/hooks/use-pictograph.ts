@@ -1,17 +1,20 @@
-import { useCallback, useState } from 'react';
 import type { PictographData } from 'src/components/pictograph-chart';
+
+import { useState, useCallback } from 'react';
+
 import {
-    AVAILABLE_COLORS,
-    AVAILABLE_ICONS,
-    DEFAULT_SETTINGS,
-    SAMPLE_DATA_SETS
+  AVAILABLE_ICONS,
+  AVAILABLE_COLORS,
+  DEFAULT_SETTINGS,
+  SAMPLE_DATA_SETS,
 } from '../constants';
+
 import type {
-    DataSetKey,
-    PictographActions,
-    PictographSettings,
-    PictographState,
-    UsePictographReturn
+  DataSetKey,
+  PictographState,
+  PictographActions,
+  PictographSettings,
+  UsePictographReturn,
 } from '../types';
 
 const INITIAL_CUSTOM_DATA: PictographData[] = [
@@ -27,22 +30,25 @@ export function usePictograph(): UsePictographReturn {
   });
 
   const setSelectedDataSet = useCallback((dataSet: DataSetKey) => {
-    setState(prev => ({ ...prev, selectedDataSet: dataSet }));
+    setState((prev) => ({ ...prev, selectedDataSet: dataSet }));
   }, []);
 
   const setUseCustomData = useCallback((useCustom: boolean) => {
-    setState(prev => ({ ...prev, useCustomData: useCustom }));
+    setState((prev) => ({ ...prev, useCustomData: useCustom }));
   }, []);
 
   const addCustomCategory = useCallback(() => {
-    setState(prev => {
+    setState((prev) => {
       const newCategory: PictographData = {
         category: `Danh mục ${String.fromCharCode(65 + prev.customData.length)}`,
         value: 5,
-        icon: AVAILABLE_ICONS[Math.floor(Math.random() * AVAILABLE_ICONS.length)],
-        color: AVAILABLE_COLORS[prev.customData.length % AVAILABLE_COLORS.length],
+        icon: AVAILABLE_ICONS[
+          Math.floor(Math.random() * AVAILABLE_ICONS.length)
+        ],
+        color:
+          AVAILABLE_COLORS[prev.customData.length % AVAILABLE_COLORS.length],
       };
-      
+
       return {
         ...prev,
         customData: [...prev.customData, newCategory],
@@ -50,45 +56,47 @@ export function usePictograph(): UsePictographReturn {
     });
   }, []);
 
-  const updateCustomCategory = useCallback((
-    index: number, 
-    field: keyof PictographData, 
-    value: any
-  ) => {
-    setState(prev => {
-      const updated = [...prev.customData];
-      updated[index] = { ...updated[index], [field]: value };
-      
-      return {
-        ...prev,
-        customData: updated,
-      };
-    });
-  }, []);
+  const updateCustomCategory = useCallback(
+    (index: number, field: keyof PictographData, value: any) => {
+      setState((prev) => {
+        const updated = [...prev.customData];
+        updated[index] = { ...updated[index], [field]: value };
+
+        return {
+          ...prev,
+          customData: updated,
+        };
+      });
+    },
+    []
+  );
 
   const removeCustomCategory = useCallback((index: number) => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       customData: prev.customData.filter((_, i) => i !== index),
     }));
   }, []);
 
   const resetCustomData = useCallback(() => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       customData: INITIAL_CUSTOM_DATA,
     }));
   }, []);
 
-  const updateSettings = useCallback((settings: Partial<PictographSettings>) => {
-    setState(prev => ({
-      ...prev,
-      settings: { ...prev.settings, ...settings },
-    }));
-  }, []);
+  const updateSettings = useCallback(
+    (settings: Partial<PictographSettings>) => {
+      setState((prev) => ({
+        ...prev,
+        settings: { ...prev.settings, ...settings },
+      }));
+    },
+    []
+  );
 
-  const currentData = state.useCustomData 
-    ? state.customData 
+  const currentData = state.useCustomData
+    ? state.customData
     : SAMPLE_DATA_SETS[state.selectedDataSet];
 
   const actions: PictographActions = {

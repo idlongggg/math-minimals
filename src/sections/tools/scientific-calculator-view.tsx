@@ -6,21 +6,21 @@ import { useTheme } from '@mui/material/styles';
 
 import { DashboardPageLayout } from 'src/components/dashboard-page-layout';
 
-import {
-    BasicButtons,
-    CalculatorDisplay,
-    CalculatorHistory,
-    KeyboardInstructions,
-    ScientificButtons,
-} from './scientific-calculator/components';
 import { useCalculator, useKeyboardInput } from './scientific-calculator/hooks';
+import {
+  BasicButtons,
+  CalculatorDisplay,
+  CalculatorHistory,
+  ScientificButtons,
+  KeyboardInstructions,
+} from './scientific-calculator/components';
 
 // ----------------------------------------------------------------------
 
 export function ScientificCalculatorView() {
   const theme = useTheme();
   const { state, actions } = useCalculator();
-  
+
   // Enable keyboard input
   useKeyboardInput(actions);
 

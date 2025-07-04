@@ -1,12 +1,16 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
+
 import { KEYBOARD_MAPPINGS } from '../constants';
+
 import type { CalculatorHookReturn } from '../types';
 
-export function useKeyboardInput(calculatorActions: CalculatorHookReturn['actions']) {
+export function useKeyboardInput(
+  calculatorActions: CalculatorHookReturn['actions']
+) {
   const handleKeyPress = useCallback(
     (event: KeyboardEvent) => {
       const key = event.key;
-      const { digits, operators, actions } = KEYBOARD_MAPPINGS;
+      const { operators } = KEYBOARD_MAPPINGS;
 
       // Handle digits
       if (key >= '0' && key <= '9') {
@@ -19,7 +23,9 @@ export function useKeyboardInput(calculatorActions: CalculatorHookReturn['action
         if (key === '/') {
           event.preventDefault(); // Prevent default browser search
         }
-        calculatorActions.performOperation(operators[key as keyof typeof operators]);
+        calculatorActions.performOperation(
+          operators[key as keyof typeof operators]
+        );
         return;
       }
 
@@ -50,7 +56,7 @@ export function useKeyboardInput(calculatorActions: CalculatorHookReturn['action
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
-    
+
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };

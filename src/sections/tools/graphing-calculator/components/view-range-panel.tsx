@@ -1,10 +1,13 @@
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
-import type { GraphingCalculatorActions, GraphingCalculatorState } from '../types';
+import type {
+  GraphingCalculatorState,
+  GraphingCalculatorActions,
+} from '../types';
 
 interface ViewRangePanelProps {
   state: GraphingCalculatorState;
@@ -28,9 +31,7 @@ export function ViewRangePanel({ state, actions }: ViewRangePanelProps) {
         Phạm vi hiển thị
       </Typography>
 
-      <Box
-        sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}
-      >
+      <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
         <TextField
           label="X min"
           type="number"

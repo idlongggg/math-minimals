@@ -1,18 +1,25 @@
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 import { QUICK_FUNCTIONS } from '../constants';
-import type { GraphingCalculatorActions, GraphingCalculatorState } from '../types';
+
+import type {
+  GraphingCalculatorState,
+  GraphingCalculatorActions,
+} from '../types';
 
 interface QuickFunctionsPanelProps {
   state: GraphingCalculatorState;
   actions: GraphingCalculatorActions;
 }
 
-export function QuickFunctionsPanel({ state, actions }: QuickFunctionsPanelProps) {
+export function QuickFunctionsPanel({
+  state,
+  actions,
+}: QuickFunctionsPanelProps) {
   const theme = useTheme();
 
   const cardStyle = {
@@ -24,7 +31,7 @@ export function QuickFunctionsPanel({ state, actions }: QuickFunctionsPanelProps
   };
 
   const selectedFunction = state.functions.find(
-    func => func.id === state.selectedFunctionId
+    (func) => func.id === state.selectedFunctionId
   );
 
   const handleQuickFunction = (expr: string) => {

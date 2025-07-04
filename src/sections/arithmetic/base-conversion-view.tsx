@@ -2,7 +2,7 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -14,20 +14,23 @@ import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layou
 
 import {
   ConversionSteps,
-  ConversionHistory,
   QuickConversions,
+  useBaseConverter,
   BaseConverterForm,
-  BaseConverterActions,
+  ConversionHistory,
   BaseConversionGuide,
+  BaseConverterActions,
+  useConversionHistory,
 } from './base-conversion';
-import { useBaseConverter, useConversionHistory } from './base-conversion';
+
 import type { ConversionResult } from './base-conversion';
 
 // ----------------------------------------------------------------------
 
 export function BaseConversionView() {
   const [currentTab, setCurrentTab] = useState('converter');
-  const [conversionResult, setConversionResult] = useState<ConversionResult | null>(null);
+  const [conversionResult, setConversionResult] =
+    useState<ConversionResult | null>(null);
 
   const {
     inputValue,
@@ -36,7 +39,7 @@ export function BaseConversionView() {
     setFromBase,
     toBase,
     setToBase,
-    result,
+    result: hookResult,
     error,
     handleConvert,
     handleReset,
@@ -44,26 +47,30 @@ export function BaseConversionView() {
     handleSwapBases,
   } = useBaseConverter();
 
-  const { history, addToHistory, clearHistory, selectHistoryItem } = useConversionHistory();
+  const { history, addToHistory, clearHistory, selectHistoryItem } =
+    useConversionHistory();
 
-  const handleTabChange = useCallback((event: React.SyntheticEvent, newValue: string) => {
-    setCurrentTab(newValue);
-  }, []);
+  const handleTabChange = useCallback(
+    (event: React.SyntheticEvent, newValue: string) => {
+      setCurrentTab(newValue);
+    },
+    []
+  );
 
   const handleConvertWithHistory = useCallback(() => {
-    const conversionResult = handleConvert();
-    if (conversionResult) {
-      setConversionResult(conversionResult);
-      addToHistory(conversionResult);
+    const result = handleConvert();
+    if (result) {
+      setConversionResult(result);
+      addToHistory(result);
     }
   }, [handleConvert, addToHistory]);
 
   const handleQuickConversionWithHistory = useCallback(
     (conversion: Parameters<typeof handleQuickConversion>[0]) => {
-      const conversionResult = handleQuickConversion(conversion);
-      if (conversionResult) {
-        setConversionResult(conversionResult);
-        addToHistory(conversionResult);
+      const result = handleQuickConversion(conversion);
+      if (result) {
+        setConversionResult(result);
+        addToHistory(result);
       }
       setCurrentTab('converter');
     },
@@ -95,15 +102,15 @@ export function BaseConversionView() {
 
   // Update conversion result when a manual conversion is performed
   useEffect(() => {
-    if (result && inputValue) {
+    if (hookResult && inputValue) {
       setConversionResult({
         input: inputValue,
         fromBase,
         toBase,
-        result,
+        result: hookResult,
       });
     }
-  }, [result, inputValue, fromBase, toBase]);
+  }, [hookResult, inputValue, fromBase, toBase]);
 
   const renderConverter = () => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
@@ -111,7 +118,7 @@ export function BaseConversionView() {
         inputValue={inputValue}
         fromBase={fromBase}
         toBase={toBase}
-        result={result}
+        result={hookResult}
         onInputChange={setInputValue}
         onFromBaseChange={setFromBase}
         onToBaseChange={setToBase}
@@ -120,7 +127,10 @@ export function BaseConversionView() {
         onSwapBases={handleSwapBases}
       />
 
-      <BaseConverterActions onConvert={handleConvertWithHistory} onReset={handleResetWithClear} />
+      <BaseConverterActions
+        onConvert={handleConvertWithHistory}
+        onReset={handleResetWithClear}
+      />
 
       {error && (
         <Alert severity="error" sx={{ mt: 2 }}>
@@ -148,7 +158,11 @@ export function BaseConversionView() {
 
   const renderTabs = () => (
     <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="converter" label="Chuyển đổi" icon={<Iconify icon="solar:restart-bold" />} />
+      <Tab
+        value="converter"
+        label="Chuyển đổi"
+        icon={<Iconify icon="solar:restart-bold" />}
+      />
       <Tab
         value="quick-tools"
         label="Công cụ nhanh"

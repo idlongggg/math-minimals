@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { usePathname, useRouter } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
+import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/global-config';
 
@@ -29,7 +29,9 @@ export function AuthGuard({ children }: AuthGuardProps) {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   const createSignInRedirectPath = (signInPath: string) => {
-    const returnToParam = new URLSearchParams({ returnTo: currentPathname }).toString();
+    const returnToParam = new URLSearchParams({
+      returnTo: currentPathname,
+    }).toString();
     return `${signInPath}?${returnToParam}`;
   };
 
@@ -45,7 +47,9 @@ export function AuthGuard({ children }: AuthGuardProps) {
     }
 
     if (!authenticated) {
-      const signInRedirectPath = createSignInRedirectPath(paths.auth.jwt.signIn);
+      const signInRedirectPath = createSignInRedirectPath(
+        paths.auth.jwt.signIn
+      );
       router.replace(signInRedirectPath);
       return;
     }

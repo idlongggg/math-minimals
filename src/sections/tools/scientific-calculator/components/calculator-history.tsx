@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 interface CalculatorHistoryProps {
@@ -9,10 +9,10 @@ interface CalculatorHistoryProps {
   onSelectFromHistory: (value: string) => void;
 }
 
-export function CalculatorHistory({ 
-  history, 
-  onClearHistory, 
-  onSelectFromHistory 
+export function CalculatorHistory({
+  history,
+  onClearHistory,
+  onSelectFromHistory,
 }: CalculatorHistoryProps) {
   return (
     <Card

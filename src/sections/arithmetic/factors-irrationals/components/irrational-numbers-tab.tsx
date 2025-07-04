@@ -3,16 +3,16 @@
 import { useState } from 'react';
 import { InlineMath } from 'react-katex';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
+import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -22,15 +22,20 @@ interface IrrationalNumbersTabProps {
   onAddToHistory: (item: any) => void;
 }
 
-export function IrrationalNumbersTab({ onAddToHistory }: IrrationalNumbersTabProps) {
+export function IrrationalNumbersTab({
+  onAddToHistory,
+}: IrrationalNumbersTabProps) {
   const [customInput, setCustomInput] = useState('');
-  const [customResult, setCustomResult] = useState<{ value: number; approximation: string } | null>(null);
+  const [customResult, setCustomResult] = useState<{
+    value: number;
+    approximation: string;
+  } | null>(null);
   const [precision, setPrecision] = useState('10');
 
   const handleCustomCalculation = () => {
     try {
       // Simple evaluation for square roots and basic expressions
-      let expression = customInput.toLowerCase().trim();
+      const expression = customInput.toLowerCase().trim();
       let value: number;
 
       if (expression.startsWith('sqrt(') && expression.endsWith(')')) {
@@ -58,29 +63,38 @@ export function IrrationalNumbersTab({ onAddToHistory }: IrrationalNumbersTabPro
 
       onAddToHistory({
         type: 'irrational',
-        data: { expression: customInput, value, approximation, precision: digits },
+        data: {
+          expression: customInput,
+          value,
+          approximation,
+          precision: digits,
+        },
       });
-    } catch (error) {
-      alert('Không thể tính toán biểu thức này. Vui lòng thử sqrt(n), pi, e hoặc một số thập phân.');
+    } catch {
+      alert(
+        'Không thể tính toán biểu thức này. Vui lòng thử sqrt(n), pi, e hoặc một số thập phân.'
+      );
     }
   };
 
-  const handleCommonIrrational = (irrational: typeof COMMON_IRRATIONALS[0]) => {
+  const handleCommonIrrational = (
+    irrational: (typeof COMMON_IRRATIONALS)[0]
+  ) => {
     const digits = parseInt(precision) || 10;
     const approximation = irrational.value.toFixed(digits);
-    
+
     setCustomResult({ value: irrational.value, approximation });
     setCustomInput(irrational.name);
 
     onAddToHistory({
       type: 'irrational',
-      data: { 
-        expression: irrational.name, 
-        value: irrational.value, 
-        approximation, 
+      data: {
+        expression: irrational.name,
+        value: irrational.value,
+        approximation,
         precision: digits,
         latex: irrational.latex,
-        description: irrational.description
+        description: irrational.description,
       },
     });
   };
@@ -123,7 +137,8 @@ export function IrrationalNumbersTab({ onAddToHistory }: IrrationalNumbersTabPro
 
           <Alert severity="info" sx={{ mb: 2 }}>
             <Typography variant="body2">
-              Hỗ trợ: sqrt(n) cho căn bậc hai, "pi" hoặc "π", "e", hoặc nhập trực tiếp số thập phân.
+              Hỗ trợ: sqrt(n) cho căn bậc hai, &quot;pi&quot; hoặc
+              &quot;π&quot;, &quot;e&quot;, hoặc nhập trực tiếp số thập phân.
             </Typography>
           </Alert>
 
@@ -155,36 +170,57 @@ export function IrrationalNumbersTab({ onAddToHistory }: IrrationalNumbersTabPro
             Nhấp vào một số để xem giá trị xấp xỉ với độ chính xác được chọn.
           </Typography>
 
-          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 2 }}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: 2,
+            }}
+          >
             {COMMON_IRRATIONALS.map((irrational) => (
-              <Card 
+              <Card
                 key={irrational.name}
-                variant="outlined" 
-                sx={{ 
-                  cursor: 'pointer', 
+                variant="outlined"
+                sx={{
+                  cursor: 'pointer',
                   transition: 'all 0.2s',
                   '&:hover': {
                     bgcolor: 'action.hover',
                     transform: 'translateY(-2px)',
                     boxShadow: 1,
-                  }
+                  },
                 }}
                 onClick={() => handleCommonIrrational(irrational)}
               >
                 <CardContent>
-                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      mb: 1,
+                    }}
+                  >
                     <Typography variant="h6" component="div">
                       {irrational.name}
                     </Typography>
-                    <Chip 
-                      label={irrational.value.toFixed(4)} 
-                      color="primary" 
+                    <Chip
+                      label={irrational.value.toFixed(4)}
+                      color="primary"
                       size="small"
                       sx={{ fontFamily: 'monospace' }}
                     />
                   </Box>
 
-                  <Box sx={{ mb: 1, textAlign: 'center', p: 1, bgcolor: 'background.neutral', borderRadius: 0.5 }}>
+                  <Box
+                    sx={{
+                      mb: 1,
+                      textAlign: 'center',
+                      p: 1,
+                      bgcolor: 'background.neutral',
+                      borderRadius: 0.5,
+                    }}
+                  >
                     <InlineMath math={irrational.latex} />
                   </Box>
 
@@ -194,7 +230,11 @@ export function IrrationalNumbersTab({ onAddToHistory }: IrrationalNumbersTabPro
 
                   <Divider sx={{ my: 1 }} />
 
-                  <Typography variant="caption" color="text.secondary" sx={{ fontFamily: 'monospace' }}>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    sx={{ fontFamily: 'monospace' }}
+                  >
                     ≈ {irrational.value.toFixed(parseInt(precision) || 10)}
                   </Typography>
                 </CardContent>
@@ -204,8 +244,9 @@ export function IrrationalNumbersTab({ onAddToHistory }: IrrationalNumbersTabPro
 
           <Alert severity="info" sx={{ mt: 3 }}>
             <Typography variant="body2">
-              <strong>Số vô tỉ</strong> là số thực không thể biểu diễn dưới dạng phân số a/b (a, b nguyên, b ≠ 0).
-              Khai triển thập phân của số vô tỉ là vô hạn không tuần hoàn.
+              <strong>Số vô tỉ</strong> là số thực không thể biểu diễn dưới dạng
+              phân số a/b (a, b nguyên, b ≠ 0). Khai triển thập phân của số vô
+              tỉ là vô hạn không tuần hoàn.
             </Typography>
           </Alert>
         </CardContent>

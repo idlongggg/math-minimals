@@ -1,6 +1,6 @@
 import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export function InstructionsPanel() {
   const theme = useTheme();

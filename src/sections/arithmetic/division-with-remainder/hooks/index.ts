@@ -1,10 +1,11 @@
 // Custom hooks for division with remainder functionality
 
-import { useCallback, useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import { MAX_HISTORY_ITEMS } from '../constants';
-import type { DivisionResult, HistoryItem, QuickExample } from '../types';
 import { calculateDivision, validateDivisionInput } from '../utils';
+
+import type { HistoryItem, QuickExample, DivisionResult } from '../types';
 
 export function useDivisionCalculator() {
   const [dividend, setDividend] = useState('');
@@ -28,7 +29,9 @@ export function useDivisionCalculator() {
       const divisionResult = calculateDivision(a, b);
       setResult(divisionResult);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Có lỗi xảy ra khi tính toán');
+      setError(
+        err instanceof Error ? err.message : 'Có lỗi xảy ra khi tính toán'
+      );
       setResult(null);
     }
   }, [dividend, divisor]);
@@ -47,7 +50,10 @@ export function useDivisionCalculator() {
 
     // Auto-calculate after setting values
     try {
-      const divisionResult = calculateDivision(example.dividend, example.divisor);
+      const divisionResult = calculateDivision(
+        example.dividend,
+        example.divisor
+      );
       setResult(divisionResult);
     } catch {
       setError('Có lỗi xảy ra khi tính toán');
@@ -71,28 +77,35 @@ export function useDivisionCalculator() {
 export function useCalculationHistory() {
   const [history, setHistory] = useState<HistoryItem[]>([]);
 
-  const addToHistory = useCallback((dividend: number, divisor: number, result: DivisionResult) => {
-    const historyItem: HistoryItem = {
-      id: Date.now().toString(),
-      dividend,
-      divisor,
-      result,
-      timestamp: new Date(),
-    };
-    setHistory(prev => [historyItem, ...prev.slice(0, MAX_HISTORY_ITEMS - 1)]);
-  }, []);
+  const addToHistory = useCallback(
+    (dividend: number, divisor: number, result: DivisionResult) => {
+      const historyItem: HistoryItem = {
+        id: Date.now().toString(),
+        dividend,
+        divisor,
+        result,
+        timestamp: new Date(),
+      };
+      setHistory((prev) => [
+        historyItem,
+        ...prev.slice(0, MAX_HISTORY_ITEMS - 1),
+      ]);
+    },
+    []
+  );
 
   const clearHistory = useCallback(() => {
     setHistory([]);
   }, []);
 
-  const selectHistoryItem = useCallback((item: HistoryItem) => {
-    return {
+  const selectHistoryItem = useCallback(
+    (item: HistoryItem) => ({
       dividend: item.dividend.toString(),
       divisor: item.divisor.toString(),
       result: item.result,
-    };
-  }, []);
+    }),
+    []
+  );
 
   return {
     history,
