@@ -41,6 +41,7 @@ const ICONS = {
   statistics: icon('ic-statistics'),        // Thống kê mô tả
   probability: icon('ic-probability'),      // Xác suất cơ bản
   distribution: icon('ic-distribution'),    // Phân phối xác suất
+  solver: icon('ic-equation'),              // Solver (sử dụng icon equation)
 };
 
 // ----------------------------------------------------------------------
@@ -180,7 +181,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Hàm số và đồ thị',
         path: paths.dashboard.group.six,
-        icon: ICONS.functions,
+        icon: ICONS.chart,
         children: [
           {
             title: 'Hàm tuyến tính',
@@ -238,7 +239,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Giải phương trình nâng cao',
         path: paths.dashboard.group.five,
-        icon: ICONS.equation,
+        icon: ICONS.solver,
         children: [
           {
             title: 'Phương trình vi phân',
@@ -266,9 +267,7 @@ export const navData: NavSectionProps['data'] = [
           { title: 'Đạo hàm', path: paths.dashboard.root },
           { title: 'Tích phân', path: paths.dashboard.two },
           { title: 'Giới hạn', path: paths.dashboard.three },
-          {
-            title: 'Dãy số', path: paths.dashboard.group.root,
-          },
+          { title: 'Dãy số', path: paths.dashboard.group.root },
         ],
       },
     ],
