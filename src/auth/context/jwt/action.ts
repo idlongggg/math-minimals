@@ -2,14 +2,17 @@
 
 import axios, { endpoints } from 'src/lib/axios';
 
-import { setSession } from './utils';
-import { JWT_STORAGE_KEY } from './constant';
+import { AUTH_METHOD_STORAGE_KEY, AUTH_METHODS, JWT_STORAGE_KEY } from './constant';
+import { createMockUser, generateMockJWT, setSession } from './utils';
+
+import type { AuthMethod } from './constant';
 
 // ----------------------------------------------------------------------
 
 export type SignInParams = {
   email: string;
   password: string;
+  authMethod?: AuthMethod;
 };
 
 export type SignUpParams = {
@@ -22,8 +25,24 @@ export type SignUpParams = {
 /** **************************************
  * Sign in
  *************************************** */
-export const signInWithPassword = async ({ email, password }: SignInParams): Promise<void> => {
+export const signInWithPassword = async ({ email, password, authMethod = AUTH_METHODS.JWT }: SignInParams): Promise<void> => {
   try {
+    // Store auth method
+    sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, authMethod);
+
+    if (authMethod === AUTH_METHODS.MOCK_JWT) {
+      // Mock JWT sign in
+      const mockToken = generateMockJWT();
+      await setSession(mockToken);
+      
+      // Store mock user data
+      const mockUser = createMockUser(mockToken);
+      sessionStorage.setItem('mock_user', JSON.stringify(mockUser));
+      
+      return;
+    }
+
+    // Original JWT sign in
     const params = { email, password };
 
     const res = await axios.post(endpoints.auth.signIn, params);
@@ -79,6 +98,8 @@ export const signUp = async ({
 export const signOut = async (): Promise<void> => {
   try {
     await setSession(null);
+    sessionStorage.removeItem(AUTH_METHOD_STORAGE_KEY);
+    sessionStorage.removeItem('mock_user');
   } catch (error) {
     console.error('Error during sign out:', error);
     throw error;

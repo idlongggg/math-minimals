@@ -1,13 +1,13 @@
 'use client';
 
 import { useSetState } from 'minimal-shared/hooks';
-import { useMemo, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import axios, { endpoints } from 'src/lib/axios';
 
-import { JWT_STORAGE_KEY } from './constant';
 import { AuthContext } from '../auth-context';
-import { setSession, isValidToken } from './utils';
+import { AUTH_METHOD_STORAGE_KEY, AUTH_METHODS, JWT_STORAGE_KEY } from './constant';
+import { isValidToken, setSession } from './utils';
 
 import type { AuthState } from '../../types';
 
@@ -29,15 +29,26 @@ export function AuthProvider({ children }: Props) {
   const checkUserSession = useCallback(async () => {
     try {
       const accessToken = sessionStorage.getItem(JWT_STORAGE_KEY);
+      const authMethod = sessionStorage.getItem(AUTH_METHOD_STORAGE_KEY);
 
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const res = await axios.get(endpoints.auth.me);
-
-        const { user } = res.data;
-
-        setState({ user: { ...user, accessToken }, loading: false });
+        if (authMethod === AUTH_METHODS.MOCK_JWT) {
+          // Use mock user data
+          const mockUserStr = sessionStorage.getItem('mock_user');
+          if (mockUserStr) {
+            const mockUser = JSON.parse(mockUserStr);
+            setState({ user: mockUser, loading: false });
+          } else {
+            setState({ user: null, loading: false });
+          }
+        } else {
+          // Use real API
+          const res = await axios.get(endpoints.auth.me);
+          const { user } = res.data;
+          setState({ user: { ...user, accessToken }, loading: false });
+        }
       } else {
         setState({ user: null, loading: false });
       }

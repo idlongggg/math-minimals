@@ -2,7 +2,56 @@ import { paths } from 'src/routes/paths';
 
 import axios from 'src/lib/axios';
 
-import { JWT_STORAGE_KEY } from './constant';
+import { AUTH_METHOD_STORAGE_KEY, AUTH_METHODS, JWT_STORAGE_KEY } from './constant';
+
+import type { AuthMethod } from './constant';
+
+// ----------------------------------------------------------------------
+
+// Mock JWT utilities
+function base64UrlEncode(str: string): string {
+  return btoa(str)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=/g, '');
+}
+
+export function generateMockJWT(): string {
+  const header = {
+    alg: 'HS256',
+    typ: 'JWT',
+  };
+
+  const now = Math.floor(Date.now() / 1000);
+  const payload = {
+    userId: '8864c717-587d-472a-929a-8e5f298024da-0',
+    access: ['algebra', 'statistics'],
+    iat: now,
+    exp: now + (3 * 24 * 60 * 60), // 3 days
+  };
+
+  const encodedHeader = base64UrlEncode(JSON.stringify(header));
+  const encodedPayload = base64UrlEncode(JSON.stringify(payload));
+  
+  // For demo purposes, we'll use a simple signature
+  const signature = base64UrlEncode('mock-signature-for-demo');
+
+  return `${encodedHeader}.${encodedPayload}.${signature}`;
+}
+
+export function createMockUser(token: string) {
+  const decoded = jwtDecode(token);
+  
+  return {
+    id: decoded.userId,
+    displayName: 'Mock User',
+    email: 'mock@example.com',
+    photoURL: null,
+    role: 'admin',
+    access: decoded.access,
+    accessToken: token,
+  };
+}
 
 // ----------------------------------------------------------------------
 
@@ -92,3 +141,20 @@ export async function setSession(accessToken: string | null) {
     throw error;
   }
 }
+
+// ----------------------------------------------------------------------
+
+export function getCurrentAuthMethod(): AuthMethod {
+  if (typeof window !== 'undefined') {
+    return (sessionStorage.getItem(AUTH_METHOD_STORAGE_KEY) as AuthMethod) || AUTH_METHODS.JWT;
+  }
+  return AUTH_METHODS.JWT;
+}
+
+export function setAuthMethod(method: AuthMethod): void {
+  if (typeof window !== 'undefined') {
+    sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, method);
+  }
+}
+
+// ----------------------------------------------------------------------
