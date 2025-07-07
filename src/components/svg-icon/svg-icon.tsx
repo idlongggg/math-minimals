@@ -4,25 +4,30 @@ import { mergeClasses } from 'minimal-shared/utils';
 
 import { styled } from '@mui/material/styles';
 
-import { svgColorClasses } from './classes';
+import { svgIconClasses } from './classes';
 
-import type { SvgColorProps } from './types';
+import type { SvgIconProps } from './types';
 
 // ----------------------------------------------------------------------
 
-export function SvgColor({ src, className, sx, ...other }: SvgColorProps) {
+export function SvgIcon({ src, className, sx, ...other }: SvgIconProps) {
   return (
     <SvgRoot
-      className={mergeClasses([svgColorClasses.root, className])}
+      className={mergeClasses([svgIconClasses.root, className])}
       sx={[
         {
-          mask: `url(${src}) no-repeat center / contain`,
-          WebkitMask: `url(${src}) no-repeat center / contain`,
+          '& img': {
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+          },
         },
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
       {...other}
-    />
+    >
+      <img src={src} alt="" />
+    </SvgRoot>
   );
 }
 
@@ -33,5 +38,6 @@ const SvgRoot = styled('span')(() => ({
   height: 24,
   flexShrink: 0,
   display: 'inline-flex',
-  backgroundColor: 'currentColor',
+  alignItems: 'center',
+  justifyContent: 'center',
 }));

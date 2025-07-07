@@ -4,32 +4,32 @@ import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/global-config';
 
-import { SvgColor } from 'src/components/svg-color';
+import { SvgIcon } from 'src/components/svg-icon';
 
 // ----------------------------------------------------------------------
 
 const icon = (name: string) => (
-  <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/${name}.svg`} />
+  <SvgIcon src={`${CONFIG.assetsDir}/assets/icons/navbar/${name}.svg`} />
 );
 
 const ICONS = {
-  // Math icons - Tools and Utilities
+  // Biểu tượng toán học - Công cụ và Tiện ích
   tools: icon('ic-calculator'),
   calculator: icon('ic-calculator'),
   converter: icon('ic-converter'),
   solver: icon('ic-solver'),
   generator: icon('ic-generator'),
-  // Basic Math
+  // Toán học cơ bản
   arithmetic: icon('ic-arithmetic'),
   algebra: icon('ic-algebra'),
-  // Geometry
+  // Hình học
   geometry: icon('ic-square'),
   plane: icon('ic-square'),
   spatial: icon('ic-cube'),
   coordinate: icon('ic-coordinate'),
-  // Trigonometry
+  // Lượng giác
   trigonometry: icon('ic-triangle'),
-  // Statistics and Probability
+  // Thống kê và Xác suất
   statistics: icon('ic-statistics'),
   chart: icon('ic-chart'),
   probability: icon('ic-probability'),
