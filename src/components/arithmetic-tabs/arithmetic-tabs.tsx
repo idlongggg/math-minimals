@@ -165,6 +165,7 @@ export function useArithmeticTabManager(props: ArithmeticTabsProps) {
     tabs: tabConfigs,
     defaultTab: props.defaultTab || tabConfigs[0]?.value,
     onTabChange: props.onTabChange,
+    enableColorSync: false, // Arithmetic tabs don't need color sync
   });
 
   return {

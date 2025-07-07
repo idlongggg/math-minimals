@@ -1,16 +1,21 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
+import { TabColorButton } from 'src/components/tab-color-button';
+import { TabColorIcon } from 'src/components/tab-color-icon';
+
+import { TabColorProvider } from 'src/contexts/tab-color-context';
+import { DEFAULT_TAB_COLOR_MAPPING } from 'src/theme/tab-colors';
 
 import type { SubjectTabsProps, TopicItem } from './types';
 
@@ -132,7 +137,8 @@ export function SubjectView({
 
   const renderTopicsContent = useCallback(() => (
     <Box>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <TabColorIcon icon="solar:list-bold" width={24} />
         Tất cả chủ đề
       </Typography>
       <Box
@@ -177,8 +183,9 @@ export function SubjectView({
               <Typography variant="body2" color="text.secondary">
                 {topic.description}
               </Typography>
-              <Button
+              <TabColorButton
                 size="small"
+                variant="outlined"
                 sx={{ mt: 1 }}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -186,7 +193,7 @@ export function SubjectView({
                 }}
               >
                 Học ngay
-              </Button>
+              </TabColorButton>
             </CardContent>
           </Card>
         ))}
@@ -201,7 +208,8 @@ export function SubjectView({
 
     return (
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <TabColorIcon icon="solar:pen-bold" width={24} />
           Luyện tập
         </Typography>
         <Card>
@@ -222,7 +230,8 @@ export function SubjectView({
 
     return (
       <Box>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <TabColorIcon icon="solar:notebook-bold-duotone" width={24} />
           Hướng dẫn
         </Typography>
         <Card>
@@ -259,12 +268,17 @@ export function SubjectView({
   ]);
 
   return (
-    <DashboardPageWithTabsLayout
-      title={title}
-      description={description}
-      tabs={renderTabs()}
+    <TabColorProvider 
+      initialTab={currentTab}
+      tabColorMapping={DEFAULT_TAB_COLOR_MAPPING}
     >
-      <Box sx={{ mt: 3 }}>{renderTabContent()}</Box>
-    </DashboardPageWithTabsLayout>
+      <DashboardPageWithTabsLayout
+        title={title}
+        description={description}
+        tabs={renderTabs()}
+      >
+        <Box sx={{ mt: 3 }}>{renderTabContent()}</Box>
+      </DashboardPageWithTabsLayout>
+    </TabColorProvider>
   );
 }

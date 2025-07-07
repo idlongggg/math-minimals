@@ -1,4 +1,4 @@
-import type { Theme, Components } from '@mui/material/styles';
+import type { Components, Theme } from '@mui/material/styles';
 
 import { tabClasses } from '@mui/material/Tab';
 
@@ -45,12 +45,10 @@ const MuiTab: Components<Theme>['MuiTab'] = {
       minWidth: 48,
       minHeight: 48,
       padding: theme.spacing(1, 0),
-      color: theme.vars.palette.text.secondary,
-      fontWeight: theme.typography.fontWeightMedium,
+      fontWeight: theme.typography.fontWeightBold,
       lineHeight: theme.typography.body2.lineHeight,
       [`&.${tabClasses.selected}`]: {
-        color: theme.vars.palette.text.primary,
-        fontWeight: theme.typography.fontWeightSemiBold,
+        fontWeight: theme.typography.fontWeightBold,
       },
     }),
   },

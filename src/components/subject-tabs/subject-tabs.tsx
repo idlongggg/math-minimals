@@ -1,11 +1,13 @@
 'use client';
 
-import { cloneElement, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import type { TabManagerTabConfig } from 'src/components/tab-manager';
 
 import { Iconify } from 'src/components/iconify';
 import { useTabManager } from 'src/components/tab-manager';
+
+import { DEFAULT_TAB_COLOR_MAPPING, type TabColorKey } from 'src/theme/tab-colors';
 
 import type { SubjectTabsConfig, SubjectTabsHookResult, SubjectTabsProps } from './types';
 
@@ -26,12 +28,8 @@ export function useSubjectTabs(config: SubjectTabsConfig): TabManagerTabConfig[]
       tabs.push({
         value: 'overview',
         label: config.overviewLabel || 'Tổng quan',
-        icon: cloneElement(iconToUse, {
-          sx: { 
-            color: '#1976d2',
-            ...iconToUse.props?.sx 
-          }
-        }),
+        colorKey: 'overview',
+        icon: iconToUse,
       });
     }
 
@@ -43,12 +41,8 @@ export function useSubjectTabs(config: SubjectTabsConfig): TabManagerTabConfig[]
       tabs.push({
         value: 'topics',
         label: config.topicsLabel || 'Chủ đề',
-        icon: cloneElement(iconToUse, {
-          sx: { 
-            color: '#388e3c',
-            ...iconToUse.props?.sx 
-          }
-        }),
+        colorKey: 'topics',
+        icon: iconToUse,
       });
     }
 
@@ -60,12 +54,8 @@ export function useSubjectTabs(config: SubjectTabsConfig): TabManagerTabConfig[]
       tabs.push({
         value: 'practice',
         label: config.practiceLabel || 'Luyện tập',
-        icon: cloneElement(iconToUse, {
-          sx: { 
-            color: '#f57c00',
-            ...iconToUse.props?.sx 
-          }
-        }),
+        colorKey: 'practice',
+        icon: iconToUse,
       });
     }
 
@@ -77,12 +67,8 @@ export function useSubjectTabs(config: SubjectTabsConfig): TabManagerTabConfig[]
       tabs.push({
         value: 'guide',
         label: config.guideLabel || 'Hướng dẫn',
-        icon: cloneElement(iconToUse, {
-          sx: { 
-            color: '#7b1fa2',
-            ...iconToUse.props?.sx 
-          }
-        }),
+        colorKey: 'guide',
+        icon: iconToUse,
       });
     }
 
@@ -91,13 +77,8 @@ export function useSubjectTabs(config: SubjectTabsConfig): TabManagerTabConfig[]
       tabs.push(...config.customTabs.map(tab => ({
         value: tab.value,
         label: tab.label,
-        icon: tab.icon && tab.color ? 
-          cloneElement(tab.icon as React.ReactElement<any>, {
-            sx: { 
-              color: tab.color,
-              ...(tab.icon as any).props?.sx 
-            }
-          }) : tab.icon,
+        colorKey: tab.color as TabColorKey || 'overview',
+        icon: tab.icon,
       })));
     }
 
@@ -115,6 +96,8 @@ export function useSubjectTabManager(props: SubjectTabsProps): SubjectTabsHookRe
     tabs: tabConfigs,
     defaultTab: props.defaultTab || tabConfigs[0]?.value,
     onTabChange: props.onTabChange,
+    enableColorSync: true,
+    tabColorMapping: DEFAULT_TAB_COLOR_MAPPING,
   });
 
   return {

@@ -1,18 +1,22 @@
 'use client';
 
 import { useState } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
+import CardContent from '@mui/material/CardContent';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import CardContent from '@mui/material/CardContent';
 
-import { Iconify } from 'src/components/iconify';
 import { CustomTab, CustomTabs } from 'src/components/custom-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
+import { TabColorButton } from 'src/components/tab-color-button';
+
+import { TabColorProvider } from 'src/contexts/tab-color-context';
+import { DEFAULT_TAB_COLOR_MAPPING } from 'src/theme/tab-colors';
 
 // ----------------------------------------------------------------------
 
@@ -276,7 +280,7 @@ export function SubjectTabsView({
                     </Typography>
                   </Box>
                 </Box>
-                <Button
+                <TabColorButton
                   variant="outlined"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -284,7 +288,7 @@ export function SubjectTabsView({
                   }}
                 >
                   Học ngay
-                </Button>
+                </TabColorButton>
               </Box>
             </CardContent>
           </Card>
@@ -358,12 +362,17 @@ export function SubjectTabsView({
   };
 
   return (
-    <DashboardPageWithTabsLayout
-      title={title}
-      description={description}
-      tabs={renderTabs()}
+    <TabColorProvider 
+      initialTab={currentTab}
+      tabColorMapping={DEFAULT_TAB_COLOR_MAPPING}
     >
-      {renderTabContent()}
-    </DashboardPageWithTabsLayout>
+      <DashboardPageWithTabsLayout
+        title={title}
+        description={description}
+        tabs={renderTabs()}
+      >
+        {renderTabContent()}
+      </DashboardPageWithTabsLayout>
+    </TabColorProvider>
   );
 }

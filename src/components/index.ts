@@ -1,35 +1,30 @@
-export * from './label';
-export * from './logo';
-// Utility Components
-export * from './iconify';
-// Other Components
 export * from './animate';
-export * from './scrollbar';
-export * from './settings';
-
-export * from './flag-icon';
-
 export * from './arithmetic-tabs';
-export * from './custom-card';
-export * from './custom-tabs';
-export * from './hook-form';
-export * from './line-chart';
-export * from './subject-tabs';
-export * from './svg-color';
-export * from './tab-manager';
-
-export * from './nav-section';
-// Custom Components - Prioritize these over MUI components
 export * from './custom-alert';
 export * from './custom-button';
+export * from './custom-card';
 export * from './custom-popover';
+export * from './custom-tabs';
 export * from './custom-text-field';
-export * from './file-thumbnail';
-export * from './loading-screen';
-export * from './pictograph-chart';
-export * from './progress-bar';
-export * from './search-not-found';
-// Layout Components
 export * from './dashboard-page-layout';
 export * from './dynamic-data-grid-chart';
+export * from './file-thumbnail';
+export * from './flag-icon';
+export * from './hook-form';
+export * from './iconify';
+export * from './label';
+export * from './line-chart';
+export * from './loading-screen';
+export * from './logo';
+export * from './nav-section';
+export * from './pictograph-chart';
+export * from './progress-bar';
+export * from './scrollbar';
+export * from './search-not-found';
+export * from './settings';
+export * from './subject-tabs';
+export * from './svg-color';
+export * from './tab-color-button';
+export * from './tab-color-icon';
+export * from './tab-manager';
 
