@@ -7,7 +7,7 @@ import axios, { endpoints } from 'src/lib/axios';
 
 import { AuthContext } from '../auth-context';
 import { AUTH_METHOD_STORAGE_KEY, AUTH_METHODS, JWT_STORAGE_KEY } from './constant';
-import { isValidToken, setSession } from './utils';
+import { createMockUser, isValidToken, setSession } from './utils';
 
 import type { AuthState } from '../../types';
 
@@ -35,14 +35,9 @@ export function AuthProvider({ children }: Props) {
         setSession(accessToken);
 
         if (authMethod === AUTH_METHODS.MOCK_JWT) {
-          // Use mock user data
-          const mockUserStr = sessionStorage.getItem('mock_user');
-          if (mockUserStr) {
-            const mockUser = JSON.parse(mockUserStr);
-            setState({ user: mockUser, loading: false });
-          } else {
-            setState({ user: null, loading: false });
-          }
+          // Create mock user data directly from JWT token
+          const mockUser = createMockUser(accessToken);
+          setState({ user: mockUser, loading: false });
         } else {
           // Use real API
           const res = await axios.get(endpoints.auth.me);
