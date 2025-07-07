@@ -54,51 +54,51 @@ export const navData: NavSectionProps['data'] = [
     items: [
       {
         title: 'Máy tính cơ bản',
-        path: paths.dashboard.root,
+        path: paths.dashboard.tools.calculators.root,
         icon: ICONS.calculator,
         children: [
           {
             title: 'Máy tính cơ bản',
-            path: paths.dashboard.root,
+            path: paths.dashboard.tools.calculators.basic,
           },
           {
             title: 'Máy tính khoa học',
-            path: paths.dashboard.two,
+            path: paths.dashboard.tools.calculators.scientific,
           },
           {
             title: 'Máy tính đồ thị',
-            path: paths.dashboard.three,
+            path: paths.dashboard.tools.calculators.graphing,
           },
-          { title: 'Số phức', path: paths.dashboard.group.root },
+          { title: 'Số phức', path: paths.dashboard.tools.calculators.complex },
         ],
       },
       {
         title: 'Công cụ chuyển đổi',
-        path: paths.dashboard.two,
+        path: paths.dashboard.tools.converters.root,
         icon: ICONS.converter,
         children: [
           {
             title: 'Chuyển đổi đơn vị',
-            path: paths.dashboard.two,
+            path: paths.dashboard.tools.converters.units,
           },
         ],
       },
       {
         title: 'Trình tạo',
-        path: paths.dashboard.three,
+        path: paths.dashboard.tools.generators.root,
         icon: ICONS.generator,
         children: [
           {
             title: 'Số ngẫu nhiên',
-            path: paths.dashboard.three,
+            path: paths.dashboard.tools.generators.random,
           },
           {
             title: 'Dãy Fibonacci',
-            path: paths.dashboard.group.root,
+            path: paths.dashboard.tools.generators.fibonacci,
           },
           {
             title: 'Mẫu số học',
-            path: paths.dashboard.group.five,
+            path: paths.dashboard.tools.generators.pattern,
           },
         ],
       },
@@ -112,61 +112,61 @@ export const navData: NavSectionProps['data'] = [
     items: [
       {
         title: 'Số học cơ bản',
-        path: paths.dashboard.group.root,
+        path: paths.dashboard.arithmetic.root,
         icon: ICONS.arithmetic,
         children: [
           {
             title: 'Chuyển đổi cơ số',
-            path: paths.dashboard.group.root,
+            path: paths.dashboard.arithmetic.baseConversion,
           },
           {
             title: 'Mẫu số chung',
-            path: paths.dashboard.group.five,
+            path: paths.dashboard.arithmetic.commonDenominator,
           },
           {
             title: 'Phép chia và số dư',
-            path: paths.dashboard.group.six,
+            path: paths.dashboard.arithmetic.divisionRemainder,
           },
           {
             title: 'Số nguyên tố',
-            path: paths.dashboard.root,
+            path: paths.dashboard.arithmetic.primeNumbers,
           },
           {
             title: 'Thừa số và số vô tỷ',
-            path: paths.dashboard.two,
+            path: paths.dashboard.arithmetic.factorsIrrationals,
           },
           {
             title: 'Ước số và bội số',
-            path: paths.dashboard.three,
+            path: paths.dashboard.arithmetic.divisorsMultiples,
           },
           {
             title: 'Phân số & Chuyển đổi',
-            path: paths.dashboard.group.root,
+            path: paths.dashboard.arithmetic.fractions,
           },
         ],
       },
       {
         title: 'Đại số cơ bản',
-        path: paths.dashboard.group.five,
+        path: paths.dashboard.algebra.basic.root,
         icon: ICONS.algebra,
         children: [
           {
             title: 'Biểu thức đại số',
-            path: paths.dashboard.group.five,
+            path: paths.dashboard.algebra.basic.expressions,
           },
           {
             title: 'Phương trình',
-            path: paths.dashboard.group.six,
+            path: paths.dashboard.algebra.basic.equations,
           },
           {
             title: 'Bất phương trình',
-            path: paths.dashboard.root,
+            path: paths.dashboard.algebra.basic.inequalities,
           },
           {
             title: 'Phân tích thừa số',
-            path: paths.dashboard.two,
+            path: paths.dashboard.algebra.basic.factoring,
           },
-          { title: 'Đa thức', path: paths.dashboard.three },
+          { title: 'Đa thức', path: paths.dashboard.algebra.basic.polynomials },
         ],
       },
     ],
@@ -179,74 +179,74 @@ export const navData: NavSectionProps['data'] = [
     items: [
       {
         title: 'Hàm số và đồ thị',
-        path: paths.dashboard.group.six,
+        path: paths.dashboard.algebra.functions.root,
         icon: ICONS.chart,
         children: [
           {
             title: 'Hàm tuyến tính',
-            path: paths.dashboard.group.six,
+            path: paths.dashboard.algebra.functions.linear,
           },
           {
             title: 'Hàm bậc hai',
-            path: paths.dashboard.root,
+            path: paths.dashboard.algebra.functions.quadratic,
           },
           {
             title: 'Hàm đa thức',
-            path: paths.dashboard.two,
+            path: paths.dashboard.algebra.functions.polynomial,
           },
           {
             title: 'Hàm hữu tỷ',
-            path: paths.dashboard.three,
+            path: paths.dashboard.algebra.functions.rational,
           },
           {
             title: 'Hàm mũ',
-            path: paths.dashboard.group.root,
+            path: paths.dashboard.algebra.functions.exponential,
           },
           {
             title: 'Hàm logarit',
-            path: paths.dashboard.group.five,
+            path: paths.dashboard.algebra.functions.logarithmic,
           },
           {
             title: 'Hàm lượng giác',
-            path: paths.dashboard.group.six,
+            path: paths.dashboard.algebra.functions.trigonometric,
           },
           {
             title: 'Hàm ngược',
-            path: paths.dashboard.root,
+            path: paths.dashboard.algebra.functions.inverse,
           },
           {
             title: 'Hàm hợp',
-            path: paths.dashboard.two,
+            path: paths.dashboard.algebra.functions.composite,
           },
         ],
       },
       {
         title: 'Đại số tuyến tính',
-        path: paths.dashboard.three,
+        path: paths.dashboard.algebra.linear.root,
         icon: ICONS.matrix,
         children: [
           {
             title: 'Máy tính ma trận',
-            path: paths.dashboard.three,
+            path: paths.dashboard.algebra.linear.matrix,
           },
           {
             title: 'Hệ phương trình',
-            path: paths.dashboard.group.root,
+            path: paths.dashboard.algebra.linear.system,
           },
         ],
       },
       {
         title: 'Giải phương trình nâng cao',
-        path: paths.dashboard.group.five,
+        path: paths.dashboard.tools.solvers.root,
         icon: ICONS.solver,
         children: [
           {
             title: 'Phương trình vi phân',
-            path: paths.dashboard.group.five,
+            path: paths.dashboard.tools.solvers.differential,
           },
           {
             title: 'Tối ưu hóa',
-            path: paths.dashboard.group.six,
+            path: paths.dashboard.tools.solvers.optimization,
           },
         ],
       },
@@ -260,13 +260,13 @@ export const navData: NavSectionProps['data'] = [
     items: [
       {
         title: 'Công cụ giải tích',
-        path: paths.dashboard.root,
+        path: paths.dashboard.calculus.root,
         icon: ICONS.calculus,
         children: [
-          { title: 'Đạo hàm', path: paths.dashboard.root },
-          { title: 'Tích phân', path: paths.dashboard.two },
-          { title: 'Giới hạn', path: paths.dashboard.three },
-          { title: 'Dãy số', path: paths.dashboard.group.root },
+          { title: 'Đạo hàm', path: paths.dashboard.calculus.derivative },
+          { title: 'Tích phân', path: paths.dashboard.calculus.integral },
+          { title: 'Giới hạn', path: paths.dashboard.calculus.limit },
+          { title: 'Dãy số', path: paths.dashboard.calculus.sequence },
         ],
       },
     ],
@@ -279,87 +279,87 @@ export const navData: NavSectionProps['data'] = [
     items: [
       {
         title: 'Hình học mặt phẳng',
-        path: paths.dashboard.two,
+        path: paths.dashboard.geometry.plane.root,
         icon: ICONS.plane,
         children: [
           {
             title: 'Điểm và đoạn thẳng',
-            path: paths.dashboard.two,
+            path: paths.dashboard.geometry.plane.pointsSegments,
           },
-          { title: 'Đường thẳng', path: paths.dashboard.three },
-          { title: 'Góc', path: paths.dashboard.group.root },
-          { title: 'Tam giác', path: paths.dashboard.group.five },
+          { title: 'Đường thẳng', path: paths.dashboard.geometry.plane.lines },
+          { title: 'Góc', path: paths.dashboard.geometry.plane.angles },
+          { title: 'Tam giác', path: paths.dashboard.geometry.plane.triangles },
           {
             title: 'Tứ giác',
-            path: paths.dashboard.group.six,
+            path: paths.dashboard.geometry.plane.quadrilaterals,
           },
-          { title: 'Đa giác', path: paths.dashboard.root },
-          { title: 'Đường tròn', path: paths.dashboard.two },
-          { title: 'Đường conic', path: paths.dashboard.three },
+          { title: 'Đa giác', path: paths.dashboard.geometry.plane.polygons },
+          { title: 'Đường tròn', path: paths.dashboard.geometry.plane.circles },
+          { title: 'Đường conic', path: paths.dashboard.geometry.plane.conics },
         ],
       },
       {
         title: 'Hình học không gian',
-        path: paths.dashboard.three,
+        path: paths.dashboard.geometry.spatial.root,
         icon: ICONS.spatial,
         children: [
-          { title: 'Lăng trụ', path: paths.dashboard.three },
-          { title: 'Chóp', path: paths.dashboard.group.root },
+          { title: 'Lăng trụ', path: paths.dashboard.geometry.spatial.prisms },
+          { title: 'Chóp', path: paths.dashboard.geometry.spatial.pyramids },
           {
             title: 'Hình trụ',
-            path: paths.dashboard.group.five,
+            path: paths.dashboard.geometry.spatial.cylinders,
           },
-          { title: 'Hình nón', path: paths.dashboard.group.six },
-          { title: 'Hình cầu', path: paths.dashboard.root },
+          { title: 'Hình nón', path: paths.dashboard.geometry.spatial.cones },
+          { title: 'Hình cầu', path: paths.dashboard.geometry.spatial.spheres },
           {
             title: 'Mặt cong',
-            path: paths.dashboard.two,
+            path: paths.dashboard.geometry.spatial.surfaces,
           },
         ],
       },
       {
         title: 'Hình học tọa độ',
-        path: paths.dashboard.group.root,
+        path: paths.dashboard.geometry.coordinate.root,
         icon: ICONS.coordinate,
         children: [
           {
             title: 'Tọa độ Descartes',
-            path: paths.dashboard.group.root,
+            path: paths.dashboard.geometry.coordinate.cartesian,
           },
           {
             title: 'Tọa độ cực',
-            path: paths.dashboard.group.five,
+            path: paths.dashboard.geometry.coordinate.polar,
           },
           {
             title: 'Tọa độ tham số',
-            path: paths.dashboard.group.six,
+            path: paths.dashboard.geometry.coordinate.parametric,
           },
           {
             title: 'Vector',
-            path: paths.dashboard.root,
+            path: paths.dashboard.geometry.coordinate.vectors,
           },
         ],
       },
       {
         title: 'Lượng giác cơ bản',
-        path: paths.dashboard.group.five,
+        path: paths.dashboard.trigonometry.basic.root,
         icon: ICONS.trigonometry,
         children: [
           {
             title: 'Tỷ số lượng giác',
-            path: paths.dashboard.group.five,
+            path: paths.dashboard.trigonometry.basic.ratios,
           },
           {
             title: 'Đồng nhất thức',
-            path: paths.dashboard.group.six,
+            path: paths.dashboard.trigonometry.basic.identities,
           },
           {
             title: 'Phương trình lượng giác',
-            path: paths.dashboard.root,
+            path: paths.dashboard.trigonometry.basic.equations,
           },
           {
             title: 'Đồ thị hàm lượng giác',
-            path: paths.dashboard.two,
+            path: paths.dashboard.trigonometry.basic.graphs,
           },
         ],
       },
@@ -373,121 +373,121 @@ export const navData: NavSectionProps['data'] = [
     items: [
       {
         title: 'Biểu đồ và dữ liệu',
-        path: paths.dashboard.group.six,
+        path: paths.dashboard.statistics.charts.root,
         icon: ICONS.chart,
         children: [
           {
             title: 'Biểu đồ tranh',
-            path: paths.dashboard.group.six,
+            path: paths.dashboard.statistics.charts.pictograph,
           },
           {
             title: 'Biểu đồ đường',
-            path: paths.dashboard.root,
+            path: paths.dashboard.statistics.charts.line,
           },
           {
             title: 'Biểu đồ miền',
-            path: paths.dashboard.two,
+            path: paths.dashboard.statistics.charts.area,
           },
           {
             title: 'Biểu đồ cột đơn',
-            path: paths.dashboard.three,
+            path: paths.dashboard.statistics.charts.singleColumn,
           },
           {
             title: 'Biểu đồ cột kép',
-            path: paths.dashboard.group.root,
+            path: paths.dashboard.statistics.charts.doubleColumn,
           },
           {
             title: 'Biểu đồ cột chồng',
-            path: paths.dashboard.group.five,
+            path: paths.dashboard.statistics.charts.stackedColumn,
           },
           {
             title: 'Biểu đồ quạt',
-            path: paths.dashboard.group.six,
+            path: paths.dashboard.statistics.charts.pie,
           },
           {
             title: 'Bảng tần số',
-            path: paths.dashboard.root,
+            path: paths.dashboard.statistics.charts.frequencyTable,
           },
           {
             title: 'Histogram',
-            path: paths.dashboard.two,
+            path: paths.dashboard.statistics.charts.histogram,
           },
           {
             title: 'Box plot',
-            path: paths.dashboard.three,
+            path: paths.dashboard.statistics.charts.boxplot,
           },
           {
             title: 'Biểu đồ phân tán',
-            path: paths.dashboard.group.root,
+            path: paths.dashboard.statistics.charts.scatter,
           },
         ],
       },
       {
         title: 'Thống kê mô tả',
-        path: paths.dashboard.root,
+        path: paths.dashboard.statistics.descriptive.root,
         icon: ICONS.statistics,
         children: [
           {
             title: 'Xu hướng trung tâm',
-            path: paths.dashboard.root,
+            path: paths.dashboard.statistics.descriptive.centralTendency,
           },
           {
             title: 'Độ phân tán',
-            path: paths.dashboard.two,
+            path: paths.dashboard.statistics.descriptive.dispersion,
           },
           {
             title: 'Phân phối dữ liệu',
-            path: paths.dashboard.three,
+            path: paths.dashboard.statistics.descriptive.distribution,
           },
           {
             title: 'Tương quan',
-            path: paths.dashboard.group.root,
+            path: paths.dashboard.statistics.descriptive.correlation,
           },
           {
             title: 'Hồi quy',
-            path: paths.dashboard.group.five,
+            path: paths.dashboard.statistics.descriptive.regression,
           },
         ],
       },
       {
         title: 'Xác suất cơ bản',
-        path: paths.dashboard.two,
+        path: paths.dashboard.statistics.probability.root,
         icon: ICONS.probability,
         children: [
           {
             title: 'Xác suất cơ bản',
-            path: paths.dashboard.two,
+            path: paths.dashboard.statistics.probability.basic,
           },
           {
             title: 'Xác suất có điều kiện',
-            path: paths.dashboard.three,
+            path: paths.dashboard.statistics.probability.conditional,
           },
           {
             title: 'Định lý Bayes',
-            path: paths.dashboard.group.root,
+            path: paths.dashboard.statistics.probability.bayes,
           },
         ],
       },
       {
         title: 'Phân phối xác suất',
-        path: paths.dashboard.three,
+        path: paths.dashboard.statistics.distributions.root,
         icon: ICONS.distribution,
         children: [
           {
             title: 'Phân phối rời rạc',
-            path: paths.dashboard.three,
+            path: paths.dashboard.statistics.distributions.discrete,
           },
           {
             title: 'Phân phối liên tục',
-            path: paths.dashboard.group.root,
+            path: paths.dashboard.statistics.distributions.continuous,
           },
           {
             title: 'Phân phối chuẩn',
-            path: paths.dashboard.group.five,
+            path: paths.dashboard.statistics.distributions.normal,
           },
           {
             title: 'Phân phối nhị thức',
-            path: paths.dashboard.group.six,
+            path: paths.dashboard.statistics.distributions.binomial,
           },
         ],
       },
