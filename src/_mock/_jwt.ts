@@ -54,6 +54,30 @@ export const MOCK_JWT_USERS: MockJWTUser[] = [
     role: 'user',
     access: ['algebra', 'geometry'],
   },
+  {
+    id: 'user-5-algebra-only',
+    displayName: _mock.fullName(4),
+    email: _mock.email(4),
+    photoURL: _mock.image.avatar(4),
+    role: 'user',
+    access: ['algebra'],
+  },
+  {
+    id: 'user-6-geometry-only',
+    displayName: _mock.fullName(5),
+    email: _mock.email(5),
+    photoURL: _mock.image.avatar(5),
+    role: 'user',
+    access: ['geometry'],
+  },
+  {
+    id: 'user-7-statistics-only',
+    displayName: _mock.fullName(6),
+    email: _mock.email(6),
+    photoURL: _mock.image.avatar(6),
+    role: 'user',
+    access: ['statistics'],
+  },
 ];
 
 export function generateMockJWT(userIndex: number = 0): string {
