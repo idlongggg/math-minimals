@@ -15,6 +15,7 @@ import MenuList from '@mui/material/MenuList';
 import Typography from '@mui/material/Typography';
 
 import { useRouter, useSearchParams } from 'src/routes/hooks';
+import { createUrlWithWorkspace, getWorkspaceParam } from 'src/routes/utils';
 
 import { CustomPopover } from 'src/components/custom-popover';
 import { Iconify } from 'src/components/iconify';
@@ -49,17 +50,17 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
   const { open, anchorEl, onClose, onOpen } = usePopover();
 
   // Get workspace from URL parameter, default to 'all-tools' if not specified
-  const workspaceParam = searchParams.get('workspace') || 'all-tools';
+  const currentWorkspaceParam = getWorkspaceParam(searchParams);
   
   // Find the workspace object based on the parameter
-  const initialWorkspace = data.find(item => item.id === workspaceParam) || data[0];
+  const initialWorkspace = data.find(item => item.id === currentWorkspaceParam) || data[0];
   
   const [workspace, setWorkspace] = useState(initialWorkspace);
 
   // Update workspace state when URL parameter changes
   useEffect(() => {
-    const currentWorkspaceParam = searchParams.get('workspace') || 'all-tools';
-    const currentWorkspace = data.find(item => item.id === currentWorkspaceParam) || data[0];
+    const workspaceParam = getWorkspaceParam(searchParams);
+    const currentWorkspace = data.find(item => item.id === workspaceParam) || data[0];
     
     if (currentWorkspace && currentWorkspace.id !== workspace?.id) {
       setWorkspace(currentWorkspace);
@@ -72,18 +73,18 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
       onClose();
       
       // Create new URL with workspace parameter
-      const params = new URLSearchParams(searchParams.toString());
+      const currentParams = new URLSearchParams(searchParams.toString());
+      const additionalParams: Record<string, string> = {};
       
-      // If selecting 'all-tools', remove the workspace parameter (since it's the default)
-      if (newValue.id === 'all-tools') {
-        params.delete('workspace');
-      } else {
-        params.set('workspace', newValue.id);
-      }
+      // Preserve all existing parameters except workspace
+      currentParams.forEach((value, key) => {
+        if (key !== 'workspace') {
+          additionalParams[key] = value;
+        }
+      });
       
-      // Redirect to current page with workspace parameter
-      const queryString = params.toString();
-      const url = queryString ? `${window.location.pathname}?${queryString}` : window.location.pathname;
+      // Create URL with workspace parameter
+      const url = createUrlWithWorkspace(window.location.pathname, newValue.id, additionalParams);
       router.push(url);
     },
     [onClose, router, searchParams]

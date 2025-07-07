@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useRouter, useSearchParams } from 'src/routes/hooks';
+import { useRouter, useSearchParams, useWorkspaceParam } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/global-config';
 
@@ -18,6 +18,7 @@ type GuestGuardProps = {
 
 export function GuestGuard({ children }: GuestGuardProps) {
   const router = useRouter();
+  const { preserveWorkspaceInUrl } = useWorkspaceParam();
 
   const { loading, authenticated } = useAuthContext();
 
@@ -32,7 +33,9 @@ export function GuestGuard({ children }: GuestGuardProps) {
     }
 
     if (authenticated) {
-      router.replace(returnTo);
+      // Preserve workspace parameter when redirecting after authentication
+      const redirectUrl = preserveWorkspaceInUrl(returnTo);
+      router.replace(redirectUrl);
       return;
     }
 
