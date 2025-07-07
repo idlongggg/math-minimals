@@ -4,7 +4,7 @@ import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 import type { SxProps, Theme } from '@mui/material/styles';
 
 import { usePopover } from 'minimal-shared/hooks';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -13,6 +13,8 @@ import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Typography from '@mui/material/Typography';
+
+import { useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { CustomPopover } from 'src/components/custom-popover';
 import { Iconify } from 'src/components/iconify';
@@ -41,16 +43,50 @@ export type WorkspacesPopoverProps = ButtonBaseProps & {
 export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopoverProps) {
   const mediaQuery = 'sm';
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const { open, anchorEl, onClose, onOpen } = usePopover();
 
-  const [workspace, setWorkspace] = useState(data[0]);
+  // Get workspace from URL parameter, default to 'all-tools' if not specified
+  const workspaceParam = searchParams.get('workspace') || 'all-tools';
+  
+  // Find the workspace object based on the parameter
+  const initialWorkspace = data.find(item => item.id === workspaceParam) || data[0];
+  
+  const [workspace, setWorkspace] = useState(initialWorkspace);
+
+  // Update workspace state when URL parameter changes
+  useEffect(() => {
+    const currentWorkspaceParam = searchParams.get('workspace') || 'all-tools';
+    const currentWorkspace = data.find(item => item.id === currentWorkspaceParam) || data[0];
+    
+    if (currentWorkspace && currentWorkspace.id !== workspace?.id) {
+      setWorkspace(currentWorkspace);
+    }
+  }, [searchParams, data, workspace?.id]);
 
   const handleChangeWorkspace = useCallback(
     (newValue: (typeof data)[0]) => {
       setWorkspace(newValue);
       onClose();
+      
+      // Create new URL with workspace parameter
+      const params = new URLSearchParams(searchParams.toString());
+      
+      // If selecting 'all-tools', remove the workspace parameter (since it's the default)
+      if (newValue.id === 'all-tools') {
+        params.delete('workspace');
+      } else {
+        params.set('workspace', newValue.id);
+      }
+      
+      // Redirect to current page with workspace parameter
+      const queryString = params.toString();
+      const url = queryString ? `${window.location.pathname}?${queryString}` : window.location.pathname;
+      router.push(url);
     },
-    [onClose]
+    [onClose, router, searchParams]
   );
 
   const buttonBg: SxProps<Theme> = {
