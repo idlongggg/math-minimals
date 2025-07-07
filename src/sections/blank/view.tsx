@@ -1,6 +1,6 @@
 'use client';
 
-import type { Theme, SxProps } from '@mui/material/styles';
+import type { SxProps, Theme } from '@mui/material/styles';
 
 import { varAlpha } from 'minimal-shared/utils';
 

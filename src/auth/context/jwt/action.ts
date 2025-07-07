@@ -2,7 +2,9 @@
 
 import axios, { endpoints } from 'src/lib/axios';
 
-import { AUTH_METHOD_STORAGE_KEY, AUTH_METHODS, JWT_STORAGE_KEY } from './constant';
+import { MOCK_JWT_USERS } from 'src/_mock/_jwt';
+
+import { AUTH_METHOD_STORAGE_KEY, AUTH_METHODS } from './constant';
 import { generateMockJWT, setSession } from './utils';
 
 import type { AuthMethod } from './constant';
@@ -32,7 +34,27 @@ export const signInWithPassword = async ({ email, password, authMethod = AUTH_ME
     sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, authMethod);
 
     if (authMethod === AUTH_METHODS.MOCK_JWT) {
-      // Mock JWT sign in with selected user
+      // Mock JWT sign in with validation
+      const selectedUser = MOCK_JWT_USERS[mockUserIndex];
+      
+      if (!selectedUser) {
+        throw new Error('Invalid user selection');
+      }
+
+      // Validate email
+      if (email !== selectedUser.email) {
+        throw new Error('Invalid email address');
+      }
+
+      // Validate password - for mock, we accept multiple options:
+      // 1. 'mock-password' (default)
+      // 2. The same password as real JWT demo '@2Minimal'
+      // 3. Simple password 'password'
+      const validPasswords = ['mock-password', '@2Minimal', 'password'];
+      if (!validPasswords.includes(password)) {
+        throw new Error('Invalid password. Try: mock-password, @2Minimal, or password');
+      }
+
       const mockToken = generateMockJWT(mockUserIndex);
       await setSession(mockToken);
       
@@ -74,6 +96,9 @@ export const signUp = async ({
   };
 
   try {
+    // Set default auth method for sign up
+    sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, AUTH_METHODS.JWT);
+
     const res = await axios.post(endpoints.auth.signUp, params);
 
     const { accessToken } = res.data;
@@ -82,7 +107,7 @@ export const signUp = async ({
       throw new Error('Access token not found in response');
     }
 
-    sessionStorage.setItem(JWT_STORAGE_KEY, accessToken);
+    await setSession(accessToken);
   } catch (error) {
     console.error('Error during sign up:', error);
     throw error;

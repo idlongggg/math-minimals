@@ -95,6 +95,10 @@ export function generateMockJWT(userIndex: number = 0): string {
   const now = Math.floor(Date.now() / 1000);
   const payload = {
     userId: user.id,
+    email: user.email,
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    role: user.role,
     access: user.access,
     iat: now,
     exp: now + (3 * 24 * 60 * 60), // 3 days
@@ -111,16 +115,33 @@ export function generateMockJWT(userIndex: number = 0): string {
 
 export function createMockUser(token: string): MockJWTUser {
   const decoded = jwtDecode(token);
-  const mockUser = MOCK_JWT_USERS.find(user => user.id === decoded.userId);
   
-  if (!mockUser) {
-    throw new Error(`Mock user not found for ID: ${decoded.userId}`);
-  }
-  
-  return {
-    ...mockUser,
+  // Tạo user từ thông tin trong payload trước
+  const userFromPayload = {
+    id: decoded.userId,
+    displayName: decoded.displayName,
+    email: decoded.email,
+    photoURL: decoded.photoURL,
+    role: decoded.role,
+    access: decoded.access,
     accessToken: token,
   };
+  
+  // Nếu không có đủ thông tin trong payload, fallback về mock user
+  if (!userFromPayload.displayName || !userFromPayload.email) {
+    const mockUser = MOCK_JWT_USERS.find(user => user.id === decoded.userId);
+    
+    if (!mockUser) {
+      throw new Error(`Mock user not found for ID: ${decoded.userId}`);
+    }
+    
+    return {
+      ...mockUser,
+      accessToken: token,
+    };
+  }
+  
+  return userFromPayload;
 }
 
 export function jwtDecode(token: string) {

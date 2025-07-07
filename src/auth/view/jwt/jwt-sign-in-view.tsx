@@ -86,7 +86,7 @@ export function JwtSignInView() {
     const selectedUser = MOCK_JWT_USERS[userIndex];
     if (selectedUser) {
       setValue('email', selectedUser.email);
-      setValue('password', 'mock-password');
+      setValue('password', '@2Minimal'); // Use consistent password
     }
   };
 
@@ -96,7 +96,7 @@ export function JwtSignInView() {
       const selectedUser = MOCK_JWT_USERS[selectedMockUser];
       if (selectedUser) {
         setValue('email', selectedUser.email);
-        setValue('password', 'mock-password');
+        setValue('password', '@2Minimal'); // Use consistent password
       }
     } else {
       // Reset to default values for real JWT
