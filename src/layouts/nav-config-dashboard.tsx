@@ -23,7 +23,6 @@ const ICONS = {
   algebra: icon('ic-algebra'),              // Đại số cơ bản
   
   // Hàm số và Đại số nâng cao
-  functions: icon('ic-function'),           // Hàm số và đồ thị
   matrix: icon('ic-matrix'),                // Đại số tuyến tính
   equation: icon('ic-equation'),            // Giải phương trình nâng cao
   
