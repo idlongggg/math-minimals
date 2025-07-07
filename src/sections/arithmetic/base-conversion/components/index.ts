@@ -4,4 +4,4 @@ export { BaseConversionGuide } from './guide';
 export { ConversionHistory } from './history';
 export { ConversionSteps } from './steps-display';
 export { QuickConversions } from './quick-conversions';
-export { BaseConverterForm, BaseConverterActions } from './converter-form';
+export { BaseConverterForm } from './converter-form';

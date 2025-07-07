@@ -13,7 +13,6 @@ import { Iconify } from 'src/components/iconify';
 
 import {
     BaseConversionGuide,
-    BaseConverterActions,
     BaseConverterForm,
     ConversionHistory,
     ConversionSteps,
@@ -113,11 +112,6 @@ export function BaseConversionView() {
               onConvert={handleConvertWithHistory}
               onReset={handleResetWithClear}
               onSwapBases={handleSwapBases}
-            />
-
-            <BaseConverterActions
-              onConvert={handleConvertWithHistory}
-              onReset={handleResetWithClear}
             />
 
             {error && (
