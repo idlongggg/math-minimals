@@ -2,10 +2,9 @@
 
 import { paths } from 'src/routes/paths';
 
-import {
-  type TopicItem,
-  SubjectTabsView,
-} from 'src/components/subject-tabs-view';
+import type { TopicItem } from 'src/components/subject-tabs/types';
+
+import { SubjectView } from 'src/components/subject-tabs';
 
 const ALGEBRA_TOPICS: TopicItem[] = [
   {
@@ -69,7 +68,7 @@ const ALGEBRA_TOPICS: TopicItem[] = [
 
 export function AlgebraView() {
   return (
-    <SubjectTabsView
+    <SubjectView
       title="Đại số và giải tích"
       description="Khám phá thế giới đại số từ cơ bản đến nâng cao với các công cụ giải phương trình, phân tích đa thức và hàm số."
       subjectTitle="Đại số và giải tích"

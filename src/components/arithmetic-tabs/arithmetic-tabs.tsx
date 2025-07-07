@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { cloneElement, useCallback } from 'react';
 
 import { Iconify } from 'src/components/iconify';
 import { useTabManager } from 'src/components/tab-manager';
@@ -62,47 +62,87 @@ export function useArithmeticTabs(config: ArithmeticTabsConfig): TabManagerTabCo
 
     // Tab chính (converter, checker, etc.)
     if (config.hasMainTab) {
+      const defaultIcon = <Iconify icon="solar:pen-bold" />;
+      const iconToUse = config.mainTabIcon || defaultIcon;
+      
       tabs.push({
         value: 'main',
         label: config.mainTabLabel || 'Chính',
-        icon: config.mainTabIcon,
+        icon: cloneElement(iconToUse, {
+          sx: { 
+            color: '#1976d2',
+            ...iconToUse.props?.sx 
+          }
+        }),
       });
     }
 
     // Tab tính toán
     if (config.hasCalculator) {
+      const defaultIcon = <Iconify icon="solar:pen-bold" />;
+      const iconToUse = config.calculatorIcon || defaultIcon;
+      
       tabs.push({
         value: 'calculator',
         label: config.calculatorLabel || 'Tính toán',
-        icon: config.calculatorIcon || <Iconify icon="solar:pen-bold" />,
+        icon: cloneElement(iconToUse, {
+          sx: { 
+            color: '#388e3c',
+            ...iconToUse.props?.sx 
+          }
+        }),
       });
     }
 
     // Tab công cụ nhanh
     if (config.hasQuickTools) {
+      const defaultIcon = <Iconify icon="custom:flash-outline" />;
+      const iconToUse = config.quickToolsIcon || defaultIcon;
+      
       tabs.push({
         value: 'quick-tools',
         label: config.quickToolsLabel || 'Công cụ nhanh',
-        icon: config.quickToolsIcon || <Iconify icon="custom:flash-outline" />,
+        icon: cloneElement(iconToUse, {
+          sx: { 
+            color: '#f57c00',
+            ...iconToUse.props?.sx 
+          }
+        }),
       });
     }
 
     // Tab lịch sử
     if (config.hasHistory) {
       const historyCount = config.historyCount || 0;
+      const defaultIcon = <Iconify icon="solar:clock-circle-bold" />;
+      const iconToUse = config.historyIcon || defaultIcon;
+      
       tabs.push({
         value: 'history',
         label: config.historyLabel || `Lịch sử (${historyCount})`,
-        icon: config.historyIcon || <Iconify icon="solar:clock-circle-bold" />,
+        icon: cloneElement(iconToUse, {
+          sx: { 
+            color: '#9c27b0',
+            ...iconToUse.props?.sx 
+          }
+        }),
       });
     }
 
     // Tab hướng dẫn
     if (config.hasGuide) {
+      const defaultIcon = <Iconify icon="solar:notebook-bold-duotone" />;
+      const iconToUse = config.guideIcon || defaultIcon;
+      
       tabs.push({
         value: 'guide',
         label: config.guideLabel || 'Hướng dẫn',
-        icon: config.guideIcon || <Iconify icon="solar:notebook-bold-duotone" />,
+        icon: cloneElement(iconToUse, {
+          sx: { 
+            color: '#7b1fa2',
+            ...iconToUse.props?.sx 
+          }
+        }),
       });
     }
 

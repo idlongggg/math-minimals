@@ -15,8 +15,6 @@ export interface TabManagerTabConfig {
   label: string;
   /** Icon cho tab (optional) */
   icon?: React.ReactElement;
-  /** Màu sắc cho tab (optional) */
-  color?: string;
   /** Disabled tab (optional) */
   disabled?: boolean;
   /** Sx props cho tab (optional) */
@@ -76,7 +74,6 @@ export function useTabManager({
           {...(tab.icon && { icon: tab.icon })}
           disabled={tab.disabled}
           sx={{
-            color: tab.color,
             ...tab.sx,
           }}
         />

@@ -14,6 +14,7 @@ export * from './custom-card';
 export * from './custom-tabs';
 export * from './hook-form';
 export * from './line-chart';
+export * from './subject-tabs';
 export * from './svg-color';
 export * from './tab-manager';
 
@@ -28,7 +29,6 @@ export * from './loading-screen';
 export * from './pictograph-chart';
 export * from './progress-bar';
 export * from './search-not-found';
-export * from './subject-tabs-view';
 // Layout Components
 export * from './dashboard-page-layout';
 export * from './dynamic-data-grid-chart';

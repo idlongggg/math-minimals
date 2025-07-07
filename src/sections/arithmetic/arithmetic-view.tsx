@@ -2,10 +2,9 @@
 
 import { paths } from 'src/routes/paths';
 
-import {
-  type TopicItem,
-  SubjectTabsView,
-} from 'src/components/subject-tabs-view';
+import type { TopicItem } from 'src/components/subject-tabs/types';
+
+import { SubjectView } from 'src/components/subject-tabs';
 
 // ----------------------------------------------------------------------
 
@@ -73,7 +72,7 @@ const ARITHMETIC_TOPICS: TopicItem[] = [
 
 export function ArithmeticView() {
   return (
-    <SubjectTabsView
+    <SubjectView
       title="Số học cơ bản"
       description="Học và thực hành các khái niệm số học cơ bản: chuyển đổi cơ số, số nguyên tố, phân số và nhiều hơn nữa."
       subjectTitle="Số học cơ bản"
