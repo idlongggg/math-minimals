@@ -13,6 +13,7 @@ export type SignInParams = {
   email: string;
   password: string;
   authMethod?: AuthMethod;
+  mockUserIndex?: number;
 };
 
 export type SignUpParams = {
@@ -25,14 +26,14 @@ export type SignUpParams = {
 /** **************************************
  * Sign in
  *************************************** */
-export const signInWithPassword = async ({ email, password, authMethod = AUTH_METHODS.JWT }: SignInParams): Promise<void> => {
+export const signInWithPassword = async ({ email, password, authMethod = AUTH_METHODS.JWT, mockUserIndex = 0 }: SignInParams): Promise<void> => {
   try {
     // Store auth method
     sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, authMethod);
 
     if (authMethod === AUTH_METHODS.MOCK_JWT) {
-      // Mock JWT sign in
-      const mockToken = generateMockJWT();
+      // Mock JWT sign in with selected user
+      const mockToken = generateMockJWT(mockUserIndex);
       await setSession(mockToken);
       
       return;

@@ -2,6 +2,8 @@ export * from './_job';
 
 export * from './_mock';
 
+export * from './_jwt';
+
 export * from './_user';
 
 export * from './_tour';

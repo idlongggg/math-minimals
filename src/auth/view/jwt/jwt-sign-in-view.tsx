@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useBoolean } from 'minimal-shared/hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z as zod } from 'zod';
 
@@ -13,6 +13,8 @@ import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Link from '@mui/material/Link';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -25,6 +27,7 @@ import { paths } from 'src/routes/paths';
 import { Field, Form } from 'src/components/hook-form';
 import { Iconify } from 'src/components/iconify';
 
+import { MOCK_JWT_USERS } from 'src/_mock/_jwt';
 import { FormHead } from '../../components/form-head';
 import { signInWithPassword } from '../../context/jwt';
 import { AUTH_METHODS } from '../../context/jwt/constant';
@@ -60,6 +63,7 @@ export function JwtSignInView() {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [authMethod, setAuthMethod] = useState<AuthMethod>(AUTH_METHODS.JWT);
+  const [selectedMockUser, setSelectedMockUser] = useState<number>(0);
 
   const defaultValues: SignInSchemaType = {
     email: 'demo@minimals.cc',
@@ -73,15 +77,41 @@ export function JwtSignInView() {
 
   const {
     handleSubmit,
+    setValue,
     formState: { isSubmitting },
   } = methods;
+
+  const handleMockUserChange = (userIndex: number) => {
+    setSelectedMockUser(userIndex);
+    const selectedUser = MOCK_JWT_USERS[userIndex];
+    if (selectedUser) {
+      setValue('email', selectedUser.email);
+      setValue('password', 'mock-password');
+    }
+  };
+
+  // Initialize form with mock user data when switching to mock JWT
+  useEffect(() => {
+    if (authMethod === AUTH_METHODS.MOCK_JWT) {
+      const selectedUser = MOCK_JWT_USERS[selectedMockUser];
+      if (selectedUser) {
+        setValue('email', selectedUser.email);
+        setValue('password', 'mock-password');
+      }
+    } else {
+      // Reset to default values for real JWT
+      setValue('email', 'demo@minimals.cc');
+      setValue('password', '@2Minimal');
+    }
+  }, [authMethod, selectedMockUser, setValue]);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
       await signInWithPassword({ 
         email: data.email, 
         password: data.password, 
-        authMethod 
+        authMethod,
+        mockUserIndex: selectedMockUser
       });
       await checkUserSession?.();
 
@@ -128,18 +158,44 @@ export function JwtSignInView() {
 
       {/* Show mock info when mock JWT is selected */}
       {authMethod === AUTH_METHODS.MOCK_JWT && (
-        <Alert severity="info" sx={{ mb: 2 }}>
-          <Typography variant="body2" gutterBottom>
-            <strong>Mock JWT Mode:</strong> Will generate a fake JWT token with:
-          </Typography>
-          <Typography variant="body2" component="div">
-            • userId: "8864c717-587d-472a-929a-8e5f298024da-0"
-            <br />
-            • access: ["algebra", "statistics"]
-            <br />
-            • exp: 3 days from now
-          </Typography>
-        </Alert>
+        <Stack spacing={2}>
+          <Stack spacing={1}>
+            <Typography variant="subtitle2">Select Mock User:</Typography>
+            <Select
+              value={selectedMockUser}
+              onChange={(e) => handleMockUserChange(e.target.value as number)}
+              fullWidth
+              size="small"
+              displayEmpty
+            >
+              {MOCK_JWT_USERS.map((user, index) => (
+                <MenuItem key={user.id} value={index}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: '100%' }}>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography variant="body2" fontWeight="medium">
+                        {user.displayName}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {user.email}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 0.5 }}>
+                      {user.access.map((subject) => (
+                        <Chip
+                          key={subject}
+                          label={subject}
+                          size="small"
+                          variant="outlined"
+                          sx={{ fontSize: '0.75rem' }}
+                        />
+                      ))}
+                    </Box>
+                  </Box>
+                </MenuItem>
+              ))}
+            </Select>
+          </Stack>
+        </Stack>
       )}
 
       <Field.Text name="email" label="Email address" slotProps={{ inputLabel: { shrink: true } }} />
@@ -205,21 +261,6 @@ export function JwtSignInView() {
         }
         sx={{ textAlign: { xs: 'center', md: 'left' } }}
       />
-
-      <Alert severity="info" sx={{ mb: 3 }}>
-        {authMethod === AUTH_METHODS.JWT ? (
-          <>
-            Use <strong>{defaultValues.email}</strong>
-            {' with password '}
-            <strong>{defaultValues.password}</strong>
-          </>
-        ) : (
-          <>
-            <strong>Mock JWT Mode:</strong> You can use any email/password combination.
-            The system will generate a fake JWT token.
-          </>
-        )}
-      </Alert>
 
       {!!errorMessage && (
         <Alert severity="error" sx={{ mb: 3 }}>

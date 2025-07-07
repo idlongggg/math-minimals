@@ -2,77 +2,19 @@ import { paths } from 'src/routes/paths';
 
 import axios from 'src/lib/axios';
 
+import { createMockUser, generateMockJWT, jwtDecode as mockJwtDecode } from 'src/_mock/_jwt';
+
 import { AUTH_METHOD_STORAGE_KEY, AUTH_METHODS, JWT_STORAGE_KEY } from './constant';
 
 import type { AuthMethod } from './constant';
 
 // ----------------------------------------------------------------------
 
-// Mock JWT utilities
-function base64UrlEncode(str: string): string {
-  return btoa(str)
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=/g, '');
-}
-
-export function generateMockJWT(): string {
-  const header = {
-    alg: 'HS256',
-    typ: 'JWT',
-  };
-
-  const now = Math.floor(Date.now() / 1000);
-  const payload = {
-    userId: '8864c717-587d-472a-929a-8e5f298024da-0',
-    access: ['algebra', 'statistics'],
-    iat: now,
-    exp: now + (3 * 24 * 60 * 60), // 3 days
-  };
-
-  const encodedHeader = base64UrlEncode(JSON.stringify(header));
-  const encodedPayload = base64UrlEncode(JSON.stringify(payload));
-  
-  // For demo purposes, we'll use a simple signature
-  const signature = base64UrlEncode('mock-signature-for-demo');
-
-  return `${encodedHeader}.${encodedPayload}.${signature}`;
-}
-
-export function createMockUser(token: string) {
-  const decoded = jwtDecode(token);
-  
-  return {
-    id: decoded.userId,
-    displayName: 'Mock User',
-    email: 'mock@example.com',
-    photoURL: null,
-    role: 'admin',
-    access: decoded.access,
-    accessToken: token,
-  };
-}
-
-// ----------------------------------------------------------------------
+// Re-export the mock JWT utilities
+export { createMockUser, generateMockJWT };
 
 export function jwtDecode(token: string) {
-  try {
-    if (!token) return null;
-
-    const parts = token.split('.');
-    if (parts.length < 2) {
-      throw new Error('Invalid token!');
-    }
-
-    const base64Url = parts[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const decoded = JSON.parse(atob(base64));
-
-    return decoded;
-  } catch (error) {
-    console.error('Error decoding token:', error);
-    throw error;
-  }
+  return mockJwtDecode(token);
 }
 
 // ----------------------------------------------------------------------
