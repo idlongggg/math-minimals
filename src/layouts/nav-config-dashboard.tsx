@@ -13,27 +13,34 @@ const icon = (name: string) => (
 );
 
 const ICONS = {
-  // Biểu tượng toán học - Công cụ và Tiện ích
-  tools: icon('ic-calculator'),
-  calculator: icon('ic-calculator'),
-  converter: icon('ic-converter'),
-  solver: icon('ic-solver'),
-  generator: icon('ic-generator'),
-  // Toán học cơ bản
-  arithmetic: icon('ic-arithmetic'),
-  algebra: icon('ic-algebra'),
-  // Hình học
-  geometry: icon('ic-square'),
-  plane: icon('ic-square'),
-  spatial: icon('ic-cube'),
-  coordinate: icon('ic-coordinate'),
-  // Lượng giác
-  trigonometry: icon('ic-triangle'),
-  // Thống kê và Xác suất
-  statistics: icon('ic-statistics'),
-  chart: icon('ic-chart'),
-  probability: icon('ic-probability'),
-  distribution: icon('ic-distribution'),
+  // Công cụ toán học cơ bản
+  calculator: icon('ic-calculator'),        // Máy tính cơ bản
+  converter: icon('ic-converter'),          // Công cụ chuyển đổi
+  generator: icon('ic-generator'),          // Trình tạo
+  
+  // Số học và Đại số cơ bản
+  arithmetic: icon('ic-arithmetic'),        // Số học cơ bản
+  algebra: icon('ic-algebra'),              // Đại số cơ bản
+  
+  // Hàm số và Đại số nâng cao
+  functions: icon('ic-function'),           // Hàm số và đồ thị
+  matrix: icon('ic-matrix'),                // Đại số tuyến tính
+  equation: icon('ic-equation'),            // Giải phương trình nâng cao
+  
+  // Giải tích
+  calculus: icon('ic-calculus'),            // Công cụ giải tích
+  
+  // Hình học và lượng giác
+  plane: icon('ic-plane'),                  // Hình học mặt phẳng
+  spatial: icon('ic-cube'),                 // Hình học không gian
+  coordinate: icon('ic-coordinate'),        // Hình học tọa độ
+  trigonometry: icon('ic-triangle'),        // Lượng giác cơ bản
+  
+  // Thống kê và xác suất
+  chart: icon('ic-chart'),                  // Biểu đồ và dữ liệu
+  statistics: icon('ic-statistics'),        // Thống kê mô tả
+  probability: icon('ic-probability'),      // Xác suất cơ bản
+  distribution: icon('ic-distribution'),    // Phân phối xác suất
 };
 
 // ----------------------------------------------------------------------
@@ -173,7 +180,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Hàm số và đồ thị',
         path: paths.dashboard.group.six,
-        icon: ICONS.chart,
+        icon: ICONS.functions,
         children: [
           {
             title: 'Hàm tuyến tính',
@@ -216,7 +223,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Đại số tuyến tính',
         path: paths.dashboard.three,
-        icon: ICONS.solver,
+        icon: ICONS.matrix,
         children: [
           {
             title: 'Máy tính ma trận',
@@ -231,7 +238,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Giải phương trình nâng cao',
         path: paths.dashboard.group.five,
-        icon: ICONS.solver,
+        icon: ICONS.equation,
         children: [
           {
             title: 'Phương trình vi phân',
@@ -254,7 +261,7 @@ export const navData: NavSectionProps['data'] = [
       {
         title: 'Công cụ giải tích',
         path: paths.dashboard.root,
-        icon: ICONS.calculator,
+        icon: ICONS.calculus,
         children: [
           { title: 'Đạo hàm', path: paths.dashboard.root },
           { title: 'Tích phân', path: paths.dashboard.two },
