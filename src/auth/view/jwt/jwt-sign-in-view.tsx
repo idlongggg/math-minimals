@@ -22,7 +22,6 @@ import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/routes/components';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
-import { paths } from 'src/routes/paths';
 
 import { Field, Form } from 'src/components/hook-form';
 import { Iconify } from 'src/components/iconify';
@@ -251,14 +250,6 @@ export function JwtSignInView() {
     <>
       <FormHead
         title="Sign in to your account"
-        description={
-          <>
-            {`Don’t have an account? `}
-            <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
-              Get started
-            </Link>
-          </>
-        }
         sx={{ textAlign: { xs: 'center', md: 'left' } }}
       />
 
