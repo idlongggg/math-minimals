@@ -2,52 +2,57 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
 
-import { CustomTabs } from 'src/components/custom-tabs';
+import { useArithmeticTabManager } from 'src/components/arithmetic-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
-import { useFractionConverter, useFractionCalculator } from './fraction/hooks';
 import {
-  HistoryPanel,
-  FractionConverter,
-  FractionCalculator,
-  QuickOperationsPanel,
+    FractionCalculator,
+    FractionConverter,
+    HistoryPanel,
+    QuickOperationsPanel,
 } from './fraction';
+import { useFractionCalculator, useFractionConverter } from './fraction/hooks';
 
 /**
  * Component chính cho trang Phân số
  * Bao gồm chuyển đổi, máy tính, phép toán nhanh và lịch sử
  */
 export function FractionView() {
-  const [currentTab, setCurrentTab] = useState('converter');
-
   // Sử dụng các hooks đã tách riêng
   const calculatorHook = useFractionCalculator();
   const converterHook = useFractionConverter();
 
-  const handleTabChange = useCallback(
-    (event: React.SyntheticEvent, newValue: string) => {
-      setCurrentTab(newValue);
-    },
-    []
-  );
+  // Sử dụng ArithmeticTabManager với custom tabs
+  const { currentTab, renderTabs } = useArithmeticTabManager({
+    hasMainTab: true,
+    mainTabLabel: 'Chuyển đổi',
+    mainTabIcon: <Iconify icon="solar:restart-bold" />,
+    hasCalculator: true,
+    calculatorLabel: 'Máy tính',
+    calculatorIcon: <Iconify icon="solar:pen-bold" />,
+    customTabs: [
+      {
+        value: 'quick',
+        label: 'Phép toán nhanh',
+        icon: <Iconify icon="custom:flash-outline" />,
+      },
+      {
+        value: 'history',
+        label: 'Lịch sử',
+        icon: <Iconify icon="solar:clock-circle-bold" />,
+      },
+    ],
+    defaultTab: 'main',
+  });
 
-  const renderTabs = () => (
-    <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="converter" label="Chuyển đổi" sx={{ color: '#2196f3' }} />
-      <Tab value="calculator" label="Máy tính" sx={{ color: '#4caf50' }} />
-      <Tab value="quick" label="Phép toán nhanh" sx={{ color: '#ff9800' }} />
-      <Tab value="history" label="Lịch sử" sx={{ color: '#9c27b0' }} />
-    </CustomTabs>
-  );
-
-  const renderTabContent = () => {
+  const renderTabContent = useCallback(() => {
     switch (currentTab) {
-      case 'converter':
+      case 'main':
         return (
           <Box
             sx={{
@@ -127,7 +132,7 @@ export function FractionView() {
       default:
         return null;
     }
-  };
+  }, [currentTab, converterHook, calculatorHook]);
 
   return (
     <DashboardPageWithTabsLayout

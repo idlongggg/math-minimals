@@ -2,32 +2,29 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
 
-import { Iconify } from 'src/components/iconify';
-import { CustomTabs } from 'src/components/custom-tabs';
+import { useArithmeticTabManager } from 'src/components/arithmetic-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 import {
-  DivisionSteps,
-  DivisionGuide,
-  QuickExamples,
-  DivisionHistory,
-  useDivisionCalculator,
-  useCalculationHistory,
-  DivisionCalculatorForm,
-  DivisionCalculatorActions,
+    DivisionCalculatorActions,
+    DivisionCalculatorForm,
+    DivisionGuide,
+    DivisionHistory,
+    DivisionSteps,
+    QuickExamples,
+    useCalculationHistory,
+    useDivisionCalculator,
 } from './division-with-remainder';
 
 // ----------------------------------------------------------------------
 
 export function DivisionWithRemainderView() {
-  const [currentTab, setCurrentTab] = useState('calculator');
-
   const {
     dividend,
     setDividend,
@@ -43,6 +40,19 @@ export function DivisionWithRemainderView() {
   const { history, addToHistory, clearHistory, selectHistoryItem } =
     useCalculationHistory();
 
+  // Sử dụng ArithmeticTabManager
+  const { currentTab, setCurrentTab, renderTabs } = useArithmeticTabManager({
+    hasMainTab: true,
+    mainTabLabel: 'Tính toán',
+    mainTabIcon: <Iconify icon="solar:pen-bold" />,
+    hasQuickTools: true,
+    quickToolsLabel: 'Ví dụ nhanh',
+    hasHistory: true,
+    historyCount: history.length,
+    hasGuide: true,
+    defaultTab: 'main',
+  });
+
   // Add successful calculations to history
   useEffect(() => {
     if (result && dividend && divisor) {
@@ -54,13 +64,6 @@ export function DivisionWithRemainderView() {
     }
   }, [result, dividend, divisor, addToHistory]);
 
-  const handleTabChange = useCallback(
-    (event: React.SyntheticEvent, newValue: string) => {
-      setCurrentTab(newValue);
-    },
-    []
-  );
-
   const handleCalculateWithHistory = useCallback(() => {
     handleCalculate();
   }, [handleCalculate]);
@@ -68,9 +71,9 @@ export function DivisionWithRemainderView() {
   const handleQuickExampleWithHistory = useCallback(
     (example: Parameters<typeof handleQuickExample>[0]) => {
       handleQuickExample(example);
-      setCurrentTab('calculator');
+      setCurrentTab('main');
     },
-    [handleQuickExample]
+    [handleQuickExample, setCurrentTab]
   );
 
   const handleHistoryItemClick = useCallback(
@@ -78,76 +81,76 @@ export function DivisionWithRemainderView() {
       const selected = selectHistoryItem(item);
       setDividend(selected.dividend);
       setDivisor(selected.divisor);
-      setCurrentTab('calculator');
+      setCurrentTab('main');
     },
-    [selectHistoryItem, setDividend, setDivisor]
+    [selectHistoryItem, setDividend, setDivisor, setCurrentTab]
   );
 
-  const renderCalculator = () => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
-      <DivisionCalculatorForm
-        dividend={dividend}
-        divisor={divisor}
-        result={result}
-        onDividendChange={setDividend}
-        onDivisorChange={setDivisor}
-        onCalculate={handleCalculateWithHistory}
-        onReset={handleReset}
-      />
+  const renderTabContent = useCallback(() => {
+    switch (currentTab) {
+      case 'main':
+        return (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, pb: 3 }}>
+            <DivisionCalculatorForm
+              dividend={dividend}
+              divisor={divisor}
+              result={result}
+              onDividendChange={setDividend}
+              onDivisorChange={setDivisor}
+              onCalculate={handleCalculateWithHistory}
+              onReset={handleReset}
+            />
 
-      <DivisionCalculatorActions
-        onCalculate={handleCalculateWithHistory}
-        onReset={handleReset}
-      />
+            <DivisionCalculatorActions
+              onCalculate={handleCalculateWithHistory}
+              onReset={handleReset}
+            />
 
-      {error && (
-        <Alert severity="error" sx={{ mt: 2 }}>
-          {error}
-        </Alert>
-      )}
+            {error && (
+              <Alert severity="error" sx={{ mt: 2 }}>
+                {error}
+              </Alert>
+            )}
 
-      {result && <DivisionSteps result={result} />}
-    </Box>
-  );
+            {result && <DivisionSteps result={result} />}
+          </Box>
+        );
 
-  const renderQuickTools = () => (
-    <QuickExamples onExampleClick={handleQuickExampleWithHistory} />
-  );
+      case 'quick-tools':
+        return (
+          <QuickExamples onExampleClick={handleQuickExampleWithHistory} />
+        );
 
-  const renderHistory = () => (
-    <DivisionHistory
-      history={history}
-      onHistoryItemClick={handleHistoryItemClick}
-      onClearHistory={clearHistory}
-    />
-  );
+      case 'history':
+        return (
+          <DivisionHistory
+            history={history}
+            onHistoryItemClick={handleHistoryItemClick}
+            onClearHistory={clearHistory}
+          />
+        );
 
-  const renderGuide = () => <DivisionGuide />;
+      case 'guide':
+        return <DivisionGuide />;
 
-  const renderTabs = () => (
-    <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab
-        value="calculator"
-        label="Máy tính"
-        icon={<Iconify icon="solar:restart-bold" />}
-      />
-      <Tab
-        value="quick-tools"
-        label="Ví dụ nhanh"
-        icon={<Iconify icon="custom:flash-outline" />}
-      />
-      <Tab
-        value="history"
-        label={`Lịch sử (${history.length})`}
-        icon={<Iconify icon="solar:clock-circle-bold" />}
-      />
-      <Tab
-        value="guide"
-        label="Hướng dẫn"
-        icon={<Iconify icon="solar:notebook-bold-duotone" />}
-      />
-    </CustomTabs>
-  );
+      default:
+        return null;
+    }
+  }, [
+    currentTab,
+    dividend,
+    divisor,
+    result,
+    error,
+    history,
+    setDividend,
+    setDivisor,
+    handleReset,
+    handleCalculateWithHistory,
+    handleQuickExampleWithHistory,
+    handleHistoryItemClick,
+    clearHistory,
+  ]);
 
   return (
     <DashboardPageWithTabsLayout
@@ -155,10 +158,7 @@ export function DivisionWithRemainderView() {
       description="Công cụ tính phép chia có dư với các ví dụ minh họa và bảng tra cứu nhanh."
       tabs={renderTabs()}
     >
-      {currentTab === 'calculator' && renderCalculator()}
-      {currentTab === 'quick-tools' && renderQuickTools()}
-      {currentTab === 'history' && renderHistory()}
-      {currentTab === 'guide' && renderGuide()}
+      <Box sx={{ mt: 3 }}>{renderTabContent()}</Box>
     </DashboardPageWithTabsLayout>
   );
 }

@@ -2,43 +2,51 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 
-import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-import { CustomTabs } from 'src/components/custom-tabs';
+import { useArithmeticTabManager } from 'src/components/arithmetic-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
+import { DivisorsTab, GcdLcmTab, MultiplesTab } from './divisors-multiples';
 import { useHistory } from './divisors-multiples/hooks';
-import { GcdLcmTab, DivisorsTab, MultiplesTab } from './divisors-multiples';
 
 /**
  * Component chính cho trang Ước số và Bội số
  * Đã được refactor để tách thành các components và hooks riêng biệt
  */
 export function DivisorsMultiplesView() {
-  const [currentTab, setCurrentTab] = useState('divisors');
   const { history, addToHistory, clearHistory } = useHistory();
 
-  const handleTabChange = useCallback(
-    (event: React.SyntheticEvent, newValue: string) => {
-      setCurrentTab(newValue);
-    },
-    []
-  );
+  // Sử dụng ArithmeticTabManager
+  const { currentTab, renderTabs } = useArithmeticTabManager({
+    hasMainTab: true,
+    mainTabLabel: 'Ước số',
+    mainTabIcon: <Iconify icon="solar:pen-bold" />,
+    customTabs: [
+      {
+        value: 'multiples',
+        label: 'Bội số',
+        icon: <Iconify icon="solar:list-bold" />,
+      },
+      {
+        value: 'gcd-lcm',
+        label: 'GCD & LCM',
+        icon: <Iconify icon="solar:tv-bold" />,
+      },
+    ],
+    hasHistory: true,
+    historyCount: history.length,
+    defaultTab: 'main',
+  });
 
-  const renderTabs = () => (
-    <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab value="divisors" label="Ước số" />
-      <Tab value="multiples" label="Bội số" />
-      <Tab value="gcd-lcm" label="GCD & LCM" />
-      <Tab value="history" label={`Lịch sử (${history.length})`} />
-    </CustomTabs>
-  );
-
-  const renderTabContent = () => {
+  const renderTabContent = useCallback(() => {
     switch (currentTab) {
-      case 'divisors':
+      case 'main':
         return <DivisorsTab onAddToHistory={addToHistory} />;
       case 'multiples':
         return <MultiplesTab onAddToHistory={addToHistory} />;
@@ -46,28 +54,59 @@ export function DivisorsMultiplesView() {
         return <GcdLcmTab onAddToHistory={addToHistory} />;
       case 'history':
         return (
-          <div>
-            <h3>Lịch sử tính toán</h3>
+          <Box sx={{ p: 3 }}>
+            <Typography variant="h6" gutterBottom>
+              Lịch sử tính toán
+            </Typography>
             {history.length === 0 ? (
-              <p>Chưa có lịch sử tính toán nào.</p>
+              <Typography color="text.secondary">
+                Chưa có lịch sử tính toán nào.
+              </Typography>
             ) : (
-              <div>
-                <button onClick={clearHistory}>Xóa tất cả</button>
-                {history.map((item) => (
-                  <div key={item.id}>
-                    <strong>{item.type}</strong> -{' '}
-                    {item.timestamp.toLocaleString()}
-                    <pre>{JSON.stringify(item.data, null, 2)}</pre>
-                  </div>
-                ))}
-              </div>
+              <Box>
+                <Button
+                  onClick={clearHistory}
+                  variant="outlined"
+                  color="error"
+                  size="small"
+                  sx={{ mb: 2 }}
+                >
+                  Xóa tất cả
+                </Button>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  {history.map((item) => (
+                    <Box
+                      key={item.id}
+                      sx={{
+                        p: 2,
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        borderRadius: 1,
+                      }}
+                    >
+                      <Typography variant="subtitle2" gutterBottom>
+                        <strong>{item.type}</strong> -{' '}
+                        {item.timestamp.toLocaleString()}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        component="pre"
+                        sx={{ whiteSpace: 'pre-wrap' }}
+                      >
+                        {JSON.stringify(item.data, null, 2)}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
             )}
-          </div>
+          </Box>
         );
       default:
         return null;
     }
-  };
+  }, [currentTab, history, addToHistory, clearHistory]);
 
   return (
     <DashboardPageWithTabsLayout
@@ -75,7 +114,7 @@ export function DivisorsMultiplesView() {
       description="Công cụ tìm ước số, bội số và tính GCD/LCM với các thuật toán hiệu quả."
       tabs={renderTabs()}
     >
-      {renderTabContent()}
+      <Box sx={{ mt: 3 }}>{renderTabContent()}</Box>
     </DashboardPageWithTabsLayout>
   );
 }

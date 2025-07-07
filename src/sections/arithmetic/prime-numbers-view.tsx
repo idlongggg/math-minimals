@@ -2,23 +2,21 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
-import Tab from '@mui/material/Tab';
-
-import { Iconify } from 'src/components/iconify';
-import { CustomTabs } from 'src/components/custom-tabs';
+import { useArithmeticTabManager } from 'src/components/arithmetic-tabs';
 import { DashboardPageWithTabsLayoutAndMetadata } from 'src/components/dashboard-page-layout';
+import { Iconify } from 'src/components/iconify';
 
 import {
-  PrimeGuide,
-  QuickTools,
-  PrimeHistory,
-  usePrimeRange,
-  usePrimeChecker,
-  usePrimeHistory,
-  PrimeCheckerForm,
-  PrimeRangeFinder,
+    PrimeCheckerForm,
+    PrimeGuide,
+    PrimeHistory,
+    PrimeRangeFinder,
+    QuickTools,
+    usePrimeChecker,
+    usePrimeHistory,
+    usePrimeRange,
 } from './prime-numbers';
 
 import type { QuickCheck } from './prime-numbers';
@@ -26,8 +24,6 @@ import type { QuickCheck } from './prime-numbers';
 // ----------------------------------------------------------------------
 
 export function PrimeNumbersView() {
-  const [currentTab, setCurrentTab] = useState('checker');
-
   const {
     inputNumber,
     setInputNumber,
@@ -51,12 +47,24 @@ export function PrimeNumbersView() {
   const { history, addToHistory, clearHistory, selectHistoryItem } =
     usePrimeHistory();
 
-  const handleTabChange = useCallback(
-    (event: React.SyntheticEvent, newValue: string) => {
-      setCurrentTab(newValue);
-    },
-    []
-  );
+  // Sử dụng ArithmeticTabManager với custom tabs
+  const { currentTab, setCurrentTab, renderTabs } = useArithmeticTabManager({
+    hasMainTab: true,
+    mainTabLabel: 'Kiểm tra',
+    mainTabIcon: <Iconify icon="solar:shield-check-bold" />,
+    hasQuickTools: true,
+    hasHistory: true,
+    historyCount: history.length,
+    hasGuide: true,
+    customTabs: [
+      {
+        value: 'range-finder',
+        label: 'Tìm trong khoảng',
+        icon: <Iconify icon="solar:list-bold" />,
+      },
+    ],
+    defaultTab: 'main',
+  });
 
   const handleCheckWithHistory = useCallback(() => {
     const checkResult = handleCheck();
@@ -71,26 +79,26 @@ export function PrimeNumbersView() {
       if (checkResult) {
         addToHistory(checkResult.number, checkResult.isPrime);
       }
-      setCurrentTab('checker');
+      setCurrentTab('main');
     },
-    [handleQuickCheck, addToHistory]
+    [handleQuickCheck, addToHistory, setCurrentTab]
   );
 
   const handleHistoryItemClick = useCallback(
     (item: Parameters<typeof selectHistoryItem>[0]) => {
       const selected = selectHistoryItem(item);
       setInputNumber(selected.number);
-      setCurrentTab('checker');
+      setCurrentTab('main');
     },
-    [selectHistoryItem, setInputNumber]
+    [selectHistoryItem, setInputNumber, setCurrentTab]
   );
 
   const handlePrimeClick = useCallback(
     (prime: number) => {
       setInputNumber(prime.toString());
-      setCurrentTab('checker');
+      setCurrentTab('main');
     },
-    [setInputNumber]
+    [setInputNumber, setCurrentTab]
   );
 
   // Auto-add to history when result changes
@@ -103,76 +111,78 @@ export function PrimeNumbersView() {
     }
   }, [result, inputNumber, addToHistory]);
 
-  const renderChecker = () => (
-    <PrimeCheckerForm
-      inputNumber={inputNumber}
-      result={result}
-      error={error}
-      onInputChange={setInputNumber}
-      onCheck={handleCheckWithHistory}
-      onReset={handleReset}
-    />
-  );
+  const renderTabContent = useCallback(() => {
+    switch (currentTab) {
+      case 'main':
+        return (
+          <PrimeCheckerForm
+            inputNumber={inputNumber}
+            result={result}
+            error={error}
+            onInputChange={setInputNumber}
+            onCheck={handleCheckWithHistory}
+            onReset={handleReset}
+          />
+        );
 
-  const renderRangeFinder = () => (
-    <PrimeRangeFinder
-      rangeStart={rangeStart}
-      rangeEnd={rangeEnd}
-      primesInRange={primesInRange}
-      error={rangeError}
-      onRangeStartChange={setRangeStart}
-      onRangeEndChange={setRangeEnd}
-      onFindPrimes={handleFindPrimes}
-      onPrimeClick={handlePrimeClick}
-    />
-  );
+      case 'range-finder':
+        return (
+          <PrimeRangeFinder
+            rangeStart={rangeStart}
+            rangeEnd={rangeEnd}
+            primesInRange={primesInRange}
+            error={rangeError}
+            onRangeStartChange={setRangeStart}
+            onRangeEndChange={setRangeEnd}
+            onFindPrimes={handleFindPrimes}
+            onPrimeClick={handlePrimeClick}
+          />
+        );
 
-  const renderQuickTools = () => (
-    <QuickTools
-      onQuickCheck={handleQuickCheckWithHistory}
-      onPrimeClick={handlePrimeClick}
-    />
-  );
+      case 'quick-tools':
+        return (
+          <QuickTools
+            onQuickCheck={handleQuickCheckWithHistory}
+            onPrimeClick={handlePrimeClick}
+          />
+        );
 
-  const renderHistory = () => (
-    <PrimeHistory
-      history={history}
-      onHistoryItemClick={handleHistoryItemClick}
-      onClearHistory={clearHistory}
-    />
-  );
+      case 'history':
+        return (
+          <PrimeHistory
+            history={history}
+            onHistoryItemClick={handleHistoryItemClick}
+            onClearHistory={clearHistory}
+          />
+        );
 
-  const renderGuide = () => <PrimeGuide />;
+      case 'guide':
+        return <PrimeGuide />;
 
-  const renderTabs = () => (
-    <CustomTabs value={currentTab} onChange={handleTabChange}>
-      <Tab
-        value="checker"
-        label="Kiểm tra"
-        icon={<Iconify icon="solar:shield-check-bold" />}
-      />
-      <Tab
-        value="range-finder"
-        label="Tìm trong khoảng"
-        icon={<Iconify icon="solar:list-bold" />}
-      />
-      <Tab
-        value="quick-tools"
-        label="Công cụ nhanh"
-        icon={<Iconify icon="custom:flash-outline" />}
-      />
-      <Tab
-        value="history"
-        label={`Lịch sử (${history.length})`}
-        icon={<Iconify icon="solar:clock-circle-bold" />}
-      />
-      <Tab
-        value="guide"
-        label="Hướng dẫn"
-        icon={<Iconify icon="solar:notebook-bold-duotone" />}
-      />
-    </CustomTabs>
-  );
+      default:
+        return null;
+    }
+  }, [
+    currentTab,
+    inputNumber,
+    result,
+    error,
+    rangeStart,
+    rangeEnd,
+    primesInRange,
+    rangeError,
+    history,
+    handleCheckWithHistory,
+    handleReset,
+    setInputNumber,
+    setRangeStart,
+    setRangeEnd,
+    handleFindPrimes,
+    handlePrimeClick,
+    handleQuickCheckWithHistory,
+    handleHistoryItemClick,
+    clearHistory,
+  ]);
 
   return (
     <DashboardPageWithTabsLayoutAndMetadata
@@ -181,11 +191,7 @@ export function PrimeNumbersView() {
       description="Công cụ kiểm tra và tìm số nguyên tố với thuật toán tối ưu và các ví dụ minh họa."
       tabs={renderTabs()}
     >
-      {currentTab === 'checker' && renderChecker()}
-      {currentTab === 'range-finder' && renderRangeFinder()}
-      {currentTab === 'quick-tools' && renderQuickTools()}
-      {currentTab === 'history' && renderHistory()}
-      {currentTab === 'guide' && renderGuide()}
+      {renderTabContent()}
     </DashboardPageWithTabsLayoutAndMetadata>
   );
 }
