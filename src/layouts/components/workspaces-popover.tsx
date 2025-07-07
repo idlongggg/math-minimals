@@ -1,26 +1,33 @@
 'use client';
 
-import type { Theme, SxProps } from '@mui/material/styles';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
+import type { SxProps, Theme } from '@mui/material/styles';
 
-import { useState, useCallback } from 'react';
 import { usePopover } from 'minimal-shared/hooks';
+import { useCallback, useState } from 'react';
 
-import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
-import Button, { buttonClasses } from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
+import Typography from '@mui/material/Typography';
 
-import { Label } from 'src/components/label';
-import { Iconify } from 'src/components/iconify';
-import { Scrollbar } from 'src/components/scrollbar';
 import { CustomPopover } from 'src/components/custom-popover';
+import { Iconify } from 'src/components/iconify';
+import { Label } from 'src/components/label';
+import { Scrollbar } from 'src/components/scrollbar';
 
 // ----------------------------------------------------------------------
+
+const getLabelColor = (plan: string) => {
+  if (plan === 'Chưa sở hữu') return 'default';
+  if (plan === 'Sở hữu') return 'success';
+  if (plan === 'Free') return 'default';
+  if (plan === '') return undefined;
+  return 'info';
+};
 
 export type WorkspacesPopoverProps = ButtonBaseProps & {
   data?: {
@@ -95,16 +102,18 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
         {workspace?.name}
       </Box>
 
-      <Label
-        color={workspace?.plan === 'Free' ? 'default' : 'info'}
-        sx={{
-          height: 22,
-          cursor: 'inherit',
-          display: { xs: 'none', [mediaQuery]: 'inline-flex' },
-        }}
-      >
-        {workspace?.plan}
-      </Label>
+      {workspace?.plan && (
+        <Label
+          color={getLabelColor(workspace.plan)}
+          sx={{
+            height: 22,
+            cursor: 'inherit',
+            display: { xs: 'none', [mediaQuery]: 'inline-flex' },
+          }}
+        >
+          {workspace.plan}
+        </Label>
+      )}
 
       <Iconify width={16} icon="carbon:chevron-sort" sx={{ color: 'text.disabled' }} />
     </ButtonBase>
@@ -117,59 +126,38 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
       onClose={onClose}
       slotProps={{
         arrow: { placement: 'top-left' },
-        paper: { sx: { mt: 0.5, ml: -1.55, width: 240 } },
+        paper: { sx: { mt: 0.5, ml: -1.55, width: 320 } },
       }}
     >
       <Scrollbar sx={{ maxHeight: 240 }}>
         <MenuList>
-          {data.map((option) => (
-            <MenuItem
-              key={option.id}
-              selected={option.id === workspace?.id}
-              onClick={() => handleChangeWorkspace(option)}
-              sx={{ height: 48 }}
-            >
-              <Avatar alt={option.name} src={option.logo} sx={{ width: 24, height: 24 }} />
-
-              <Typography
-                noWrap
-                component="span"
-                variant="body2"
-                sx={{ flexGrow: 1, fontWeight: 'fontWeightMedium' }}
+          {data.map((option, index) => (
+            <div key={option.id}>
+              <MenuItem
+                selected={option.id === workspace?.id}
+                onClick={() => handleChangeWorkspace(option)}
+                sx={{ height: 48 }}
               >
-                {option.name}
-              </Typography>
+                <Avatar alt={option.name} src={option.logo} sx={{ width: 24, height: 24 }} />
 
-              <Label color={option.plan === 'Free' ? 'default' : 'info'}>{option.plan}</Label>
-            </MenuItem>
+                <Typography
+                  noWrap
+                  component="span"
+                  variant="body2"
+                  sx={{ flexGrow: 1, fontWeight: 'fontWeightMedium' }}
+                >
+                  {option.name}
+                </Typography>
+
+                {option.plan && (
+                  <Label color={getLabelColor(option.plan)}>{option.plan}</Label>
+                )}
+              </MenuItem>
+              {index === 0 && <Divider sx={{ my: 0.5, borderStyle: 'dashed' }} />}
+            </div>
           ))}
         </MenuList>
       </Scrollbar>
-
-      <Divider sx={{ my: 0.5, borderStyle: 'dashed' }} />
-
-      <Button
-        fullWidth
-        startIcon={<Iconify width={18} icon="mingcute:add-line" />}
-        onClick={() => {
-          onClose();
-        }}
-        sx={{
-          gap: 2,
-          justifyContent: 'flex-start',
-          fontWeight: 'fontWeightMedium',
-          [`& .${buttonClasses.startIcon}`]: {
-            m: 0,
-            width: 24,
-            height: 24,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-        }}
-      >
-        Create workspace
-      </Button>
     </CustomPopover>
   );
 

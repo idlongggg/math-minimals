@@ -6,21 +6,27 @@ import type { WorkspacesPopoverProps } from './components/workspaces-popover';
 
 export const _workspaces: WorkspacesPopoverProps['data'] = [
   {
-    id: 'team-1',
-    name: 'Team 1',
-    plan: 'Free',
-    logo: `${CONFIG.assetsDir}/assets/icons/workspaces/logo-1.svg`,
+    id: 'all-tools',
+    name: 'Tất cả công cụ toán học',
+    plan: '',
+    logo: `${CONFIG.assetsDir}/assets/icons/workspaces/all-tools.svg`,
   },
   {
-    id: 'team-2',
-    name: 'Team 2',
-    plan: 'Pro',
-    logo: `${CONFIG.assetsDir}/assets/icons/workspaces/logo-2.svg`,
+    id: 'algebra',
+    name: 'Đại số và giải tích',
+    plan: 'Sở hữu',
+    logo: `${CONFIG.assetsDir}/assets/icons/workspaces/algebra.svg`,
   },
   {
-    id: 'team-3',
-    name: 'Team 3',
-    plan: 'Pro',
-    logo: `${CONFIG.assetsDir}/assets/icons/workspaces/logo-3.svg`,
+    id: 'statistics',
+    name: 'Xác suất và thống kê',
+    plan: 'Sở hữu',
+    logo: `${CONFIG.assetsDir}/assets/icons/workspaces/statistics.svg`,
+  },
+  {
+    id: 'geometry',
+    name: 'Hình học và đo lường',
+    plan: 'Chưa sở hữu',
+    logo: `${CONFIG.assetsDir}/assets/icons/workspaces/geometry.svg`,
   },
 ];
