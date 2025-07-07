@@ -2,15 +2,17 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import { useArithmeticTabManager } from 'src/components/arithmetic-tabs';
+import { useTabManager } from 'src/components/tab-manager';
+
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
+import type { TabManagerTabConfig } from 'src/components/tab-manager';
 
 import { CommonDenominatorTab } from './common-denominator';
 import { useHistory } from './common-denominator/hooks';
@@ -22,14 +24,33 @@ import { useHistory } from './common-denominator/hooks';
 export function CommonDenominatorView() {
   const { history, addToHistory, clearHistory } = useHistory();
 
-  // Sử dụng ArithmeticTabManager
-  const { currentTab, renderTabs } = useArithmeticTabManager({
-    hasMainTab: true,
-    mainTabLabel: 'Tính toán',
-    mainTabIcon: <Iconify icon="solar:pen-bold" />,
-    hasHistory: true,
-    historyCount: history.length,
+  // Tab configuration cho Common Denominator - cập nhật khi history thay đổi
+  const commonDenominatorTabs: TabManagerTabConfig[] = useMemo(() => [
+    {
+      value: 'main',
+      label: 'Tính toán',
+      icon: <Iconify icon="solar:pen-bold" sx={{ color: '#1976d2' }} />,
+      colorKey: 'primary'
+    },
+    {
+      value: 'history',
+      label: `Lịch sử (${history.length})`,
+      icon: <Iconify icon="solar:clock-circle-bold" sx={{ color: '#9c27b0' }} />,
+      colorKey: 'secondary'
+    },
+    {
+      value: 'guide',
+      label: 'Hướng dẫn',
+      icon: <Iconify icon="solar:notebook-bold-duotone" sx={{ color: '#7b1fa2' }} />,
+      colorKey: 'info'
+    }
+  ], [history.length]);
+
+  // Sử dụng TabManager trực tiếp
+  const { currentTab, renderTabs } = useTabManager({
+    tabs: commonDenominatorTabs,
     defaultTab: 'main',
+    enableColorSync: true
   });
 
   const renderTabContent = useCallback(() => {

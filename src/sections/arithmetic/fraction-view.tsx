@@ -2,13 +2,15 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import Box from '@mui/material/Box';
 
-import { useArithmeticTabManager } from 'src/components/arithmetic-tabs';
+import { useTabManager } from 'src/components/tab-manager';
+
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
+import type { TabManagerTabConfig } from 'src/components/tab-manager';
 
 import {
     FractionCalculator,
@@ -27,27 +29,45 @@ export function FractionView() {
   const calculatorHook = useFractionCalculator();
   const converterHook = useFractionConverter();
 
-  // Sử dụng ArithmeticTabManager với custom tabs
-  const { currentTab, renderTabs } = useArithmeticTabManager({
-    hasMainTab: true,
-    mainTabLabel: 'Chuyển đổi',
-    mainTabIcon: <Iconify icon="solar:restart-bold" />,
-    hasCalculator: true,
-    calculatorLabel: 'Máy tính',
-    calculatorIcon: <Iconify icon="solar:pen-bold" />,
-    customTabs: [
-      {
-        value: 'quick',
-        label: 'Phép toán nhanh',
-        icon: <Iconify icon="custom:flash-outline" />,
-      },
-      {
-        value: 'history',
-        label: 'Lịch sử',
-        icon: <Iconify icon="solar:clock-circle-bold" />,
-      },
-    ],
+  // Tab configuration cho Fractions
+  const fractionTabs: TabManagerTabConfig[] = useMemo(() => [
+    {
+      value: 'main',
+      label: 'Chuyển đổi',
+      icon: <Iconify icon="solar:restart-bold" sx={{ color: '#1976d2' }} />,
+      colorKey: 'primary'
+    },
+    {
+      value: 'calculator',
+      label: 'Máy tính',
+      icon: <Iconify icon="solar:pen-bold" sx={{ color: '#388e3c' }} />,
+      colorKey: 'success'
+    },
+    {
+      value: 'quick',
+      label: 'Phép toán nhanh',
+      icon: <Iconify icon="custom:flash-outline" sx={{ color: '#f57c00' }} />,
+      colorKey: 'warning'
+    },
+    {
+      value: 'history',
+      label: 'Lịch sử',
+      icon: <Iconify icon="solar:clock-circle-bold" sx={{ color: '#9c27b0' }} />,
+      colorKey: 'secondary'
+    },
+    {
+      value: 'guide',
+      label: 'Hướng dẫn',
+      icon: <Iconify icon="solar:notebook-bold-duotone" sx={{ color: '#7b1fa2' }} />,
+      colorKey: 'info'
+    }
+  ], []);
+
+  // Sử dụng TabManager trực tiếp
+  const { currentTab, renderTabs } = useTabManager({
+    tabs: fractionTabs,
     defaultTab: 'main',
+    enableColorSync: true
   });
 
   const renderTabContent = useCallback(() => {

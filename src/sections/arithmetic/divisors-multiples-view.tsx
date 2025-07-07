@@ -2,15 +2,17 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import { useArithmeticTabManager } from 'src/components/arithmetic-tabs';
+import { useTabManager } from 'src/components/tab-manager';
+
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
+import type { TabManagerTabConfig } from 'src/components/tab-manager';
 
 import { DivisorsTab, GcdLcmTab, MultiplesTab } from './divisors-multiples';
 import { useHistory } from './divisors-multiples/hooks';
@@ -22,26 +24,45 @@ import { useHistory } from './divisors-multiples/hooks';
 export function DivisorsMultiplesView() {
   const { history, addToHistory, clearHistory } = useHistory();
 
-  // Sử dụng ArithmeticTabManager
-  const { currentTab, renderTabs } = useArithmeticTabManager({
-    hasMainTab: true,
-    mainTabLabel: 'Ước số',
-    mainTabIcon: <Iconify icon="solar:pen-bold" />,
-    customTabs: [
-      {
-        value: 'multiples',
-        label: 'Bội số',
-        icon: <Iconify icon="solar:list-bold" />,
-      },
-      {
-        value: 'gcd-lcm',
-        label: 'GCD & LCM',
-        icon: <Iconify icon="solar:tv-bold" />,
-      },
-    ],
-    hasHistory: true,
-    historyCount: history.length,
+  // Tab configuration cho Divisors & Multiples - cập nhật khi history thay đổi
+  const divisorsMultiplesTabs: TabManagerTabConfig[] = useMemo(() => [
+    {
+      value: 'main',
+      label: 'Ước số',
+      icon: <Iconify icon="solar:pen-bold" sx={{ color: '#1976d2' }} />,
+      colorKey: 'primary'
+    },
+    {
+      value: 'multiples',
+      label: 'Bội số',
+      icon: <Iconify icon="solar:list-bold" sx={{ color: '#388e3c' }} />,
+      colorKey: 'success'
+    },
+    {
+      value: 'gcd-lcm',
+      label: 'GCD & LCM',
+      icon: <Iconify icon="solar:tv-bold" sx={{ color: '#f57c00' }} />,
+      colorKey: 'warning'
+    },
+    {
+      value: 'history',
+      label: `Lịch sử (${history.length})`,
+      icon: <Iconify icon="solar:clock-circle-bold" sx={{ color: '#9c27b0' }} />,
+      colorKey: 'secondary'
+    },
+    {
+      value: 'guide',
+      label: 'Hướng dẫn',
+      icon: <Iconify icon="solar:notebook-bold-duotone" sx={{ color: '#7b1fa2' }} />,
+      colorKey: 'info'
+    }
+  ], [history.length]);
+
+  // Sử dụng TabManager trực tiếp
+  const { currentTab, renderTabs } = useTabManager({
+    tabs: divisorsMultiplesTabs,
     defaultTab: 'main',
+    enableColorSync: true
   });
 
   const renderTabContent = useCallback(() => {

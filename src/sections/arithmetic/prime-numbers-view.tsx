@@ -2,11 +2,13 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
-import { useArithmeticTabManager } from 'src/components/arithmetic-tabs';
+import { useTabManager } from 'src/components/tab-manager';
+
 import { DashboardPageWithTabsLayoutAndMetadata } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
+import type { TabManagerTabConfig } from 'src/components/tab-manager';
 
 import {
     PrimeCheckerForm,
@@ -47,23 +49,45 @@ export function PrimeNumbersView() {
   const { history, addToHistory, clearHistory, selectHistoryItem } =
     usePrimeHistory();
 
-  // Sử dụng ArithmeticTabManager với custom tabs
-  const { currentTab, setCurrentTab, renderTabs } = useArithmeticTabManager({
-    hasMainTab: true,
-    mainTabLabel: 'Kiểm tra',
-    mainTabIcon: <Iconify icon="solar:shield-check-bold" />,
-    hasQuickTools: true,
-    hasHistory: true,
-    historyCount: history.length,
-    hasGuide: true,
-    customTabs: [
-      {
-        value: 'range-finder',
-        label: 'Tìm trong khoảng',
-        icon: <Iconify icon="solar:list-bold" />,
-      },
-    ],
+  // Tab configuration cho Prime Numbers - cập nhật khi history thay đổi
+  const primeNumbersTabs: TabManagerTabConfig[] = useMemo(() => [
+    {
+      value: 'main',
+      label: 'Kiểm tra',
+      icon: <Iconify icon="solar:shield-check-bold" sx={{ color: '#1976d2' }} />,
+      colorKey: 'primary'
+    },
+    {
+      value: 'quick-tools',
+      label: 'Công cụ nhanh',
+      icon: <Iconify icon="custom:flash-outline" sx={{ color: '#f57c00' }} />,
+      colorKey: 'warning'
+    },
+    {
+      value: 'range-finder',
+      label: 'Tìm trong khoảng',
+      icon: <Iconify icon="solar:list-bold" sx={{ color: '#10b981' }} />,
+      colorKey: 'success'
+    },
+    {
+      value: 'history',
+      label: `Lịch sử (${history.length})`,
+      icon: <Iconify icon="solar:clock-circle-bold" sx={{ color: '#9c27b0' }} />,
+      colorKey: 'secondary'
+    },
+    {
+      value: 'guide',
+      label: 'Hướng dẫn',
+      icon: <Iconify icon="solar:notebook-bold-duotone" sx={{ color: '#7b1fa2' }} />,
+      colorKey: 'info'
+    }
+  ], [history.length]);
+
+  // Sử dụng TabManager trực tiếp
+  const { currentTab, setCurrentTab, renderTabs } = useTabManager({
+    tabs: primeNumbersTabs,
     defaultTab: 'main',
+    enableColorSync: true
   });
 
   const handleCheckWithHistory = useCallback(() => {

@@ -7,7 +7,13 @@ import Tab from '@mui/material/Tab';
 import { CustomTabs } from 'src/components/custom-tabs';
 
 import { useTabColorSafe } from 'src/contexts/tab-color-context';
-import { getTabColorValue, type TabColorKey } from 'src/theme/tab-colors';
+import { type TabColorKey } from 'src/theme/tab-colors';
+
+import {
+    getTabManagerStyles,
+    mergeTabManagerStyles,
+    type TAB_MANAGER_STYLE_PRESETS
+} from './tab-manager-default-styles';
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +47,13 @@ export interface TabManagerProps {
   enableColorSync?: boolean;
   /** Tab color mapping */
   tabColorMapping?: Record<string, TabColorKey>;
+  /** Style preset to use */
+  stylePreset?: keyof typeof TAB_MANAGER_STYLE_PRESETS;
+  /** Custom styles to merge with preset */
+  customStyles?: {
+    container?: Record<string, any>;
+    tab?: Record<string, any>;
+  };
 }
 
 export interface TabManagerHookResult {
@@ -64,6 +77,8 @@ export function useTabManager({
   tabsProps,
   enableColorSync = false,
   tabColorMapping = {},
+  stylePreset = 'default',
+  customStyles,
 }: Omit<TabManagerProps, 'className'>): TabManagerHookResult {
   const [currentTab, setCurrentTab] = useState(defaultTab || tabs[0]?.value || '');
 
@@ -97,10 +112,10 @@ export function useTabManager({
   }, [enableColorSync, tabColorContext, currentTab, tabColorMapping]);
 
   const renderTabs = useCallback(() => {
-    // Get current active tab for styling
-    const activeTab = tabs.find(tab => tab.value === currentTab);
-    const activeTabColorKey = activeTab?.colorKey || tabColorMapping[currentTab] || currentTab;
-    const activeTabColor = getTabColorValue(activeTabColorKey, 'main');
+    // Get styles based on preset and custom styles
+    const styles = customStyles 
+      ? mergeTabManagerStyles(customStyles, stylePreset)
+      : getTabManagerStyles(stylePreset);
 
     return (
       <CustomTabs 
@@ -108,17 +123,11 @@ export function useTabManager({
         onChange={handleTabChange} 
         {...tabsProps}
         sx={{
-          '& .MuiTabs-indicator': {
-            backgroundColor: enableColorSync ? activeTabColor : undefined,
-          },
+          ...styles.container,
           ...tabsProps?.sx,
         }}
       >
         {tabs.map((tab) => {
-          const isActive = tab.value === currentTab;
-          const tabColorKey = tab.colorKey || tabColorMapping[tab.value] || tab.value;
-          const tabColor = getTabColorValue(tabColorKey, 'main');
-          
           return (
             <Tab
               key={tab.value}
@@ -127,18 +136,8 @@ export function useTabManager({
               {...(tab.icon && { icon: tab.icon })}
               disabled={tab.disabled}
               sx={{
-                ...(enableColorSync && {
-                  color: isActive ? tabColor : 'text.secondary',
-                  '&.Mui-selected': {
-                    color: tabColor,
-                    fontWeight: 600,
-                  },
-                  '&:hover': {
-                    color: tabColor,
-                    opacity: 0.8,
-                  },
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                }),
+                ...styles.tab,
+                // Custom sx override từ tab config
                 ...tab.sx,
               }}
             />
@@ -146,7 +145,7 @@ export function useTabManager({
         })}
       </CustomTabs>
     );
-  }, [currentTab, handleTabChange, tabs, tabsProps, enableColorSync, tabColorMapping]);
+  }, [currentTab, handleTabChange, tabs, tabsProps, stylePreset, customStyles]);
 
   return {
     currentTab,
@@ -167,6 +166,8 @@ export function TabManager({
   className,
   enableColorSync = false,
   tabColorMapping = {},
+  stylePreset = 'default',
+  customStyles,
 }: TabManagerProps) {
   const { renderTabs } = useTabManager({
     tabs,
@@ -175,6 +176,8 @@ export function TabManager({
     tabsProps,
     enableColorSync,
     tabColorMapping,
+    stylePreset,
+    customStyles,
   });
 
   return (

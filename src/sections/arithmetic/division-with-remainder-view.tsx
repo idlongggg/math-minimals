@@ -2,14 +2,16 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 
-import { useArithmeticTabManager } from 'src/components/arithmetic-tabs';
+import { useTabManager } from 'src/components/tab-manager';
+
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
+import type { TabManagerTabConfig } from 'src/components/tab-manager';
 
 import {
     DivisionCalculatorActions,
@@ -40,17 +42,39 @@ export function DivisionWithRemainderView() {
   const { history, addToHistory, clearHistory, selectHistoryItem } =
     useCalculationHistory();
 
-  // Sử dụng ArithmeticTabManager
-  const { currentTab, setCurrentTab, renderTabs } = useArithmeticTabManager({
-    hasMainTab: true,
-    mainTabLabel: 'Tính toán',
-    mainTabIcon: <Iconify icon="solar:pen-bold" />,
-    hasQuickTools: true,
-    quickToolsLabel: 'Ví dụ nhanh',
-    hasHistory: true,
-    historyCount: history.length,
-    hasGuide: true,
+  // Tab configuration cho Division with Remainder - cập nhật khi history thay đổi
+  const divisionTabs: TabManagerTabConfig[] = useMemo(() => [
+    {
+      value: 'main',
+      label: 'Tính toán',
+      icon: <Iconify icon="solar:pen-bold" sx={{ color: '#1976d2' }} />,
+      colorKey: 'primary'
+    },
+    {
+      value: 'quick-tools',
+      label: 'Ví dụ nhanh',
+      icon: <Iconify icon="custom:flash-outline" sx={{ color: '#f57c00' }} />,
+      colorKey: 'warning'
+    },
+    {
+      value: 'history',
+      label: `Lịch sử (${history.length})`,
+      icon: <Iconify icon="solar:clock-circle-bold" sx={{ color: '#9c27b0' }} />,
+      colorKey: 'secondary'
+    },
+    {
+      value: 'guide',
+      label: 'Hướng dẫn',
+      icon: <Iconify icon="solar:notebook-bold-duotone" sx={{ color: '#7b1fa2' }} />,
+      colorKey: 'info'
+    }
+  ], [history.length]);
+
+  // Sử dụng TabManager trực tiếp
+  const { currentTab, setCurrentTab, renderTabs } = useTabManager({
+    tabs: divisionTabs,
     defaultTab: 'main',
+    enableColorSync: true
   });
 
   // Add successful calculations to history

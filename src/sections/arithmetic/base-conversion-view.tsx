@@ -2,14 +2,16 @@
 
 import 'katex/dist/katex.min.css';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 
-import { useArithmeticTabManager } from 'src/components/arithmetic-tabs';
 import { DashboardPageWithTabsLayout } from 'src/components/dashboard-page-layout';
 import { Iconify } from 'src/components/iconify';
+import { useTabManager } from 'src/components/tab-manager';
+
+import type { TabManagerTabConfig } from 'src/components/tab-manager';
 
 import {
     BaseConversionGuide,
@@ -47,17 +49,39 @@ export function BaseConversionView() {
   const { history, addToHistory, clearHistory, selectHistoryItem } =
     useConversionHistory();
 
-  // Sử dụng ArithmeticTabManager
-  const { currentTab, setCurrentTab, renderTabs } = useArithmeticTabManager({
-    hasMainTab: true,
-    mainTabLabel: 'Chuyển đổi',
-    mainTabIcon: <Iconify icon="solar:restart-bold" />,
-    hasQuickTools: true,
-    quickToolsLabel: 'Công cụ nhanh',
-    hasHistory: true,
-    historyCount: history.length,
-    hasGuide: true,
+  // Tab configuration cho Base Conversion - cập nhật khi history thay đổi
+  const baseConversionTabs: TabManagerTabConfig[] = useMemo(() => [
+    {
+      value: 'main',
+      label: 'Chuyển đổi',
+      icon: <Iconify icon="solar:restart-bold" sx={{ color: '#1976d2' }} />,
+      colorKey: 'primary'
+    },
+    {
+      value: 'quick-tools',
+      label: 'Công cụ nhanh',
+      icon: <Iconify icon="custom:flash-outline" sx={{ color: '#f57c00' }} />,
+      colorKey: 'warning'
+    },
+    {
+      value: 'history',
+      label: `Lịch sử (${history.length})`,
+      icon: <Iconify icon="solar:clock-circle-bold" sx={{ color: '#9c27b0' }} />,
+      colorKey: 'secondary'
+    },
+    {
+      value: 'guide',
+      label: 'Hướng dẫn',
+      icon: <Iconify icon="solar:notebook-bold-duotone" sx={{ color: '#7b1fa2' }} />,
+      colorKey: 'info'
+    }
+  ], [history.length]);
+
+  // Sử dụng TabManager trực tiếp
+  const { currentTab, setCurrentTab, renderTabs } = useTabManager({
+    tabs: baseConversionTabs,
     defaultTab: 'main',
+    enableColorSync: true
   });
 
   const handleConvertWithHistory = useCallback(() => {
