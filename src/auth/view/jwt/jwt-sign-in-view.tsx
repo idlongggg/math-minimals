@@ -1,61 +1,64 @@
 'use client';
 
-import { z as zod } from 'zod';
-import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
-import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useBoolean } from 'minimal-shared/hooks';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z as zod } from 'zod';
 
-import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import ToggleButton from '@mui/material/ToggleButton';
 import InputAdornment from '@mui/material/InputAdornment';
+import Link from '@mui/material/Link';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Typography from '@mui/material/Typography';
 
-import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
+import { useRouter } from 'src/routes/hooks';
 
-import { CONFIG } from 'src/global-config';
 import { MOCK_JWT_USERS } from 'src/_mock/_jwt';
+import { CONFIG } from 'src/global-config';
 
+import { Field, Form } from 'src/components/hook-form';
 import { Iconify } from 'src/components/iconify';
-import { Form, Field } from 'src/components/hook-form';
+import { useLocales } from 'src/locales/hooks';
 
-import { useAuthContext } from '../../hooks';
-import { getErrorMessage } from '../../utils';
 import { FormHead } from '../../components/form-head';
 import { signInWithPassword } from '../../context/jwt';
 import { AUTH_METHODS } from '../../context/jwt/constant';
+import { useAuthContext } from '../../hooks';
+import { getErrorMessage } from '../../utils';
 
 import type { AuthMethod } from '../../context/jwt/constant';
 
 // ----------------------------------------------------------------------
 
-export type SignInSchemaType = zod.infer<typeof SignInSchema>;
+export type SignInSchemaType = zod.infer<ReturnType<typeof createSignInSchema>>;
 
-export const SignInSchema = zod.object({
-  email: zod
-    .string()
-    .min(1, { message: 'Email is required!' })
-    .email({ message: 'Email must be a valid email address!' }),
-  password: zod
-    .string()
-    .min(1, { message: 'Password is required!' })
-    .min(6, { message: 'Password must be at least 6 characters!' }),
-});
+export const createSignInSchema = (translate: (key: string) => string) =>
+  zod.object({
+    email: zod
+      .string()
+      .min(1, { message: translate('auth.signIn.validation.emailRequired') })
+      .email({ message: translate('auth.signIn.validation.emailInvalid') }),
+    password: zod
+      .string()
+      .min(1, { message: translate('auth.signIn.validation.passwordRequired') })
+      .min(6, { message: translate('auth.signIn.validation.passwordLength') }),
+  });
 
 // ----------------------------------------------------------------------
 
 export function JwtSignInView() {
   const router = useRouter();
+  const { translate } = useLocales();
 
   const showPassword = useBoolean();
 
@@ -71,6 +74,8 @@ export function JwtSignInView() {
     email: 'demo@minimals.cc',
     password: '@2Minimal',
   };
+
+  const SignInSchema = createSignInSchema(translate);
 
   const methods = useForm<SignInSchemaType>({
     resolver: zodResolver(SignInSchema),
@@ -137,7 +142,7 @@ export function JwtSignInView() {
       {/* Auth Method Selection - chỉ hiển thị khi Mock JWT được bật */}
       {CONFIG.auth.enableMockJWT && (
         <Stack spacing={2}>
-          <Typography variant="subtitle2">Authentication Method</Typography>
+          <Typography variant="subtitle2">{translate('auth.signIn.authMethod')}</Typography>
           <ToggleButtonGroup
             value={authMethod}
             exclusive
@@ -169,7 +174,7 @@ export function JwtSignInView() {
       {CONFIG.auth.enableMockJWT && authMethod === AUTH_METHODS.MOCK_JWT && (
         <Stack spacing={2}>
           <Stack spacing={1}>
-            <Typography variant="subtitle2">Select Mock User:</Typography>
+            <Typography variant="subtitle2">{translate('auth.signIn.selectMockUser')}</Typography>
             <Select
               value={selectedMockUser}
               onChange={(e) => handleMockUserChange(e.target.value as number)}
@@ -212,7 +217,7 @@ export function JwtSignInView() {
         <>
           <Field.Text
             name="email"
-            label="Email address"
+            label={translate('auth.signIn.email')}
             slotProps={{ inputLabel: { shrink: true } }}
           />
 
@@ -224,13 +229,13 @@ export function JwtSignInView() {
               color="inherit"
               sx={{ alignSelf: 'flex-end' }}
             >
-              Forgot password?
+              {translate('auth.signIn.forgotPassword')}
             </Link>
 
             <Field.Text
               name="password"
-              label="Password"
-              placeholder="6+ characters"
+              label={translate('auth.signIn.password')}
+              placeholder={translate('auth.signIn.passwordPlaceholder')}
               type={showPassword.value ? 'text' : 'password'}
               slotProps={{
                 inputLabel: { shrink: true },
@@ -258,16 +263,16 @@ export function JwtSignInView() {
         type="submit"
         variant="contained"
         loading={isSubmitting}
-        loadingIndicator="Sign in..."
+        loadingIndicator={translate('auth.signIn.signingIn')}
       >
-        Sign in
+        {translate('auth.signIn.signInButton')}
       </Button>
     </Box>
   );
 
   return (
     <>
-      <FormHead title="Sign in to your account" sx={{ textAlign: { xs: 'center', md: 'left' } }} />
+      <FormHead title={translate('auth.signIn.title')} sx={{ textAlign: { xs: 'center', md: 'left' } }} />
 
       {!!errorMessage && (
         <Alert severity="error" sx={{ mb: 3 }}>
