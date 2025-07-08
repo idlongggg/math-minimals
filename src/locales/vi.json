@@ -18,5 +18,27 @@
       }
     },
     "welcome": "Xin chào, Chào mừng trở lại"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "resetAll": "Đặt lại tất cả",
+    "close": "Đóng",
+    "fullscreen": "Toàn màn hình",
+    "exitFullscreen": "Thoát toàn màn hình",
+    "darkMode": "Chế độ tối",
+    "contrast": "Tương phản",
+    "rightToLeft": "Phải sang trái",
+    "compact": "Gọn",
+    "compactTooltip": "Chỉ dành cho Dashboard và khả dụng ở độ phân giải lớn > 1600px (xl)",
+    "presets": "Màu sắc thiết lập sẵn",
+    "nav": "Thanh điều hướng",
+    "navTooltip": "Chỉ dành cho Dashboard",
+    "layout": "Bố cục",
+    "color": "Màu sắc",
+    "integrate": "Tích hợp",
+    "apparent": "Hiển thị rõ",
+    "font": "Phông chữ",
+    "family": "Kiểu chữ",
+    "size": "Kích thước"
   }
 }
