@@ -2,33 +2,34 @@
 
 import type { ThemeColorScheme } from 'src/theme/types';
 
-import { useEffect, useCallback } from 'react';
 import { hasKeys, varAlpha } from 'minimal-shared/utils';
+import { useCallback, useEffect, useState } from 'react';
 
-import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
 import SvgIcon from '@mui/material/SvgIcon';
 import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useColorScheme } from '@mui/material/styles';
 
 import { themeConfig } from 'src/theme/theme-config';
 import { primaryColorPresets } from 'src/theme/with-settings';
 
-import { settingIcons } from './icons';
-import { Iconify } from '../../iconify';
-import { BaseOption } from './base-option';
+import { CloseIcon } from 'src/assets/icons/close-icon';
+import { FullscreenIcon } from 'src/assets/icons/fullscreen-icon';
+import { ResetIcon } from 'src/assets/icons/reset-icon';
 import { Scrollbar } from '../../scrollbar';
-import { LargeBlock, SmallBlock } from './styles';
-import { PresetsOptions } from './presets-options';
-import { FullScreenButton } from './fullscreen-button';
-import { FontSizeOptions, FontFamilyOptions } from './font-options';
 import { useSettingsContext } from '../context/use-settings-context';
+import { BaseOption } from './base-option';
+import { FontFamilyOptions, FontSizeOptions } from './font-options';
+import { settingIcons } from './icons';
 import { NavColorOptions, NavLayoutOptions } from './nav-layout-option';
+import { PresetsOptions } from './presets-options';
+import { LargeBlock, SmallBlock } from './styles';
 
-import type { SettingsState, SettingsDrawerProps } from '../types';
+import type { SettingsDrawerProps, SettingsState } from '../types';
 
 // ----------------------------------------------------------------------
 
@@ -71,22 +72,22 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
       }}
     >
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
-        Settings
+        Cài đặt
       </Typography>
 
-      <FullScreenButton />
+      <FullScreenButtonTSX />
 
-      <Tooltip title="Reset all">
+      <Tooltip title="Đặt lại tất cả">
         <IconButton onClick={handleReset}>
           <Badge color="error" variant="dot" invisible={!settings.canReset}>
-            <Iconify icon="solar:restart-bold" />
+            <ResetIcon />
           </Badge>
         </IconButton>
       </Tooltip>
 
-      <Tooltip title="Close">
+      <Tooltip title="Đóng">
         <IconButton onClick={settings.onCloseDrawer}>
-          <Iconify icon="mingcute:close-line" />
+          <CloseIcon />
         </IconButton>
       </Tooltip>
     </Box>
@@ -254,6 +255,32 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
       )}
     </LargeBlock>
   );
+
+  // ----------------------------------------------------------------------
+
+  function FullScreenButtonTSX() {
+    const [fullscreen, setFullscreen] = useState(false);
+
+    const handleToggleFullscreen = useCallback(() => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        setFullscreen(true);
+      } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+        setFullscreen(false);
+      }
+    }, []);
+
+  return (
+    <Tooltip title={fullscreen ? 'Thoát toàn màn hình' : 'Toàn màn hình'}>
+      <IconButton onClick={handleToggleFullscreen} color={fullscreen ? 'primary' : 'default'}>
+        <FullscreenIcon />
+      </IconButton>
+    </Tooltip>
+  );
+  }
+
+  // ----------------------------------------------------------------------
 
   return (
     <Drawer
