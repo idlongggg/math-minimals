@@ -1,0 +1,22 @@
+{
+  "auth": {
+    "signIn": {
+      "title": "登录您的账户",
+      "authMethod": "身份验证方法",
+      "selectMockUser": "选择模拟用户：",
+      "email": "邮箱地址",
+      "password": "密码",
+      "passwordPlaceholder": "6位以上字符",
+      "forgotPassword": "忘记密码？",
+      "signInButton": "登录",
+      "signingIn": "登录中...",
+      "validation": {
+        "emailRequired": "邮箱是必填项！",
+        "emailInvalid": "邮箱必须是有效的邮箱地址！",
+        "passwordRequired": "密码是必填项！",
+        "passwordLength": "密码必须至少6个字符！"
+      }
+    },
+    "welcome": "您好，欢迎回来"
+  }
+}

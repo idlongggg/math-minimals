@@ -1,0 +1,22 @@
+{
+  "auth": {
+    "signIn": {
+      "title": "Đăng nhập vào tài khoản của bạn",
+      "authMethod": "Phương thức xác thực",
+      "selectMockUser": "Chọn người dùng mẫu:",
+      "email": "Địa chỉ email",
+      "password": "Mật khẩu",
+      "passwordPlaceholder": "6+ ký tự",
+      "forgotPassword": "Quên mật khẩu?",
+      "signInButton": "Đăng nhập",
+      "signingIn": "Đang đăng nhập...",
+      "validation": {
+        "emailRequired": "Email là bắt buộc!",
+        "emailInvalid": "Email phải là địa chỉ email hợp lệ!",
+        "passwordRequired": "Mật khẩu là bắt buộc!",
+        "passwordLength": "Mật khẩu phải có ít nhất 6 ký tự!"
+      }
+    },
+    "welcome": "Xin chào, Chào mừng bạn trở lại"
+  }
+}
