@@ -11,3 +11,10 @@ export { default as PlanStarterIcon } from './plan-starter-icon';
 export { default as PlanPremiumIcon } from './plan-premium-icon';
 
 export { default as NewPasswordIcon } from './new-password-icon';
+
+// Offline SVG icons
+export { CloseIcon } from './close-icon';
+export { HomeIcon } from './home-icon';
+export { SettingsIcon } from './settings-icon';
+export { UserIcon } from './user-icon';
+
