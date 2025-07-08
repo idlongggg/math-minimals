@@ -2,8 +2,8 @@
 
 import axios, { endpoints } from 'src/lib/axios';
 
-import { setSession, generateMockJWT } from './utils';
 import { AUTH_METHODS, AUTH_METHOD_STORAGE_KEY } from './constant';
+import { generateMockJWT, setSession } from './utils';
 
 import type { AuthMethod } from './constant';
 
@@ -14,13 +14,6 @@ export type SignInParams = {
   password: string;
   authMethod?: AuthMethod;
   mockUserIndex?: number;
-};
-
-export type SignUpParams = {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
 };
 
 /** **************************************
@@ -57,41 +50,6 @@ export const signInWithPassword = async ({
     setSession(accessToken);
   } catch (error) {
     console.error('Error during sign in:', error);
-    throw error;
-  }
-};
-
-/** **************************************
- * Sign up
- *************************************** */
-export const signUp = async ({
-  email,
-  password,
-  firstName,
-  lastName,
-}: SignUpParams): Promise<void> => {
-  const params = {
-    email,
-    password,
-    firstName,
-    lastName,
-  };
-
-  try {
-    // Set default auth method for sign up
-    sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, AUTH_METHODS.JWT);
-
-    const res = await axios.post(endpoints.auth.signUp, params);
-
-    const { accessToken } = res.data;
-
-    if (!accessToken) {
-      throw new Error('Access token not found in response');
-    }
-
-    await setSession(accessToken);
-  } catch (error) {
-    console.error('Error during sign up:', error);
     throw error;
   }
 };
