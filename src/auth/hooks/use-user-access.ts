@@ -1,5 +1,5 @@
-import { getUserAccessibleSubjects, hasAccessToSubject, isUsingMockJWT } from '../utils';
 import { useAuthContext } from './use-auth-context';
+import { isUsingMockJWT, hasAccessToSubject, getUserAccessibleSubjects } from '../utils';
 
 // ----------------------------------------------------------------------
 
@@ -12,9 +12,7 @@ export function useUserAccess() {
   /**
    * Kiểm tra xem user có quyền truy cập vào một subject không
    */
-  const hasAccess = (subject: string): boolean => {
-    return hasAccessToSubject(user, subject);
-  };
+  const hasAccess = (subject: string): boolean => hasAccessToSubject(user, subject);
 
   /**
    * Lấy danh sách các subject mà user có quyền truy cập

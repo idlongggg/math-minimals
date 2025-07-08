@@ -14,34 +14,34 @@ const icon = (name: string) => (
 
 const ICONS = {
   // Công cụ toán học cơ bản
-  calculator: icon('ic-calculator'),        // Máy tính cơ bản
-  converter: icon('ic-converter'),          // Công cụ chuyển đổi
-  generator: icon('ic-generator'),          // Trình tạo
-  
+  calculator: icon('ic-calculator'), // Máy tính cơ bản
+  converter: icon('ic-converter'), // Công cụ chuyển đổi
+  generator: icon('ic-generator'), // Trình tạo
+
   // Số học và Đại số cơ bản
-  arithmetic: icon('ic-arithmetic'),        // Số học cơ bản
-  algebra: icon('ic-algebra'),              // Đại số cơ bản
-  
+  arithmetic: icon('ic-arithmetic'), // Số học cơ bản
+  algebra: icon('ic-algebra'), // Đại số cơ bản
+
   // Hàm số và Đại số nâng cao
-  function: icon('ic-function'),            // Hàm số và đồ thị
-  matrix: icon('ic-matrix'),                // Đại số tuyến tính
-  equation: icon('ic-equation'),            // Giải phương trình nâng cao
-  
+  function: icon('ic-function'), // Hàm số và đồ thị
+  matrix: icon('ic-matrix'), // Đại số tuyến tính
+  equation: icon('ic-equation'), // Giải phương trình nâng cao
+
   // Giải tích
-  calculus: icon('ic-calculus'),            // Công cụ giải tích
-  
+  calculus: icon('ic-calculus'), // Công cụ giải tích
+
   // Hình học và lượng giác
-  plane: icon('ic-plane'),                  // Hình học mặt phẳng
-  spatial: icon('ic-cube'),                 // Hình học không gian
-  coordinate: icon('ic-coordinate'),        // Hình học tọa độ
-  trigonometry: icon('ic-triangle'),        // Lượng giác cơ bản
-  
+  plane: icon('ic-plane'), // Hình học mặt phẳng
+  spatial: icon('ic-cube'), // Hình học không gian
+  coordinate: icon('ic-coordinate'), // Hình học tọa độ
+  trigonometry: icon('ic-triangle'), // Lượng giác cơ bản
+
   // Thống kê và xác suất
-  chart: icon('ic-chart'),                  // Biểu đồ và dữ liệu
-  statistics: icon('ic-statistics'),        // Thống kê mô tả
-  probability: icon('ic-probability'),      // Xác suất cơ bản
-  distribution: icon('ic-distribution'),    // Phân phối xác suất
-  solver: icon('ic-equation'),              // Solver (sử dụng icon equation)
+  chart: icon('ic-chart'), // Biểu đồ và dữ liệu
+  statistics: icon('ic-statistics'), // Thống kê mô tả
+  probability: icon('ic-probability'), // Xác suất cơ bản
+  distribution: icon('ic-distribution'), // Phân phối xác suất
+  solver: icon('ic-equation'), // Solver (sử dụng icon equation)
 };
 
 // ----------------------------------------------------------------------

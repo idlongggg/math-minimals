@@ -1,7 +1,7 @@
 import { _mock } from 'src/_mock';
 
-import { AUTH_METHODS } from '../context/jwt/constant';
 import { useAuthContext } from './use-auth-context';
+import { AUTH_METHODS } from '../context/jwt/constant';
 import { useCurrentAuthMethod } from './use-current-auth-method';
 
 // To get the user from the <AuthContext/>, you can use

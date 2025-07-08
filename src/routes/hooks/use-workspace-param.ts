@@ -1,8 +1,13 @@
 'use client';
 
 import { useCallback } from 'react';
+
 import { useRouter, useSearchParams } from 'src/routes/hooks';
-import { createUrlWithWorkspace, getWorkspaceParam, preserveWorkspaceParam } from 'src/routes/utils';
+import {
+  getWorkspaceParam,
+  createUrlWithWorkspace,
+  preserveWorkspaceParam,
+} from 'src/routes/utils';
 
 // ----------------------------------------------------------------------
 
@@ -36,9 +41,7 @@ export function useWorkspaceParam() {
 
   // Preserve workspace parameter when redirecting to a URL
   const preserveWorkspaceInUrl = useCallback(
-    (targetUrl: string) => {
-      return preserveWorkspaceParam(searchParams, targetUrl);
-    },
+    (targetUrl: string) => preserveWorkspaceParam(searchParams, targetUrl),
     [searchParams]
   );
 

@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { usePathname, useRouter, useWorkspaceParam } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
+import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/global-config';
 
@@ -28,7 +28,6 @@ const signInPaths = {
 export function AuthGuard({ children }: AuthGuardProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const { preserveWorkspaceInUrl } = useWorkspaceParam();
 
   const { authenticated, loading } = useAuthContext();
 
@@ -36,14 +35,14 @@ export function AuthGuard({ children }: AuthGuardProps) {
 
   const createRedirectPath = (currentPath: string) => {
     const params = new URLSearchParams({ returnTo: pathname });
-    
+
     // Preserve workspace parameter from current URL
     const currentParams = new URLSearchParams(window.location.search);
     const workspaceParam = currentParams.get('workspace');
     if (workspaceParam) {
       params.set('workspace', workspaceParam);
     }
-    
+
     return `${currentPath}?${params.toString()}`;
   };
 

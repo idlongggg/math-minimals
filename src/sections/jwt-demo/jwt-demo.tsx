@@ -3,16 +3,17 @@
 import { useState } from 'react';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import Chip from '@mui/material/Chip';
-import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
-import { MOCK_JWT_USERS, generateMockJWT, jwtDecode } from 'src/_mock/_jwt';
+import { jwtDecode, MOCK_JWT_USERS, generateMockJWT } from 'src/_mock/_jwt';
+
 import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
@@ -83,7 +84,7 @@ export function JWTDemo() {
             <Typography variant="body2" color="text.secondary">
               Click on any user below to generate their JWT token:
             </Typography>
-            
+
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {MOCK_JWT_USERS.map((mockUser, index) => (
                 <Box
@@ -98,9 +99,7 @@ export function JWTDemo() {
                 >
                   <Stack direction="row" spacing={2} alignItems="center">
                     <Box sx={{ flex: 1 }}>
-                      <Typography variant="subtitle2">
-                        {mockUser.displayName}
-                      </Typography>
+                      <Typography variant="subtitle2">{mockUser.displayName}</Typography>
                       <Typography variant="caption" color="text.secondary">
                         {mockUser.email} • {mockUser.role}
                       </Typography>
@@ -134,8 +133,8 @@ export function JWTDemo() {
       {/* Token Display */}
       {selectedToken && (
         <Card>
-          <CardHeader 
-            title="Generated JWT Token" 
+          <CardHeader
+            title="Generated JWT Token"
             action={
               <Button variant="outlined" size="small" onClick={handleCopyToken}>
                 Copy Token

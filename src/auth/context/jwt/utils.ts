@@ -1,10 +1,9 @@
 import { paths } from 'src/routes/paths';
 
 import axios from 'src/lib/axios';
-
 import { createMockUser, generateMockJWT, jwtDecode as mockJwtDecode } from 'src/_mock/_jwt';
 
-import { AUTH_METHOD_STORAGE_KEY, AUTH_METHODS, JWT_STORAGE_KEY } from './constant';
+import { AUTH_METHODS, JWT_STORAGE_KEY, AUTH_METHOD_STORAGE_KEY } from './constant';
 
 import type { AuthMethod } from './constant';
 

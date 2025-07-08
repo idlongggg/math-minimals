@@ -1,26 +1,26 @@
 'use client';
 
+import type { Theme, SxProps } from '@mui/material/styles';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
-import type { SxProps, Theme } from '@mui/material/styles';
 
 import { usePopover } from 'minimal-shared/hooks';
-import { useCallback, useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import ButtonBase from '@mui/material/ButtonBase';
+import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 
 import { useRouter, useSearchParams } from 'src/routes/hooks';
-import { createUrlWithWorkspace, getWorkspaceParam } from 'src/routes/utils';
+import { getWorkspaceParam, createUrlWithWorkspace } from 'src/routes/utils';
 
-import { CustomPopover } from 'src/components/custom-popover';
-import { Iconify } from 'src/components/iconify';
 import { Label } from 'src/components/label';
+import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
+import { CustomPopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
@@ -51,17 +51,17 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
 
   // Get workspace from URL parameter, default to 'all-tools' if not specified
   const currentWorkspaceParam = getWorkspaceParam(searchParams);
-  
+
   // Find the workspace object based on the parameter
-  const initialWorkspace = data.find(item => item.id === currentWorkspaceParam) || data[0];
-  
+  const initialWorkspace = data.find((item) => item.id === currentWorkspaceParam) || data[0];
+
   const [workspace, setWorkspace] = useState(initialWorkspace);
 
   // Update workspace state when URL parameter changes
   useEffect(() => {
     const workspaceParam = getWorkspaceParam(searchParams);
-    const currentWorkspace = data.find(item => item.id === workspaceParam) || data[0];
-    
+    const currentWorkspace = data.find((item) => item.id === workspaceParam) || data[0];
+
     if (currentWorkspace && currentWorkspace.id !== workspace?.id) {
       setWorkspace(currentWorkspace);
     }
@@ -71,18 +71,18 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
     (newValue: (typeof data)[0]) => {
       setWorkspace(newValue);
       onClose();
-      
+
       // Create new URL with workspace parameter
       const currentParams = new URLSearchParams(searchParams.toString());
       const additionalParams: Record<string, string> = {};
-      
+
       // Preserve all existing parameters except workspace
       currentParams.forEach((value, key) => {
         if (key !== 'workspace') {
           additionalParams[key] = value;
         }
       });
-      
+
       // Create URL with workspace parameter
       const url = createUrlWithWorkspace(window.location.pathname, newValue.id, additionalParams);
       router.push(url);
@@ -186,9 +186,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
                   {option.name}
                 </Typography>
 
-                {option.plan && (
-                  <Label color={getLabelColor(option.plan)}>{option.plan}</Label>
-                )}
+                {option.plan && <Label color={getLabelColor(option.plan)}>{option.plan}</Label>}
               </MenuItem>
               {index === 0 && <Divider sx={{ my: 0.5, borderStyle: 'dashed' }} />}
             </div>

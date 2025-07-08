@@ -1,11 +1,10 @@
 'use client';
 
+import { MOCK_JWT_USERS } from 'src/_mock/_jwt';
 import axios, { endpoints } from 'src/lib/axios';
 
-import { MOCK_JWT_USERS } from 'src/_mock/_jwt';
-
-import { AUTH_METHOD_STORAGE_KEY, AUTH_METHODS } from './constant';
-import { generateMockJWT, setSession } from './utils';
+import { setSession, generateMockJWT } from './utils';
+import { AUTH_METHODS, AUTH_METHOD_STORAGE_KEY } from './constant';
 
 import type { AuthMethod } from './constant';
 
@@ -28,7 +27,12 @@ export type SignUpParams = {
 /** **************************************
  * Sign in
  *************************************** */
-export const signInWithPassword = async ({ email, password, authMethod = AUTH_METHODS.JWT, mockUserIndex = 0 }: SignInParams): Promise<void> => {
+export const signInWithPassword = async ({
+  email,
+  password,
+  authMethod = AUTH_METHODS.JWT,
+  mockUserIndex = 0,
+}: SignInParams): Promise<void> => {
   try {
     // Store auth method
     sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, authMethod);
@@ -36,7 +40,7 @@ export const signInWithPassword = async ({ email, password, authMethod = AUTH_ME
     if (authMethod === AUTH_METHODS.MOCK_JWT) {
       // Mock JWT sign in with validation
       const selectedUser = MOCK_JWT_USERS[mockUserIndex];
-      
+
       if (!selectedUser) {
         throw new Error('Invalid user selection');
       }
@@ -57,7 +61,7 @@ export const signInWithPassword = async ({ email, password, authMethod = AUTH_ME
 
       const mockToken = generateMockJWT(mockUserIndex);
       await setSession(mockToken);
-      
+
       return;
     }
 

@@ -14,10 +14,7 @@ export interface MockJWTUser {
 
 // Mock JWT utilities
 function base64UrlEncode(str: string): string {
-  return btoa(str)
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=/g, '');
+  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 }
 
 // Mock user accounts with different subject combinations
@@ -82,11 +79,13 @@ export const MOCK_JWT_USERS: MockJWTUser[] = [
 
 export function generateMockJWT(userIndex: number = 0): string {
   if (userIndex < 0 || userIndex >= MOCK_JWT_USERS.length) {
-    throw new Error(`Invalid user index: ${userIndex}. Must be between 0 and ${MOCK_JWT_USERS.length - 1}`);
+    throw new Error(
+      `Invalid user index: ${userIndex}. Must be between 0 and ${MOCK_JWT_USERS.length - 1}`
+    );
   }
 
   const user = MOCK_JWT_USERS[userIndex];
-  
+
   const header = {
     alg: 'HS256',
     typ: 'JWT',
@@ -101,12 +100,12 @@ export function generateMockJWT(userIndex: number = 0): string {
     role: user.role,
     access: user.access,
     iat: now,
-    exp: now + (3 * 24 * 60 * 60), // 3 days
+    exp: now + 3 * 24 * 60 * 60, // 3 days
   };
 
   const encodedHeader = base64UrlEncode(JSON.stringify(header));
   const encodedPayload = base64UrlEncode(JSON.stringify(payload));
-  
+
   // For demo purposes, we'll use a simple signature
   const signature = base64UrlEncode(`mock-signature-${userIndex}`);
 
@@ -115,7 +114,7 @@ export function generateMockJWT(userIndex: number = 0): string {
 
 export function createMockUser(token: string): MockJWTUser {
   const decoded = jwtDecode(token);
-  
+
   // Tạo user từ thông tin trong payload trước
   const userFromPayload = {
     id: decoded.userId,
@@ -126,21 +125,21 @@ export function createMockUser(token: string): MockJWTUser {
     access: decoded.access,
     accessToken: token,
   };
-  
+
   // Nếu không có đủ thông tin trong payload, fallback về mock user
   if (!userFromPayload.displayName || !userFromPayload.email) {
-    const mockUser = MOCK_JWT_USERS.find(user => user.id === decoded.userId);
-    
+    const mockUser = MOCK_JWT_USERS.find((user) => user.id === decoded.userId);
+
     if (!mockUser) {
       throw new Error(`Mock user not found for ID: ${decoded.userId}`);
     }
-    
+
     return {
       ...mockUser,
       accessToken: token,
     };
   }
-  
+
   return userFromPayload;
 }
 
@@ -171,16 +170,22 @@ export function getMockUsers(): MockJWTUser[] {
 
 // Helper function to get user by access subjects
 export function getUserByAccess(subjects: string[]): MockJWTUser | null {
-  return MOCK_JWT_USERS.find(user => 
-    user.access.length === subjects.length && 
-    user.access.every(subject => subjects.includes(subject))
-  ) || null;
+  return (
+    MOCK_JWT_USERS.find(
+      (user) =>
+        user.access.length === subjects.length &&
+        user.access.every((subject) => subjects.includes(subject))
+    ) || null
+  );
 }
 
 // Helper function to generate tokens for all users
 export function generateAllMockJWTs(): { [key: string]: string } {
-  return MOCK_JWT_USERS.reduce((acc, user, index) => {
-    acc[user.id] = generateMockJWT(index);
-    return acc;
-  }, {} as { [key: string]: string });
+  return MOCK_JWT_USERS.reduce(
+    (acc, user, index) => {
+      acc[user.id] = generateMockJWT(index);
+      return acc;
+    },
+    {} as { [key: string]: string }
+  );
 }

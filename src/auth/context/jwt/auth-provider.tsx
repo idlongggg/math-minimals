@@ -1,14 +1,14 @@
 'use client';
 
 import { useSetState } from 'minimal-shared/hooks';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useMemo, useEffect, useCallback } from 'react';
 
 import axios, { endpoints } from 'src/lib/axios';
 
-import { debugUserInfo, getEnhancedUser } from '../../utils';
 import { AuthContext } from '../auth-context';
-import { AUTH_METHOD_STORAGE_KEY, AUTH_METHODS, JWT_STORAGE_KEY } from './constant';
-import { createMockUser, isValidToken, setSession } from './utils';
+import { debugUserInfo, getEnhancedUser } from '../../utils';
+import { setSession, isValidToken, createMockUser } from './utils';
+import { AUTH_METHODS, JWT_STORAGE_KEY, AUTH_METHOD_STORAGE_KEY } from './constant';
 
 import type { AuthState } from '../../types';
 

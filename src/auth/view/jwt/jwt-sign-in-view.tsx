@@ -1,37 +1,38 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useBoolean } from 'minimal-shared/hooks';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { z as zod } from 'zod';
+import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
 import Link from '@mui/material/Link';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import ToggleButton from '@mui/material/ToggleButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
+import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
-import { useRouter, useSearchParams } from 'src/routes/hooks';
-
-import { Field, Form } from 'src/components/hook-form';
-import { Iconify } from 'src/components/iconify';
 
 import { MOCK_JWT_USERS } from 'src/_mock/_jwt';
+
+import { Iconify } from 'src/components/iconify';
+import { Form, Field } from 'src/components/hook-form';
+
+import { useAuthContext } from '../../hooks';
+import { getErrorMessage } from '../../utils';
 import { FormHead } from '../../components/form-head';
 import { signInWithPassword } from '../../context/jwt';
 import { AUTH_METHODS } from '../../context/jwt/constant';
-import { useAuthContext } from '../../hooks';
-import { getErrorMessage } from '../../utils';
 
 import type { AuthMethod } from '../../context/jwt/constant';
 
@@ -54,7 +55,6 @@ export const SignInSchema = zod.object({
 
 export function JwtSignInView() {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const showPassword = useBoolean();
 
@@ -106,11 +106,11 @@ export function JwtSignInView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await signInWithPassword({ 
-        email: data.email, 
-        password: data.password, 
+      await signInWithPassword({
+        email: data.email,
+        password: data.password,
         authMethod,
-        mockUserIndex: selectedMockUser
+        mockUserIndex: selectedMockUser,
       });
       await checkUserSession?.();
 
@@ -248,10 +248,7 @@ export function JwtSignInView() {
 
   return (
     <>
-      <FormHead
-        title="Sign in to your account"
-        sx={{ textAlign: { xs: 'center', md: 'left' } }}
-      />
+      <FormHead title="Sign in to your account" sx={{ textAlign: { xs: 'center', md: 'left' } }} />
 
       {!!errorMessage && (
         <Alert severity="error" sx={{ mb: 3 }}>

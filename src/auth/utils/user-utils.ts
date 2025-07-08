@@ -14,7 +14,7 @@ export function getEnhancedUser(user: UserType): UserType {
   if (!user) return null;
 
   const authMethod = getCurrentAuthMethod();
-  
+
   // Đảm bảo user có đủ thông tin cần thiết
   const enhancedUser = {
     ...user,

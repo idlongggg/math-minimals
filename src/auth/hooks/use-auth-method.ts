@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { getCurrentAuthMethod, setAuthMethod } from '../context/jwt/utils';
+import { setAuthMethod, getCurrentAuthMethod } from '../context/jwt/utils';
 
 import type { AuthMethod } from '../context/jwt/constant';
 
