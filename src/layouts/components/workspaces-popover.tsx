@@ -17,19 +17,21 @@ import Typography from '@mui/material/Typography';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
 import { createUrlWithWorkspace, getWorkspaceParam } from 'src/routes/utils';
 
+import { useUserAccess } from 'src/auth/hooks/use-user-access';
 import { CustomPopover } from 'src/components/custom-popover';
 import { Iconify } from 'src/components/iconify';
 import { Label } from 'src/components/label';
 import { Scrollbar } from 'src/components/scrollbar';
+import { useLocales } from 'src/locales';
 
 // ----------------------------------------------------------------------
 
-const getLabelColor = (plan: string) => {
-  if (plan === 'Chưa sở hữu' || plan === 'Not Owned') return 'default';
-  if (plan === 'Sở hữu' || plan === 'Owned') return 'success';
-  if (plan === 'Miễn phí' || plan === 'Free') return 'default';
-  if (plan === '') return undefined;
-  return 'info';
+const getAccessStatus = (hasAccess: boolean, t: (key: string) => string) => {
+  return hasAccess ? t('workspace.owned') : t('workspace.notOwned');
+};
+
+const getLabelColor = (hasAccess: boolean) => {
+  return hasAccess ? 'success' : 'default';
 };
 
 export type WorkspacesPopoverProps = ButtonBaseProps & {
@@ -37,7 +39,6 @@ export type WorkspacesPopoverProps = ButtonBaseProps & {
     id: string;
     name: string;
     logo: string;
-    plan: string;
   }[];
 };
 
@@ -46,6 +47,8 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { hasAccess } = useUserAccess();
+  const { translate: t } = useLocales();
 
   const { open, anchorEl, onClose, onOpen } = usePopover();
 
@@ -69,6 +72,11 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
 
   const handleChangeWorkspace = useCallback(
     (newValue: (typeof data)[0]) => {
+      // Check if workspace is disabled (not owned) - skip for 'all-tools'
+      if (newValue.id !== 'all-tools' && !hasAccess(newValue.id)) {
+        return; // Don't allow selection of disabled workspaces
+      }
+
       setWorkspace(newValue);
       onClose();
 
@@ -87,7 +95,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
       const url = createUrlWithWorkspace(window.location.pathname, newValue.id, additionalParams);
       router.push(url);
     },
-    [onClose, router, searchParams]
+    [onClose, router, searchParams, hasAccess]
   );
 
   const buttonBg: SxProps<Theme> = {
@@ -139,16 +147,16 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
         {workspace?.name}
       </Box>
 
-      {workspace?.plan && (
+      {workspace && workspace.id !== 'all-tools' && (
         <Label
-          color={getLabelColor(workspace.plan)}
+          color={getLabelColor(hasAccess(workspace.id))}
           sx={{
             height: 22,
             cursor: 'inherit',
             display: { xs: 'none', [mediaQuery]: 'inline-flex' },
           }}
         >
-          {workspace.plan}
+          {getAccessStatus(hasAccess(workspace.id), t)}
         </Label>
       )}
 
@@ -168,29 +176,65 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
     >
       <Scrollbar sx={{ maxHeight: 240 }}>
         <MenuList>
-          {data.map((option, index) => (
-            <div key={option.id}>
-              <MenuItem
-                selected={option.id === workspace?.id}
-                onClick={() => handleChangeWorkspace(option)}
-                sx={{ height: 48 }}
-              >
-                <Avatar alt={option.name} src={option.logo} sx={{ width: 24, height: 24 }} />
-
-                <Typography
-                  noWrap
-                  component="span"
-                  variant="body2"
-                  sx={{ flexGrow: 1, fontWeight: 'fontWeightMedium' }}
+          {data.map((option, index) => {
+            // Check if workspace is disabled (not owned) - skip for 'all-tools'
+            const isDisabled = option.id !== 'all-tools' && !hasAccess(option.id);
+            
+            return (
+              <div key={option.id}>
+                <MenuItem
+                  selected={option.id === workspace?.id}
+                  onClick={() => handleChangeWorkspace(option)}
+                  disabled={isDisabled}
+                  sx={{ 
+                    height: 48,
+                    ...(isDisabled && {
+                      opacity: 0.5,
+                      cursor: 'not-allowed',
+                      '&:hover': {
+                        backgroundColor: 'transparent',
+                      },
+                    }),
+                  }}
                 >
-                  {option.name}
-                </Typography>
+                  <Avatar 
+                    alt={option.name} 
+                    src={option.logo} 
+                    sx={{ 
+                      width: 24, 
+                      height: 24,
+                      ...(isDisabled && { opacity: 0.6 }),
+                    }} 
+                  />
 
-                {option.plan && <Label color={getLabelColor(option.plan)}>{option.plan}</Label>}
-              </MenuItem>
-              {index === 0 && <Divider sx={{ my: 0.5, borderStyle: 'dashed' }} />}
-            </div>
-          ))}
+                  <Typography
+                    noWrap
+                    component="span"
+                    variant="body2"
+                    sx={{ 
+                      flexGrow: 1, 
+                      fontWeight: 'fontWeightMedium',
+                      ...(isDisabled && { color: 'text.disabled' }),
+                    }}
+                  >
+                    {option.name}
+                  </Typography>
+
+                  {option.id !== 'all-tools' && (
+                    <Label 
+                      color={getLabelColor(hasAccess(option.id))}
+                      sx={{
+                        ...(isDisabled && { opacity: 0.6 }),
+                      }}
+                    >
+                      {getAccessStatus(hasAccess(option.id), t)}
+                    </Label>
+                  )}
+                </MenuItem>
+                {index === 0 && <Divider sx={{ my: 0.5, borderStyle: 'dashed' }} />}
+              </div>
+            );
+          })}
         </MenuList>
       </Scrollbar>
     </CustomPopover>
