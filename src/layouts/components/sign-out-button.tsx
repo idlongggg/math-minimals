@@ -6,8 +6,9 @@ import Button from '@mui/material/Button';
 
 import { useRouter } from 'src/routes/hooks';
 
-import { useAuthContext } from 'src/auth/hooks';
 import { signOut } from 'src/auth/context/jwt/action';
+import { useAuthContext } from 'src/auth/hooks';
+import { useLocales } from 'src/locales/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -19,6 +20,7 @@ export function SignOutButton({ onClose, sx, ...other }: Props) {
   const router = useRouter();
 
   const { checkUserSession } = useAuthContext();
+  const { translate: t } = useLocales();
 
   const handleLogout = useCallback(async () => {
     try {
@@ -42,7 +44,7 @@ export function SignOutButton({ onClose, sx, ...other }: Props) {
       sx={sx}
       {...other}
     >
-      Logout
+      {t('account.logout')}
     </Button>
   );
 }
