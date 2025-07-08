@@ -9,11 +9,11 @@ import { BlankView } from 'src/sections/blank/view';
 export const metadata = { title: `Math Tool - ${CONFIG.appName}` };
 
 type Props = {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 };
 
-export default function Page({ params }: Props) {
-  const { slug } = params;
+export default async function Page({ params }: Props) {
+  const { slug } = await params;
   const path = slug.join('/');
 
   // Auto redirect rules
