@@ -3,33 +3,33 @@
 import type { ThemeColorScheme } from 'src/theme/types';
 
 import { hasKeys, varAlpha } from 'minimal-shared/utils';
-import { useCallback, useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
+import Badge from '@mui/material/Badge';
 import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
 import SvgIcon from '@mui/material/SvgIcon';
 import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useColorScheme } from '@mui/material/styles';
 
 import { themeConfig } from 'src/theme/theme-config';
-import { primaryColorPresets } from 'src/theme/with-settings';
-
 import { CloseIcon } from 'src/assets/icons/close-icon';
-import { FullscreenIcon } from 'src/assets/icons/fullscreen-icon';
 import { ResetIcon } from 'src/assets/icons/reset-icon';
-import { Scrollbar } from '../../scrollbar';
-import { useSettingsContext } from '../context/use-settings-context';
-import { BaseOption } from './base-option';
-import { FontFamilyOptions, FontSizeOptions } from './font-options';
-import { settingIcons } from './icons';
-import { NavColorOptions, NavLayoutOptions } from './nav-layout-option';
-import { PresetsOptions } from './presets-options';
-import { LargeBlock, SmallBlock } from './styles';
+import { primaryColorPresets } from 'src/theme/with-settings';
+import { FullscreenIcon } from 'src/assets/icons/fullscreen-icon';
 
-import type { SettingsDrawerProps, SettingsState } from '../types';
+import { settingIcons } from './icons';
+import { BaseOption } from './base-option';
+import { Scrollbar } from '../../scrollbar';
+import { LargeBlock, SmallBlock } from './styles';
+import { PresetsOptions } from './presets-options';
+import { FontSizeOptions, FontFamilyOptions } from './font-options';
+import { useSettingsContext } from '../context/use-settings-context';
+import { NavColorOptions, NavLayoutOptions } from './nav-layout-option';
+
+import type { SettingsState, SettingsDrawerProps } from '../types';
 
 // ----------------------------------------------------------------------
 
@@ -271,13 +271,13 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
       }
     }, []);
 
-  return (
-    <Tooltip title={fullscreen ? 'Thoát toàn màn hình' : 'Toàn màn hình'}>
-      <IconButton onClick={handleToggleFullscreen} color={fullscreen ? 'primary' : 'default'}>
-        <FullscreenIcon />
-      </IconButton>
-    </Tooltip>
-  );
+    return (
+      <Tooltip title={fullscreen ? 'Thoát toàn màn hình' : 'Toàn màn hình'}>
+        <IconButton onClick={handleToggleFullscreen} color={fullscreen ? 'primary' : 'default'}>
+          <FullscreenIcon />
+        </IconButton>
+      </Tooltip>
+    );
   }
 
   // ----------------------------------------------------------------------

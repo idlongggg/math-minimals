@@ -1,39 +1,39 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useBoolean } from 'minimal-shared/hooks';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { z as zod } from 'zod';
+import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
 import Link from '@mui/material/Link';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import ToggleButton from '@mui/material/ToggleButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-import { RouterLink } from 'src/routes/components';
 import { useRouter } from 'src/routes/hooks';
+import { RouterLink } from 'src/routes/components';
 
-import { MOCK_JWT_USERS } from 'src/_mock/_jwt';
 import { CONFIG } from 'src/global-config';
+import { MOCK_JWT_USERS } from 'src/_mock/_jwt';
 
-import { Field, Form } from 'src/components/hook-form';
 import { Iconify } from 'src/components/iconify';
+import { Form, Field } from 'src/components/hook-form';
 
+import { useAuthContext } from '../../hooks';
+import { getErrorMessage } from '../../utils';
 import { FormHead } from '../../components/form-head';
 import { signInWithPassword } from '../../context/jwt';
 import { AUTH_METHODS } from '../../context/jwt/constant';
-import { useAuthContext } from '../../hooks';
-import { getErrorMessage } from '../../utils';
 
 import type { AuthMethod } from '../../context/jwt/constant';
 
@@ -119,7 +119,7 @@ export function JwtSignInView() {
           mockUserIndex: selectedMockUser,
         });
       }
-      
+
       await checkUserSession?.();
 
       // After successful login, the GuestGuard will handle the redirect
@@ -210,7 +210,11 @@ export function JwtSignInView() {
       {/* Show email and password fields only for real JWT or when Mock JWT is disabled */}
       {(!CONFIG.auth.enableMockJWT || authMethod !== AUTH_METHODS.MOCK_JWT) && (
         <>
-          <Field.Text name="email" label="Email address" slotProps={{ inputLabel: { shrink: true } }} />
+          <Field.Text
+            name="email"
+            label="Email address"
+            slotProps={{ inputLabel: { shrink: true } }}
+          />
 
           <Box sx={{ gap: 1.5, display: 'flex', flexDirection: 'column' }}>
             <Link

@@ -1,4 +1,4 @@
-import { HomeIcon, SettingsIcon, UserIcon } from 'src/assets/icons';
+import { HomeIcon, UserIcon, SettingsIcon } from 'src/assets/icons';
 
 import type { AccountDrawerProps } from './components/account-drawer';
 
