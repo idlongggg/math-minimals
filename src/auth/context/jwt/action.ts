@@ -1,10 +1,9 @@
 'use client';
 
-import { MOCK_JWT_USERS } from 'src/_mock/_jwt';
 import axios, { endpoints } from 'src/lib/axios';
 
-import { setSession, generateMockJWT } from './utils';
 import { AUTH_METHODS, AUTH_METHOD_STORAGE_KEY } from './constant';
+import { generateMockJWT, setSession } from './utils';
 
 import type { AuthMethod } from './constant';
 
@@ -35,33 +34,11 @@ export const signInWithPassword = async ({
 }: SignInParams): Promise<void> => {
   try {
     // Store auth method
-    sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, authMethod);
-
-    if (authMethod === AUTH_METHODS.MOCK_JWT) {
-      // Mock JWT sign in with validation
-      const selectedUser = MOCK_JWT_USERS[mockUserIndex];
-
-      if (!selectedUser) {
-        throw new Error('Invalid user selection');
-      }
-
-      // Validate email
-      if (email !== selectedUser.email) {
-        throw new Error('Invalid email address');
-      }
-
-      // Validate password - for mock, we accept multiple options:
-      // 1. 'mock-password' (default)
-      // 2. The same password as real JWT demo '@2Minimal'
-      // 3. Simple password 'password'
-      const validPasswords = ['mock-password', '@2Minimal', 'password'];
-      if (!validPasswords.includes(password)) {
-        throw new Error('Invalid password. Try: mock-password, @2Minimal, or password');
-      }
-
+    sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, authMethod);    if (authMethod === AUTH_METHODS.MOCK_JWT) {
+      // Mock JWT sign in with selected user - no validation needed
       const mockToken = generateMockJWT(mockUserIndex);
       await setSession(mockToken);
-
+      
       return;
     }
 
