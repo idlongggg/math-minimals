@@ -3,17 +3,18 @@
 import type { IconButtonProps } from '@mui/material/IconButton';
 
 import { m } from 'framer-motion';
-import { usePopover } from 'minimal-shared/hooks';
 import { useCallback } from 'react';
+import { usePopover } from 'minimal-shared/hooks';
 
-import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import IconButton from '@mui/material/IconButton';
 
-import { transitionTap, varHover, varTap } from 'src/components/animate';
-import { CustomPopover } from 'src/components/custom-popover';
-import { FlagIcon } from 'src/components/flag-icon';
 import { useLocales } from 'src/locales/hooks';
+
+import { FlagIcon } from 'src/components/flag-icon';
+import { CustomPopover } from 'src/components/custom-popover';
+import { varTap, varHover, transitionTap } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
 

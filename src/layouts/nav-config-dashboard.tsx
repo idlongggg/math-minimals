@@ -71,9 +71,9 @@ export function getNavData(t: (key: string) => string): NavSectionProps['data'] 
               title: t('nav.tools.calculators.graphing'),
               path: paths.dashboard.tools.calculators.graphing,
             },
-            { 
-              title: t('nav.tools.calculators.complex'), 
-              path: paths.dashboard.tools.calculators.complex 
+            {
+              title: t('nav.tools.calculators.complex'),
+              path: paths.dashboard.tools.calculators.complex,
             },
           ],
         },
@@ -171,9 +171,9 @@ export function getNavData(t: (key: string) => string): NavSectionProps['data'] 
               title: t('nav.algebra.basic.factoring'),
               path: paths.dashboard.algebra.basic.factoring,
             },
-            { 
-              title: t('nav.algebra.basic.polynomials'), 
-              path: paths.dashboard.algebra.basic.polynomials 
+            {
+              title: t('nav.algebra.basic.polynomials'),
+              path: paths.dashboard.algebra.basic.polynomials,
             },
           ],
         },
@@ -271,21 +271,21 @@ export function getNavData(t: (key: string) => string): NavSectionProps['data'] 
           path: paths.dashboard.calculus.root,
           icon: ICONS.calculus,
           children: [
-            { 
-              title: t('nav.calculus.derivative'), 
-              path: paths.dashboard.calculus.derivative 
+            {
+              title: t('nav.calculus.derivative'),
+              path: paths.dashboard.calculus.derivative,
             },
-            { 
-              title: t('nav.calculus.integral'), 
-              path: paths.dashboard.calculus.integral 
+            {
+              title: t('nav.calculus.integral'),
+              path: paths.dashboard.calculus.integral,
             },
-            { 
-              title: t('nav.calculus.limit'), 
-              path: paths.dashboard.calculus.limit 
+            {
+              title: t('nav.calculus.limit'),
+              path: paths.dashboard.calculus.limit,
             },
-            { 
-              title: t('nav.calculus.sequence'), 
-              path: paths.dashboard.calculus.sequence 
+            {
+              title: t('nav.calculus.sequence'),
+              path: paths.dashboard.calculus.sequence,
             },
           ],
         },
@@ -306,33 +306,33 @@ export function getNavData(t: (key: string) => string): NavSectionProps['data'] 
               title: t('nav.geometry.plane.pointsSegments'),
               path: paths.dashboard.geometry.plane.pointsSegments,
             },
-            { 
-              title: t('nav.geometry.plane.lines'), 
-              path: paths.dashboard.geometry.plane.lines 
+            {
+              title: t('nav.geometry.plane.lines'),
+              path: paths.dashboard.geometry.plane.lines,
             },
-            { 
-              title: t('nav.geometry.plane.angles'), 
-              path: paths.dashboard.geometry.plane.angles 
+            {
+              title: t('nav.geometry.plane.angles'),
+              path: paths.dashboard.geometry.plane.angles,
             },
-            { 
-              title: t('nav.geometry.plane.triangles'), 
-              path: paths.dashboard.geometry.plane.triangles 
+            {
+              title: t('nav.geometry.plane.triangles'),
+              path: paths.dashboard.geometry.plane.triangles,
             },
             {
               title: t('nav.geometry.plane.quadrilaterals'),
               path: paths.dashboard.geometry.plane.quadrilaterals,
             },
-            { 
-              title: t('nav.geometry.plane.polygons'), 
-              path: paths.dashboard.geometry.plane.polygons 
+            {
+              title: t('nav.geometry.plane.polygons'),
+              path: paths.dashboard.geometry.plane.polygons,
             },
-            { 
-              title: t('nav.geometry.plane.circles'), 
-              path: paths.dashboard.geometry.plane.circles 
+            {
+              title: t('nav.geometry.plane.circles'),
+              path: paths.dashboard.geometry.plane.circles,
             },
-            { 
-              title: t('nav.geometry.plane.conics'), 
-              path: paths.dashboard.geometry.plane.conics 
+            {
+              title: t('nav.geometry.plane.conics'),
+              path: paths.dashboard.geometry.plane.conics,
             },
           ],
         },
@@ -341,25 +341,25 @@ export function getNavData(t: (key: string) => string): NavSectionProps['data'] 
           path: paths.dashboard.geometry.spatial.root,
           icon: ICONS.spatial,
           children: [
-            { 
-              title: t('nav.geometry.spatial.prisms'), 
-              path: paths.dashboard.geometry.spatial.prisms 
+            {
+              title: t('nav.geometry.spatial.prisms'),
+              path: paths.dashboard.geometry.spatial.prisms,
             },
-            { 
-              title: t('nav.geometry.spatial.pyramids'), 
-              path: paths.dashboard.geometry.spatial.pyramids 
+            {
+              title: t('nav.geometry.spatial.pyramids'),
+              path: paths.dashboard.geometry.spatial.pyramids,
             },
             {
               title: t('nav.geometry.spatial.cylinders'),
               path: paths.dashboard.geometry.spatial.cylinders,
             },
-            { 
-              title: t('nav.geometry.spatial.cones'), 
-              path: paths.dashboard.geometry.spatial.cones 
+            {
+              title: t('nav.geometry.spatial.cones'),
+              path: paths.dashboard.geometry.spatial.cones,
             },
-            { 
-              title: t('nav.geometry.spatial.spheres'), 
-              path: paths.dashboard.geometry.spatial.spheres 
+            {
+              title: t('nav.geometry.spatial.spheres'),
+              path: paths.dashboard.geometry.spatial.spheres,
             },
             {
               title: t('nav.geometry.spatial.surfaces'),
@@ -547,8 +547,9 @@ export function getNavData(t: (key: string) => string): NavSectionProps['data'] 
 }
 
 // Backward compatibility - export a default navData using Vietnamese
-export const navData: NavSectionProps['data'] = getNavData((key: string) => {
-  // This is a fallback when using navData directly without translation context
-  // In actual usage, getNavData should be called with proper translation function
-  return key.split('.').pop() || key;
-});
+export const navData: NavSectionProps['data'] = getNavData(
+  (key: string) =>
+    // This is a fallback when using navData directly without translation context
+    // In actual usage, getNavData should be called with proper translation function
+    key.split('.').pop() || key
+);

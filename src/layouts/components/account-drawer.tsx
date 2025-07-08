@@ -4,27 +4,27 @@ import type { IconButtonProps } from '@mui/material/IconButton';
 
 import { useBoolean } from 'minimal-shared/hooks';
 
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
+import Avatar from '@mui/material/Avatar';
+import Drawer from '@mui/material/Drawer';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-import { RouterLink } from 'src/routes/components';
-import { usePathname } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
+import { usePathname } from 'src/routes/hooks';
+import { RouterLink } from 'src/routes/components';
 
 import { CloseIcon } from 'src/assets/icons';
+import { useLocales } from 'src/locales/hooks';
 
-import { AnimateBorder } from 'src/components/animate';
 import { Label } from 'src/components/label';
 import { Scrollbar } from 'src/components/scrollbar';
+import { AnimateBorder } from 'src/components/animate';
 
 import { useMockedUser } from 'src/auth/hooks';
-import { useLocales } from 'src/locales/hooks';
 
 import { AccountButton } from './account-button';
 import { SignOutButton } from './sign-out-button';
@@ -77,7 +77,9 @@ export function AccountDrawer({ data, sx, ...other }: AccountDrawerProps) {
       ]}
     >
       {menuData.map((option) => {
-        const rootLabel = pathname.includes('/dashboard') ? t('account.home') : t('account.dashboard');
+        const rootLabel = pathname.includes('/dashboard')
+          ? t('account.home')
+          : t('account.dashboard');
         const rootHref = pathname.includes('/dashboard') ? '/' : paths.dashboard.root;
 
         return (

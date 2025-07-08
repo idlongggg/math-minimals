@@ -1,4 +1,4 @@
-import { HomeIcon, SettingsIcon, UserIcon } from 'src/assets/icons';
+import { HomeIcon, UserIcon, SettingsIcon } from 'src/assets/icons';
 
 import type { AccountDrawerProps } from './components/account-drawer';
 
@@ -12,10 +12,10 @@ export function getAccountData(t: (key: string) => string): AccountDrawerProps['
       href: '/dashboard/user/profile',
       icon: <UserIcon />,
     },
-    { 
-      label: t('account.accountSettings'), 
-      href: '/dashboard/user/account', 
-      icon: <SettingsIcon /> 
+    {
+      label: t('account.accountSettings'),
+      href: '/dashboard/user/account',
+      icon: <SettingsIcon />,
     },
   ];
 }

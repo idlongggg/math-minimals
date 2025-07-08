@@ -2,8 +2,8 @@
 
 import axios, { endpoints } from 'src/lib/axios';
 
+import { setSession, generateMockJWT } from './utils';
 import { AUTH_METHODS, AUTH_METHOD_STORAGE_KEY } from './constant';
-import { generateMockJWT, setSession } from './utils';
 
 import type { AuthMethod } from './constant';
 

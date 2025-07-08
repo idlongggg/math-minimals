@@ -1,8 +1,9 @@
 'use client';
 
-import { GuestGuard } from 'src/auth/guard';
-import { AuthSplitLayout } from 'src/layouts/auth-split';
 import { useLocales } from 'src/locales/hooks';
+import { AuthSplitLayout } from 'src/layouts/auth-split';
+
+import { GuestGuard } from 'src/auth/guard';
 
 // ----------------------------------------------------------------------
 
