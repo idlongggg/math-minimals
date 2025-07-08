@@ -4,7 +4,7 @@ import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 import type { SxProps, Theme } from '@mui/material/styles';
 
 import { usePopover } from 'minimal-shared/hooks';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -33,6 +33,30 @@ const getLabelColor = (plan: string, t: (key: string) => string) => {
   return 'info';
 };
 
+// Helper function to get localized workspace name and plan
+const getLocalizedWorkspace = (workspaceId: string, t: (key: string) => string) => {
+  const workspaceMap: Record<string, { name: string; plan: string }> = {
+    'all-tools': {
+      name: t('workspace.allTools'),
+      plan: '',
+    },
+    'algebra': {
+      name: t('workspace.algebra'),
+      plan: t('workspace.owned'),
+    },
+    'statistics': {
+      name: t('workspace.statistics'),
+      plan: t('workspace.owned'),
+    },
+    'geometry': {
+      name: t('workspace.geometry'),
+      plan: t('workspace.notOwned'),
+    },
+  };
+
+  return workspaceMap[workspaceId] || { name: workspaceId, plan: '' };
+};
+
 export type WorkspacesPopoverProps = ButtonBaseProps & {
   data?: {
     id: string;
@@ -59,6 +83,29 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
 
   const [workspace, setWorkspace] = useState(initialWorkspace);
 
+  // Create localized workspace data that updates when language changes
+  const localizedWorkspaceData = useMemo(() => {
+    return data.map((item) => {
+      const localized = getLocalizedWorkspace(item.id, t);
+      return {
+        ...item,
+        name: localized.name,
+        plan: localized.plan,
+      };
+    });
+  }, [data, t]);
+
+  // Get current workspace with localized name and plan
+  const currentLocalizedWorkspace = useMemo(() => {
+    if (!workspace) return null;
+    const localized = getLocalizedWorkspace(workspace.id, t);
+    return {
+      ...workspace,
+      name: localized.name,
+      plan: localized.plan,
+    };
+  }, [workspace, t]);
+
   // Update workspace state when URL parameter changes
   useEffect(() => {
     const workspaceParam = getWorkspaceParam(searchParams);
@@ -70,8 +117,12 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
   }, [searchParams, data, workspace?.id]);
 
   const handleChangeWorkspace = useCallback(
-    (newValue: (typeof data)[0]) => {
-      setWorkspace(newValue);
+    (newValue: (typeof localizedWorkspaceData)[0]) => {
+      // Find original workspace data by id
+      const originalWorkspace = data.find((item) => item.id === newValue.id);
+      if (originalWorkspace) {
+        setWorkspace(originalWorkspace);
+      }
       onClose();
 
       // Create new URL with workspace parameter
@@ -89,7 +140,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
       const url = createUrlWithWorkspace(window.location.pathname, newValue.id, additionalParams);
       router.push(url);
     },
-    [onClose, router, searchParams]
+    [data, onClose, router, searchParams, localizedWorkspaceData]
   );
 
   const buttonBg: SxProps<Theme> = {
@@ -129,8 +180,8 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
     >
       <Box
         component="img"
-        alt={workspace?.name}
-        src={workspace?.logo}
+        alt={currentLocalizedWorkspace?.name}
+        src={currentLocalizedWorkspace?.logo}
         sx={{ width: 24, height: 24, borderRadius: '50%' }}
       />
 
@@ -138,19 +189,19 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
         component="span"
         sx={{ typography: 'subtitle2', display: { xs: 'none', [mediaQuery]: 'inline-flex' } }}
       >
-        {workspace?.name}
+        {currentLocalizedWorkspace?.name}
       </Box>
 
-      {workspace?.plan && (
+      {currentLocalizedWorkspace?.plan && (
         <Label
-          color={getLabelColor(workspace.plan, t)}
+          color={getLabelColor(currentLocalizedWorkspace.plan, t)}
           sx={{
             height: 22,
             cursor: 'inherit',
             display: { xs: 'none', [mediaQuery]: 'inline-flex' },
           }}
         >
-          {workspace.plan}
+          {currentLocalizedWorkspace.plan}
         </Label>
       )}
 
@@ -170,7 +221,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
     >
       <Scrollbar sx={{ maxHeight: 240 }}>
         <MenuList>
-          {data.map((option, index) => (
+          {localizedWorkspaceData.map((option, index) => (
             <div key={option.id}>
               <MenuItem
                 selected={option.id === workspace?.id}
