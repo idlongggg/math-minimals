@@ -201,5 +201,14 @@
     "profile": "Profile",
     "accountSettings": "Account Settings",
     "logout": "Logout"
+  },
+  "workspace": {
+    "allTools": "All Math Tools",
+    "algebra": "Algebra and Calculus",
+    "statistics": "Probability and Statistics", 
+    "geometry": "Geometry and Measurement",
+    "owned": "Owned",
+    "notOwned": "Not Owned",
+    "free": "Free"
   }
 }

@@ -31,7 +31,7 @@ import { LayoutSection } from '../core/layout-section';
 import { MainSection } from '../core/main-section';
 import { getAccountData } from '../nav-config-account';
 import { getNavData } from '../nav-config-dashboard';
-import { _workspaces } from '../nav-config-workspace';
+import { getWorkspacesData } from '../nav-config-workspace';
 import { VerticalDivider } from './content';
 import { dashboardLayoutVars, dashboardNavColorVars } from './css-vars';
 import { NavHorizontal } from './nav-horizontal';
@@ -81,6 +81,7 @@ export function DashboardLayout({
   const navData = slotProps?.nav?.data ?? dashboardNavData;
 
   const accountData = getAccountData(t);
+  const workspacesData = getWorkspacesData(t);
 
   const isNavMini = settings.state.navLayout === 'mini';
   const isNavHorizontal = settings.state.navLayout === 'horizontal';
@@ -150,7 +151,7 @@ export function DashboardLayout({
 
           {/** @slot Workspace popover */}
           <WorkspacesPopover
-            data={_workspaces}
+            data={workspacesData}
             sx={{ ...(isNavHorizontal && { color: 'var(--layout-nav-text-primary-color)' }) }}
           />
         </>
