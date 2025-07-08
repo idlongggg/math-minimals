@@ -6,42 +6,42 @@ import type { NavItemProps, NavSectionProps } from 'src/components/nav-section';
 import { merge } from 'es-toolkit';
 import { useBoolean } from 'minimal-shared/hooks';
 
-import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
-import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 import { iconButtonClasses } from '@mui/material/IconButton';
+import { useTheme } from '@mui/material/styles';
 
-import { _contacts, _notifications } from 'src/_mock';
+import { _notifications } from 'src/_mock';
 
 import { Logo } from 'src/components/logo';
 import { useSettingsContext } from 'src/components/settings';
 
 import { useMockedUser } from 'src/auth/hooks';
 
-import { NavMobile } from './nav-mobile';
-import { VerticalDivider } from './content';
-import { NavVertical } from './nav-vertical';
-import { layoutClasses } from '../core/classes';
-import { NavHorizontal } from './nav-horizontal';
-import { _account } from '../nav-config-account';
-import { MainSection } from '../core/main-section';
-import { Searchbar } from '../components/searchbar';
-import { _workspaces } from '../nav-config-workspace';
+import { AccountDrawer } from '../components/account-drawer';
+import { LanguagePopover } from '../components/language-popover';
 import { MenuButton } from '../components/menu-button';
+import { Searchbar } from '../components/searchbar';
+import { SettingsButton } from '../components/settings-button';
+import { layoutClasses } from '../core/classes';
 import { HeaderSection } from '../core/header-section';
 import { LayoutSection } from '../core/layout-section';
-import { AccountDrawer } from '../components/account-drawer';
-import { SettingsButton } from '../components/settings-button';
-import { LanguagePopover } from '../components/language-popover';
-import { ContactsPopover } from '../components/contacts-popover';
+import { MainSection } from '../core/main-section';
+import { _account } from '../nav-config-account';
+import { _workspaces } from '../nav-config-workspace';
+import { VerticalDivider } from './content';
+import { NavHorizontal } from './nav-horizontal';
+import { NavMobile } from './nav-mobile';
+import { NavVertical } from './nav-vertical';
+// import { ContactsPopover } from '../components/contacts-popover';
+import { NotificationsDrawer } from '../components/notifications-drawer';
 import { WorkspacesPopover } from '../components/workspaces-popover';
 import { navData as dashboardNavData } from '../nav-config-dashboard';
 import { dashboardLayoutVars, dashboardNavColorVars } from './css-vars';
-import { NotificationsDrawer } from '../components/notifications-drawer';
 
-import type { MainSectionProps } from '../core/main-section';
 import type { HeaderSectionProps } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';
+import type { MainSectionProps } from '../core/main-section';
 
 // ----------------------------------------------------------------------
 
@@ -169,8 +169,7 @@ export function DashboardLayout({
           {/** @slot Notifications popover */}
           <NotificationsDrawer data={_notifications} />
 
-          {/** @slot Contacts popover */}
-          <ContactsPopover data={_contacts} />
+          {/* Contacts popover removed */}
 
           {/** @slot Settings button */}
           <SettingsButton />
