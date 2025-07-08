@@ -209,6 +209,12 @@
     "geometry": "Hình học và đo lường", 
     "owned": "Sở hữu",
     "notOwned": "Chưa sở hữu",
-    "free": "Miễn phí"
+    "free": "Miễn phí",
+    "confirmDialog": {
+      "title": "Xác nhận chuyển workspace",
+      "message": "Bạn có muốn chuyển sang workspace \"{0}\" không?",
+      "cancel": "Hủy",
+      "confirm": "Xác nhận"
+    }
   }
 }

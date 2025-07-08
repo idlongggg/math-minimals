@@ -209,6 +209,12 @@
     "geometry": "Geometry and Measurement",
     "owned": "Owned",
     "notOwned": "Not Owned",
-    "free": "Free"
+    "free": "Free",
+    "confirmDialog": {
+      "title": "Confirm Workspace Switch",
+      "message": "Do you want to switch to workspace \"{0}\"?",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
   }
 }
