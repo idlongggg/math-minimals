@@ -40,5 +40,159 @@
     "font": "字体",
     "family": "字体系列",
     "size": "字体大小"
+  },
+  "nav": {
+    "sections": {
+      "basicTools": "基础数学工具",
+      "arithmeticAlgebra": "算术和基础代数",
+      "functionsAdvancedAlgebra": "函数和高级代数",
+      "calculus": "微积分",
+      "geometryTrigonometry": "几何和三角学",
+      "statisticsProbability": "统计和概率"
+    },
+    "tools": {
+      "basicCalculator": "基础计算器",
+      "calculators": {
+        "root": "基础计算器",
+        "basic": "基础计算器",
+        "scientific": "科学计算器",
+        "graphing": "图形计算器",
+        "complex": "复数"
+      },
+      "converters": {
+        "root": "转换工具",
+        "units": "单位转换"
+      },
+      "generators": {
+        "root": "生成器",
+        "random": "随机数",
+        "fibonacci": "斐波那契数列",
+        "pattern": "数字模式"
+      }
+    },
+    "arithmetic": {
+      "root": "基础算术",
+      "baseConversion": "进制转换",
+      "commonDenominator": "通分",
+      "divisionRemainder": "除法和余数",
+      "primeNumbers": "质数",
+      "factorsIrrationals": "因数和无理数",
+      "divisorsMultiples": "因子和倍数",
+      "fractions": "分数和转换"
+    },
+    "algebra": {
+      "basic": {
+        "root": "基础代数",
+        "expressions": "代数表达式",
+        "equations": "方程",
+        "inequalities": "不等式",
+        "factoring": "因式分解",
+        "polynomials": "多项式"
+      },
+      "functions": {
+        "root": "函数和图形",
+        "linear": "线性函数",
+        "quadratic": "二次函数",
+        "polynomial": "多项式函数",
+        "rational": "有理函数",
+        "exponential": "指数函数",
+        "logarithmic": "对数函数",
+        "trigonometric": "三角函数",
+        "inverse": "反函数",
+        "composite": "复合函数"
+      },
+      "linear": {
+        "root": "线性代数",
+        "matrix": "矩阵计算器",
+        "system": "方程组"
+      }
+    },
+    "calculus": {
+      "root": "微积分工具",
+      "derivative": "导数",
+      "integral": "积分",
+      "limit": "极限",
+      "sequence": "数列"
+    },
+    "geometry": {
+      "plane": {
+        "root": "平面几何",
+        "pointsSegments": "点和线段",
+        "lines": "直线",
+        "angles": "角",
+        "triangles": "三角形",
+        "quadrilaterals": "四边形",
+        "polygons": "多边形",
+        "circles": "圆",
+        "conics": "圆锥曲线"
+      },
+      "spatial": {
+        "root": "空间几何",
+        "prisms": "棱柱",
+        "pyramids": "棱锥",
+        "cylinders": "圆柱",
+        "cones": "圆锥",
+        "spheres": "球",
+        "surfaces": "曲面"
+      },
+      "coordinate": {
+        "root": "坐标几何",
+        "cartesian": "笛卡尔坐标",
+        "polar": "极坐标",
+        "parametric": "参数坐标",
+        "vectors": "向量"
+      }
+    },
+    "trigonometry": {
+      "basic": {
+        "root": "基础三角学",
+        "ratios": "三角比",
+        "identities": "恒等式",
+        "equations": "三角方程",
+        "graphs": "三角函数图像"
+      }
+    },
+    "statistics": {
+      "charts": {
+        "root": "图表和数据",
+        "pictograph": "象形图",
+        "line": "折线图",
+        "area": "面积图",
+        "singleColumn": "单柱图",
+        "doubleColumn": "双柱图",
+        "stackedColumn": "堆叠柱图",
+        "pie": "饼图",
+        "frequencyTable": "频率表",
+        "histogram": "直方图",
+        "boxplot": "箱线图",
+        "scatter": "散点图"
+      },
+      "descriptive": {
+        "root": "描述性统计",
+        "centralTendency": "集中趋势",
+        "dispersion": "离散度",
+        "distribution": "数据分布",
+        "correlation": "相关性",
+        "regression": "回归"
+      },
+      "probability": {
+        "root": "基础概率",
+        "basic": "基础概率",
+        "conditional": "条件概率",
+        "bayes": "贝叶斯定理"
+      },
+      "distributions": {
+        "root": "概率分布",
+        "discrete": "离散分布",
+        "continuous": "连续分布",
+        "normal": "正态分布",
+        "binomial": "二项分布"
+      }
+    },
+    "solvers": {
+      "root": "高级方程求解",
+      "differential": "微分方程",
+      "optimization": "优化"
+    }
   }
 }

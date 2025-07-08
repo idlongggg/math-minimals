@@ -40,5 +40,159 @@
     "font": "Phông chữ",
     "family": "Kiểu chữ",
     "size": "Kích thước"
+  },
+  "nav": {
+    "sections": {
+      "basicTools": "Công cụ toán học cơ bản",
+      "arithmeticAlgebra": "Số học và Đại số cơ bản",
+      "functionsAdvancedAlgebra": "Hàm số và Đại số nâng cao",
+      "calculus": "Giải tích",
+      "geometryTrigonometry": "Hình học và lượng giác",
+      "statisticsProbability": "Thống kê và xác suất"
+    },
+    "tools": {
+      "basicCalculator": "Máy tính cơ bản",
+      "calculators": {
+        "root": "Máy tính cơ bản",
+        "basic": "Máy tính cơ bản",
+        "scientific": "Máy tính khoa học",
+        "graphing": "Máy tính đồ thị",
+        "complex": "Số phức"
+      },
+      "converters": {
+        "root": "Công cụ chuyển đổi",
+        "units": "Chuyển đổi đơn vị"
+      },
+      "generators": {
+        "root": "Trình tạo",
+        "random": "Số ngẫu nhiên",
+        "fibonacci": "Dãy Fibonacci",
+        "pattern": "Mẫu số học"
+      }
+    },
+    "arithmetic": {
+      "root": "Số học cơ bản",
+      "baseConversion": "Chuyển đổi cơ số",
+      "commonDenominator": "Mẫu số chung",
+      "divisionRemainder": "Phép chia và số dư",
+      "primeNumbers": "Số nguyên tố",
+      "factorsIrrationals": "Thừa số và số vô tỷ",
+      "divisorsMultiples": "Ước số và bội số",
+      "fractions": "Phân số & Chuyển đổi"
+    },
+    "algebra": {
+      "basic": {
+        "root": "Đại số cơ bản",
+        "expressions": "Biểu thức đại số",
+        "equations": "Phương trình",
+        "inequalities": "Bất phương trình",
+        "factoring": "Phân tích thừa số",
+        "polynomials": "Đa thức"
+      },
+      "functions": {
+        "root": "Hàm số và đồ thị",
+        "linear": "Hàm tuyến tính",
+        "quadratic": "Hàm bậc hai",
+        "polynomial": "Hàm đa thức",
+        "rational": "Hàm hữu tỷ",
+        "exponential": "Hàm mũ",
+        "logarithmic": "Hàm logarit",
+        "trigonometric": "Hàm lượng giác",
+        "inverse": "Hàm ngược",
+        "composite": "Hàm hợp"
+      },
+      "linear": {
+        "root": "Đại số tuyến tính",
+        "matrix": "Máy tính ma trận",
+        "system": "Hệ phương trình"
+      }
+    },
+    "calculus": {
+      "root": "Công cụ giải tích",
+      "derivative": "Đạo hàm",
+      "integral": "Tích phân",
+      "limit": "Giới hạn",
+      "sequence": "Dãy số"
+    },
+    "geometry": {
+      "plane": {
+        "root": "Hình học mặt phẳng",
+        "pointsSegments": "Điểm và đoạn thẳng",
+        "lines": "Đường thẳng",
+        "angles": "Góc",
+        "triangles": "Tam giác",
+        "quadrilaterals": "Tứ giác",
+        "polygons": "Đa giác",
+        "circles": "Đường tròn",
+        "conics": "Đường conic"
+      },
+      "spatial": {
+        "root": "Hình học không gian",
+        "prisms": "Lăng trụ",
+        "pyramids": "Chóp",
+        "cylinders": "Hình trụ",
+        "cones": "Hình nón",
+        "spheres": "Hình cầu",
+        "surfaces": "Mặt cong"
+      },
+      "coordinate": {
+        "root": "Hình học tọa độ",
+        "cartesian": "Tọa độ Descartes",
+        "polar": "Tọa độ cực",
+        "parametric": "Tọa độ tham số",
+        "vectors": "Vector"
+      }
+    },
+    "trigonometry": {
+      "basic": {
+        "root": "Lượng giác cơ bản",
+        "ratios": "Tỷ số lượng giác",
+        "identities": "Đồng nhất thức",
+        "equations": "Phương trình lượng giác",
+        "graphs": "Đồ thị hàm lượng giác"
+      }
+    },
+    "statistics": {
+      "charts": {
+        "root": "Biểu đồ và dữ liệu",
+        "pictograph": "Biểu đồ tranh",
+        "line": "Biểu đồ đường",
+        "area": "Biểu đồ miền",
+        "singleColumn": "Biểu đồ cột đơn",
+        "doubleColumn": "Biểu đồ cột kép",
+        "stackedColumn": "Biểu đồ cột chồng",
+        "pie": "Biểu đồ quạt",
+        "frequencyTable": "Bảng tần số",
+        "histogram": "Histogram",
+        "boxplot": "Box plot",
+        "scatter": "Biểu đồ phân tán"
+      },
+      "descriptive": {
+        "root": "Thống kê mô tả",
+        "centralTendency": "Xu hướng trung tâm",
+        "dispersion": "Độ phân tán",
+        "distribution": "Phân phối dữ liệu",
+        "correlation": "Tương quan",
+        "regression": "Hồi quy"
+      },
+      "probability": {
+        "root": "Xác suất cơ bản",
+        "basic": "Xác suất cơ bản",
+        "conditional": "Xác suất có điều kiện",
+        "bayes": "Định lý Bayes"
+      },
+      "distributions": {
+        "root": "Phân phối xác suất",
+        "discrete": "Phân phối rời rạc",
+        "continuous": "Phân phối liên tục",
+        "normal": "Phân phối chuẩn",
+        "binomial": "Phân phối nhị thức"
+      }
+    },
+    "solvers": {
+      "root": "Giải phương trình nâng cao",
+      "differential": "Phương trình vi phân",
+      "optimization": "Tối ưu hóa"
+    }
   }
 }

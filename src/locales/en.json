@@ -40,5 +40,159 @@
     "font": "Font",
     "family": "Family",
     "size": "Size"
+  },
+  "nav": {
+    "sections": {
+      "basicTools": "Basic Math Tools",
+      "arithmeticAlgebra": "Arithmetic and Basic Algebra",
+      "functionsAdvancedAlgebra": "Functions and Advanced Algebra",
+      "calculus": "Calculus",
+      "geometryTrigonometry": "Geometry and Trigonometry",
+      "statisticsProbability": "Statistics and Probability"
+    },
+    "tools": {
+      "basicCalculator": "Basic Calculator",
+      "calculators": {
+        "root": "Basic Calculator",
+        "basic": "Basic Calculator",
+        "scientific": "Scientific Calculator",
+        "graphing": "Graphing Calculator",
+        "complex": "Complex Numbers"
+      },
+      "converters": {
+        "root": "Conversion Tools",
+        "units": "Unit Conversion"
+      },
+      "generators": {
+        "root": "Generators",
+        "random": "Random Numbers",
+        "fibonacci": "Fibonacci Sequence",
+        "pattern": "Number Patterns"
+      }
+    },
+    "arithmetic": {
+      "root": "Basic Arithmetic",
+      "baseConversion": "Base Conversion",
+      "commonDenominator": "Common Denominator",
+      "divisionRemainder": "Division and Remainder",
+      "primeNumbers": "Prime Numbers",
+      "factorsIrrationals": "Factors and Irrationals",
+      "divisorsMultiples": "Divisors and Multiples",
+      "fractions": "Fractions & Conversion"
+    },
+    "algebra": {
+      "basic": {
+        "root": "Basic Algebra",
+        "expressions": "Algebraic Expressions",
+        "equations": "Equations",
+        "inequalities": "Inequalities",
+        "factoring": "Factoring",
+        "polynomials": "Polynomials"
+      },
+      "functions": {
+        "root": "Functions and Graphs",
+        "linear": "Linear Functions",
+        "quadratic": "Quadratic Functions",
+        "polynomial": "Polynomial Functions",
+        "rational": "Rational Functions",
+        "exponential": "Exponential Functions",
+        "logarithmic": "Logarithmic Functions",
+        "trigonometric": "Trigonometric Functions",
+        "inverse": "Inverse Functions",
+        "composite": "Composite Functions"
+      },
+      "linear": {
+        "root": "Linear Algebra",
+        "matrix": "Matrix Calculator",
+        "system": "System of Equations"
+      }
+    },
+    "calculus": {
+      "root": "Calculus Tools",
+      "derivative": "Derivatives",
+      "integral": "Integrals",
+      "limit": "Limits",
+      "sequence": "Sequences"
+    },
+    "geometry": {
+      "plane": {
+        "root": "Plane Geometry",
+        "pointsSegments": "Points and Segments",
+        "lines": "Lines",
+        "angles": "Angles",
+        "triangles": "Triangles",
+        "quadrilaterals": "Quadrilaterals",
+        "polygons": "Polygons",
+        "circles": "Circles",
+        "conics": "Conic Sections"
+      },
+      "spatial": {
+        "root": "Spatial Geometry",
+        "prisms": "Prisms",
+        "pyramids": "Pyramids",
+        "cylinders": "Cylinders",
+        "cones": "Cones",
+        "spheres": "Spheres",
+        "surfaces": "Curved Surfaces"
+      },
+      "coordinate": {
+        "root": "Coordinate Geometry",
+        "cartesian": "Cartesian Coordinates",
+        "polar": "Polar Coordinates",
+        "parametric": "Parametric Coordinates",
+        "vectors": "Vectors"
+      }
+    },
+    "trigonometry": {
+      "basic": {
+        "root": "Basic Trigonometry",
+        "ratios": "Trigonometric Ratios",
+        "identities": "Identities",
+        "equations": "Trigonometric Equations",
+        "graphs": "Trigonometric Graphs"
+      }
+    },
+    "statistics": {
+      "charts": {
+        "root": "Charts and Data",
+        "pictograph": "Pictograph",
+        "line": "Line Chart",
+        "area": "Area Chart",
+        "singleColumn": "Single Column Chart",
+        "doubleColumn": "Double Column Chart",
+        "stackedColumn": "Stacked Column Chart",
+        "pie": "Pie Chart",
+        "frequencyTable": "Frequency Table",
+        "histogram": "Histogram",
+        "boxplot": "Box Plot",
+        "scatter": "Scatter Plot"
+      },
+      "descriptive": {
+        "root": "Descriptive Statistics",
+        "centralTendency": "Central Tendency",
+        "dispersion": "Dispersion",
+        "distribution": "Data Distribution",
+        "correlation": "Correlation",
+        "regression": "Regression"
+      },
+      "probability": {
+        "root": "Basic Probability",
+        "basic": "Basic Probability",
+        "conditional": "Conditional Probability",
+        "bayes": "Bayes' Theorem"
+      },
+      "distributions": {
+        "root": "Probability Distributions",
+        "discrete": "Discrete Distributions",
+        "continuous": "Continuous Distributions",
+        "normal": "Normal Distribution",
+        "binomial": "Binomial Distribution"
+      }
+    },
+    "solvers": {
+      "root": "Advanced Equation Solving",
+      "differential": "Differential Equations",
+      "optimization": "Optimization"
+    }
   }
 }
