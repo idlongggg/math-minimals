@@ -6,8 +6,9 @@ import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 
 import { SettingsIcon } from 'src/assets/icons';
-import { transitionTap, varHover, varTap } from 'src/components/animate';
+
 import { useSettingsContext } from 'src/components/settings';
+import { varTap, varHover, transitionTap } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
 
@@ -30,11 +31,11 @@ export function SettingsButton({ sx, ...other }: IconButtonProps) {
           animate={{ rotate: 360 }}
           transition={{ duration: 8, ease: 'linear', repeat: Infinity }}
         >
-          <SettingsIcon 
-            sx={{ 
-              width: 24, 
+          <SettingsIcon
+            sx={{
+              width: 24,
               height: 24,
-              display: 'block'
+              display: 'block',
             }}
           />
         </m.div>
