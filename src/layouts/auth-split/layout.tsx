@@ -4,23 +4,26 @@ import type { Breakpoint } from '@mui/material/styles';
 
 import { merge } from 'es-toolkit';
 
-import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+
+import { _languages } from 'src/_mock';
 
 import { Logo } from 'src/components/logo';
 
-import { AuthSplitContent } from './content';
-import { AuthSplitSection } from './section';
-import { MainSection } from '../core/main-section';
+import { LanguagePopover } from '../components/language-popover';
+import { SettingsButton } from '../components/settings-button';
 import { HeaderSection } from '../core/header-section';
 import { LayoutSection } from '../core/layout-section';
-import { SettingsButton } from '../components/settings-button';
+import { MainSection } from '../core/main-section';
+import { AuthSplitContent } from './content';
+import { AuthSplitSection } from './section';
 
-import type { AuthSplitContentProps } from './content';
-import type { AuthSplitSectionProps } from './section';
-import type { MainSectionProps } from '../core/main-section';
 import type { HeaderSectionProps } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';
+import type { MainSectionProps } from '../core/main-section';
+import type { AuthSplitContentProps } from './content';
+import type { AuthSplitSectionProps } from './section';
 
 // ----------------------------------------------------------------------
 
@@ -62,6 +65,8 @@ export function AuthSplitLayout({
       ),
       rightArea: (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
+          {/** @slot Language popover */}
+          <LanguagePopover data={_languages} />
           {/** @slot Settings button */}
           <SettingsButton />
         </Box>
