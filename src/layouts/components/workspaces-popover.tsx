@@ -8,7 +8,12 @@ import { useCallback, useEffect, useState } from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
@@ -59,6 +64,10 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
   const initialWorkspace = data.find((item) => item.id === currentWorkspaceParam) || data[0];
 
   const [workspace, setWorkspace] = useState(initialWorkspace);
+  const [confirmDialog, setConfirmDialog] = useState<{
+    open: boolean;
+    newWorkspace: typeof data[0] | null;
+  }>({ open: false, newWorkspace: null });
 
   // Update workspace state when URL parameter changes
   useEffect(() => {
@@ -77,15 +86,34 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
         return; // Don't allow selection of disabled workspaces
       }
 
-      setWorkspace(newValue);
+      // Check if selecting the same workspace
+      if (workspace?.id === newValue.id) {
+        onClose();
+        return; // Don't do anything if same workspace
+      }
+
+      // Show confirmation dialog before switching workspace
+      setConfirmDialog({ open: true, newWorkspace: newValue });
       onClose();
+    },
+    [onClose, hasAccess, workspace?.id]
+  );
+
+  const handleConfirmWorkspaceChange = useCallback(() => {
+    const { newWorkspace } = confirmDialog;
+    if (newWorkspace) {
+      setWorkspace(newWorkspace);
+      setConfirmDialog({ open: false, newWorkspace: null });
 
       // Create URL with workspace parameter and force full page reload
-      const url = createUrlWithWorkspace(window.location.pathname, newValue.id, {});
+      const url = createUrlWithWorkspace(window.location.pathname, newWorkspace.id, {});
       window.location.href = url;
-    },
-    [onClose, hasAccess]
-  );
+    }
+  }, [confirmDialog]);
+
+  const handleCancelWorkspaceChange = useCallback(() => {
+    setConfirmDialog({ open: false, newWorkspace: null });
+  }, []);
 
   const buttonBg: SxProps<Theme> = {
     height: 1,
@@ -229,10 +257,30 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
     </CustomPopover>
   );
 
+  const renderConfirmDialog = () => (
+    <Dialog open={confirmDialog.open} onClose={handleCancelWorkspaceChange}>
+      <DialogTitle>Xác nhận chuyển workspace</DialogTitle>
+      <DialogContent>
+        <Typography>
+          Bạn có muốn chuyển sang workspace "{confirmDialog.newWorkspace?.name}" không?
+        </Typography>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCancelWorkspaceChange}>
+          Hủy
+        </Button>
+        <Button onClick={handleConfirmWorkspaceChange} variant="contained">
+          Xác nhận
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+
   return (
     <>
       {renderButton()}
       {renderMenuList()}
+      {renderConfirmDialog()}
     </>
   );
 }
