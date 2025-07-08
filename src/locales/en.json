@@ -18,5 +18,27 @@
       }
     },
     "welcome": "Hi, Welcome back"
+  },
+  "settings": {
+    "title": "Settings",
+    "resetAll": "Reset all",
+    "close": "Close",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit fullscreen",
+    "darkMode": "Dark mode",
+    "contrast": "Contrast",
+    "rightToLeft": "Right to left",
+    "compact": "Compact",
+    "compactTooltip": "Dashboard only and available at large resolutions > 1600px (xl)",
+    "presets": "Presets",
+    "nav": "Nav",
+    "navTooltip": "Dashboard only",
+    "layout": "Layout",
+    "color": "Color",
+    "integrate": "Integrate",
+    "apparent": "Apparent",
+    "font": "Font",
+    "family": "Family",
+    "size": "Size"
   }
 }

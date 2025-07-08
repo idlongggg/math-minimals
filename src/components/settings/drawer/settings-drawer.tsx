@@ -3,38 +3,40 @@
 import type { ThemeColorScheme } from 'src/theme/types';
 
 import { hasKeys, varAlpha } from 'minimal-shared/utils';
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
 import SvgIcon from '@mui/material/SvgIcon';
 import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useColorScheme } from '@mui/material/styles';
 
-import { themeConfig } from 'src/theme/theme-config';
 import { CloseIcon } from 'src/assets/icons/close-icon';
-import { ResetIcon } from 'src/assets/icons/reset-icon';
-import { primaryColorPresets } from 'src/theme/with-settings';
 import { FullscreenIcon } from 'src/assets/icons/fullscreen-icon';
+import { ResetIcon } from 'src/assets/icons/reset-icon';
+import { useLocales } from 'src/locales/hooks';
+import { themeConfig } from 'src/theme/theme-config';
+import { primaryColorPresets } from 'src/theme/with-settings';
 
-import { settingIcons } from './icons';
-import { BaseOption } from './base-option';
 import { Scrollbar } from '../../scrollbar';
-import { LargeBlock, SmallBlock } from './styles';
-import { PresetsOptions } from './presets-options';
-import { FontSizeOptions, FontFamilyOptions } from './font-options';
 import { useSettingsContext } from '../context/use-settings-context';
+import { BaseOption } from './base-option';
+import { FontFamilyOptions, FontSizeOptions } from './font-options';
+import { settingIcons } from './icons';
 import { NavColorOptions, NavLayoutOptions } from './nav-layout-option';
+import { PresetsOptions } from './presets-options';
+import { LargeBlock, SmallBlock } from './styles';
 
-import type { SettingsState, SettingsDrawerProps } from '../types';
+import type { SettingsDrawerProps, SettingsState } from '../types';
 
 // ----------------------------------------------------------------------
 
 export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
   const settings = useSettingsContext();
+  const { translate: t } = useLocales();
 
   const { mode, setMode, systemMode } = useColorScheme();
 
@@ -72,12 +74,12 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
       }}
     >
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
-        Cài đặt
+        {t('settings.title')}
       </Typography>
 
       <FullScreenButtonTSX />
 
-      <Tooltip title="Đặt lại tất cả">
+      <Tooltip title={t('settings.resetAll')}>
         <IconButton onClick={handleReset}>
           <Badge color="error" variant="dot" invisible={!settings.canReset}>
             <ResetIcon />
@@ -85,7 +87,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
         </IconButton>
       </Tooltip>
 
-      <Tooltip title="Đóng">
+      <Tooltip title={t('settings.close')}>
         <IconButton onClick={settings.onCloseDrawer}>
           <CloseIcon />
         </IconButton>
@@ -95,7 +97,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
 
   const renderMode = () => (
     <BaseOption
-      label="Dark mode"
+      label={t('settings.darkMode')}
       selected={settings.state.colorScheme === 'dark'}
       icon={<SvgIcon>{settingIcons.moon}</SvgIcon>}
       onChangeOption={() => {
@@ -107,7 +109,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
 
   const renderContrast = () => (
     <BaseOption
-      label="Contrast"
+      label={t('settings.contrast')}
       selected={settings.state.contrast === 'hight'}
       icon={<SvgIcon>{settingIcons.contrast}</SvgIcon>}
       onChangeOption={() =>
@@ -120,7 +122,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
 
   const renderRtl = () => (
     <BaseOption
-      label="Right to left"
+      label={t('settings.rightToLeft')}
       selected={settings.state.direction === 'rtl'}
       icon={<SvgIcon>{settingIcons.alignRight}</SvgIcon>}
       onChangeOption={() =>
@@ -131,8 +133,8 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
 
   const renderCompact = () => (
     <BaseOption
-      tooltip="Dashboard only and available at large resolutions > 1600px (xl)"
-      label="Compact"
+      tooltip={t('settings.compactTooltip')}
+      label={t('settings.compact')}
       selected={!!settings.state.compactLayout}
       icon={<SvgIcon>{settingIcons.autofitWidth}</SvgIcon>}
       onChangeOption={() => settings.setState({ compactLayout: !settings.state.compactLayout })}
@@ -141,7 +143,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
 
   const renderPresets = () => (
     <LargeBlock
-      title="Presets"
+      title={t('settings.presets')}
       canReset={settings.state.primaryColor !== defaultSettings.primaryColor}
       onReset={() => settings.setState({ primaryColor: defaultSettings.primaryColor })}
     >
@@ -160,10 +162,10 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
   );
 
   const renderNav = () => (
-    <LargeBlock title="Nav" tooltip="Dashboard only" sx={{ gap: 2.5 }}>
+    <LargeBlock title={t('settings.nav')} tooltip={t('settings.navTooltip')} sx={{ gap: 2.5 }}>
       {isNavLayoutVisible && (
         <SmallBlock
-          label="Layout"
+          label={t('settings.layout')}
           canReset={settings.state.navLayout !== defaultSettings.navLayout}
           onReset={() => settings.setState({ navLayout: defaultSettings.navLayout })}
         >
@@ -193,7 +195,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
       )}
       {isNavColorVisible && (
         <SmallBlock
-          label="Color"
+          label={t('settings.color')}
           canReset={settings.state.navColor !== defaultSettings.navColor}
           onReset={() => settings.setState({ navColor: defaultSettings.navColor })}
         >
@@ -202,12 +204,12 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
             onChangeOption={(newOption) => settings.setState({ navColor: newOption })}
             options={[
               {
-                label: 'Integrate',
+                label: t('settings.integrate'),
                 value: 'integrate',
                 icon: <SvgIcon>{settingIcons.sidebarOutline}</SvgIcon>,
               },
               {
-                label: 'Apparent',
+                label: t('settings.apparent'),
                 value: 'apparent',
                 icon: <SvgIcon>{settingIcons.sidebarFill}</SvgIcon>,
               },
@@ -219,10 +221,10 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
   );
 
   const renderFont = () => (
-    <LargeBlock title="Font" sx={{ gap: 2.5 }}>
+    <LargeBlock title={t('settings.font')} sx={{ gap: 2.5 }}>
       {isFontFamilyVisible && (
         <SmallBlock
-          label="Family"
+          label={t('settings.family')}
           canReset={settings.state.fontFamily !== defaultSettings.fontFamily}
           onReset={() => settings.setState({ fontFamily: defaultSettings.fontFamily })}
         >
@@ -241,7 +243,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
       )}
       {isFontSizeVisible && (
         <SmallBlock
-          label="Size"
+          label={t('settings.size')}
           canReset={settings.state.fontSize !== defaultSettings.fontSize}
           onReset={() => settings.setState({ fontSize: defaultSettings.fontSize })}
           sx={{ gap: 5 }}
@@ -272,7 +274,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
     }, []);
 
     return (
-      <Tooltip title={fullscreen ? 'Thoát toàn màn hình' : 'Toàn màn hình'}>
+      <Tooltip title={fullscreen ? t('settings.exitFullscreen') : t('settings.fullscreen')}>
         <IconButton onClick={handleToggleFullscreen} color={fullscreen ? 'primary' : 'default'}>
           <FullscreenIcon />
         </IconButton>

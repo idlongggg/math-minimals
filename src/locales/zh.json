@@ -18,5 +18,27 @@
       }
     },
     "welcome": "您好，欢迎回来"
+  },
+  "settings": {
+    "title": "设置",
+    "resetAll": "重置全部",
+    "close": "关闭",
+    "fullscreen": "全屏",
+    "exitFullscreen": "退出全屏",
+    "darkMode": "暗黑模式",
+    "contrast": "对比度",
+    "rightToLeft": "从右到左",
+    "compact": "紧凑",
+    "compactTooltip": "仅限于仪表板，适用于大分辨率 > 1600px (xl)",
+    "presets": "预设颜色",
+    "nav": "导航栏",
+    "navTooltip": "仅限于仪表板",
+    "layout": "布局",
+    "color": "颜色",
+    "integrate": "集成",
+    "apparent": "明显",
+    "font": "字体",
+    "family": "字体系列",
+    "size": "字体大小"
   }
 }
