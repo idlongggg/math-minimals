@@ -1,33 +1,34 @@
 'use client';
 
-import type { Theme, SxProps } from '@mui/material/styles';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
+import type { SxProps, Theme } from '@mui/material/styles';
 
 import { usePopover } from 'minimal-shared/hooks';
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
-import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 
 import { useRouter, useSearchParams } from 'src/routes/hooks';
-import { getWorkspaceParam, createUrlWithWorkspace } from 'src/routes/utils';
+import { createUrlWithWorkspace, getWorkspaceParam } from 'src/routes/utils';
 
-import { Label } from 'src/components/label';
-import { Iconify } from 'src/components/iconify';
-import { Scrollbar } from 'src/components/scrollbar';
 import { CustomPopover } from 'src/components/custom-popover';
+import { Iconify } from 'src/components/iconify';
+import { Label } from 'src/components/label';
+import { Scrollbar } from 'src/components/scrollbar';
+import { useLocales } from 'src/locales/hooks';
 
 // ----------------------------------------------------------------------
 
-const getLabelColor = (plan: string) => {
-  if (plan === 'Chưa sở hữu') return 'default';
-  if (plan === 'Sở hữu') return 'success';
-  if (plan === 'Free') return 'default';
+const getLabelColor = (plan: string, t: (key: string) => string) => {
+  if (plan === t('workspace.notOwned') || plan === 'Chưa sở hữu') return 'default';
+  if (plan === t('workspace.owned') || plan === 'Sở hữu') return 'success';
+  if (plan === t('workspace.free') || plan === 'Free') return 'default';
   if (plan === '') return undefined;
   return 'info';
 };
@@ -46,6 +47,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { translate: t } = useLocales();
 
   const { open, anchorEl, onClose, onOpen } = usePopover();
 
@@ -141,7 +143,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
 
       {workspace?.plan && (
         <Label
-          color={getLabelColor(workspace.plan)}
+          color={getLabelColor(workspace.plan, t)}
           sx={{
             height: 22,
             cursor: 'inherit',
@@ -186,7 +188,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
                   {option.name}
                 </Typography>
 
-                {option.plan && <Label color={getLabelColor(option.plan)}>{option.plan}</Label>}
+                {option.plan && <Label color={getLabelColor(option.plan, t)}>{option.plan}</Label>}
               </MenuItem>
               {index === 0 && <Divider sx={{ my: 0.5, borderStyle: 'dashed' }} />}
             </div>

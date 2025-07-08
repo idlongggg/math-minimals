@@ -201,5 +201,14 @@
     "profile": "Hồ sơ",
     "accountSettings": "Cài đặt tài khoản",
     "logout": "Đăng xuất"
+  },
+  "workspace": {
+    "allTools": "Tất cả công cụ toán học",
+    "algebra": "Đại số và giải tích",
+    "statistics": "Xác suất và thống kê",
+    "geometry": "Hình học và đo lường", 
+    "owned": "Sở hữu",
+    "notOwned": "Chưa sở hữu",
+    "free": "Miễn phí"
   }
 }

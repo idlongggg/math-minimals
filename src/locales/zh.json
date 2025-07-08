@@ -201,5 +201,14 @@
     "profile": "个人资料",
     "accountSettings": "账户设置",
     "logout": "退出登录"
+  },
+  "workspace": {
+    "allTools": "所有数学工具",
+    "algebra": "代数和微积分", 
+    "statistics": "概率和统计",
+    "geometry": "几何和测量",
+    "owned": "已拥有",
+    "notOwned": "未拥有", 
+    "free": "免费"
   }
 }
