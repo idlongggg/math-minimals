@@ -46,8 +46,16 @@ const ICONS = {
 
 // ----------------------------------------------------------------------
 
-export function getNavData(t: (key: string) => string): NavSectionProps['data'] {
-  return [
+type WorkspaceType = 'all-tools' | 'algebra' | 'statistics' | 'geometry';
+
+interface NavDataOptions {
+  workspace?: WorkspaceType;
+  userAccess?: string[];
+}
+
+export function getNavData(t: (key: string) => string, options: NavDataOptions = {}): NavSectionProps['data'] {
+  const { workspace = 'all-tools', userAccess = [] } = options;
+  const allNavData = [
     /**
      * Công cụ toán học cơ bản
      */
@@ -544,6 +552,83 @@ export function getNavData(t: (key: string) => string): NavSectionProps['data'] 
       ],
     },
   ];
+
+  // Filter navigation data based on workspace
+  if (!workspace || workspace === 'all-tools') {
+    // For all-tools workspace, filter based on user access
+    if (userAccess.length === 0) {
+      // If no access specified, show all sections (fallback for backward compatibility)
+      return allNavData;
+    }
+
+    const accessibleData = allNavData.filter((section) => {
+      const sectionKey = section.subheader;
+      
+      // Basic Math Tools is always accessible
+      if (sectionKey === t('nav.sections.basicTools')) {
+        return true;
+      }
+
+      // Check access for each section
+      if (userAccess.includes('algebra') && [
+        t('nav.sections.arithmeticAlgebra'),
+        t('nav.sections.functionsAdvancedAlgebra'),
+        t('nav.sections.calculus'),
+      ].includes(sectionKey)) {
+        return true;
+      }
+
+      if (userAccess.includes('statistics') && [
+        t('nav.sections.statisticsProbability'),
+      ].includes(sectionKey)) {
+        return true;
+      }
+
+      if (userAccess.includes('geometry') && [
+        t('nav.sections.geometryTrigonometry'),
+      ].includes(sectionKey)) {
+        return true;
+      }
+
+      return false;
+    });
+
+    return accessibleData;
+  }
+
+  const filteredData = allNavData.filter((section) => {
+    const sectionKey = section.subheader;
+    
+    // Basic Math Tools is common for all workspaces
+    if (sectionKey === t('nav.sections.basicTools')) {
+      return true;
+    }
+
+    // Filter based on workspace
+    switch (workspace) {
+      case 'algebra':
+        return [
+          t('nav.sections.arithmeticAlgebra'),
+          t('nav.sections.functionsAdvancedAlgebra'),
+          t('nav.sections.calculus'),
+        ].includes(sectionKey);
+      
+      case 'statistics':
+        return [
+          t('nav.sections.statisticsProbability'),
+        ].includes(sectionKey);
+      
+      case 'geometry':
+        return [
+          t('nav.sections.geometryTrigonometry'),
+        ].includes(sectionKey);
+      
+      default:
+        return false;
+    }
+  });
+
+  return filteredData;
 }
 
 // Backward compatibility - export a default navData using Vietnamese
@@ -551,5 +636,6 @@ export const navData: NavSectionProps['data'] = getNavData(
   (key: string) =>
     // This is a fallback when using navData directly without translation context
     // In actual usage, getNavData should be called with proper translation function
-    key.split('.').pop() || key
+    key.split('.').pop() || key,
+  { workspace: 'all-tools' }
 );
