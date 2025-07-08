@@ -259,18 +259,18 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
 
   const renderConfirmDialog = () => (
     <Dialog open={confirmDialog.open} onClose={handleCancelWorkspaceChange}>
-      <DialogTitle>Xác nhận chuyển workspace</DialogTitle>
+      <DialogTitle>{t('workspace.confirmDialog.title')}</DialogTitle>
       <DialogContent>
         <Typography>
-          Bạn có muốn chuyển sang workspace "{confirmDialog.newWorkspace?.name}" không?
+          {t('workspace.confirmDialog.message', confirmDialog.newWorkspace?.name)}
         </Typography>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancelWorkspaceChange}>
-          Hủy
+          {t('workspace.confirmDialog.cancel')}
         </Button>
         <Button onClick={handleConfirmWorkspaceChange} variant="contained">
-          Xác nhận
+          {t('workspace.confirmDialog.confirm')}
         </Button>
       </DialogActions>
     </Dialog>

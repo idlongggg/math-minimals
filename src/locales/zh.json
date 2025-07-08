@@ -209,6 +209,12 @@
     "geometry": "几何和测量",
     "owned": "已拥有",
     "notOwned": "未拥有", 
-    "free": "免费"
+    "free": "免费",
+    "confirmDialog": {
+      "title": "确认切换工作区",
+      "message": "您要切换到工作区\"{0}\"吗？",
+      "cancel": "取消",
+      "confirm": "确认"
+    }
   }
 }
