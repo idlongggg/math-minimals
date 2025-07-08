@@ -15,6 +15,7 @@ import { _languages, _notifications } from 'src/_mock';
 
 import { Logo } from 'src/components/logo';
 import { useSettingsContext } from 'src/components/settings';
+import { useLocales } from 'src/locales/hooks';
 
 import { useMockedUser } from 'src/auth/hooks';
 
@@ -29,7 +30,7 @@ import { HeaderSection } from '../core/header-section';
 import { LayoutSection } from '../core/layout-section';
 import { MainSection } from '../core/main-section';
 import { _account } from '../nav-config-account';
-import { navData as dashboardNavData } from '../nav-config-dashboard';
+import { getNavData } from '../nav-config-dashboard';
 import { _workspaces } from '../nav-config-workspace';
 import { VerticalDivider } from './content';
 import { dashboardLayoutVars, dashboardNavColorVars } from './css-vars';
@@ -70,11 +71,13 @@ export function DashboardLayout({
   const { user } = useMockedUser();
 
   const settings = useSettingsContext();
+  const { translate: t } = useLocales();
 
   const navVars = dashboardNavColorVars(theme, settings.state.navColor, settings.state.navLayout);
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
+  const dashboardNavData = getNavData(t);
   const navData = slotProps?.nav?.data ?? dashboardNavData;
 
   const isNavMini = settings.state.navLayout === 'mini';
