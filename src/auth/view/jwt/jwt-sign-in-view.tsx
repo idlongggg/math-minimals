@@ -24,6 +24,7 @@ import { RouterLink } from 'src/routes/components';
 import { useRouter } from 'src/routes/hooks';
 
 import { MOCK_JWT_USERS } from 'src/_mock/_jwt';
+import { CONFIG } from 'src/global-config';
 
 import { Field, Form } from 'src/components/hook-form';
 import { Iconify } from 'src/components/iconify';
@@ -61,7 +62,9 @@ export function JwtSignInView() {
   const { checkUserSession } = useAuthContext();
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [authMethod, setAuthMethod] = useState<AuthMethod>(AUTH_METHODS.JWT);
+  const [authMethod, setAuthMethod] = useState<AuthMethod>(
+    CONFIG.auth.enableMockJWT ? AUTH_METHODS.JWT : AUTH_METHODS.JWT
+  );
   const [selectedMockUser, setSelectedMockUser] = useState<number>(0);
 
   const defaultValues: SignInSchemaType = {
@@ -87,7 +90,7 @@ export function JwtSignInView() {
 
   // Initialize form with mock user data when switching to mock JWT
   useEffect(() => {
-    if (authMethod === AUTH_METHODS.MOCK_JWT) {
+    if (CONFIG.auth.enableMockJWT && authMethod === AUTH_METHODS.MOCK_JWT) {
       // For mock JWT, we don't need to set email/password
       // Just keep the form clean
     } else {
@@ -99,7 +102,7 @@ export function JwtSignInView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      if (authMethod === AUTH_METHODS.MOCK_JWT) {
+      if (CONFIG.auth.enableMockJWT && authMethod === AUTH_METHODS.MOCK_JWT) {
         // For mock JWT, only need mockUserIndex
         await signInWithPassword({
           email: '', // Not needed for mock
@@ -112,7 +115,7 @@ export function JwtSignInView() {
         await signInWithPassword({
           email: data.email,
           password: data.password,
-          authMethod,
+          authMethod: AUTH_METHODS.JWT, // Luôn sử dụng JWT thật khi Mock JWT bị tắt
           mockUserIndex: selectedMockUser,
         });
       }
@@ -131,37 +134,39 @@ export function JwtSignInView() {
 
   const renderForm = () => (
     <Box sx={{ gap: 3, display: 'flex', flexDirection: 'column' }}>
-      {/* Auth Method Selection */}
-      <Stack spacing={2}>
-        <Typography variant="subtitle2">Authentication Method</Typography>
-        <ToggleButtonGroup
-          value={authMethod}
-          exclusive
-          onChange={(event, newMethod) => {
-            if (newMethod !== null) {
-              setAuthMethod(newMethod);
-            }
-          }}
-          aria-label="auth method"
-          fullWidth
-        >
-          <ToggleButton value={AUTH_METHODS.JWT} aria-label="jwt">
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Typography variant="body2">JWT API</Typography>
-              <Chip label="Real" size="small" color="primary" />
-            </Stack>
-          </ToggleButton>
-          <ToggleButton value={AUTH_METHODS.MOCK_JWT} aria-label="mock jwt">
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Typography variant="body2">Mock JWT</Typography>
-              <Chip label="Demo" size="small" color="secondary" />
-            </Stack>
-          </ToggleButton>
-        </ToggleButtonGroup>
-      </Stack>
+      {/* Auth Method Selection - chỉ hiển thị khi Mock JWT được bật */}
+      {CONFIG.auth.enableMockJWT && (
+        <Stack spacing={2}>
+          <Typography variant="subtitle2">Authentication Method</Typography>
+          <ToggleButtonGroup
+            value={authMethod}
+            exclusive
+            onChange={(event, newMethod) => {
+              if (newMethod !== null) {
+                setAuthMethod(newMethod);
+              }
+            }}
+            aria-label="auth method"
+            fullWidth
+          >
+            <ToggleButton value={AUTH_METHODS.JWT} aria-label="jwt">
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Typography variant="body2">JWT API</Typography>
+                <Chip label="Real" size="small" color="primary" />
+              </Stack>
+            </ToggleButton>
+            <ToggleButton value={AUTH_METHODS.MOCK_JWT} aria-label="mock jwt">
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Typography variant="body2">Mock JWT</Typography>
+                <Chip label="Demo" size="small" color="secondary" />
+              </Stack>
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Stack>
+      )}
 
-      {/* Show mock info when mock JWT is selected */}
-      {authMethod === AUTH_METHODS.MOCK_JWT && (
+      {/* Show mock info when mock JWT is selected and enabled */}
+      {CONFIG.auth.enableMockJWT && authMethod === AUTH_METHODS.MOCK_JWT && (
         <Stack spacing={2}>
           <Stack spacing={1}>
             <Typography variant="subtitle2">Select Mock User:</Typography>
@@ -202,8 +207,8 @@ export function JwtSignInView() {
         </Stack>
       )}
 
-      {/* Show email and password fields only for real JWT */}
-      {authMethod !== AUTH_METHODS.MOCK_JWT && (
+      {/* Show email and password fields only for real JWT or when Mock JWT is disabled */}
+      {(!CONFIG.auth.enableMockJWT || authMethod !== AUTH_METHODS.MOCK_JWT) && (
         <>
           <Field.Text name="email" label="Email address" slotProps={{ inputLabel: { shrink: true } }} />
 

@@ -14,6 +14,7 @@ export type ConfigValue = {
     method: 'jwt';
     skip: boolean;
     redirectPath: string;
+    enableMockJWT: boolean;
   };
   mapboxApiKey: string;
 };
@@ -34,6 +35,7 @@ export const CONFIG: ConfigValue = {
     method: 'jwt',
     skip: false,
     redirectPath: paths.dashboard.root,
+    enableMockJWT: JSON.parse(process.env.NEXT_PUBLIC_ENABLE_MOCK_JWT ?? 'true'),
   },
   /**
    * Mapbox
