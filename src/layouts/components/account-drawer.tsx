@@ -18,9 +18,10 @@ import { usePathname } from 'src/routes/hooks';
 import { paths } from 'src/routes/paths';
 
 import { AnimateBorder } from 'src/components/animate';
-import { Iconify } from 'src/components/iconify';
 import { Label } from 'src/components/label';
 import { Scrollbar } from 'src/components/scrollbar';
+
+import { CloseIcon, HomeIcon, SettingsIcon, UserIcon } from 'src/assets/icons';
 
 import { useMockedUser } from 'src/auth/hooks';
 
@@ -50,17 +51,17 @@ export function AccountDrawer({ data, sx, ...other }: AccountDrawerProps) {
     {
       label: 'Home',
       href: '/',
-      icon: <Iconify icon="solar:home-angle-bold-duotone" />,
+      icon: <HomeIcon />,
     },
     {
       label: 'Profile',
       href: '/dashboard/user/profile',
-      icon: <Iconify icon="solar:user-rounded-bold" />,
+      icon: <UserIcon />,
     },
     {
       label: 'Account Settings',
       href: '/dashboard/user/account',
-      icon: <Iconify icon="solar:settings-bold-duotone" />,
+      icon: <SettingsIcon />,
     },
   ];
 
@@ -161,7 +162,7 @@ export function AccountDrawer({ data, sx, ...other }: AccountDrawerProps) {
             position: 'absolute',
           }}
         >
-          <Iconify icon="mingcute:close-line" />
+          <CloseIcon />
         </IconButton>
 
         <Scrollbar>
