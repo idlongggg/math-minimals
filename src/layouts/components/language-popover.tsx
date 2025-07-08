@@ -3,16 +3,16 @@
 import type { IconButtonProps } from '@mui/material/IconButton';
 
 import { m } from 'framer-motion';
-import { useState, useCallback } from 'react';
 import { usePopover } from 'minimal-shared/hooks';
+import { useCallback, useState } from 'react';
 
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
 
-import { FlagIcon } from 'src/components/flag-icon';
+import { transitionTap, varHover, varTap } from 'src/components/animate';
 import { CustomPopover } from 'src/components/custom-popover';
-import { varTap, varHover, transitionTap } from 'src/components/animate';
+import { FlagIcon } from 'src/components/flag-icon';
 
 // ----------------------------------------------------------------------
 
@@ -27,9 +27,9 @@ export type LanguagePopoverProps = IconButtonProps & {
 export function LanguagePopover({ data = [], sx, ...other }: LanguagePopoverProps) {
   const { open, anchorEl, onClose, onOpen } = usePopover();
 
-  const [locale, setLocale] = useState<string>(data[0].value);
+  const [locale, setLocale] = useState<string>(data.find(lang => lang.value === 'vi')?.value || data[0]?.value || 'vi');
 
-  const currentLang = data.find((lang) => lang.value === locale);
+  const currentLang = data.find((lang) => lang.value === locale) || data.find(lang => lang.value === 'vi') || data[0];
 
   const handleChangeLang = useCallback(
     (newLang: string) => {
