@@ -19,14 +19,3 @@ export function getAccountData(t: (key: string) => string): AccountDrawerProps['
     },
   ];
 }
-
-// Backward compatibility
-export const _account: AccountDrawerProps['data'] = [
-  { label: 'Home', href: '/', icon: <HomeIcon /> },
-  {
-    label: 'Profile',
-    href: '/dashboard/user/profile',
-    icon: <UserIcon />,
-  },
-  { label: 'Account Settings', href: '/dashboard/user/account', icon: <SettingsIcon /> },
-];
