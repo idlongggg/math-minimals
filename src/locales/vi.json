@@ -194,5 +194,12 @@
       "differential": "Phương trình vi phân",
       "optimization": "Tối ưu hóa"
     }
+  },
+  "account": {
+    "home": "Trang chủ",
+    "dashboard": "Bảng điều khiển",
+    "profile": "Hồ sơ",
+    "accountSettings": "Cài đặt tài khoản",
+    "logout": "Đăng xuất"
   }
 }

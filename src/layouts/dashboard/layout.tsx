@@ -29,7 +29,7 @@ import { layoutClasses } from '../core/classes';
 import { HeaderSection } from '../core/header-section';
 import { LayoutSection } from '../core/layout-section';
 import { MainSection } from '../core/main-section';
-import { _account } from '../nav-config-account';
+import { getAccountData } from '../nav-config-account';
 import { getNavData } from '../nav-config-dashboard';
 import { _workspaces } from '../nav-config-workspace';
 import { VerticalDivider } from './content';
@@ -79,6 +79,8 @@ export function DashboardLayout({
 
   const dashboardNavData = getNavData(t);
   const navData = slotProps?.nav?.data ?? dashboardNavData;
+
+  const accountData = getAccountData(t);
 
   const isNavMini = settings.state.navLayout === 'mini';
   const isNavHorizontal = settings.state.navLayout === 'horizontal';
@@ -170,7 +172,7 @@ export function DashboardLayout({
           <SettingsButton />
 
           {/** @slot Account drawer */}
-          <AccountDrawer data={_account} />
+          <AccountDrawer data={accountData} />
         </Box>
       ),
     };

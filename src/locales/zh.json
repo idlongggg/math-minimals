@@ -194,5 +194,12 @@
       "differential": "微分方程",
       "optimization": "优化"
     }
+  },
+  "account": {
+    "home": "首页",
+    "dashboard": "仪表板",
+    "profile": "个人资料",
+    "accountSettings": "账户设置",
+    "logout": "退出登录"
   }
 }
