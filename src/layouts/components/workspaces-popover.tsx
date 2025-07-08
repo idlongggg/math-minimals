@@ -266,10 +266,14 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCancelWorkspaceChange}>
+        <Button onClick={handleCancelWorkspaceChange} color="inherit">
           {t('workspace.confirmDialog.cancel')}
         </Button>
-        <Button onClick={handleConfirmWorkspaceChange} variant="contained">
+        <Button 
+          onClick={handleConfirmWorkspaceChange} 
+          variant="contained" 
+          color="primary"
+        >
           {t('workspace.confirmDialog.confirm')}
         </Button>
       </DialogActions>
