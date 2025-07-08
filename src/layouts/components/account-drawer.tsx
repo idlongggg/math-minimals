@@ -21,7 +21,7 @@ import { AnimateBorder } from 'src/components/animate';
 import { Label } from 'src/components/label';
 import { Scrollbar } from 'src/components/scrollbar';
 
-import { CloseIcon, HomeIcon, SettingsIcon, UserIcon } from 'src/assets/icons';
+import { CloseIcon } from 'src/assets/icons';
 
 import { useMockedUser } from 'src/auth/hooks';
 
@@ -46,26 +46,7 @@ export function AccountDrawer({ data, sx, ...other }: AccountDrawerProps) {
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
-  // Default menu items
-  const defaultData = [
-    {
-      label: 'Home',
-      href: '/',
-      icon: <HomeIcon />,
-    },
-    {
-      label: 'Profile',
-      href: '/dashboard/user/profile',
-      icon: <UserIcon />,
-    },
-    {
-      label: 'Account Settings',
-      href: '/dashboard/user/account',
-      icon: <SettingsIcon />,
-    },
-  ];
-
-  const menuData = data || defaultData;
+  const menuData = data || [];
 
   const renderAvatar = () => (
     <AnimateBorder

@@ -2,31 +2,29 @@ import type { SvgIconProps } from '@mui/material/SvgIcon';
 import SvgIcon from '@mui/material/SvgIcon';
 
 export function HomeIcon({ sx, ...other }: SvgIconProps) {
-  const uniqueId = Math.random().toString(36).substr(2, 9);
-  
   return (
     <SvgIcon sx={sx} {...other}>
       <g fill="none">
-        <path fill={`url(#homeGrad1-${uniqueId})`} d="M9 13h6v8H9z" />
-        <path fill={`url(#homeGrad2-${uniqueId})`} d="M13.45 4.533a2.25 2.25 0 0 0-2.9 0L3.8 10.228a2.25 2.25 0 0 0-.8 1.72v7.305c0 .966.784 1.75 1.75 1.75H9.5V15.25c0-.68.542-1.232 1.217-1.25h2.566a1.25 1.25 0 0 1 1.217 1.25v5.753h4.75a1.75 1.75 0 0 0 1.75-1.75v-7.305a2.25 2.25 0 0 0-.8-1.72z" />
-        <path fill={`url(#homeGrad3-${uniqueId})`} fillRule="evenodd" d="M12.804 2.299a1.23 1.23 0 0 0-1.608 0l-8.789 7.63a1.167 1.167 0 0 0-.102 1.672a1.23 1.23 0 0 0 1.711.1L12 4.771l7.984 6.93c.5.435 1.266.39 1.71-.1a1.167 1.167 0 0 0-.101-1.673z" clipRule="evenodd" />
-        <path fill={`url(#homeGrad4-${uniqueId})`} fillRule="evenodd" d="M11.196 2.299a1.23 1.23 0 0 1 1.608 0l8.789 7.63c.5.434.546 1.183.102 1.672a1.23 1.23 0 0 1-1.711.1L12 4.771L4.016 11.7a1.23 1.23 0 0 1-1.71-.1a1.167 1.167 0 0 1 .101-1.673z" clipRule="evenodd" />
+        <path fill="url(#fluentColorHome240)" d="M9 13h6v8H9z"></path>
+        <path fill="url(#fluentColorHome241)" d="M13.45 4.533a2.25 2.25 0 0 0-2.9 0L3.8 10.228a2.25 2.25 0 0 0-.8 1.72v7.305c0 .966.784 1.75 1.75 1.75H9.5V15.25c0-.68.542-1.232 1.217-1.25h2.566a1.25 1.25 0 0 1 1.217 1.25v5.753h4.75a1.75 1.75 0 0 0 1.75-1.75v-7.305a2.25 2.25 0 0 0-.8-1.72z"></path>
+        <path fill="url(#fluentColorHome242)" fillRule="evenodd" d="M12.804 2.299a1.23 1.23 0 0 0-1.608 0l-8.789 7.63a1.167 1.167 0 0 0-.102 1.672a1.23 1.23 0 0 0 1.711.1L12 4.771l7.984 6.93c.5.435 1.266.39 1.71-.1a1.167 1.167 0 0 0-.101-1.673z" clipRule="evenodd"></path>
+        <path fill="url(#fluentColorHome243)" fillRule="evenodd" d="M11.196 2.299a1.23 1.23 0 0 1 1.608 0l8.789 7.63c.5.434.546 1.183.102 1.672a1.23 1.23 0 0 1-1.711.1L12 4.771L4.016 11.7a1.23 1.23 0 0 1-1.71-.1a1.167 1.167 0 0 1 .101-1.673z" clipRule="evenodd"></path>
         <defs>
-          <linearGradient id={`homeGrad1-${uniqueId}`} x1="12" x2="6.707" y1="13" y2="21.825" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#944600" />
-            <stop offset="1" stopColor="#cd8e02" />
+          <linearGradient id="fluentColorHome240" x1={12} x2={6.707} y1={13} y2={21.825} gradientUnits="userSpaceOnUse">
+            <stop stopColor="#944600"></stop>
+            <stop offset={1} stopColor="#cd8e02"></stop>
           </linearGradient>
-          <linearGradient id={`homeGrad2-${uniqueId}`} x1="4.718" x2="21.568" y1="3.172" y2="17.673" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#ffd394" />
-            <stop offset="1" stopColor="#ffb357" />
+          <linearGradient id="fluentColorHome241" x1={4.718} x2={21.568} y1={3.172} y2={17.673} gradientUnits="userSpaceOnUse">
+            <stop stopColor="#ffd394"></stop>
+            <stop offset={1} stopColor="#ffb357"></stop>
           </linearGradient>
-          <linearGradient id={`homeGrad3-${uniqueId}`} x1="8.768" x2="13.162" y1="-.375" y2="11.505" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#ff921f" />
-            <stop offset="1" stopColor="#eb4824" />
+          <linearGradient id="fluentColorHome242" x1={8.768} x2={13.162} y1={-0.375} y2={11.505} gradientUnits="userSpaceOnUse">
+            <stop stopColor="#ff921f"></stop>
+            <stop offset={1} stopColor="#eb4824"></stop>
           </linearGradient>
-          <linearGradient id={`homeGrad4-${uniqueId}`} x1="8.768" x2="13.162" y1="-.375" y2="11.505" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#ff921f" />
-            <stop offset="1" stopColor="#eb4824" />
+          <linearGradient id="fluentColorHome243" x1={8.768} x2={13.162} y1={-0.375} y2={11.505} gradientUnits="userSpaceOnUse">
+            <stop stopColor="#ff921f"></stop>
+            <stop offset={1} stopColor="#eb4824"></stop>
           </linearGradient>
         </defs>
       </g>
