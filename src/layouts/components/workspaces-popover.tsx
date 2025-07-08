@@ -1,27 +1,28 @@
 'use client';
 
+import type { Theme, SxProps } from '@mui/material/styles';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
-import type { SxProps, Theme } from '@mui/material/styles';
 
 import { usePopover } from 'minimal-shared/hooks';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import ButtonBase from '@mui/material/ButtonBase';
+import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 
 import { useRouter, useSearchParams } from 'src/routes/hooks';
-import { createUrlWithWorkspace, getWorkspaceParam } from 'src/routes/utils';
+import { getWorkspaceParam, createUrlWithWorkspace } from 'src/routes/utils';
 
-import { CustomPopover } from 'src/components/custom-popover';
-import { Iconify } from 'src/components/iconify';
-import { Label } from 'src/components/label';
-import { Scrollbar } from 'src/components/scrollbar';
 import { useLocales } from 'src/locales/hooks';
+
+import { Label } from 'src/components/label';
+import { Iconify } from 'src/components/iconify';
+import { Scrollbar } from 'src/components/scrollbar';
+import { CustomPopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
@@ -40,15 +41,15 @@ const getLocalizedWorkspace = (workspaceId: string, t: (key: string) => string) 
       name: t('workspace.allTools'),
       plan: '',
     },
-    'algebra': {
+    algebra: {
       name: t('workspace.algebra'),
       plan: t('workspace.owned'),
     },
-    'statistics': {
+    statistics: {
       name: t('workspace.statistics'),
       plan: t('workspace.owned'),
     },
-    'geometry': {
+    geometry: {
       name: t('workspace.geometry'),
       plan: t('workspace.notOwned'),
     },
@@ -84,16 +85,18 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
   const [workspace, setWorkspace] = useState(initialWorkspace);
 
   // Create localized workspace data that updates when language changes
-  const localizedWorkspaceData = useMemo(() => {
-    return data.map((item) => {
-      const localized = getLocalizedWorkspace(item.id, t);
-      return {
-        ...item,
-        name: localized.name,
-        plan: localized.plan,
-      };
-    });
-  }, [data, t]);
+  const localizedWorkspaceData = useMemo(
+    () =>
+      data.map((item) => {
+        const localized = getLocalizedWorkspace(item.id, t);
+        return {
+          ...item,
+          name: localized.name,
+          plan: localized.plan,
+        };
+      }),
+    [data, t]
+  );
 
   // Get current workspace with localized name and plan
   const currentLocalizedWorkspace = useMemo(() => {
@@ -140,7 +143,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
       const url = createUrlWithWorkspace(window.location.pathname, newValue.id, additionalParams);
       router.push(url);
     },
-    [data, onClose, router, searchParams, localizedWorkspaceData]
+    [data, onClose, router, searchParams]
   );
 
   const buttonBg: SxProps<Theme> = {

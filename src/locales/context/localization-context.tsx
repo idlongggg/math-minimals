@@ -1,9 +1,10 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { defaultLocale, locales } from '../index';
+import { useMemo, useState, useEffect, useCallback, createContext } from 'react';
+
+import { locales, defaultLocale } from '../index';
 
 import type { LocaleKey } from '../index';
 
@@ -51,9 +52,10 @@ export function LocalizationProvider({ children }: LocalizationProviderProps) {
 
       if (typeof value === 'string') {
         // Simple string interpolation
-        return args.reduce((str, arg, index) => {
-          return str.replace(new RegExp(`\\{${index}\\}`, 'g'), String(arg));
-        }, value);
+        return args.reduce(
+          (str, arg, index) => str.replace(new RegExp(`\\{${index}\\}`, 'g'), String(arg)),
+          value
+        );
       }
 
       return key; // Return key if translation is not a string
@@ -70,13 +72,14 @@ export function LocalizationProvider({ children }: LocalizationProviderProps) {
   }, []);
 
   // Load from localStorage on initialization
-  const contextValue = useMemo(() => {
-    return {
+  const contextValue = useMemo(
+    () => ({
       locale,
       translate,
       changeLocale,
-    };
-  }, [locale, translate, changeLocale]);
+    }),
+    [locale, translate, changeLocale]
+  );
 
   // Effect to load from localStorage
   useEffect(() => {
@@ -86,11 +89,9 @@ export function LocalizationProvider({ children }: LocalizationProviderProps) {
         setLocale(savedLocale);
       }
     }
-  }, []);
+  }, [locale, setLocale]);
 
   return (
-    <LocalizationContext.Provider value={contextValue}>
-      {children}
-    </LocalizationContext.Provider>
+    <LocalizationContext.Provider value={contextValue}>{children}</LocalizationContext.Provider>
   );
 }

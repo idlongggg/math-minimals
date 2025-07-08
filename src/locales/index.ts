@@ -14,7 +14,6 @@ export const defaultLocale: LocaleKey = 'en';
 
 export const allLocales: LocaleKey[] = ['vi', 'en', 'zh'];
 
+export { useLocales } from './hooks';
 // Re-export hooks and context
 export { LocalizationContext, LocalizationProvider } from './context';
-export { useLocales } from './hooks';
-

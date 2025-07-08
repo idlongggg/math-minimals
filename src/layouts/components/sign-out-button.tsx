@@ -6,9 +6,10 @@ import Button from '@mui/material/Button';
 
 import { useRouter } from 'src/routes/hooks';
 
-import { signOut } from 'src/auth/context/jwt/action';
-import { useAuthContext } from 'src/auth/hooks';
 import { useLocales } from 'src/locales/hooks';
+
+import { useAuthContext } from 'src/auth/hooks';
+import { signOut } from 'src/auth/context/jwt/action';
 
 // ----------------------------------------------------------------------
 
