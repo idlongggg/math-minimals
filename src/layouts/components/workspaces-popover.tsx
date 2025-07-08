@@ -80,22 +80,11 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
       setWorkspace(newValue);
       onClose();
 
-      // Create new URL with workspace parameter
-      const currentParams = new URLSearchParams(searchParams.toString());
-      const additionalParams: Record<string, string> = {};
-
-      // Preserve all existing parameters except workspace
-      currentParams.forEach((value, key) => {
-        if (key !== 'workspace') {
-          additionalParams[key] = value;
-        }
-      });
-
-      // Create URL with workspace parameter
-      const url = createUrlWithWorkspace(window.location.pathname, newValue.id, additionalParams);
-      router.push(url);
+      // Create URL with workspace parameter and force full page reload
+      const url = createUrlWithWorkspace(window.location.pathname, newValue.id, {});
+      window.location.href = url;
     },
-    [onClose, router, searchParams, hasAccess]
+    [onClose, hasAccess]
   );
 
   const buttonBg: SxProps<Theme> = {
