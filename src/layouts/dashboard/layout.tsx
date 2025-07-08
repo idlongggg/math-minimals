@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import { iconButtonClasses } from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
 
-import { _notifications } from 'src/_mock';
+import { _languages, _notifications } from 'src/_mock';
 
 import { Logo } from 'src/components/logo';
 import { useSettingsContext } from 'src/components/settings';
@@ -156,13 +156,7 @@ export function DashboardLayout({
           <Searchbar data={navData} />
 
           {/** @slot Language popover */}
-          <LanguagePopover
-            data={[
-              { value: 'vi', label: 'Vietnamese', countryCode: 'VN' },
-              { value: 'en', label: 'English', countryCode: 'GB' },
-              { value: 'cn', label: 'Chinese', countryCode: 'CN' },
-            ]}
-          />
+          <LanguagePopover data={_languages} />
 
           {/** @slot Notifications popover */}
           <NotificationsDrawer data={_notifications} />
