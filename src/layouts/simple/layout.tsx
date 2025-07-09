@@ -10,6 +10,9 @@ import Box from '@mui/material/Box';
 
 import { Logo } from 'src/components/logo';
 
+import { _languages } from 'src/_mock';
+
+import { LanguagePopover } from '../components/language-popover';
 import { SettingsButton } from '../components/settings-button';
 import { HeaderSection } from '../core/header-section';
 import { LayoutSection } from '../core/layout-section';
@@ -53,6 +56,7 @@ export function SimpleLayout({
       leftArea: <Logo />,
       rightArea: (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
+          <LanguagePopover data={_languages} />
           <SettingsButton />
         </Box>
       ),

@@ -216,5 +216,10 @@
       "cancel": "Hủy",
       "confirm": "Xác nhận"
     }
+  },
+  "notFound": {
+    "title": "Xin lỗi, không tìm thấy trang!",
+    "description": "Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm. Có thể bạn đã nhập sai URL? Hãy chắc chắn kiểm tra lại chính tả của bạn.",
+    "goHome": "Về trang chủ"
   }
 }
