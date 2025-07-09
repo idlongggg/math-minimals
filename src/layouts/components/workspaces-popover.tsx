@@ -1,43 +1,42 @@
 'use client';
 
+import type { Theme, SxProps } from '@mui/material/styles';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
-import type { SxProps, Theme } from '@mui/material/styles';
 
 import { usePopover } from 'minimal-shared/hooks';
-import { useCallback, useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import ButtonBase from '@mui/material/ButtonBase';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
 
 import { useRouter, useSearchParams } from 'src/routes/hooks';
-import { createUrlWithWorkspace, getWorkspaceParam } from 'src/routes/utils';
+import { getWorkspaceParam, createUrlWithWorkspace } from 'src/routes/utils';
+
+import { useLocales } from 'src/locales';
+
+import { Label } from 'src/components/label';
+import { Iconify } from 'src/components/iconify';
+import { Scrollbar } from 'src/components/scrollbar';
+import { CustomPopover } from 'src/components/custom-popover';
 
 import { useUserAccess } from 'src/auth/hooks/use-user-access';
-import { CustomPopover } from 'src/components/custom-popover';
-import { Iconify } from 'src/components/iconify';
-import { Label } from 'src/components/label';
-import { Scrollbar } from 'src/components/scrollbar';
-import { useLocales } from 'src/locales';
 
 // ----------------------------------------------------------------------
 
-const getAccessStatus = (hasAccess: boolean, t: (key: string) => string) => {
-  return hasAccess ? t('workspace.owned') : t('workspace.notOwned');
-};
+const getAccessStatus = (hasAccess: boolean, t: (key: string) => string) =>
+  hasAccess ? t('workspace.owned') : t('workspace.notOwned');
 
-const getLabelColor = (hasAccess: boolean) => {
-  return hasAccess ? 'success' : 'default';
-};
+const getLabelColor = (hasAccess: boolean) => (hasAccess ? 'success' : 'default');
 
 export type WorkspacesPopoverProps = ButtonBaseProps & {
   data?: {
@@ -66,7 +65,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
   const [workspace, setWorkspace] = useState(initialWorkspace);
   const [confirmDialog, setConfirmDialog] = useState<{
     open: boolean;
-    newWorkspace: typeof data[0] | null;
+    newWorkspace: (typeof data)[0] | null;
   }>({ open: false, newWorkspace: null });
 
   // Update workspace state when URL parameter changes
@@ -196,14 +195,14 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
           {data.map((option, index) => {
             // Check if workspace is disabled (not owned) - skip for 'all-tools'
             const isDisabled = option.id !== 'all-tools' && !hasAccess(option.id);
-            
+
             return (
               <div key={option.id}>
                 <MenuItem
                   selected={option.id === workspace?.id}
                   onClick={() => handleChangeWorkspace(option)}
                   disabled={isDisabled}
-                  sx={{ 
+                  sx={{
                     height: 48,
                     ...(isDisabled && {
                       opacity: 0.5,
@@ -214,22 +213,22 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
                     }),
                   }}
                 >
-                  <Avatar 
-                    alt={option.name} 
-                    src={option.logo} 
-                    sx={{ 
-                      width: 24, 
+                  <Avatar
+                    alt={option.name}
+                    src={option.logo}
+                    sx={{
+                      width: 24,
                       height: 24,
                       ...(isDisabled && { opacity: 0.6 }),
-                    }} 
+                    }}
                   />
 
                   <Typography
                     noWrap
                     component="span"
                     variant="body2"
-                    sx={{ 
-                      flexGrow: 1, 
+                    sx={{
+                      flexGrow: 1,
                       fontWeight: 'fontWeightMedium',
                       ...(isDisabled && { color: 'text.disabled' }),
                     }}
@@ -238,7 +237,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
                   </Typography>
 
                   {option.id !== 'all-tools' && (
-                    <Label 
+                    <Label
                       color={getLabelColor(hasAccess(option.id))}
                       sx={{
                         ...(isDisabled && { opacity: 0.6 }),
@@ -269,11 +268,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
         <Button onClick={handleCancelWorkspaceChange} color="inherit">
           {t('workspace.confirmDialog.cancel')}
         </Button>
-        <Button 
-          onClick={handleConfirmWorkspaceChange} 
-          variant="contained" 
-          color="primary"
-        >
+        <Button onClick={handleConfirmWorkspaceChange} variant="contained" color="primary">
           {t('workspace.confirmDialog.confirm')}
         </Button>
       </DialogActions>
