@@ -1,14 +1,15 @@
 'use client';
 
-import { CloseIcon, HomeIcon, SettingsIcon, UserIcon } from 'src/assets/icons';
 import type { DashboardTabData } from 'src/components/custom-tabs';
 
 import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+
+import { HomeIcon, UserIcon, CloseIcon, SettingsIcon } from 'src/assets/icons';
 
 import { DashboardTabs } from 'src/components/custom-tabs';
 
