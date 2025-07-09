@@ -4,67 +4,38 @@ import type { ReactNode } from 'react';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Scrollbar } from 'src/components/scrollbar';
 
-import { useSettingsContext } from 'src/components/settings';
 import { useLocales } from 'src/locales/hooks';
+
+import { Scrollbar } from 'src/components/scrollbar';
 
 import { DashboardContent } from './content';
 
 // ----------------------------------------------------------------------
 
-
 export type PageLayoutProps = {
   children: ReactNode;
   pageKey: string;
-  sx?: any;
-  headerSx?: any;
-  contentSx?: any;
-  title?: string;
-  description?: string;
 };
-
-export function PageLayout({
-  children,
-  pageKey,
-  sx,
-  headerSx,
-  contentSx,
-  title: titleOverride,
-  description: descriptionOverride,
-}: PageLayoutProps) {
+export function PageLayout({ children, pageKey }: PageLayoutProps) {
   const { translate: t } = useLocales();
-  const settings = useSettingsContext();
 
-  const metaTitle = t(`pages.${pageKey}.title`);
-  const metaDescription = t(`pages.${pageKey}.description`);
-  const title = titleOverride || metaTitle;
-  const description = descriptionOverride || metaDescription;
+  const title = t(`pages.${pageKey}.title`);
+  const description = t(`pages.${pageKey}.description`);
 
-  const isNavHorizontal = settings.state.navLayout === 'horizontal';
   return (
     <DashboardContent
       maxWidth="xl"
-      sx={[
-        {
-          display: 'flex',
-          flexDirection: 'column',
-          height: 'calc(100vh - var(--layout-header-desktop-height) - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
-          minHeight: 0,
-          overflow: 'hidden',
-        },
-        ...(Array.isArray(sx) ? sx : [sx]),
-      ]}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height:
+          'calc(100vh - var(--layout-header-desktop-height) - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
+        minHeight: 0,
+        overflow: 'hidden',
+      }}
     >
-      {/* Fixed Header Section */}
-      <Box
-        sx={[
-          {
-            flexShrink: 0,
-          },
-          headerSx,
-        ]}
-      >
+      <Box sx={{ flexShrink: 0 }}>
         <Typography variant="h4" component="h1">
           {title}
         </Typography>
@@ -74,15 +45,7 @@ export function PageLayout({
           </Typography>
         )}
       </Box>
-      {/* Scrollable Content Section */}
-      <Scrollbar
-        sx={[
-          { flex: 1, minHeight: 0 },
-          contentSx,
-        ]}
-      >
-        {children}
-      </Scrollbar>
+      <Scrollbar sx={{ flex: 1, minHeight: 0 }}>{children}</Scrollbar>
     </DashboardContent>
   );
 }
