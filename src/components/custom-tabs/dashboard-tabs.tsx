@@ -1,10 +1,8 @@
-
-import Tab from '@mui/material/Tab';
 import * as React from 'react';
 
+import Tab from '@mui/material/Tab';
 
 import { CustomTabs } from './custom-tabs';
-
 
 export interface DashboardTabData {
   value: string;
