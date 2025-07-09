@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { ActionIcon, HistoryIcon, OverviewIcon } from 'src/assets/icons';
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
-import { LineChartView } from 'src/sections/statistics-charts-line';
+import { LineChartView } from 'src/sections/statistics/charts/line';
 
 // ----------------------------------------------------------------------
 

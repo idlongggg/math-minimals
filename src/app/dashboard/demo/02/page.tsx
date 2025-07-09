@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
 
-import { Demo02View } from 'src/sections/demo-02';
+import { Demo02View } from 'src/sections/demo';
 
 // ----------------------------------------------------------------------
 

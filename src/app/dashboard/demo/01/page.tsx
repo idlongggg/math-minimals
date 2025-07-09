@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 
+import { CloseIcon, HomeIcon, SettingsIcon, UserIcon } from 'src/assets/icons';
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
-import { HomeIcon, UserIcon, CloseIcon, SettingsIcon } from 'src/assets/icons';
 
-import { Demo01View } from 'src/sections/demo-01/demo-01-view';
+import { Demo01View } from 'src/sections/demo';
 
 // ----------------------------------------------------------------------
 
