@@ -14,6 +14,7 @@ const icon = (name: string) => (
 
 const ICONS = {
   home: icon('ic-home'), // Trang chủ
+  demo: icon('ic-demo'), // Biểu tượng demo
 
   // Công cụ toán học cơ bản
   calculator: icon('ic-calculator'), // Máy tính cơ bản
@@ -60,18 +61,43 @@ export function getNavData(
   options: NavDataOptions = {}
 ): NavSectionProps['data'] {
   const { workspace = 'all-tools', userAccess = [] } = options;
-  const allNavData = [
-    /**
-     * Trang chủ
-     */
+
+  // Kiểm tra biến môi trường để hiển thị menu Demo
+  const showDemoMenu = process.env.NEXT_PUBLIC_SHOW_DEMO_MENU === 'true';
+
+  const homeAndDemoItems: any[] = [
     {
-      items: [
+      title: t('nav.home'),
+      path: paths.dashboard.root,
+      icon: ICONS.home,
+    },
+  ];
+
+  // Chỉ thêm menu Demo nếu biến môi trường được bật
+  if (showDemoMenu) {
+    homeAndDemoItems.push({
+      title: 'Demo',
+      path: paths.dashboard.demo.root,
+      icon: ICONS.demo,
+      children: [
         {
-          title: t('nav.home'),
-          path: paths.dashboard.root,
-          icon: ICONS.home,
+          title: 'Demo 01',
+          path: paths.dashboard.demo.demo01,
+        },
+        {
+          title: 'Demo 02',
+          path: paths.dashboard.demo.demo02,
         },
       ],
+    });
+  }
+
+  const allNavData = [
+    /**
+     * Trang chủ và Demo
+     */
+    {
+      items: homeAndDemoItems,
     },
     /**
      * Công cụ toán học cơ bản

@@ -167,6 +167,12 @@ export const paths = {
         binomial: `${ROOTS.DASHBOARD}/statistics/distributions/binomial`,
       },
     },
+    // Demo pages
+    demo: {
+      root: `${ROOTS.DASHBOARD}/demo`,
+      demo01: `${ROOTS.DASHBOARD}/demo/demo01`,
+      demo02: `${ROOTS.DASHBOARD}/demo/demo02`,
+    },
     // Blank pages for all new paths
     blank: `${ROOTS.DASHBOARD}/blank`,
   },
