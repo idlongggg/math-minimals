@@ -4,11 +4,7 @@ import { useState } from 'react';
 
 import { ActionIcon, HistoryIcon, OverviewIcon } from 'src/assets/icons';
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
-
-// TODO: Replace with your actual view/component for each tab
-function LineChartOverview({ currentTab }: { currentTab: string }) {
-    return <div>Tab: {currentTab}</div>;
-}
+import { LineChartView } from 'src/sections/statistics-charts-line';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +26,7 @@ export default function LineChartStatisticsPage() {
             tabVariant="scrollable"
             tabSx={{ mb: 2 }}
         >
-            <LineChartOverview currentTab={currentTab} />
+            <LineChartView currentTab={currentTab} />
         </PageLayout>
     );
 }
