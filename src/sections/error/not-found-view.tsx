@@ -6,13 +6,13 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { useLocales } from 'src/locales/hooks';
 import { RouterLink } from 'src/routes/components';
 
-import { PageNotFoundIllustration } from 'src/assets/illustrations';
+import { useLocales } from 'src/locales/hooks';
 import { SimpleLayout } from 'src/layouts/simple';
+import { PageNotFoundIllustration } from 'src/assets/illustrations';
 
-import { MotionContainer, varBounce } from 'src/components/animate';
+import { varBounce, MotionContainer } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
 

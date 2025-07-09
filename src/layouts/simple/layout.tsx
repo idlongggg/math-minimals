@@ -4,25 +4,24 @@ import type { Breakpoint } from '@mui/material/styles';
 
 import { merge } from 'es-toolkit';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-
-
-import { Logo } from 'src/components/logo';
+import Alert from '@mui/material/Alert';
 
 import { _languages } from 'src/_mock';
 
-import { LanguagePopover } from '../components/language-popover';
-import { SettingsButton } from '../components/settings-button';
+import { Logo } from 'src/components/logo';
+
+import { SimpleCompactContent } from './content';
+import { MainSection } from '../core/main-section';
 import { HeaderSection } from '../core/header-section';
 import { LayoutSection } from '../core/layout-section';
-import { MainSection } from '../core/main-section';
-import { SimpleCompactContent } from './content';
+import { SettingsButton } from '../components/settings-button';
+import { LanguagePopover } from '../components/language-popover';
 
+import type { SimpleCompactContentProps } from './content';
+import type { MainSectionProps } from '../core/main-section';
 import type { HeaderSectionProps } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';
-import type { MainSectionProps } from '../core/main-section';
-import type { SimpleCompactContentProps } from './content';
 
 // ----------------------------------------------------------------------
 
