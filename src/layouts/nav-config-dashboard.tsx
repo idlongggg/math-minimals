@@ -13,6 +13,8 @@ const icon = (name: string) => (
 );
 
 const ICONS = {
+  home: icon('ic-home'), // Trang chủ
+
   // Công cụ toán học cơ bản
   calculator: icon('ic-calculator'), // Máy tính cơ bản
   converter: icon('ic-converter'), // Công cụ chuyển đổi
@@ -59,6 +61,18 @@ export function getNavData(
 ): NavSectionProps['data'] {
   const { workspace = 'all-tools', userAccess = [] } = options;
   const allNavData = [
+    /**
+     * Trang chủ
+     */
+    {
+      items: [
+        {
+          title: t('nav.home'),
+          path: paths.dashboard.root,
+          icon: ICONS.home,
+        },
+      ],
+    },
     /**
      * Công cụ toán học cơ bản
      */
@@ -567,6 +581,11 @@ export function getNavData(
     const accessibleData = allNavData.filter((section) => {
       const sectionKey = section.subheader;
 
+      // Trang chủ luôn hiển thị
+      if (!sectionKey) {
+        return true;
+      }
+
       // Basic Math Tools is always accessible
       if (sectionKey === t('nav.sections.basicTools')) {
         return true;
@@ -606,6 +625,11 @@ export function getNavData(
 
   const filteredData = allNavData.filter((section) => {
     const sectionKey = section.subheader;
+
+    // Trang chủ luôn hiển thị
+    if (!sectionKey) {
+      return true;
+    }
 
     // Basic Math Tools is common for all workspaces
     if (sectionKey === t('nav.sections.basicTools')) {

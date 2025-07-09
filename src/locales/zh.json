@@ -42,6 +42,7 @@
     "size": "字体大小"
   },
   "nav": {
+    "home": "主页",
     "sections": {
       "basicTools": "基础数学工具",
       "arithmeticAlgebra": "算术和基础代数",

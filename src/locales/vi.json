@@ -42,6 +42,7 @@
     "size": "Kích thước"
   },
   "nav": {
+    "home": "Trang chủ",
     "sections": {
       "basicTools": "Công cụ toán học cơ bản",
       "arithmeticAlgebra": "Số học và Đại số cơ bản",

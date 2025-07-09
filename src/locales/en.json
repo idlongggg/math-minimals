@@ -42,6 +42,7 @@
     "size": "Size"
   },
   "nav": {
+    "home": "Home",
     "sections": {
       "basicTools": "Basic Math Tools",
       "arithmeticAlgebra": "Arithmetic and Basic Algebra",
