@@ -2,16 +2,16 @@
 
 import type { DashboardTabData } from 'src/components/custom-tabs';
 
-import { useState } from 'react';
-
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
-
-import { HomeIcon, UserIcon, CloseIcon, SettingsIcon } from 'src/assets/icons';
-
+import { useState } from 'react';
+import { CloseIcon, HomeIcon, SettingsIcon, UserIcon } from 'src/assets/icons';
 import { DashboardTabs } from 'src/components/custom-tabs';
+import Tab1 from './tabs/tab-1';
+import Tab2 from './tabs/tab-2';
+import Tab3 from './tabs/tab-3';
+import Tab4 from './tabs/tab-4';
 
 // ----------------------------------------------------------------------
 
@@ -25,78 +25,12 @@ export function Demo01View() {
 
   const [currentTab, setCurrentTab] = useState('tab1');
 
-  const tabContent = [
-    <Box key="tab1">
-      <Typography variant="h6" gutterBottom>
-        Tab 1 - Lorem Ipsum
-      </Typography>
-      <Typography paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua.
-      </Typography>
-      <Typography paragraph>
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-      </Typography>
-      <Typography paragraph>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur.
-      </Typography>
-      <Typography paragraph>
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-        anim id est laborum.
-      </Typography>
-    </Box>,
-    <Box key="tab2">
-      <Typography variant="h6" gutterBottom>
-        Tab 2 - Lorem Ipsum
-      </Typography>
-      <Typography paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi eu
-        consectetur.
-      </Typography>
-      <Typography paragraph>
-        Morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-      </Typography>
-      <Typography paragraph>
-        Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
-      </Typography>
-      <Typography paragraph>
-        Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est.
-      </Typography>
-    </Box>,
-    <Box key="tab3">
-      <Typography variant="h6" gutterBottom>
-        Tab 3 - Lorem Ipsum
-      </Typography>
-      <Typography paragraph>
-        Curabitur blandit tempus porttitor. Integer posuere erat a ante venenatis dapibus posuere
-        velit aliquet.
-      </Typography>
-      <Typography paragraph>
-        Maecenas sed diam eget risus varius blandit sit amet non magna.
-      </Typography>
-      <Typography paragraph>Nullam quis risus eget urna mollis ornare vel eu leo.</Typography>
-      <Typography paragraph>
-        Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-      </Typography>
-    </Box>,
-    <Box key="tab4">
-      <Typography variant="h6" gutterBottom>
-        Tab 4 - Lorem Ipsum
-      </Typography>
-      <Typography paragraph>
-        Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-      </Typography>
-      <Typography paragraph>
-        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-      </Typography>
-      <Typography paragraph>Aenean lacinia bibendum nulla sed consectetur.</Typography>
-      <Typography paragraph>Etiam porta sem malesuada magna mollis euismod.</Typography>
-    </Box>,
-  ];
-
-  const tabIndex = tabs.findIndex((tab) => tab.value === currentTab);
+  const tabContent: Record<string, React.ReactNode> = {
+    tab1: <Tab1 />,
+    tab2: <Tab2 />,
+    tab3: <Tab3 />,
+    tab4: <Tab4 />,
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -108,7 +42,7 @@ export function Demo01View() {
         sx={{ mb: 2 }}
       />
       <Card>
-        <CardContent>{tabContent[tabIndex]}</CardContent>
+        <CardContent>{tabContent[currentTab]}</CardContent>
       </Card>
     </Box>
   );
