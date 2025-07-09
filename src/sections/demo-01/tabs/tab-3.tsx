@@ -14,9 +14,7 @@ export default function Tab3() {
       <Typography paragraph>
         Maecenas sed diam eget risus varius blandit sit amet non magna.
       </Typography>
-      <Typography paragraph>
-        Nullam quis risus eget urna mollis ornare vel eu leo.
-      </Typography>
+      <Typography paragraph>Nullam quis risus eget urna mollis ornare vel eu leo.</Typography>
       <Typography paragraph>
         Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
       </Typography>
