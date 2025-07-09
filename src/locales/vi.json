@@ -218,6 +218,16 @@
       "confirm": "Xác nhận"
     }
   },
+  "pages": {
+    "demo01": {
+      "title": "Demo 01",
+      "description": "Đây là trang demo đầu tiên với nội dung mẫu và chức năng."
+    },
+    "demo02": {
+      "title": "Demo 02",
+      "description": "Đây là trang demo thứ hai với nội dung mẫu và chức năng."
+    }
+  },
   "notFound": {
     "title": "Xin lỗi, không tìm thấy trang!",
     "description": "Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm. Có thể bạn đã nhập sai URL? Hãy chắc chắn kiểm tra lại chính tả của bạn.",
