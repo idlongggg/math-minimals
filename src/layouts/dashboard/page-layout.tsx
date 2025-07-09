@@ -13,11 +13,18 @@ import { DashboardContent } from './content';
 
 // ----------------------------------------------------------------------
 
+import { DashboardTabData, DashboardTabs } from 'src/components/custom-tabs/dashboard-tabs';
+
 export type PageLayoutProps = {
   children: ReactNode;
   pageKey: string;
+  tabs?: DashboardTabData[];
+  tabValue?: string;
+  onTabChange?: (event: React.SyntheticEvent, newValue: string) => void;
+  tabVariant?: 'standard' | 'scrollable' | 'fullWidth';
+  tabSx?: any;
 };
-export function PageLayout({ children, pageKey }: PageLayoutProps) {
+export function PageLayout({ children, pageKey, tabs, tabValue, onTabChange, tabVariant, tabSx }: PageLayoutProps) {
   const { translate: t } = useLocales();
 
   const title = t(`pages.${pageKey}.title`);
@@ -59,6 +66,17 @@ export function PageLayout({ children, pageKey }: PageLayoutProps) {
             >
               {description}
             </Typography>
+          )}
+          {tabs && tabs.length > 0 && (
+            <Box sx={{ mt: 2 }}>
+              <DashboardTabs
+                tabs={tabs}
+                value={tabValue || tabs[0].value}
+                onChange={onTabChange || (() => {})}
+                variant={tabVariant}
+                sx={tabSx}
+              />
+            </Box>
           )}
         </Box>
       )}
