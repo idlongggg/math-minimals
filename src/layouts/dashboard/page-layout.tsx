@@ -35,17 +35,20 @@ export function PageLayout({ children, pageKey }: PageLayoutProps) {
         overflow: 'hidden',
       }}
     >
-      <Box sx={{ flexShrink: 0 }}>
+      <Box sx={{pb: 1}}>
         <Typography variant="h4" component="h1">
           {title}
         </Typography>
         {description && (
-          <Typography variant="body1" sx={{ mt: 1, color: 'text.secondary' }}>
+          <Typography 
+            variant="body2" 
+            sx={{ mt: 1, color: 'text.secondary', fontStyle: 'italic', fontSize: '0.95rem' }}
+          >
             {description}
           </Typography>
         )}
       </Box>
-      <Scrollbar sx={{ flex: 1, minHeight: 0 }}>{children}</Scrollbar>
+      <Scrollbar sx={{ flex: 1, minHeight: 0, pt: 1, pb: 1, pr: 2 }}>{children}</Scrollbar>
     </DashboardContent>
   );
 }
