@@ -1,5 +1,7 @@
 'use client';
 
+import type { DashboardTabData } from 'src/components/custom-tabs/dashboard-tabs';
+
 import React, { type ReactNode } from 'react';
 
 import Box from '@mui/material/Box';
@@ -8,12 +10,10 @@ import Typography from '@mui/material/Typography';
 import { useLocales } from 'src/locales/hooks';
 
 import { Scrollbar } from 'src/components/scrollbar';
-
-import { DashboardContent } from './content';
+import { DashboardTabs } from 'src/components/custom-tabs/dashboard-tabs';
 
 // ----------------------------------------------------------------------
-
-import { DashboardTabData, DashboardTabs } from 'src/components/custom-tabs/dashboard-tabs';
+import { DashboardContent } from './content';
 
 export type PageLayoutProps = {
   children: ReactNode;
@@ -24,7 +24,15 @@ export type PageLayoutProps = {
   tabVariant?: 'standard' | 'scrollable' | 'fullWidth';
   tabSx?: any;
 };
-export function PageLayout({ children, pageKey, tabs, tabValue, onTabChange, tabVariant, tabSx }: PageLayoutProps) {
+export function PageLayout({
+  children,
+  pageKey,
+  tabs,
+  tabValue,
+  onTabChange,
+  tabVariant,
+  tabSx,
+}: PageLayoutProps) {
   const { translate: t } = useLocales();
 
   const title = t(`pages.${pageKey}.title`);
