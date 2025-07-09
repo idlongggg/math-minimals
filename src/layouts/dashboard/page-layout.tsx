@@ -77,6 +77,7 @@ export function PageLayout({
           )}
         </Box>
       )}
+
       {tabs && tabs.length > 0 && (
         <Box sx={{ mt: 2 }}>
           <DashboardTabs
@@ -88,6 +89,7 @@ export function PageLayout({
           />
         </Box>
       )}
+
       <Scrollbar sx={{ flex: 1, minHeight: 0, pt: 1, pb: 1, pr: 2 }}>{children}</Scrollbar>
     </DashboardContent>
   );

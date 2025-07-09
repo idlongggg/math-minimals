@@ -16,7 +16,9 @@ export default function Demo01Page() {
     { value: 'tab3', label: 'Tab Three', icon: CloseIcon },
     { value: 'tab4', label: 'Tab Four', icon: SettingsIcon },
   ];
+
   const [currentTab, setCurrentTab] = useState<string>('tab1');
+
   return (
     <PageLayout
       pageKey="demo01"
