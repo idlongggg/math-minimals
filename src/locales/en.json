@@ -226,6 +226,14 @@
     "demo02": {
       "title": "Demo 02", 
       "description": "This is the second demo page with sample content and functionality."
+    },
+    "statistics": {
+      "charts": {
+        "line": {
+          "title": "Line Chart",
+          "description": "Line chart page in statistics, including overview, actions, and history tabs."
+        }
+      }
     }
   },
   "notFound": {

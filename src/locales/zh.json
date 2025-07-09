@@ -226,6 +226,14 @@
     "demo02": {
       "title": "演示 02",
       "description": "这是第二个演示页面，包含示例内容和功能。"
+    },
+    "statistics": {
+      "charts": {
+        "line": {
+          "title": "折线图",
+          "description": "这是统计图表中的折线图页面，包含总览、操作和历史等内容。"
+        }
+      }
     }
   },
   "notFound": {

@@ -226,6 +226,14 @@
     "demo02": {
       "title": "Demo 02",
       "description": "Đây là trang demo thứ hai với nội dung mẫu và chức năng."
+    },
+    "statistics": {
+      "charts": {
+        "line": {
+          "title": "Biểu đồ đường",
+          "description": "Trang biểu đồ đường trong mục thống kê, gồm các tab tổng quát, thao tác và lịch sử."
+        }
+      }
     }
   },
   "notFound": {
