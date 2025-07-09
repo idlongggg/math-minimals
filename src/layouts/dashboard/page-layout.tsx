@@ -35,13 +35,13 @@ export function PageLayout({ children, pageKey }: PageLayoutProps) {
         overflow: 'hidden',
       }}
     >
-      <Box sx={{pb: 1}}>
+      <Box sx={{ pb: 1 }}>
         <Typography variant="h4" component="h1">
           {title}
         </Typography>
         {description && (
-          <Typography 
-            variant="body2" 
+          <Typography
+            variant="body2"
             sx={{ mt: 1, color: 'text.secondary', fontStyle: 'italic', fontSize: '0.95rem' }}
           >
             {description}
