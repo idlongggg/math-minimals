@@ -16,6 +16,7 @@ export function Demo01View({ currentTab }: { currentTab: string }) {
     tab3: <Tab3 />,
     tab4: <Tab4 />,
   };
+
   return (
     <Card>
       <CardContent>{tabContent[currentTab]}</CardContent>
