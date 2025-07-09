@@ -19,7 +19,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
-import { useRouter, useSearchParams } from 'src/routes/hooks';
+import { useSearchParams } from 'src/routes/hooks';
 import { getWorkspaceParam, createUrlWithWorkspace } from 'src/routes/utils';
 
 import { useLocales } from 'src/locales';
@@ -49,7 +49,6 @@ export type WorkspacesPopoverProps = ButtonBaseProps & {
 export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopoverProps) {
   const mediaQuery = 'sm';
 
-  const router = useRouter();
   const searchParams = useSearchParams();
   const { hasAccess } = useUserAccess();
   const { translate: t } = useLocales();
