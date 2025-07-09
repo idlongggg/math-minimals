@@ -170,8 +170,8 @@ export const paths = {
     // Demo pages
     demo: {
       root: `${ROOTS.DASHBOARD}/demo`,
-      demo01: `${ROOTS.DASHBOARD}/demo/demo01`,
-      demo02: `${ROOTS.DASHBOARD}/demo/demo02`,
+      demo01: `${ROOTS.DASHBOARD}/demo/01`,
+      demo02: `${ROOTS.DASHBOARD}/demo/02`,
     },
     // Blank pages for all new paths
     blank: `${ROOTS.DASHBOARD}/blank`,
