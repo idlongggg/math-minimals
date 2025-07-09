@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { HomeIcon, SettingsIcon, UserIcon } from 'src/assets/icons';
+import { ActionIcon, HistoryIcon, OverviewIcon } from 'src/assets/icons';
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
 
 // TODO: Replace with your actual view/component for each tab
@@ -14,12 +14,12 @@ function LineChartOverview({ currentTab }: { currentTab: string }) {
 
 export default function LineChartStatisticsPage() {
     const tabs = [
-        { value: 'overview', label: 'Tổng quát', icon: HomeIcon },
-        { value: 'actions', label: 'Thao tác', icon: UserIcon },
-        { value: 'history', label: 'Lịch sử', icon: SettingsIcon },
+        { value: 'overview', label: 'Tổng quát', icon: OverviewIcon },
+        { value: 'actions', label: 'Thao tác', icon: ActionIcon },
+        { value: 'history', label: 'Lịch sử', icon: HistoryIcon },
     ];
 
-    const [currentTab, setCurrentTab] = useState<string>('overview');
+    const [currentTab, setCurrentTab] = useState<string>('actions');
 
     return (
         <PageLayout
