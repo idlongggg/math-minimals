@@ -67,17 +67,17 @@ export function PageLayout({ children, pageKey, tabs, tabValue, onTabChange, tab
               {description}
             </Typography>
           )}
-          {tabs && tabs.length > 0 && (
-            <Box sx={{ mt: 2 }}>
-              <DashboardTabs
-                tabs={tabs}
-                value={tabValue || tabs[0].value}
-                onChange={onTabChange || (() => {})}
-                variant={tabVariant}
-                sx={tabSx}
-              />
-            </Box>
-          )}
+        </Box>
+      )}
+      {tabs && tabs.length > 0 && (
+        <Box sx={{ mt: 2 }}>
+          <DashboardTabs
+            tabs={tabs}
+            value={tabValue || tabs[0].value}
+            onChange={onTabChange || (() => {})}
+            variant={tabVariant}
+            sx={tabSx}
+          />
         </Box>
       )}
       <Scrollbar sx={{ flex: 1, minHeight: 0, pt: 1, pb: 1, pr: 2 }}>{children}</Scrollbar>
