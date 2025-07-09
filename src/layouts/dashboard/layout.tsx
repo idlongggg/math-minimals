@@ -6,45 +6,46 @@ import type { NavItemProps, NavSectionProps } from 'src/components/nav-section';
 import { merge } from 'es-toolkit';
 import { useBoolean } from 'minimal-shared/hooks';
 
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import { iconButtonClasses } from '@mui/material/IconButton';
+import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
+import { iconButtonClasses } from '@mui/material/IconButton';
 
-import { _languages, _notifications } from 'src/_mock';
+import { useWorkspaceParam } from 'src/routes/hooks';
+
 import { useLocales } from 'src/locales/hooks';
+import { _languages, _notifications } from 'src/_mock';
 
 import { Logo } from 'src/components/logo';
 import { useSettingsContext } from 'src/components/settings';
 
 import { useMockedUser } from 'src/auth/hooks';
 import { useUserAccess } from 'src/auth/hooks/use-user-access';
-import { useWorkspaceParam } from 'src/routes/hooks';
 
-import { AccountDrawer } from '../components/account-drawer';
-import { LanguagePopover } from '../components/language-popover';
-import { MenuButton } from '../components/menu-button';
-import { Searchbar } from '../components/searchbar';
-import { SettingsButton } from '../components/settings-button';
-import { WorkspacesPopover } from '../components/workspaces-popover';
+import { NavMobile } from './nav-mobile';
+import { VerticalDivider } from './content';
+import { NavVertical } from './nav-vertical';
 import { layoutClasses } from '../core/classes';
+import { NavHorizontal } from './nav-horizontal';
+import { MainSection } from '../core/main-section';
+import { Searchbar } from '../components/searchbar';
+import { getNavData } from '../nav-config-dashboard';
+import { MenuButton } from '../components/menu-button';
 import { HeaderSection } from '../core/header-section';
 import { LayoutSection } from '../core/layout-section';
-import { MainSection } from '../core/main-section';
 import { getAccountData } from '../nav-config-account';
-import { getNavData } from '../nav-config-dashboard';
 import { getWorkspacesData } from '../nav-config-workspace';
-import { VerticalDivider } from './content';
+import { AccountDrawer } from '../components/account-drawer';
+import { SettingsButton } from '../components/settings-button';
+import { LanguagePopover } from '../components/language-popover';
+import { WorkspacesPopover } from '../components/workspaces-popover';
 import { dashboardLayoutVars, dashboardNavColorVars } from './css-vars';
-import { NavHorizontal } from './nav-horizontal';
-import { NavMobile } from './nav-mobile';
-import { NavVertical } from './nav-vertical';
 // import { ContactsPopover } from '../components/contacts-popover';
 import { NotificationsDrawer } from '../components/notifications-drawer';
 
+import type { MainSectionProps } from '../core/main-section';
 import type { HeaderSectionProps } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';
-import type { MainSectionProps } from '../core/main-section';
 
 // ----------------------------------------------------------------------
 
@@ -82,7 +83,8 @@ export function DashboardLayout({
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
   const dashboardNavData = getNavData(t, {
-    workspace: (currentWorkspace as 'all-tools' | 'algebra' | 'statistics' | 'geometry') || 'all-tools',
+    workspace:
+      (currentWorkspace as 'all-tools' | 'algebra' | 'statistics' | 'geometry') || 'all-tools',
     userAccess: accessibleSubjects,
   });
   const navData = slotProps?.nav?.data ?? dashboardNavData;

@@ -53,7 +53,10 @@ interface NavDataOptions {
   userAccess?: string[];
 }
 
-export function getNavData(t: (key: string) => string, options: NavDataOptions = {}): NavSectionProps['data'] {
+export function getNavData(
+  t: (key: string) => string,
+  options: NavDataOptions = {}
+): NavSectionProps['data'] {
   const { workspace = 'all-tools', userAccess = [] } = options;
   const allNavData = [
     /**
@@ -563,30 +566,35 @@ export function getNavData(t: (key: string) => string, options: NavDataOptions =
 
     const accessibleData = allNavData.filter((section) => {
       const sectionKey = section.subheader;
-      
+
       // Basic Math Tools is always accessible
       if (sectionKey === t('nav.sections.basicTools')) {
         return true;
       }
 
       // Check access for each section
-      if (userAccess.includes('algebra') && [
-        t('nav.sections.arithmeticAlgebra'),
-        t('nav.sections.functionsAdvancedAlgebra'),
-        t('nav.sections.calculus'),
-      ].includes(sectionKey)) {
+      if (
+        userAccess.includes('algebra') &&
+        [
+          t('nav.sections.arithmeticAlgebra'),
+          t('nav.sections.functionsAdvancedAlgebra'),
+          t('nav.sections.calculus'),
+        ].includes(sectionKey)
+      ) {
         return true;
       }
 
-      if (userAccess.includes('statistics') && [
-        t('nav.sections.statisticsProbability'),
-      ].includes(sectionKey)) {
+      if (
+        userAccess.includes('statistics') &&
+        [t('nav.sections.statisticsProbability')].includes(sectionKey)
+      ) {
         return true;
       }
 
-      if (userAccess.includes('geometry') && [
-        t('nav.sections.geometryTrigonometry'),
-      ].includes(sectionKey)) {
+      if (
+        userAccess.includes('geometry') &&
+        [t('nav.sections.geometryTrigonometry')].includes(sectionKey)
+      ) {
         return true;
       }
 
@@ -598,7 +606,7 @@ export function getNavData(t: (key: string) => string, options: NavDataOptions =
 
   const filteredData = allNavData.filter((section) => {
     const sectionKey = section.subheader;
-    
+
     // Basic Math Tools is common for all workspaces
     if (sectionKey === t('nav.sections.basicTools')) {
       return true;
@@ -612,17 +620,13 @@ export function getNavData(t: (key: string) => string, options: NavDataOptions =
           t('nav.sections.functionsAdvancedAlgebra'),
           t('nav.sections.calculus'),
         ].includes(sectionKey);
-      
+
       case 'statistics':
-        return [
-          t('nav.sections.statisticsProbability'),
-        ].includes(sectionKey);
-      
+        return [t('nav.sections.statisticsProbability')].includes(sectionKey);
+
       case 'geometry':
-        return [
-          t('nav.sections.geometryTrigonometry'),
-        ].includes(sectionKey);
-      
+        return [t('nav.sections.geometryTrigonometry')].includes(sectionKey);
+
       default:
         return false;
     }
