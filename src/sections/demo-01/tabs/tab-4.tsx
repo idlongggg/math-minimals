@@ -1,8 +1,9 @@
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+
 import FullScreenDialog from 'src/components/graph-dialog/full-screen-dialog';
 
 export default function Tab4() {
@@ -22,7 +23,6 @@ export default function Tab4() {
         open={open}
         onClose={() => setOpen(false)}
         title="JSXGraph Demo"
-        icon="/assets/icons/close.svg"
         boardProps={{ boundingbox: [-5, 5, 5, -5], axis: true }}
       >
         {/* Nội dung phụ hoặc để trống cũng được */}

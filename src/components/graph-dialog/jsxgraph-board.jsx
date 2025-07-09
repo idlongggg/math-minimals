@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 // JSXGraph is loaded via CDN for simplicity. You can adjust to use npm if preferred.
 const JSXGRAPH_CDN = 'https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js';
@@ -65,11 +65,7 @@ export default function JXGBoard({ boardId = 'jxgbox', boardOptions = {}, onInit
   };
 
   return (
-    <div
-      id={boardId}
-      ref={ref}
-      style={{ width: '100%', height: '80vh', background: '#fff' }}
-    />
+    <div id={boardId} ref={ref} style={{ width: '100%', height: '80vh', background: '#fff' }} />
   );
 }
 
