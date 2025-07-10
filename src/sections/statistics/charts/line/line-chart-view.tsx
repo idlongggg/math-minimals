@@ -1,4 +1,5 @@
 import { Card, CardContent } from '@mui/material';
+
 import ActionsTab from './tabs/actions';
 import HistoryTab from './tabs/history';
 import OverviewTab from './tabs/overview';

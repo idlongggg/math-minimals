@@ -7,9 +7,7 @@ function ActionsTab() {
       <Typography variant="h6" gutterBottom>
         Thao tác - Line Chart Actions
       </Typography>
-      <Typography paragraph>
-        Đây là nội dung thao tác cho biểu đồ đường (Line Chart).
-      </Typography>
+      <Typography paragraph>Đây là nội dung thao tác cho biểu đồ đường (Line Chart).</Typography>
     </Box>
   );
 }

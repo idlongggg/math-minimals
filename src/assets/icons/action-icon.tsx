@@ -1,4 +1,5 @@
 import type { SvgIconProps } from '@mui/material/SvgIcon';
+
 import SvgIcon from '@mui/material/SvgIcon';
 
 export function ActionIcon({ sx, ...other }: SvgIconProps) {

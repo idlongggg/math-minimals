@@ -1,6 +1,7 @@
 'use client';
 
 import { Card, CardContent } from '@mui/material';
+
 import Tab1 from './tabs/tab-1';
 import Tab2 from './tabs/tab-2';
 import Tab3 from './tabs/tab-3';
