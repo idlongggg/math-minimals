@@ -1,23 +1,22 @@
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Box from '@mui/material/Box';
-import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
+import { DataGrid } from '@mui/x-data-grid';
 
 import { SearchSparkleIcon } from 'src/assets/icons';
+import { Dataset01Table } from '../data/_mock/dataset-01';
 
-import { electionTable } from '../../../../../sections/statistics/data/electionTable.mock';
-
-function ActionsTab() {
+export default function ActionsTab() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dataGridHeight, setDataGridHeight] = useState(400);
   const [columns] = useState(
-    electionTable.columns.map((col) => ({ ...col, editable: true, sortable: false }))
+    Dataset01Table.columns.map((col) => ({ ...col, editable: true, sortable: false }))
   );
-  const [rows, setRows] = useState(electionTable.rows);
+  const [rows, setRows] = useState(Dataset01Table.rows);
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [menuColField, setMenuColField] = useState<string | null>(null);
 
@@ -57,7 +56,7 @@ function ActionsTab() {
     <Box ref={containerRef}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
         <Typography variant="h6" gutterBottom>
-          {electionTable.title}
+          {Dataset01Table.title}
         </Typography>
         <Box ml={2} sx={{ display: 'flex', gap: 1 }}>
           <Button
@@ -102,5 +101,3 @@ function ActionsTab() {
     </Box>
   );
 }
-
-export default ActionsTab;

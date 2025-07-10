@@ -1,6 +1,6 @@
-import type { ElectionTable } from './electionTable.types';
+import type { LineChartTable } from '../table-types';
 
-export const electionTable: ElectionTable = {
+export const Dataset01Table: LineChartTable = {
   title: 'Bảng kết quả bầu cử liên bang Đức',
   columns: [
     { field: 'year', headerName: 'Năm', width: 80 },
