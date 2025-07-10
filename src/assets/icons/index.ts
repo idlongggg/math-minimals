@@ -1,8 +1,8 @@
+export { CloseIcon } from './close-icon';
 export { FlagIcon } from './flag-icon';
 export { HomeIcon } from './home-icon';
-export { UserIcon } from './user-icon';
-export { CloseIcon } from './close-icon';
 export { ResetIcon } from './reset-icon';
+export { UserIcon } from './user-icon';
 
 // Offline SVG icons
 export { ActionIcon } from './action-icon';
@@ -18,3 +18,6 @@ export { FullscreenIcon } from './fullscreen-icon';
 export { SearchSparkleIcon } from './search-sparkle-icon';
 
 export { SlideTextSparkleIcon } from './slide-text-sparkle-icon';
+
+export { EditIcon } from './edit-icon';
+
