@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useRef, useState } from 'react';
-import { actionsColumns, actionsRows } from './actionsTableData';
+import { electionTable } from '../../../../../sections/statistics/data/electionTable.mock';
 
 
 function ActionsTab() {
@@ -33,10 +33,15 @@ function ActionsTab() {
   return (
     <Box ref={containerRef}>
       <Typography variant="h6" gutterBottom>
-        Thao tác
+        {electionTable.title}
       </Typography>
-      <Box sx={{ height: dataGridHeight, width: '100%', mt: 2 }}>
-        <DataGrid rows={actionsRows} columns={actionsColumns} hideFooterPagination disableRowSelectionOnClick />
+      <Box sx={{ height: dataGridHeight, width: '100%' }}>
+        <DataGrid
+          rows={electionTable.rows}
+          columns={electionTable.columns}
+          hideFooterPagination
+          disableRowSelectionOnClick
+        />
       </Box>
     </Box>
   );
