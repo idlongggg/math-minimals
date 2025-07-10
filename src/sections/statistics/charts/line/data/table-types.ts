@@ -9,7 +9,7 @@ export type LineChartTableColumn = {
 export type LineChartTableRow = {
   id: number;
   year: number;
-  [key: string]: number | string;
+  [key: string]: number | undefined;
 };
 
 
