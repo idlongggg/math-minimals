@@ -50,6 +50,12 @@ export function PageLayout({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  React.useEffect(() => {
+    if (title && typeof title === 'string') {
+      document.title = title;
+    }
+  }, [title]);
+
   return (
     <DashboardContent
       maxWidth="xl"
