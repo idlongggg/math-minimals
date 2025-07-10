@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,20 +8,21 @@ import Typography from '@mui/material/Typography';
 
 import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
-import { DatasetElectionTable, DatasetFootballTable, DatasetGdpTable } from '../data/_mock';
-import ColumnMenu from './actions/column-menu';
 import DataTable from './actions/data-table';
+import ColumnMenu from './actions/column-menu';
 import DatasetSelector from './actions/dataset-selector';
+import { DatasetGdpTable, DatasetElectionTable, DatasetFootballTable } from '../data/_mock';
+
+// Thêm các mẫu dữ liệu vào đây
+const datasets = [
+  { key: 'gdp', label: DatasetGdpTable.title, data: DatasetGdpTable },
+  { key: 'election', label: DatasetElectionTable.title, data: DatasetElectionTable },
+  { key: 'football', label: DatasetFootballTable.title, data: DatasetFootballTable },
+];
 
 export default function ActionsTab() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dataGridHeight, setDataGridHeight] = useState(400);
-  // Thêm các mẫu dữ liệu vào đây
-  const datasets = [
-    { key: 'gdp', label: DatasetGdpTable.title, data: DatasetGdpTable },
-    { key: 'election', label: DatasetElectionTable.title, data: DatasetElectionTable },
-    { key: 'football', label: DatasetFootballTable.title, data: DatasetFootballTable },
-  ];
   const [selectedDatasetKey, setSelectedDatasetKey] = useState('gdp');
   const selectedDataset =
     datasets.find((d) => d.key === selectedDatasetKey)?.data || DatasetElectionTable;
@@ -113,7 +114,11 @@ export default function ActionsTab() {
   // Hàm xác nhận thêm cột mới
   const handleConfirmAddColumn = () => {
     // Tên field sẽ là tên cột viết thường, thay khoảng trắng bằng _ và loại bỏ ký tự đặc biệt
-    let baseField = newColName.trim().toLowerCase().replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+    let baseField = newColName
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '_')
+      .replace(/[^a-zA-Z0-9_]/g, '');
     if (!baseField) baseField = 'col';
     let newField = baseField;
     let suffix = 1;
@@ -166,11 +171,7 @@ export default function ActionsTab() {
           >
             Xem biểu đồ
           </Button>
-          <Button
-            variant="outlined"
-            color="success"
-            onClick={handleAddRow}
-          >
+          <Button variant="outlined" color="success" onClick={handleAddRow}>
             Thêm hàng
           </Button>
           <Button
@@ -198,7 +199,7 @@ export default function ActionsTab() {
               <TextField
                 label="Tên cột mới"
                 value={newColName}
-                onChange={e => {
+                onChange={(e) => {
                   setNewColName(e.target.value);
                   setNewColError('');
                 }}
@@ -236,17 +237,14 @@ export default function ActionsTab() {
       </Box>
       <DataTable
         rows={rows}
-        columns={columns}
+        columns={getColumnsWithMenu()}
         dataGridHeight={dataGridHeight}
-        getColumnsWithMenu={getColumnsWithMenu}
         checkboxSelection
         rowSelectionModel={selectedRowIds}
         onRowSelectionModelChange={setSelectedRowIds}
         onCellEditCommit={(params: any) => {
           setRows((prevRows: any[]) =>
-            prevRows.map((row: any) =>
-              row.id === params.id ? { ...row, ...params } : row
-            )
+            prevRows.map((row: any) => (row.id === params.id ? { ...row, ...params } : row))
           );
         }}
       />
@@ -262,4 +260,3 @@ export default function ActionsTab() {
     </Box>
   );
 }
-

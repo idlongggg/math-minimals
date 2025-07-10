@@ -6,7 +6,6 @@ interface DataTableProps {
   rows: any[];
   columns: GridColDef[];
   dataGridHeight: number;
-  getColumnsWithMenu: () => GridColDef[];
   checkboxSelection?: boolean;
   rowSelectionModel?: GridRowSelectionModel;
   onRowSelectionModelChange?: (selection: GridRowSelectionModel) => void;
@@ -17,7 +16,6 @@ export default function DataTable({
   rows,
   columns,
   dataGridHeight,
-  getColumnsWithMenu,
   checkboxSelection = true,
   rowSelectionModel,
   onRowSelectionModelChange,
@@ -27,7 +25,7 @@ export default function DataTable({
     <div style={{ height: dataGridHeight, width: '100%' }}>
       <DataGrid
         rows={rows}
-        columns={getColumnsWithMenu()}
+        columns={columns}
         hideFooterPagination
         checkboxSelection={checkboxSelection}
         rowSelectionModel={rowSelectionModel}
