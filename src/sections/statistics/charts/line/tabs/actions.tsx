@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -6,21 +6,24 @@ import Typography from '@mui/material/Typography';
 
 import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
-import DataTable from './actions/data-table';
+
+import { DatasetElectionTable, DatasetFootballTable, DatasetGdpTable } from '../data/_mock';
 import ColumnMenu from './actions/column-menu';
+import DataTable from './actions/data-table';
 import DatasetSelector from './actions/dataset-selector';
-import { DatasetGdpTable, DatasetElectionTable, DatasetFootballTable } from '../data/_mock';
+
+// Cấu hình các dataset dùng cho DataGrid
+export const datasets = [
+  { key: 'gdp', label: DatasetGdpTable.title, data: DatasetGdpTable },
+  { key: 'election', label: DatasetElectionTable.title, data: DatasetElectionTable },
+  { key: 'football', label: DatasetFootballTable.title, data: DatasetFootballTable },
+];
 
 export default function ActionsTab() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dataGridHeight, setDataGridHeight] = useState(400);
-  // Thêm các mẫu dữ liệu vào đây
-  const datasets = [
-    { key: 'election', label: DatasetElectionTable.title, data: DatasetElectionTable },
-    { key: 'gdp', label: DatasetGdpTable.title, data: DatasetGdpTable },
-    { key: 'football', label: DatasetFootballTable.title, data: DatasetFootballTable },
-  ];
-  const [selectedDatasetKey, setSelectedDatasetKey] = useState('election');
+  // datasets đã được chuyển ra ngoài để dễ cấu hình
+  const [selectedDatasetKey, setSelectedDatasetKey] = useState('gdp');
   const selectedDataset =
     datasets.find((d) => d.key === selectedDatasetKey)?.data || DatasetElectionTable;
   const [columns, setColumns] = useState(
@@ -89,6 +92,20 @@ export default function ActionsTab() {
       return { ...col, renderHeader };
     });
 
+  // Hàm tạo hàng mới với id duy nhất và các giá trị mặc định (rỗng)
+  const handleAddRow = () => {
+    // Lấy danh sách các field từ columns
+    const fields = columns.map((col: any) => col.field);
+    // Tìm id lớn nhất hiện tại
+    const maxId = rows.length > 0 ? Math.max(...rows.map((row: any) => Number(row.id) || 0)) : 0;
+    // Tạo hàng mới với id mới và các giá trị rỗng
+    const newRow: any = { id: maxId + 1 };
+    fields.forEach((field: string) => {
+      if (field !== 'id') newRow[field] = '';
+    });
+    setRows((prevRows: any[]) => [...prevRows, newRow]);
+  };
+
   return (
     <Box ref={containerRef}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
@@ -105,6 +122,13 @@ export default function ActionsTab() {
             }}
           >
             Xem biểu đồ
+          </Button>
+          <Button
+            variant="outlined"
+            color="success"
+            onClick={handleAddRow}
+          >
+            Thêm hàng
           </Button>
           {selectedRowIds.length > 0 && (
             <Button
