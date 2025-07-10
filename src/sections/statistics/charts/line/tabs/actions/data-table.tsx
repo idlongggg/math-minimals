@@ -10,6 +10,7 @@ interface DataTableProps {
   checkboxSelection?: boolean;
   rowSelectionModel?: GridRowSelectionModel;
   onRowSelectionModelChange?: (selection: GridRowSelectionModel) => void;
+  onCellEditCommit?: (params: any) => void;
 }
 
 export default function DataTable({
@@ -20,6 +21,7 @@ export default function DataTable({
   checkboxSelection = true,
   rowSelectionModel,
   onRowSelectionModelChange,
+  onCellEditCommit,
 }: DataTableProps) {
   return (
     <div style={{ height: dataGridHeight, width: '100%' }}>
@@ -30,6 +32,14 @@ export default function DataTable({
         checkboxSelection={checkboxSelection}
         rowSelectionModel={rowSelectionModel}
         onRowSelectionModelChange={onRowSelectionModelChange}
+        disableRowSelectionOnClick
+        processRowUpdate={(newRow: any) => {
+          if (onCellEditCommit) {
+            onCellEditCommit({ id: newRow.id, ...newRow });
+          }
+          return newRow;
+        }}
+        // experimentalFeatures={{ newEditingApi: true }}
       />
     </div>
   );
