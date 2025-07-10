@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import { SearchSparkleIcon } from 'src/assets/icons';
+import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
 import DataTable from './actions/data-table';
 import ColumnMenu from './actions/column-menu';
@@ -24,9 +24,19 @@ export default function ActionsTab() {
   const selectedDataset =
     datasets.find((d) => d.key === selectedDatasetKey)?.data || DatasetElectionTable;
   const [columns, setColumns] = useState(
-    selectedDataset.columns.map((col: any) => ({ ...col, editable: true, sortable: false }))
+    selectedDataset.columns.map((col: any) => ({
+      ...col,
+      editable: true,
+      sortable: false,
+      type: 'number', // Đảm bảo cell chỉ nhận số
+      valueParser: (value: any) => {
+        const parsed = Number(value);
+        return isNaN(parsed) ? '' : parsed;
+      },
+    }))
   );
   const [rows, setRows] = useState(selectedDataset.rows);
+  const [selectedRowIds, setSelectedRowIds] = useState<readonly (string | number)[]>([]);
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [menuColField, setMenuColField] = useState<string | null>(null);
 
@@ -47,7 +57,16 @@ export default function ActionsTab() {
   // Khi đổi dataset thì cập nhật columns và rows
   useEffect(() => {
     setColumns(
-      selectedDataset.columns.map((col: any) => ({ ...col, editable: true, sortable: false }))
+      selectedDataset.columns.map((col: any) => ({
+        ...col,
+        editable: true,
+        sortable: false,
+        type: 'number',
+        valueParser: (value: any) => {
+          const parsed = Number(value);
+          return isNaN(parsed) ? '' : parsed;
+        },
+      }))
     );
     setRows(selectedDataset.rows);
   }, [selectedDatasetKey]);
@@ -87,6 +106,21 @@ export default function ActionsTab() {
           >
             Xem biểu đồ
           </Button>
+          {selectedRowIds.length > 0 && (
+            <Button
+              variant="contained"
+              color="error"
+              startIcon={<CloseIcon />}
+              onClick={() => {
+                setRows((prevRows: any[]) =>
+                  prevRows.filter((row: any) => !selectedRowIds.includes(row.id))
+                );
+                setSelectedRowIds([]);
+              }}
+            >
+              Xóa hàng đã chọn
+            </Button>
+          )}
           <DatasetSelector
             datasets={datasets}
             selectedDatasetKey={selectedDatasetKey}
@@ -99,6 +133,9 @@ export default function ActionsTab() {
         columns={columns}
         dataGridHeight={dataGridHeight}
         getColumnsWithMenu={getColumnsWithMenu}
+        checkboxSelection
+        rowSelectionModel={selectedRowIds}
+        onRowSelectionModelChange={setSelectedRowIds}
       />
       <ColumnMenu
         anchorEl={menuAnchorEl}

@@ -1,4 +1,4 @@
-import type { GridColDef } from '@mui/x-data-grid';
+import type { GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 
 import { DataGrid } from '@mui/x-data-grid';
 
@@ -8,6 +8,8 @@ interface DataTableProps {
   dataGridHeight: number;
   getColumnsWithMenu: () => GridColDef[];
   checkboxSelection?: boolean;
+  rowSelectionModel?: GridRowSelectionModel;
+  onRowSelectionModelChange?: (selection: GridRowSelectionModel) => void;
 }
 
 export default function DataTable({
@@ -16,6 +18,8 @@ export default function DataTable({
   dataGridHeight,
   getColumnsWithMenu,
   checkboxSelection = true,
+  rowSelectionModel,
+  onRowSelectionModelChange,
 }: DataTableProps) {
   return (
     <div style={{ height: dataGridHeight, width: '100%' }}>
@@ -24,6 +28,8 @@ export default function DataTable({
         columns={getColumnsWithMenu()}
         hideFooterPagination
         checkboxSelection={checkboxSelection}
+        rowSelectionModel={rowSelectionModel}
+        onRowSelectionModelChange={onRowSelectionModelChange}
       />
     </div>
   );
