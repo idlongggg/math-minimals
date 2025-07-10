@@ -31,6 +31,10 @@ export default function DataTable({
         rowSelectionModel={rowSelectionModel}
         onRowSelectionModelChange={onRowSelectionModelChange}
         disableRowSelectionOnClick
+        disableColumnFilter
+        disableColumnSelector
+        slotProps={{ columnMenu: {} }}
+        slots={{ columnMenu: require('./custom-column-menu').default }}
         processRowUpdate={(newRow: any) => {
           if (onCellEditCommit) {
             onCellEditCommit({ id: newRow.id, ...newRow });

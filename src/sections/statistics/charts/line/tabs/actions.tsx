@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -9,9 +9,9 @@ import Typography from '@mui/material/Typography';
 import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
 import DataTable from './actions/data-table';
-import ColumnMenu from './actions/column-menu';
+// import ColumnMenu from './actions/column-menu';
+import { DatasetElectionTable, DatasetFootballTable, DatasetGdpTable } from '../data/_mock';
 import DatasetSelector from './actions/dataset-selector';
-import { DatasetGdpTable, DatasetElectionTable, DatasetFootballTable } from '../data/_mock';
 
 // Thêm các mẫu dữ liệu vào đây
 const datasets = [
@@ -248,6 +248,7 @@ export default function ActionsTab() {
           );
         }}
       />
+      {/*
       <ColumnMenu
         anchorEl={menuAnchorEl}
         open={Boolean(menuAnchorEl)}
@@ -257,6 +258,7 @@ export default function ActionsTab() {
         }}
         menuColField={menuColField}
       />
+      */}
     </Box>
   );
 }
