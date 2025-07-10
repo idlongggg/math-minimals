@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
@@ -37,7 +36,7 @@ const features = [
 
 export default function OverviewTab() {
   return (
-    <Box sx={{ p: { xs: 2, md: 3 }, bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1 }}>
+    <>
       <Stack direction="row" alignItems="center" spacing={1} mb={2}>
         <SlideTextSparkleIcon fontSize="large" />
         <Typography variant="h5" fontWeight={700}>
@@ -71,6 +70,6 @@ export default function OverviewTab() {
         thời gian. Ngoài ra, nó còn giúp phát hiện các xu hướng, chu kỳ, điểm bất thường hoặc dự báo
         tương lai dựa trên dữ liệu lịch sử.
       </Typography>
-    </Box>
+    </>
   );
 }
