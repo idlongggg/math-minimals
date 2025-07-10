@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
@@ -11,12 +10,11 @@ import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
 
-
 import { SearchSparkleIcon } from 'src/assets/icons';
+
 import { DatasetElectionTable, DatasetFootballTable, DatasetGdpTable } from '../data/_mock';
 
 export default function ActionsTab() {
-
   const containerRef = useRef<HTMLDivElement>(null);
   const [dataGridHeight, setDataGridHeight] = useState(400);
   // Thêm các mẫu dữ liệu vào đây
@@ -26,7 +24,8 @@ export default function ActionsTab() {
     { key: 'football', label: DatasetFootballTable.title, data: DatasetFootballTable },
   ];
   const [selectedDatasetKey, setSelectedDatasetKey] = useState('election');
-  const selectedDataset = datasets.find((d) => d.key === selectedDatasetKey)?.data || DatasetElectionTable;
+  const selectedDataset =
+    datasets.find((d) => d.key === selectedDatasetKey)?.data || DatasetElectionTable;
   const [columns, setColumns] = useState(
     selectedDataset.columns.map((col: any) => ({ ...col, editable: true, sortable: false }))
   );
@@ -41,7 +40,7 @@ export default function ActionsTab() {
       if (containerRef.current) {
         containerHeight = containerRef.current.getBoundingClientRect().top;
       }
-      setDataGridHeight(windowHeight - containerHeight - 160 + 14);
+      setDataGridHeight(windowHeight - containerHeight - 160);
     }
     updateHeight();
     window.addEventListener('resize', updateHeight);
@@ -50,7 +49,9 @@ export default function ActionsTab() {
 
   // Khi đổi dataset thì cập nhật columns và rows
   useEffect(() => {
-    setColumns(selectedDataset.columns.map((col: any) => ({ ...col, editable: true, sortable: false })));
+    setColumns(
+      selectedDataset.columns.map((col: any) => ({ ...col, editable: true, sortable: false }))
+    );
     setRows(selectedDataset.rows);
   }, [selectedDatasetKey]);
 
@@ -79,8 +80,18 @@ export default function ActionsTab() {
           {selectedDataset.title}
         </Typography>
         <Box ml={2} sx={{ display: 'flex', gap: 1 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<SearchSparkleIcon sx={{ fontSize: 18 }} />}
+            onClick={() => {
+              console.table(rows);
+            }}
+          >
+            Xem biểu đồ
+          </Button>
           {/* Select để chọn dataset bằng Material UI */}
-          <FormControl size="small" sx={{ minWidth: 220 }}>
+          <FormControl size="small" sx={{ width: 360, minWidth: 0 }}>
             <InputLabel id="dataset-select-label">Chọn mẫu dữ liệu</InputLabel>
             <Select
               labelId="dataset-select-label"
@@ -90,21 +101,12 @@ export default function ActionsTab() {
               onChange={(e) => setSelectedDatasetKey(e.target.value as string)}
             >
               {datasets.map((ds) => (
-                <MenuItem key={ds.key} value={ds.key}>{ds.label}</MenuItem>
+                <MenuItem key={ds.key} value={ds.key}>
+                  {ds.label}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
-          <Button
-            variant="outlined"
-            color="primary"
-            size="small"
-            startIcon={<SearchSparkleIcon sx={{ fontSize: 18 }} />}
-            onClick={() => {
-              console.table(rows);
-            }}
-          >
-            Xem biểu đồ
-          </Button>
         </Box>
       </Box>
       <Box sx={{ height: dataGridHeight, width: '100%' }}>
