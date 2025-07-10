@@ -1,6 +1,6 @@
 import type { GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
-
 import { DataGrid } from '@mui/x-data-grid';
+import CustomColumnMenu, { CustomColumnMenuProps } from './custom-column-menu';
 
 interface DataTableProps {
   rows: any[];
@@ -10,6 +10,7 @@ interface DataTableProps {
   rowSelectionModel?: GridRowSelectionModel;
   onRowSelectionModelChange?: (selection: GridRowSelectionModel) => void;
   onCellEditCommit?: (params: any) => void;
+  columnMenuProps?: Partial<CustomColumnMenuProps>;
 }
 
 export default function DataTable({
@@ -20,6 +21,7 @@ export default function DataTable({
   rowSelectionModel,
   onRowSelectionModelChange,
   onCellEditCommit,
+  columnMenuProps = {},
 }: DataTableProps) {
   return (
     <div style={{ height: dataGridHeight, width: '100%' }}>
@@ -33,15 +35,14 @@ export default function DataTable({
         disableRowSelectionOnClick
         disableColumnFilter
         disableColumnSelector
-        slotProps={{ columnMenu: {} }}
-        slots={{ columnMenu: require('./custom-column-menu').default }}
+        slotProps={{ columnMenu: columnMenuProps }}
+        slots={{ columnMenu: CustomColumnMenu }}
         processRowUpdate={(newRow: any) => {
           if (onCellEditCommit) {
             onCellEditCommit({ id: newRow.id, ...newRow });
           }
           return newRow;
         }}
-        // experimentalFeatures={{ newEditingApi: true }}
       />
     </div>
   );

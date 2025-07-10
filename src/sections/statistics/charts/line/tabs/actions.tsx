@@ -92,6 +92,47 @@ export default function ActionsTab() {
       return { ...col, renderHeader };
     });
 
+  // Xử lý đổi tên cột
+  const handleRenameColumn = (field: string, newHeaderName: string) => {
+    // Đổi cả field (key) và headerName nếu cần
+    // Tạo field mới từ headerName
+    let baseField = newHeaderName.trim().toLowerCase().replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+    if (!baseField) baseField = 'col';
+    let newField = baseField;
+    let suffix = 1;
+    while (columns.some((col: any) => col.field === newField)) {
+      if (newField === field) break; // Cho phép giữ nguyên nếu chỉ đổi headerName
+      newField = `${baseField}_${suffix}`;
+      suffix++;
+    }
+    setColumns((prevCols: any[]) =>
+      prevCols.map((col: any) =>
+        col.field === field ? { ...col, headerName: newHeaderName, field: newField } : col
+      )
+    );
+    // Đổi key trong từng row
+    if (newField !== field) {
+      setRows((prevRows: any[]) =>
+        prevRows.map((row: any) => {
+          if (!(field in row)) return row;
+          const { [field]: oldValue, ...rest } = row;
+          return { ...rest, [newField]: oldValue };
+        })
+      );
+    }
+  };
+
+  // Xử lý ẩn cột
+  const handleHideColumn = (field: string) => {
+    setColumns((prevCols: any[]) => prevCols.filter((col: any) => col.field !== field));
+    setRows((prevRows: any[]) =>
+      prevRows.map((row: any) => {
+        const { [field]: _, ...rest } = row;
+        return rest;
+      })
+    );
+  };
+
   // Hàm tạo hàng mới với id duy nhất và các giá trị mặc định (rỗng)
   const handleAddRow = () => {
     // Lấy danh sách các field từ columns
@@ -246,6 +287,10 @@ export default function ActionsTab() {
           setRows((prevRows: any[]) =>
             prevRows.map((row: any) => (row.id === params.id ? { ...row, ...params } : row))
           );
+        }}
+        columnMenuProps={{
+          onRenameColumn: handleRenameColumn,
+          onHideColumn: handleHideColumn,
         }}
       />
       {/*
