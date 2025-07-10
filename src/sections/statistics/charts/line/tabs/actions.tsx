@@ -6,7 +6,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
-import { CloseIcon } from 'src/assets/icons';
+import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
 import { electionTable } from '../../../../../sections/statistics/data/electionTable.mock';
 
@@ -70,8 +70,8 @@ function ActionsTab() {
         <Typography variant="h6" gutterBottom>
           {electionTable.title}
         </Typography>
-        {selectionModel.length > 0 && (
-          <Box ml={2}>
+        <Box ml={2} sx={{ display: 'flex', gap: 1 }}>
+          {selectionModel.length > 0 && (
             <Button
               variant="contained"
               color="error"
@@ -89,8 +89,22 @@ function ActionsTab() {
                 ? 'Xóa hàng đã chọn'
                 : `Xóa ${selectionModel.length} hàng đã chọn`}
             </Button>
-          </Box>
-        )}
+          )}
+          <Button
+            variant="outlined"
+            color="primary"
+            size="small"
+            startIcon={<SearchSparkleIcon sx={{ fontSize: 18 }} />}
+            onClick={() => {
+              // Hiển thị dữ liệu trên console tab (console.table)
+              // eslint-disable-next-line no-console
+              // @ts-ignore
+              console.table(rows);
+            }}
+          >
+            Xem biểu đồ
+          </Button>
+        </Box>
       </Box>
       <Box sx={{ height: dataGridHeight, width: '100%' }}>
         <DataGrid
