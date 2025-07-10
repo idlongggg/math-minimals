@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
 import Select from '@mui/material/Select';
-import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import Typography from '@mui/material/Typography';
+import FormControl from '@mui/material/FormControl';
 
 import { SearchSparkleIcon } from 'src/assets/icons';
 
-import { DatasetElectionTable, DatasetFootballTable, DatasetGdpTable } from '../data/_mock';
+import { DatasetGdpTable, DatasetElectionTable, DatasetFootballTable } from '../data/_mock';
 
 export default function ActionsTab() {
   const containerRef = useRef<HTMLDivElement>(null);
