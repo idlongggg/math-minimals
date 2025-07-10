@@ -1,1 +1,3 @@
-export { Dataset01Table as electionTable } from './dataset-01';
+export { DatasetGdpTable } from './dataset-gdp';
+export { DatasetElectionTable } from './dataset-election';
+export { DatasetFootballTable } from './dataset-football';

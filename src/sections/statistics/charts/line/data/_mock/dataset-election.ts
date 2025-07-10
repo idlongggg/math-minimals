@@ -1,6 +1,6 @@
 import type { LineChartTable } from '../table-types';
 
-export const Dataset01Table: LineChartTable = {
+export const DatasetElectionTable: LineChartTable = {
   title: 'Bảng kết quả bầu cử liên bang Đức',
   columns: [
     { field: 'year', headerName: 'Năm', width: 80 },
