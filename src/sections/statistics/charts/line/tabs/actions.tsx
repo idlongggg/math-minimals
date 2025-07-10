@@ -6,6 +6,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
+
 import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
 import { electionTable } from '../../../../../sections/statistics/data/electionTable.mock';
@@ -38,7 +39,7 @@ function ActionsTab() {
       // content pb: var(--layout-dashboard-content-pb) = 32px
       // Scrollbar pt: 8px, pb: 8px, DataGrid Box mt: 16px
       // Tổng: 64 + 32 + 32 + 8 + 8 + 16 = 160
-      setDataGridHeight(windowHeight - containerHeight - 160 + 20);
+      setDataGridHeight(windowHeight - containerHeight - 160 + 16);
     }
     updateHeight();
     window.addEventListener('resize', updateHeight);
@@ -79,7 +80,10 @@ function ActionsTab() {
               startIcon={<CloseIcon sx={{ fontSize: 18 }} />}
               onClick={() => {
                 const count = selectionModel.length;
-                const msg = count === 1 ? 'Bạn có chắc muốn xóa hàng đã chọn?' : `Bạn có chắc muốn xóa ${count} hàng đã chọn?`;
+                const msg =
+                  count === 1
+                    ? 'Bạn có chắc muốn xóa hàng đã chọn?'
+                    : `Bạn có chắc muốn xóa ${count} hàng đã chọn?`;
                 if (!window.confirm(msg)) return;
                 setRows((prevRows) => prevRows.filter((row) => !selectionModel.includes(row.id)));
                 setSelectionModel([]);
@@ -96,9 +100,6 @@ function ActionsTab() {
             size="small"
             startIcon={<SearchSparkleIcon sx={{ fontSize: 18 }} />}
             onClick={() => {
-              // Hiển thị dữ liệu trên console tab (console.table)
-              // eslint-disable-next-line no-console
-              // @ts-ignore
               console.table(rows);
             }}
           >

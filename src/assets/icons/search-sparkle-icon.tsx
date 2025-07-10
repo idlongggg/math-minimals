@@ -6,10 +6,7 @@ export function SearchSparkleIcon({ sx, ...other }: SvgIconProps) {
   return (
     <SvgIcon sx={sx} {...other} viewBox="0 0 24 24">
       <g fill="none">
-        <path
-          fill="url(#fluentColorSearchSparkle242)"
-          d="M17 10a7 7 0 1 1-14 0a7 7 0 0 1 14 0"
-        />
+        <path fill="url(#fluentColorSearchSparkle242)" d="M17 10a7 7 0 1 1-14 0a7 7 0 0 1 14 0" />
         <path
           fill="url(#fluentColorSearchSparkle243)"
           d="M14.843 16.368a8 8 0 1 1 1.428-1.4l4.427 4.316a1 1 0 1 1-1.396 1.432zM16 10a6 6 0 1 0-12 0a6 6 0 0 0 12 0"
