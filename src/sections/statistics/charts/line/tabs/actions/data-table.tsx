@@ -1,6 +1,10 @@
 import type { GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
+
 import { DataGrid } from '@mui/x-data-grid';
-import CustomColumnMenu, { CustomColumnMenuProps } from './custom-column-menu';
+
+import CustomColumnMenu from './custom-column-menu';
+
+import type { CustomColumnMenuProps } from './custom-column-menu';
 
 interface DataTableProps {
   rows: any[];

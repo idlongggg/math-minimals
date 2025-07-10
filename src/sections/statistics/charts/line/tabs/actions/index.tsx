@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,10 +8,10 @@ import Typography from '@mui/material/Typography';
 
 import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
-import DataTable from './actions/data-table';
+import DataTable from './data-table';
+import DatasetSelector from './dataset-selector';
 // import ColumnMenu from './actions/column-menu';
-import { DatasetElectionTable, DatasetFootballTable, DatasetGdpTable } from '../data/_mock';
-import DatasetSelector from './actions/dataset-selector';
+import { DatasetGdpTable, DatasetElectionTable, DatasetFootballTable } from '../../data/_mock';
 
 // Thêm các mẫu dữ liệu vào đây
 const datasets = [
@@ -40,8 +40,6 @@ export default function ActionsTab() {
   );
   const [rows, setRows] = useState(selectedDataset.rows);
   const [selectedRowIds, setSelectedRowIds] = useState<readonly (string | number)[]>([]);
-  const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
-  const [menuColField, setMenuColField] = useState<string | null>(null);
 
   useEffect(() => {
     function updateHeight() {
@@ -81,8 +79,6 @@ export default function ActionsTab() {
           style={{ cursor: 'pointer' }}
           onClick={(e) => {
             e.stopPropagation();
-            setMenuAnchorEl(e.currentTarget);
-            setMenuColField(col.field);
           }}
           title="Tùy chọn cột"
         >
@@ -96,7 +92,11 @@ export default function ActionsTab() {
   const handleRenameColumn = (field: string, newHeaderName: string) => {
     // Đổi cả field (key) và headerName nếu cần
     // Tạo field mới từ headerName
-    let baseField = newHeaderName.trim().toLowerCase().replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+    let baseField = newHeaderName
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '_')
+      .replace(/[^a-zA-Z0-9_]/g, '');
     if (!baseField) baseField = 'col';
     let newField = baseField;
     let suffix = 1;

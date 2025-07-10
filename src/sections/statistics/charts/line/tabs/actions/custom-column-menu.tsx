@@ -1,7 +1,11 @@
-import { Button, MenuItem, TextField } from '@mui/material';
-import { GridColumnMenuContainer, GridColumnMenuHideItem, GridColumnMenuProps } from '@mui/x-data-grid';
+import type { GridColumnMenuProps } from '@mui/x-data-grid';
+
 import * as React from 'react';
-import { CloseIcon, EditIcon } from 'src/assets/icons';
+
+import { Button, MenuItem, TextField } from '@mui/material';
+import { GridColumnMenuHideItem, GridColumnMenuContainer } from '@mui/x-data-grid';
+
+import { EditIcon, CloseIcon } from 'src/assets/icons';
 
 export interface CustomColumnMenuProps extends GridColumnMenuProps {
   onRenameColumn?: (field: string, newHeaderName: string) => void;
@@ -38,44 +42,48 @@ export default function CustomColumnMenu(props: CustomColumnMenuProps) {
           <TextField
             size="small"
             value={newName}
-            onChange={e => setNewName(e.target.value)}
-            onKeyDown={e => {
+            onChange={(e) => setNewName(e.target.value)}
+            onKeyDown={(e) => {
               if (e.key === 'Enter') handleRename(e as unknown as React.SyntheticEvent);
             }}
             autoFocus
           />
-          <Button onClick={handleRename} size="small">OK</Button>
+          <Button onClick={handleRename} size="small">
+            OK
+          </Button>
         </MenuItem>
-      ) : [
-        <MenuItem
-          key="rename"
-          onClick={() => setEditing(true)}
-          sx={{
-            '&:hover': {
-              bgcolor: theme => theme.palette.warning.main + '22',
-              color: theme => theme.palette.warning.main,
-              '& .MuiSvgIcon-root': { color: theme => theme.palette.warning.main }
-            }
-          }}
-        >
-          <EditIcon sx={{ mr: 1, fontSize: 20 }} />
-          Đổi tên cột
-        </MenuItem>,
-        <MenuItem
-          key="delete"
-          onClick={handleHide}
-          sx={{
-            '&:hover': {
-              bgcolor: theme => theme.palette.error.main + '22',
-              color: theme => theme.palette.error.main,
-              '& .MuiSvgIcon-root': { color: theme => theme.palette.error.main }
-            }
-          }}
-        >
-          <CloseIcon sx={{ mr: 1, fontSize: 20 }} />
-          Xóa cột
-        </MenuItem>
-      ]}
+      ) : (
+        [
+          <MenuItem
+            key="rename"
+            onClick={() => setEditing(true)}
+            sx={{
+              '&:hover': {
+                bgcolor: (theme) => theme.palette.warning.main + '22',
+                color: (theme) => theme.palette.warning.main,
+                '& .MuiSvgIcon-root': { color: (theme) => theme.palette.warning.main },
+              },
+            }}
+          >
+            <EditIcon sx={{ mr: 1, fontSize: 20 }} />
+            Đổi tên cột
+          </MenuItem>,
+          <MenuItem
+            key="delete"
+            onClick={handleHide}
+            sx={{
+              '&:hover': {
+                bgcolor: (theme) => theme.palette.error.main + '22',
+                color: (theme) => theme.palette.error.main,
+                '& .MuiSvgIcon-root': { color: (theme) => theme.palette.error.main },
+              },
+            }}
+          >
+            <CloseIcon sx={{ mr: 1, fontSize: 20 }} />
+            Xóa cột
+          </MenuItem>,
+        ]
+      )}
       <GridColumnMenuHideItem colDef={colDef} onClick={hideMenu} />
       {/* Bạn có thể thêm các menu khác ở đây nếu muốn */}
     </GridColumnMenuContainer>
