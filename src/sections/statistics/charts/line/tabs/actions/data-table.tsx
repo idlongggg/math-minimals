@@ -10,7 +10,6 @@ interface DataTableProps {
   rows: any[];
   columns: GridColDef[];
   dataGridHeight: number;
-  checkboxSelection?: boolean;
   rowSelectionModel?: GridRowSelectionModel;
   onRowSelectionModelChange?: (selection: GridRowSelectionModel) => void;
   onCellEditCommit?: (params: any) => void;
@@ -21,7 +20,6 @@ export default function DataTable({
   rows,
   columns,
   dataGridHeight,
-  checkboxSelection = true,
   rowSelectionModel,
   onRowSelectionModelChange,
   onCellEditCommit,
@@ -32,8 +30,8 @@ export default function DataTable({
       <DataGrid
         rows={rows}
         columns={columns}
+        checkboxSelection
         hideFooterPagination
-        checkboxSelection={checkboxSelection}
         rowSelectionModel={rowSelectionModel}
         onRowSelectionModelChange={onRowSelectionModelChange}
         disableRowSelectionOnClick
