@@ -1,8 +1,8 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridRowModel, GridRowSelectionModel } from '@mui/x-data-grid'; // Thêm GridRowSelectionModel
 
-import { SearchSparkleIcon } from 'src/assets/icons';
+import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
 import { DatasetElection, DatasetFootball, DatasetGdp } from '../../data/_mock';
 
@@ -19,6 +19,8 @@ import React from 'react';
 export default function ActionsTab() {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [dataGridHeight, setDataGridHeight] = React.useState(400);
+  // Sửa kiểu dữ liệu thành GridRowSelectionModel
+  const [selectedRows, setSelectedRows] = React.useState<GridRowSelectionModel>([]);
 
   const [selectedDatasetKey, setSelectedDatasetKey] = React.useState('gdp');
   const [table, setTable] = React.useState<LineChartData>(DatasetGdp);
@@ -27,6 +29,7 @@ export default function ActionsTab() {
     const found = DEFAULT_DATA.find((d) => d.key === selectedDatasetKey);
     if (found) {
       setTable(found.table);
+      setSelectedRows([]);
     }
   }, [selectedDatasetKey]);
 
@@ -44,12 +47,64 @@ export default function ActionsTab() {
     return () => window.removeEventListener('resize', updateHeight);
   }, []);
 
+  const handleProcessRowUpdate = (newRow: GridRowModel, oldRow: GridRowModel) => {
+    const updatedTable = { ...table };
+    const rowIndex = oldRow.id;
+    
+    if (newRow.x !== oldRow.x) {
+      updatedTable.labels[rowIndex] = newRow.x;
+    }
+    
+    table.datasets.forEach((dataset, datasetIndex) => {
+      if (newRow[dataset.label] !== oldRow[dataset.label]) {
+        const newData = [...updatedTable.datasets[datasetIndex].data];
+        newData[rowIndex] = newRow[dataset.label];
+        updatedTable.datasets[datasetIndex] = {
+          ...dataset,
+          data: newData
+        };
+      }
+    });
+    
+    setTable(updatedTable);
+    return newRow;
+  };
+
+  const handleDeleteSelectedRows = () => {
+    if (selectedRows.length === 0) return;
+
+    // Chuyển đổi sang Set<number> để xử lý
+    const indicesToDelete = new Set(selectedRows.map(id => Number(id)));
+    
+    const newLabels = table.labels.filter((_, index) => !indicesToDelete.has(index));
+    
+    const newDatasets = table.datasets.map(dataset => ({
+      ...dataset,
+      data: dataset.data.filter((_, index) => !indicesToDelete.has(index))
+    }));
+
+    setTable({
+      ...table,
+      labels: newLabels,
+      datasets: newDatasets
+    });
+    
+    setSelectedRows([]);
+  };
+
   const columns = React.useMemo(() => {
-    const cols = [{ field: 'x', headerName: '   ' }];
-    table.datasets.forEach((ds, idx) => {
+    const cols: any = [{ 
+      field: 'x', 
+      headerName: '   ', 
+      editable: true
+    }];
+    
+    table.datasets.forEach((ds) => {
       cols.push({
         field: ds.label,
         headerName: ds.label,
+        editable: true,
+        type: 'number',
       });
     });
     return cols;
@@ -92,7 +147,16 @@ export default function ActionsTab() {
             ))}
           </Select>
         </FormControl>
-        <Box sx={{ ml: 2 }}>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <Button
+            variant="contained"
+            color="error"
+            startIcon={<CloseIcon />}
+            onClick={handleDeleteSelectedRows}
+            disabled={selectedRows.length === 0}
+          >
+            Xóa hàng
+          </Button>
           <Button
             variant="contained"
             startIcon={<SearchSparkleIcon />}
@@ -112,6 +176,12 @@ export default function ActionsTab() {
           hideFooter
           checkboxSelection
           disableRowSelectionOnClick
+          processRowUpdate={handleProcessRowUpdate}
+          onProcessRowUpdateError={(error) => console.error(error)}
+          rowSelectionModel={selectedRows}
+          onRowSelectionModelChange={(newSelection) => {
+            setSelectedRows(newSelection);
+          }}
         />
       </Box>
     </Box>
