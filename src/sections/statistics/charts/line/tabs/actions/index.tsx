@@ -1,6 +1,6 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Button from '@mui/material/Button';
-import { DataGrid, GridRowModel, GridRowSelectionModel } from '@mui/x-data-grid'; // Thêm GridRowSelectionModel
+import { DataGrid, GridRowId, GridRowModel } from '@mui/x-data-grid';
 
 import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
@@ -19,8 +19,7 @@ import React from 'react';
 export default function ActionsTab() {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [dataGridHeight, setDataGridHeight] = React.useState(400);
-  // Sửa kiểu dữ liệu thành GridRowSelectionModel
-  const [selectedRows, setSelectedRows] = React.useState<GridRowSelectionModel>([]);
+  const [selectedRows, setSelectedRows] = React.useState<GridRowId[]>([]); // State lưu hàng được chọn
 
   const [selectedDatasetKey, setSelectedDatasetKey] = React.useState('gdp');
   const [table, setTable] = React.useState<LineChartData>(DatasetGdp);
@@ -29,7 +28,7 @@ export default function ActionsTab() {
     const found = DEFAULT_DATA.find((d) => d.key === selectedDatasetKey);
     if (found) {
       setTable(found.table);
-      setSelectedRows([]);
+      setSelectedRows([]); // Reset selection khi chọn dataset mới
     }
   }, [selectedDatasetKey]);
 
@@ -70,30 +69,35 @@ export default function ActionsTab() {
     return newRow;
   };
 
+  // Hàm xử lý xóa hàng đã chọn
   const handleDeleteSelectedRows = () => {
     if (selectedRows.length === 0) return;
 
-    // Chuyển đổi sang Set<number> để xử lý
-    const indicesToDelete = new Set(selectedRows.map(id => Number(id)));
+    // Tạo set index để xóa cho hiệu quả
+    const indicesToDelete = new Set(selectedRows);
     
+    // Lọc ra các hàng không bị xóa
     const newLabels = table.labels.filter((_, index) => !indicesToDelete.has(index));
     
+    // Tạo datasets mới với dữ liệu đã lọc
     const newDatasets = table.datasets.map(dataset => ({
       ...dataset,
       data: dataset.data.filter((_, index) => !indicesToDelete.has(index))
     }));
 
+    // Cập nhật state với dữ liệu mới
     setTable({
       ...table,
       labels: newLabels,
       datasets: newDatasets
     });
     
+    // Reset selection sau khi xóa
     setSelectedRows([]);
   };
 
   const columns = React.useMemo(() => {
-    const cols: any = [{ 
+    const cols: any= [{ 
       field: 'x', 
       headerName: '   ', 
       editable: true
@@ -180,7 +184,7 @@ export default function ActionsTab() {
           onProcessRowUpdateError={(error) => console.error(error)}
           rowSelectionModel={selectedRows}
           onRowSelectionModelChange={(newSelection) => {
-            setSelectedRows(newSelection);
+            setSelectedRows(newSelection as GridRowId[]);
           }}
         />
       </Box>
