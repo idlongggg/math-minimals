@@ -1,5 +1,8 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
+
+import { SearchSparkleIcon } from 'src/assets/icons';
 
 import { DatasetElection, DatasetFootball, DatasetGdp } from '../../data/_mock';
 
@@ -42,7 +45,7 @@ export default function ActionsTab() {
   }, []);
 
   const columns = React.useMemo(() => {
-    const cols = [{ field: 'x', headerName: '   '}];
+    const cols = [{ field: 'x', headerName: '   ' }];
     table.datasets.forEach((ds, idx) => {
       cols.push({
         field: ds.label,
@@ -89,6 +92,17 @@ export default function ActionsTab() {
             ))}
           </Select>
         </FormControl>
+        <Box sx={{ ml: 2 }}>
+          <Button
+            variant="contained"
+            startIcon={<SearchSparkleIcon />}
+            onClick={() => {
+              console.log('View chart clicked', { selectedDatasetKey, table });
+            }}
+          >
+            Xem biểu đồ
+          </Button>
+        </Box>
       </Box>
 
       <Box sx={{ height: dataGridHeight, width: '100%' }}>
