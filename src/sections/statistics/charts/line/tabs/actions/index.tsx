@@ -1,15 +1,26 @@
-import type { GridRowId, GridRowModel } from '@mui/x-data-grid';
+import type { GridColumnMenuProps, GridRowId, GridRowModel } from '@mui/x-data-grid';
+import { GridColumnMenuContainer } from '@mui/x-data-grid';
 
+import {
+    AppBar,
+    Box,
+    FormControl,
+    IconButton,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Toolbar
+} from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import { DataGrid } from '@mui/x-data-grid';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { Box, AppBar, Select, Toolbar, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 
-import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
+import { CloseIcon, EditIcon, SearchSparkleIcon } from 'src/assets/icons';
 
-import { DatasetGdp, DatasetElection, DatasetFootball } from '../../data/_mock';
+import { DatasetElection, DatasetFootball, DatasetGdp } from '../../data/_mock';
 
 import type { LineChartData } from '../../data/table-types';
 
@@ -20,6 +31,75 @@ const DEFAULT_DATA: { key: string; label: string; table: LineChartData }[] = [
 ];
 
 import React from 'react';
+
+// Tạo component CustomColumnMenu ngay trong file index.tsx
+function CustomColumnMenu(props: GridColumnMenuProps) {
+  const { hideMenu, colDef, open } = props;
+  const [newName, setNewName] = React.useState(colDef.headerName || colDef.field);
+  const [editing, setEditing] = React.useState(false);
+
+  const handleRename = (event?: React.SyntheticEvent) => {
+    setEditing(false);
+    if (hideMenu) hideMenu(event || ({} as React.SyntheticEvent));
+  };
+
+  return (
+    // Sửa lỗi: chỉ truyền các props cần thiết, không dùng spread {...props}
+    <GridColumnMenuContainer colDef={colDef} hideMenu={hideMenu} open={open}>
+      {editing ? (
+        <MenuItem disableRipple>
+          <TextField
+            size="small"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleRename(e as unknown as React.SyntheticEvent);
+            }}
+            autoFocus
+          />
+          <Button onClick={handleRename} size="small">
+            OK
+          </Button>
+        </MenuItem>
+      ) : (
+        [
+          <MenuItem
+            key="rename"
+            onClick={() => setEditing(true)}
+            sx={{
+              '&:hover': {
+                bgcolor: (theme) => theme.palette.warning.main + '22',
+                color: (theme) => theme.palette.warning.main,
+                '& .MuiSvgIcon-root': { color: (theme) => theme.palette.warning.main },
+              },
+            }}
+          >
+            <EditIcon sx={{ mr: 1, fontSize: 20 }} />
+            Đổi tên cột
+          </MenuItem>,
+          <MenuItem
+            key="delete"
+            onClick={(e) => {
+              // Xử lý ẩn cột ở đây
+              if (hideMenu) hideMenu(e);
+            }}
+            sx={{
+              '&:hover': {
+                bgcolor: (theme) => theme.palette.error.main + '22',
+                color: (theme) => theme.palette.error.main,
+                '& .MuiSvgIcon-root': { color: (theme) => theme.palette.error.main },
+              },
+            }}
+          >
+            <CloseIcon sx={{ mr: 1, fontSize: 20 }} />
+            Xóa cột
+          </MenuItem>,
+        ]
+      )}
+      {/* Đã loại bỏ GridColumnMenuHideItem */}
+    </GridColumnMenuContainer>
+  );
+}
 
 export default function ActionsTab() {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -192,6 +272,9 @@ export default function ActionsTab() {
           onRowSelectionModelChange={(newSelection) => {
             setSelectedRows(newSelection as GridRowId[]);
           }}
+          slots={{
+            columnMenu: CustomColumnMenu, // Sử dụng menu cột tùy chỉnh
+          }}
         />
       </Box>
 
@@ -204,21 +287,20 @@ export default function ActionsTab() {
       >
         <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
-            <Button
-              variant="contained"
-              color="error"
-              startIcon={<CloseIcon />}
+            <IconButton
+              edge="start"
+              color="inherit"
               onClick={() => setOpenDialog(false)}
+              aria-label="close"
             >
-              Đóng
-            </Button>
+              <CloseIcon />
+            </IconButton>
             <Box sx={{ ml: 2, flex: 1 }}>
               <strong>{table.title}</strong>
             </Box>
           </Toolbar>
         </AppBar>
         <Box sx={{ p: 3, height: 'calc(100% - 64px)' }}>
-          {/* Đây là nơi sẽ đặt biểu đồ */}
           <Box
             sx={{
               height: '100%',
