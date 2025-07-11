@@ -1,44 +1,61 @@
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Popover from '@mui/material/Popover';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
-
+import { DatasetElection, DatasetFootball, DatasetGdp } from '../../data/_mock';
+import type { LineChartData } from '../../data/table-types';
 import DataTable from './data-table';
 import DatasetSelector from './dataset-selector';
-// import ColumnMenu from './actions/column-menu';
-import { DatasetGdpTable, DatasetElectionTable, DatasetFootballTable } from '../../data/_mock';
 
-// Thêm các mẫu dữ liệu vào đây
-const datasets = [
-  { key: 'gdp', label: DatasetGdpTable.title, data: DatasetGdpTable },
-  { key: 'election', label: DatasetElectionTable.title, data: DatasetElectionTable },
-  { key: 'football', label: DatasetFootballTable.title, data: DatasetFootballTable },
+const datasets: {
+  key: string;
+  label: string;
+  data: LineChartData
+}[] = [
+  { key: 'gdp', label: DatasetGdp.title, data: DatasetGdp },
+  { key: 'election', label: DatasetElection.title, data: DatasetElection },
+  { key: 'football', label: DatasetFootball.title, data: DatasetFootball },
 ];
 
 export default function ActionsTab() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dataGridHeight, setDataGridHeight] = useState(400);
   const [selectedDatasetKey, setSelectedDatasetKey] = useState('gdp');
-  const selectedDataset =
-    datasets.find((d) => d.key === selectedDatasetKey)?.data || DatasetElectionTable;
-  const [columns, setColumns] = useState(
-    selectedDataset.columns.map((col: any) => ({
-      ...col,
-      editable: true,
-      sortable: false,
-      type: 'number', // Đảm bảo cell chỉ nhận số
-      valueParser: (value: any) => {
-        const parsed = Number(value);
-        return isNaN(parsed) ? '' : parsed;
-      },
-    }))
-  );
-  const [rows, setRows] = useState(selectedDataset.rows);
+  const selectedDatasetObj = datasets.find((d) => d.key === selectedDatasetKey) || datasets[0];
+  const selectedData = selectedDatasetObj.data;
+  const getColumnsFromData = (data: typeof selectedData) => {
+    const columns = [
+      { field: 'id', headerName: 'STT', width: 70, editable: false },
+      { field: 'label', headerName: 'Tên dòng', width: 180, editable: false },
+      ...data.labels.map((label: string | number, idx: number) => ({
+        field: `col_${idx}`,
+        headerName: String(label),
+        width: 120,
+        type: 'number',
+        editable: true,
+        valueParser: (value: any) => {
+          const parsed = Number(value);
+          return isNaN(parsed) ? '' : parsed;
+        },
+      })),
+    ];
+    return columns;
+  };
+  // rows: each dataset as a row
+  const getRowsFromData = (data: typeof selectedData) =>
+    data.datasets.map((ds, i) => {
+      const row: any = {
+        id: i + 1,
+        label: ds.label,
+      };
+      data.labels.forEach((_, idx) => {
+        row[`col_${idx}`] = ds.data[idx] ?? '';
+      });
+      return row;
+    });
+  const [columns, setColumns] = useState(getColumnsFromData(selectedData));
+  const [rows, setRows] = useState(getRowsFromData(selectedData));
   const [selectedRowIds, setSelectedRowIds] = useState<readonly (string | number)[]>([]);
 
   useEffect(() => {
@@ -57,19 +74,8 @@ export default function ActionsTab() {
 
   // Khi đổi dataset thì cập nhật columns và rows
   useEffect(() => {
-    setColumns(
-      selectedDataset.columns.map((col: any) => ({
-        ...col,
-        editable: true,
-        sortable: false,
-        type: 'number',
-        valueParser: (value: any) => {
-          const parsed = Number(value);
-          return isNaN(parsed) ? '' : parsed;
-        },
-      }))
-    );
-    setRows(selectedDataset.rows);
+    setColumns(getColumnsFromData(selectedData));
+    setRows(getRowsFromData(selectedData));
   }, [selectedDatasetKey]);
 
   const getColumnsWithMenu = () =>
@@ -199,10 +205,10 @@ export default function ActionsTab() {
     <Box ref={containerRef}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
         <Typography variant="h6" gutterBottom>
-          {selectedDataset.title}
+          {selectedData?.title || ''}
         </Typography>
         <Box sx={{ display: 'flex', gap: 1 }}>
-          <Button
+          {/* <Button
             variant="contained"
             color="primary"
             startIcon={<SearchSparkleIcon sx={{ fontSize: 18 }} />}
@@ -211,11 +217,11 @@ export default function ActionsTab() {
             }}
           >
             Xem biểu đồ
-          </Button>
-          <Button variant="outlined" color="success" onClick={handleAddRow}>
+          </Button> */}
+          {/* <Button variant="outlined" color="success" onClick={handleAddRow}>
             Thêm hàng
-          </Button>
-          <Button
+          </Button> */}
+          {/* <Button
             variant="outlined"
             color="info"
             onClick={(e) => {
@@ -225,8 +231,8 @@ export default function ActionsTab() {
             }}
           >
             Thêm cột
-          </Button>
-          <Popover
+          </Button> */}
+          {/* <Popover
             open={Boolean(addColAnchorEl)}
             anchorEl={addColAnchorEl}
             onClose={() => {
@@ -253,8 +259,8 @@ export default function ActionsTab() {
                 Xác nhận
               </Button>
             </Box>
-          </Popover>
-          {selectedRowIds.length > 0 && (
+          </Popover> */}
+          {/* {selectedRowIds.length > 0 && (
             <Button
               variant="contained"
               color="error"
@@ -268,9 +274,9 @@ export default function ActionsTab() {
             >
               Xóa hàng đã chọn
             </Button>
-          )}
+          )} */}
           <DatasetSelector
-            datasets={datasets}
+            datasets={datasets.map(({ key, label }) => ({ key, label }))}
             selectedDatasetKey={selectedDatasetKey}
             setSelectedDatasetKey={setSelectedDatasetKey}
           />
@@ -293,17 +299,6 @@ export default function ActionsTab() {
           onHideColumn: handleHideColumn,
         }}
       />
-      {/*
-      <ColumnMenu
-        anchorEl={menuAnchorEl}
-        open={Boolean(menuAnchorEl)}
-        onClose={() => {
-          setMenuAnchorEl(null);
-          setMenuColField(null);
-        }}
-        menuColField={menuColField}
-      />
-      */}
     </Box>
   );
 }

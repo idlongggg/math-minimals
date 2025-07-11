@@ -1,17 +1,10 @@
-export type LineChartTableColumn = {
-  field: string;
-  headerName: string;
-  width?: number;
+export type LineChartDataset = {
+  label: string;
+  data: number[];
 };
 
-export type LineChartTableRow = {
-  id: number;
-  year: number;
-  [key: string]: number | undefined;
-};
-
-export type LineChartTable = {
+export type LineChartData = {
   title: string;
-  columns: LineChartTableColumn[];
-  rows: LineChartTableRow[];
+  labels: (string | number)[];
+  datasets: LineChartDataset[];
 };
