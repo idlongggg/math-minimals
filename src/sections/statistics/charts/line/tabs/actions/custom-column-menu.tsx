@@ -1,7 +1,11 @@
-import { Button, MenuItem, TextField } from '@mui/material';
-import { GridColumnMenuContainer, GridColumnMenuProps } from '@mui/x-data-grid';
+import type { GridColumnMenuProps } from '@mui/x-data-grid';
+
 import React from 'react';
-import { CloseIcon, EditIcon } from 'src/assets/icons';
+
+import { GridColumnMenuContainer } from '@mui/x-data-grid';
+import { Button, MenuItem, TextField } from '@mui/material';
+
+import { EditIcon, CloseIcon } from 'src/assets/icons';
 
 interface CustomColumnMenuProps extends GridColumnMenuProps {
   onRenameColumn: (field: string, newName: string) => void;
@@ -36,6 +40,7 @@ export default function CustomColumnMenu(props: CustomColumnMenuProps) {
               if (e.key === 'Enter') handleRename(e as unknown as React.SyntheticEvent);
             }}
             autoFocus
+            sx={{ mr: 1 }}
           />
           <Button onClick={handleRename} size="small">
             OK

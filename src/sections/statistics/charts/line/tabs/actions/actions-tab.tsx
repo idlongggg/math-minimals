@@ -1,32 +1,43 @@
-import {
-    AppBar,
-    Box,
-    FormControl,
-    IconButton,
-    InputLabel,
-    MenuItem,
-    Select,
-    Toolbar
-} from '@mui/material';
+import type { GridRowId, GridRowModel, GridColumnMenuProps } from '@mui/x-data-grid';
+
+import React from 'react';
+
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
+import { DataGrid } from '@mui/x-data-grid';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import type { GridColumnMenuProps, GridRowId, GridRowModel } from '@mui/x-data-grid';
-import { DataGrid } from '@mui/x-data-grid';
-import React from 'react';
+import {
+  Box,
+  AppBar,
+  Dialog,
+  Select,
+  Toolbar,
+  MenuItem,
+  TextField,
+  IconButton,
+  InputLabel,
+  DialogTitle,
+  FormControl,
+  DialogActions,
+  DialogContent,
+} from '@mui/material';
 
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
-import type { LineChartData } from '../../data/table-types';
-import { COLORS, DEFAULT_DATA } from './actions-tab-constants';
 import CustomColumnMenu from './custom-column-menu';
+import { DEFAULT_DATA } from './actions-tab-constants';
+
+import type { LineChartData } from './data/table-types';
 
 export default function ActionsTab() {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [dataGridHeight, setDataGridHeight] = React.useState(400);
   const [selectedRows, setSelectedRows] = React.useState<GridRowId[]>([]);
   const [openDialog, setOpenDialog] = React.useState(false);
+
+  // State cho dialog thêm cột
+  const [openAddColumnDialog, setOpenAddColumnDialog] = React.useState(false);
+  const [newColumnName, setNewColumnName] = React.useState('');
 
   const [selectedDatasetKey, setSelectedDatasetKey] = React.useState('gdp');
   const [table, setTable] = React.useState<LineChartData>(DEFAULT_DATA[0].table);
@@ -100,78 +111,71 @@ export default function ActionsTab() {
     setSelectedRows([]);
   };
 
-  const handleRenameColumn = (field: string, newName: string) => {
-    const updatedTable = { ...table };
-    
-    const updatedDatasets = updatedTable.datasets.map(dataset => {
-      if (dataset.label === field) {
-        return { ...dataset, label: newName };
-      }
-      return dataset;
-    });
-    
-    setTable({
-      ...updatedTable,
-      datasets: updatedDatasets
-    });
-  };
-
-  const handleDeleteColumn = (field: string) => {
-    if (field === 'x') return;
-    
-    const updatedTable = { ...table };
-    
-    const updatedDatasets = updatedTable.datasets.filter(dataset => dataset.label !== field);
-    
-    setTable({
-      ...updatedTable,
-      datasets: updatedDatasets
-    });
-  };
-
   // Hàm thêm hàng mới
-  const handleAddRow = () => {
+  const handleAddNewRow = () => {
     const newLabels = [...table.labels, ''];
-    const newDatasets = table.datasets.map(dataset => ({
+
+    const newDatasets = table.datasets.map((dataset) => ({
       ...dataset,
-      data: [...dataset.data, NaN]
+      data: [...dataset.data, 0], // Giá trị mặc định là 0
     }));
 
     setTable({
       ...table,
       labels: newLabels,
-      datasets: newDatasets
+      datasets: newDatasets,
     });
   };
 
   // Hàm thêm cột mới
-  const handleAddColumn = () => {
-    // Tạo tên cột mới không trùng
-    const generateUniqueName = () => {
-      const baseName = "Cột mới";
-      let counter = 1;
-      let newName = baseName;
-      
-      while (table.datasets.some(ds => ds.label === newName)) {
-        newName = `${baseName} ${counter++}`;
-      }
-      
-      return newName;
-    };
+  const handleAddNewColumn = () => {
+    if (!newColumnName.trim()) return;
 
-    const newColumnName = generateUniqueName();
-    const newColor = COLORS[table.datasets.length % COLORS.length];
-    
-    const newDataset = {
-      label: newColumnName,
-      data: Array(table.labels.length).fill(NaN),
-      borderColor: newColor,
-      backgroundColor: `${newColor}80`
-    };
+    const newDatasets = [
+      ...table.datasets,
+      {
+        label: newColumnName,
+        data: Array(table.labels.length).fill(0), // Tạo mảng giá trị 0
+        borderColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Màu ngẫu nhiên
+        backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}80`, // Màu ngẫu nhiên với độ trong suốt
+      },
+    ];
 
     setTable({
       ...table,
-      datasets: [...table.datasets, newDataset]
+      datasets: newDatasets,
+    });
+
+    setNewColumnName('');
+    setOpenAddColumnDialog(false);
+  };
+
+  const handleRenameColumn = (field: string, newName: string) => {
+    const updatedTable = { ...table };
+
+    const updatedDatasets = updatedTable.datasets.map((dataset) => {
+      if (dataset.label === field) {
+        return { ...dataset, label: newName };
+      }
+      return dataset;
+    });
+
+    setTable({
+      ...updatedTable,
+      datasets: updatedDatasets,
+    });
+  };
+
+  const handleDeleteColumn = (field: string) => {
+    if (field === 'x') return;
+
+    const updatedTable = { ...table };
+
+    const updatedDatasets = updatedTable.datasets.filter((dataset) => dataset.label !== field);
+
+    setTable({
+      ...updatedTable,
+      datasets: updatedDatasets,
     });
   };
 
@@ -208,15 +212,13 @@ export default function ActionsTab() {
     [table]
   );
 
-  const CustomColumnMenuWithHandlers = (props: GridColumnMenuProps) => {
-    return (
-      <CustomColumnMenu
-        {...props}
-        onRenameColumn={handleRenameColumn}
-        onDeleteColumn={handleDeleteColumn}
-      />
-    );
-  };
+  const CustomColumnMenuWithHandlers = (props: GridColumnMenuProps) => (
+    <CustomColumnMenu
+      {...props}
+      onRenameColumn={handleRenameColumn}
+      onDeleteColumn={handleDeleteColumn}
+    />
+  );
 
   return (
     <Box ref={containerRef}>
@@ -245,22 +247,6 @@ export default function ActionsTab() {
         </FormControl>
         <Box sx={{ display: 'flex', gap: 2 }}>
           <Button
-          color='success'
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={handleAddRow}
-          >
-            Thêm hàng
-          </Button>
-          <Button
-          color='success'
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={handleAddColumn}
-          >
-            Thêm cột
-          </Button>
-          <Button
             variant="contained"
             color="error"
             startIcon={<CloseIcon />}
@@ -268,6 +254,22 @@ export default function ActionsTab() {
             disabled={selectedRows.length === 0}
           >
             Xóa hàng
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            startIcon={<AddIcon />}
+            onClick={handleAddNewRow}
+          >
+            Thêm hàng
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            startIcon={<AddIcon />}
+            onClick={() => setOpenAddColumnDialog(true)}
+          >
+            Thêm cột
           </Button>
           <Button
             variant="contained"
@@ -301,6 +303,7 @@ export default function ActionsTab() {
         />
       </Box>
 
+      {/* Fullscreen Dialog - Xem biểu đồ */}
       <Dialog
         fullScreen
         open={openDialog}
@@ -336,6 +339,33 @@ export default function ActionsTab() {
             <Box sx={{ textAlign: 'center' }}>Biểu đồ sẽ được hiển thị ở đây.</Box>
           </Box>
         </Box>
+      </Dialog>
+
+      {/* Dialog thêm cột mới */}
+      <Dialog
+        open={openAddColumnDialog}
+        onClose={() => setOpenAddColumnDialog(false)}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>Thêm cột mới</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Tên cột"
+            fullWidth
+            value={newColumnName}
+            onChange={(e) => setNewColumnName(e.target.value)}
+            sx={{ mt: 2 }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenAddColumnDialog(false)}>Hủy</Button>
+          <Button onClick={handleAddNewColumn} variant="contained" disabled={!newColumnName.trim()}>
+            Thêm cột
+          </Button>
+        </DialogActions>
       </Dialog>
     </Box>
   );
