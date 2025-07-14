@@ -1,43 +1,45 @@
-import type { GridRowId, GridRowModel, GridColumnMenuProps } from '@mui/x-data-grid';
+import type { GridColumnMenuProps, GridRowId, GridRowModel } from '@mui/x-data-grid';
+import type { ApexOptions } from 'apexcharts';
 
+import dynamic from 'next/dynamic'; // Sử dụng dynamic import cho ApexCharts
 import React from 'react';
 
-import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
-import { useTheme } from '@mui/material/styles';
 import {
-  Box,
-  AppBar,
-  Dialog,
-  Select,
-  Divider,
-  Toolbar,
-  MenuItem,
-  TextField,
-  InputLabel,
-  DialogTitle,
-  FormControl,
-  DialogActions,
-  DialogContent,
+    AppBar,
+    Box,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Divider,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Toolbar,
 } from '@mui/material';
+import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
+import { DataGrid } from '@mui/x-data-grid';
 
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
+import { DEFAULT_DATA, EMPTY_TABLE } from './actions-tab-constants';
 import CustomColumnMenu from './custom-column-menu';
-import { EMPTY_TABLE, DEFAULT_DATA } from './actions-tab-constants';
 
 import type { LineChartData } from './data/table-types';
+
+// Dynamic import để tránh lỗi server-side rendering
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export default function ActionsTab() {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [dataGridHeight, setDataGridHeight] = React.useState(400);
   const [selectedRows, setSelectedRows] = React.useState<GridRowId[]>([]);
   const [openDialog, setOpenDialog] = React.useState(false);
-
-  // State cho dialog thêm cột
   const [openAddColumnDialog, setOpenAddColumnDialog] = React.useState(false);
   const [newColumnName, setNewColumnName] = React.useState('');
-
   const [selectedDatasetKey, setSelectedDatasetKey] = React.useState('blank');
   const [table, setTable] = React.useState<LineChartData>(EMPTY_TABLE);
 
@@ -97,9 +99,7 @@ export default function ActionsTab() {
     if (selectedRows.length === 0) return;
 
     const indicesToDelete = new Set(selectedRows);
-
     const newLabels = table.labels.filter((_, index) => !indicesToDelete.has(index));
-
     const newDatasets = table.datasets.map((dataset) => ({
       ...dataset,
       data: dataset.data.filter((_, index) => !indicesToDelete.has(index)),
@@ -114,13 +114,11 @@ export default function ActionsTab() {
     setSelectedRows([]);
   };
 
-  // Hàm thêm hàng mới
   const handleAddNewRow = () => {
     const newLabels = [...table.labels, ''];
-
     const newDatasets = table.datasets.map((dataset) => ({
       ...dataset,
-      data: [...dataset.data, 0], // Giá trị mặc định là 0
+      data: [...dataset.data, 0],
     }));
 
     setTable({
@@ -130,7 +128,6 @@ export default function ActionsTab() {
     });
   };
 
-  // Hàm thêm cột mới
   const handleAddNewColumn = () => {
     if (!newColumnName.trim()) return;
 
@@ -138,9 +135,7 @@ export default function ActionsTab() {
       ...table.datasets,
       {
         label: newColumnName,
-        data: Array(table.labels.length).fill(0), // Tạo mảng giá trị 0
-        borderColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Màu ngẫu nhiên
-        backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}80`, // Màu ngẫu nhiên với độ trong suốt
+        data: Array(table.labels.length).fill(0),
       },
     ];
 
@@ -155,7 +150,6 @@ export default function ActionsTab() {
 
   const handleRenameColumn = (field: string, newName: string) => {
     const updatedTable = { ...table };
-
     const updatedDatasets = updatedTable.datasets.map((dataset) => {
       if (dataset.label === field) {
         return { ...dataset, label: newName };
@@ -171,9 +165,7 @@ export default function ActionsTab() {
 
   const handleDeleteColumn = (field: string) => {
     if (field === 'x') return;
-
     const updatedTable = { ...table };
-
     const updatedDatasets = updatedTable.datasets.filter((dataset) => dataset.label !== field);
 
     setTable({
@@ -183,7 +175,7 @@ export default function ActionsTab() {
   };
 
   const columns = React.useMemo(() => {
-    const cols: any = [
+    const cols = [
       {
         field: 'x',
         headerName: '   ',
@@ -192,21 +184,21 @@ export default function ActionsTab() {
       },
     ];
 
-    table.datasets.forEach((ds) => {
-      cols.push({
+    return [
+      ...cols,
+      ...table.datasets.map((ds) => ({
         field: ds.label,
         headerName: ds.label,
         editable: true,
         type: 'number',
-      });
-    });
-    return cols;
+      })),
+    ];
   }, [table]);
 
   const rows = React.useMemo(
     () =>
       table.labels.map((x, i) => {
-        const row: { id: number; x: string | number; [key: string]: any } = { id: i, x };
+        const row: Record<string, any> = { id: i, x };
         table.datasets.forEach((ds) => {
           row[ds.label] = ds.data[i];
         });
@@ -221,6 +213,92 @@ export default function ActionsTab() {
       onRenameColumn={handleRenameColumn}
       onDeleteColumn={handleDeleteColumn}
     />
+  );
+
+  // Chuẩn bị dữ liệu cho ApexCharts
+  const chartOptions: ApexOptions = React.useMemo(() => {
+    const colors = [
+      '#FF6384',
+      '#36A2EB',
+      '#FFCE56',
+      '#4BC0C0',
+      '#9966FF',
+      '#FF9F40',
+      '#8AC926',
+      '#1982C4',
+      '#6A4C93',
+      '#F15BB5',
+    ];
+
+    return {
+      chart: {
+        type: 'line',
+        height: '100%',
+        zoom: {
+          enabled: true,
+        },
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true,
+          },
+        },
+      },
+      colors,
+      stroke: {
+        width: 3,
+        curve: 'smooth',
+      },
+      markers: {
+        size: 5,
+        hover: {
+          size: 8,
+        },
+      },
+      grid: {
+        row: {
+          colors: ['#f3f3f3', 'transparent'],
+          opacity: 0.5,
+        },
+      },
+      xaxis: {
+        categories: table.labels,
+        title: {
+          text: table.xAxisTitle || 'X Axis',
+        },
+      },
+      yaxis: {
+        title: {
+          text: table.yAxisTitle || 'Y Axis',
+        },
+      },
+      legend: {
+        position: 'top',
+        horizontalAlign: 'right',
+        floating: true,
+        offsetY: -25,
+        offsetX: -5,
+      },
+      tooltip: {
+        shared: true,
+        intersect: false,
+      },
+    };
+  }, [table]);
+
+  const chartSeries = React.useMemo(
+    () =>
+      table.datasets.map((dataset) => ({
+        name: dataset.label,
+        data: dataset.data,
+      })),
+    [table]
   );
 
   return (
@@ -241,12 +319,10 @@ export default function ActionsTab() {
             label="Mẫu dữ liệu"
             onChange={(e) => setSelectedDatasetKey(e.target.value)}
           >
-            {/* Option bảng trống - in nghiêng */}
             <MenuItem value="blank" sx={{ fontStyle: 'italic' }}>
               Bảng dữ liệu trống
             </MenuItem>
             <Divider />
-
             {DEFAULT_DATA.map((d) => (
               <MenuItem key={d.key} value={d.key}>
                 {d.table.title}
@@ -284,10 +360,7 @@ export default function ActionsTab() {
             variant="contained"
             color="primary"
             startIcon={<SearchSparkleIcon />}
-            onClick={() => {
-              console.log('View chart clicked', { selectedDatasetKey, table });
-              setOpenDialog(true);
-            }}
+            onClick={() => setOpenDialog(true)}
           >
             Xem biểu đồ
           </Button>
@@ -302,18 +375,13 @@ export default function ActionsTab() {
           checkboxSelection
           disableRowSelectionOnClick
           processRowUpdate={handleProcessRowUpdate}
-          onProcessRowUpdateError={(error) => console.error(error)}
+          onProcessRowUpdateError={console.error}
           rowSelectionModel={selectedRows}
-          onRowSelectionModelChange={(newSelection) => {
-            setSelectedRows(newSelection as GridRowId[]);
-          }}
-          slots={{
-            columnMenu: CustomColumnMenuWithHandlers,
-          }}
+          onRowSelectionModelChange={setSelectedRows}
+          slots={{ columnMenu: CustomColumnMenuWithHandlers }}
         />
       </Box>
 
-      {/* Fullscreen Dialog - Xem biểu đồ */}
       <Dialog
         fullScreen
         open={openDialog}
@@ -324,6 +392,7 @@ export default function ActionsTab() {
           <Toolbar>
             <Button
               variant="contained"
+              color="error"
               startIcon={<CloseIcon />}
               onClick={() => setOpenDialog(false)}
             >
@@ -339,18 +408,45 @@ export default function ActionsTab() {
             sx={{
               height: '100%',
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: theme.palette.grey[100],
+              flexDirection: 'column',
+              backgroundColor: theme.palette.background.default,
               borderRadius: 1,
             }}
           >
-            <Box sx={{ textAlign: 'center' }}>Biểu đồ sẽ được hiển thị ở đây.</Box>
+            {table.datasets.length > 0 && table.labels.length > 0 ? (
+              <Box sx={{ flex: 1, minHeight: 0 }}>
+                <ReactApexChart
+                  options={chartOptions}
+                  series={chartSeries}
+                  type="line"
+                  height="100%"
+                />
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  p: 3,
+                }}
+              >
+                <Box>
+                  <Box sx={{ fontSize: 18, fontWeight: 'medium', mb: 1 }}>
+                    Chưa có dữ liệu để hiển thị
+                  </Box>
+                  <Box sx={{ color: 'text.secondary' }}>
+                    Hãy thêm dữ liệu hoặc chọn một dataset khác
+                  </Box>
+                </Box>
+              </Box>
+            )}
           </Box>
         </Box>
       </Dialog>
 
-      {/* Dialog thêm cột mới */}
       <Dialog
         open={openAddColumnDialog}
         onClose={() => setOpenAddColumnDialog(false)}
