@@ -244,6 +244,20 @@
           "tab": {
             "overview": "总览",
             "actions": "操作"
+          },
+          "actionsTab": {
+            "dataset": "数据集",
+            "blankTable": "空白数据表",
+            "deleteRows": "删除行",
+            "addRow": "添加行",
+            "addColumn": "添加列",
+            "viewChart": "查看图表",
+            "close": "关闭",
+            "newColumnDialogTitle": "添加新列",
+            "columnName": "列名",
+            "cancel": "取消",
+            "noDataTitle": "暂无数据可显示",
+            "noDataDescription": "请添加数据或选择其他数据集"
           }
         }
       }

@@ -244,6 +244,20 @@
           "tab": {
             "overview": "Tổng quát",
             "actions": "Thao tác"
+          },
+          "actionsTab": {
+            "dataset": "Bộ dữ liệu",
+            "blankTable": "Bảng dữ liệu trống",
+            "deleteRows": "Xóa hàng",
+            "addRow": "Thêm hàng",
+            "addColumn": "Thêm cột",
+            "viewChart": "Xem biểu đồ",
+            "close": "Đóng",
+            "newColumnDialogTitle": "Thêm cột mới",
+            "columnName": "Tên cột",
+            "cancel": "Hủy",
+            "noDataTitle": "Chưa có dữ liệu để hiển thị",
+            "noDataDescription": "Hãy thêm dữ liệu hoặc chọn một dataset khác"
           }
         }
       }

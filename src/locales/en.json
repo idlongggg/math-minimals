@@ -244,6 +244,20 @@
           "tab": {
             "overview": "Overview",
             "actions": "Actions"
+          },
+          "actionsTab": {
+            "dataset": "Dataset",
+            "blankTable": "Blank Data Table",
+            "deleteRows": "Delete Rows",
+            "addRow": "Add Row",
+            "addColumn": "Add Column",
+            "viewChart": "View Chart",
+            "close": "Close",
+            "newColumnDialogTitle": "Add New Column",
+            "columnName": "Column Name",
+            "cancel": "Cancel",
+            "noDataTitle": "No data to display",
+            "noDataDescription": "Add data or choose another dataset"
           }
         }
       }

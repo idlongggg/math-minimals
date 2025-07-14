@@ -1,32 +1,34 @@
+import type { GridColDef, GridColumnMenuProps, GridRowId, GridRowModel } from '@mui/x-data-grid';
 import type { ApexOptions } from 'apexcharts';
-import type { GridRowId, GridColDef, GridRowModel, GridColumnMenuProps } from '@mui/x-data-grid';
 
-import React from 'react';
 import dynamic from 'next/dynamic';
+import React from 'react';
+import { useLocales } from 'src/locales';
 
-import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
-import { useTheme } from '@mui/material/styles';
 import {
-  Box,
-  AppBar,
-  Dialog,
-  Select,
-  Divider,
-  Toolbar,
-  MenuItem,
-  TextField,
-  InputLabel,
-  DialogTitle,
-  FormControl,
-  DialogActions,
-  DialogContent,
+    AppBar,
+    Box,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Divider,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Toolbar,
+    Typography,
 } from '@mui/material';
+import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
+import { DataGrid } from '@mui/x-data-grid';
 
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
+import { DEFAULT_DATA, EMPTY_TABLE } from './actions-tab-constants';
 import CustomColumnMenu from './custom-column-menu';
-import { EMPTY_TABLE, DEFAULT_DATA } from './actions-tab-constants';
 
 import type { LineChartData } from './data/table-types';
 
@@ -34,6 +36,7 @@ import type { LineChartData } from './data/table-types';
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export default function ActionsTab() {
+  const { translate: t } = useLocales();
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [dataGridHeight, setDataGridHeight] = React.useState(400);
   const [selectedRows, setSelectedRows] = React.useState<GridRowId[]>([]);
@@ -234,42 +237,42 @@ export default function ActionsTab() {
       xaxis: {
         categories: table.labels,
         title: {
-          text: table.xAxisTitle || 'X Axis',
+          text: table.xAxisTitle || t('pages.statistics.charts.line.actionsTab.xAxisDefault'),
           style: {
-            fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+            fontFamily: theme.typography.fontFamily,
           },
         },
         labels: {
           style: {
-            fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+            fontFamily: theme.typography.fontFamily,
           },
         },
       },
       yaxis: {
         title: {
-          text: table.yAxisTitle || 'Y Axis',
+          text: table.yAxisTitle || t('pages.statistics.charts.line.actionsTab.yAxisDefault'),
           style: {
-            fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+            fontFamily: theme.typography.fontFamily,
           },
         },
         labels: {
           style: {
-            fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
-            colors: theme.palette.text.primary, // Sử dụng màu chữ chính của theme
+            fontFamily: theme.typography.fontFamily,
+            colors: theme.palette.text.primary,
           },
         },
       },
       legend: {
-        fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+        fontFamily: theme.typography.fontFamily,
       },
       tooltip: {
-        theme: theme.palette.background.default, // Sử dụng chế độ màu của theme
+        theme: theme.palette.background.default,
         style: {
-          fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+          fontFamily: theme.typography.fontFamily,
         },
       },
     }),
-    [table, theme]
+    [table, theme, t]
   );
 
   const chartSeries = React.useMemo(
@@ -292,14 +295,18 @@ export default function ActionsTab() {
         }}
       >
         <FormControl size="small" sx={{ minWidth: 120, width: 320 }}>
-          <InputLabel id="dataset-select-label">Dataset</InputLabel>
+          <InputLabel id="dataset-select-label">
+            {t('pages.statistics.charts.line.actionsTab.dataset')}
+          </InputLabel>
           <Select
             labelId="dataset-select-label"
             value={selectedDatasetKey}
-            label="Mẫu dữ liệu"
+            label={t('pages.statistics.charts.line.actionsTab.dataset')}
             onChange={(e) => setSelectedDatasetKey(e.target.value)}
           >
-            <MenuItem value="blank">Bảng dữ liệu trống</MenuItem>
+            <MenuItem value="blank">
+              {t('pages.statistics.charts.line.actionsTab.blankTable')}
+            </MenuItem>
             <Divider />
             {DEFAULT_DATA.map((d) => (
               <MenuItem key={d.key} value={d.key}>
@@ -316,7 +323,7 @@ export default function ActionsTab() {
             onClick={handleDeleteSelectedRows}
             disabled={selectedRows.length === 0}
           >
-            Xóa hàng
+            {t('pages.statistics.charts.line.actionsTab.deleteRows')}
           </Button>
           <Button
             variant="contained"
@@ -324,7 +331,7 @@ export default function ActionsTab() {
             startIcon={<AddIcon />}
             onClick={handleAddNewRow}
           >
-            Thêm hàng
+            {t('pages.statistics.charts.line.actionsTab.addRow')}
           </Button>
           <Button
             variant="contained"
@@ -332,7 +339,7 @@ export default function ActionsTab() {
             startIcon={<AddIcon />}
             onClick={() => setOpenAddColumnDialog(true)}
           >
-            Thêm cột
+            {t('pages.statistics.charts.line.actionsTab.addColumn')}
           </Button>
           <Button
             variant="contained"
@@ -340,7 +347,7 @@ export default function ActionsTab() {
             startIcon={<SearchSparkleIcon />}
             onClick={() => setOpenDialog(true)}
           >
-            Xem biểu đồ
+            {t('pages.statistics.charts.line.actionsTab.viewChart')}
           </Button>
         </Box>
       </Box>
@@ -374,7 +381,7 @@ export default function ActionsTab() {
               startIcon={<CloseIcon />}
               onClick={() => setOpenDialog(false)}
             >
-              Đóng
+              {t('pages.statistics.charts.line.actionsTab.close')}
             </Button>
             <Box sx={{ ml: 2, flex: 1 }}>
               <strong>{table.title}</strong>
@@ -412,12 +419,12 @@ export default function ActionsTab() {
                 }}
               >
                 <Box>
-                  <Box sx={{ fontSize: 18, fontWeight: 'medium', mb: 1 }}>
-                    Chưa có dữ liệu để hiển thị
-                  </Box>
-                  <Box sx={{ color: theme.palette.text.secondary }}>
-                    Hãy thêm dữ liệu hoặc chọn một dataset khác
-                  </Box>
+                  <Typography variant="h6" fontWeight={700} mb={1}>
+                    {t('pages.statistics.charts.line.actionsTab.noDataTitle')}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {t('pages.statistics.charts.line.actionsTab.noDataDescription')}
+                  </Typography>
                 </Box>
               </Box>
             )}
@@ -431,12 +438,14 @@ export default function ActionsTab() {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>Thêm cột mới</DialogTitle>
+        <DialogTitle>
+          {t('pages.statistics.charts.line.actionsTab.newColumnDialogTitle')}
+        </DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             margin="dense"
-            label="Tên cột"
+            label={t('pages.statistics.charts.line.actionsTab.columnName')}
             fullWidth
             value={newColumnName}
             onChange={(e) => setNewColumnName(e.target.value)}
@@ -444,9 +453,11 @@ export default function ActionsTab() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenAddColumnDialog(false)}>Hủy</Button>
+          <Button onClick={() => setOpenAddColumnDialog(false)}>
+            {t('pages.statistics.charts.line.actionsTab.cancel')}
+          </Button>
           <Button onClick={handleAddNewColumn} variant="contained" disabled={!newColumnName.trim()}>
-            Thêm cột
+            {t('pages.statistics.charts.line.actionsTab.addColumn')}
           </Button>
         </DialogActions>
       </Dialog>
