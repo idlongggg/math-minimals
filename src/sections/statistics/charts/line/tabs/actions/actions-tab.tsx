@@ -1,32 +1,32 @@
-import type { GridColDef, GridColumnMenuProps, GridRowId, GridRowModel } from '@mui/x-data-grid';
 import type { ApexOptions } from 'apexcharts';
+import type { GridRowId, GridColDef, GridRowModel, GridColumnMenuProps } from '@mui/x-data-grid';
 
-import dynamic from 'next/dynamic';
 import React from 'react';
+import dynamic from 'next/dynamic';
 
-import {
-    AppBar,
-    Box,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    Divider,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    Toolbar,
-} from '@mui/material';
 import Button from '@mui/material/Button';
-import { useTheme } from '@mui/material/styles';
 import { DataGrid } from '@mui/x-data-grid';
+import { useTheme } from '@mui/material/styles';
+import {
+  Box,
+  AppBar,
+  Dialog,
+  Select,
+  Divider,
+  Toolbar,
+  MenuItem,
+  TextField,
+  InputLabel,
+  DialogTitle,
+  FormControl,
+  DialogActions,
+  DialogContent,
+} from '@mui/material';
 
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
-import { DEFAULT_DATA, EMPTY_TABLE } from './actions-tab-constants';
 import CustomColumnMenu from './custom-column-menu';
+import { EMPTY_TABLE, DEFAULT_DATA } from './actions-tab-constants';
 
 import type { LineChartData } from './data/table-types';
 
@@ -265,11 +265,11 @@ export default function ActionsTab() {
       tooltip: {
         theme: theme.palette.background.default, // Sử dụng chế độ màu của theme
         style: {
-            fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+          fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
         },
       },
     }),
-    [table]
+    [table, theme]
   );
 
   const chartSeries = React.useMemo(
@@ -299,9 +299,7 @@ export default function ActionsTab() {
             label="Mẫu dữ liệu"
             onChange={(e) => setSelectedDatasetKey(e.target.value)}
           >
-            <MenuItem value="blank" sx={{ fontStyle: 'italic' }}>
-              Bảng dữ liệu trống
-            </MenuItem>
+            <MenuItem value="blank">Bảng dữ liệu trống</MenuItem>
             <Divider />
             {DEFAULT_DATA.map((d) => (
               <MenuItem key={d.key} value={d.key}>

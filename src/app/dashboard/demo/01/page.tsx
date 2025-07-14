@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
-import { HomeIcon, UserIcon, CloseIcon, SettingsIcon } from 'src/assets/icons';
+import { HomeIcon, UserIcon, CloseIcon } from 'src/assets/icons';
 
 import { Demo01View } from 'src/sections/demo';
 
@@ -14,7 +14,6 @@ export default function Demo01Page() {
     { value: 'tab1', label: 'Tab One', icon: HomeIcon },
     { value: 'tab2', label: 'Tab Two', icon: UserIcon },
     { value: 'tab3', label: 'Tab Three', icon: CloseIcon },
-    { value: 'tab4', label: 'Tab Four', icon: SettingsIcon },
   ];
 
   const [currentTab, setCurrentTab] = useState<string>('tab1');
