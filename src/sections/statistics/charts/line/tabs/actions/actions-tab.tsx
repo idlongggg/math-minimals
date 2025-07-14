@@ -5,7 +5,6 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Box,
   AppBar,
@@ -43,7 +42,6 @@ export default function ActionsTab() {
   const [table, setTable] = React.useState<LineChartData>(DEFAULT_DATA[0].table);
 
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   React.useEffect(() => {
     const found = DEFAULT_DATA.find((d) => d.key === selectedDatasetKey);
@@ -273,6 +271,7 @@ export default function ActionsTab() {
           </Button>
           <Button
             variant="contained"
+            color="primary"
             startIcon={<SearchSparkleIcon />}
             onClick={() => {
               console.log('View chart clicked', { selectedDatasetKey, table });
