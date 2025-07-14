@@ -1,26 +1,25 @@
-import type { GridColumnMenuProps, GridRowId, GridRowModel } from '@mui/x-data-grid';
-import { GridColumnMenuContainer } from '@mui/x-data-grid';
+import type { GridRowId, GridRowModel, GridColumnMenuProps } from '@mui/x-data-grid';
 
-import {
-    AppBar,
-    Box,
-    FormControl,
-    IconButton,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    Toolbar
-} from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridColumnMenuContainer } from '@mui/x-data-grid';
+import {
+  Box,
+  AppBar,
+  Select,
+  Toolbar,
+  MenuItem,
+  TextField,
+  IconButton,
+  InputLabel,
+  FormControl,
+} from '@mui/material';
 
-import { CloseIcon, EditIcon, SearchSparkleIcon } from 'src/assets/icons';
+import { EditIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
-import { DatasetElection, DatasetFootball, DatasetGdp } from '../../data/_mock';
+import { DatasetGdp, DatasetElection, DatasetFootball } from '../../data/_mock';
 
 import type { LineChartData } from '../../data/table-types';
 
@@ -190,18 +189,18 @@ export default function ActionsTab() {
   // Hàm xử lý đổi tên cột
   const handleRenameColumn = (field: string, newName: string) => {
     const updatedTable = { ...table };
-    
+
     // Tìm dataset tương ứng và cập nhật tên
-    const updatedDatasets = updatedTable.datasets.map(dataset => {
+    const updatedDatasets = updatedTable.datasets.map((dataset) => {
       if (dataset.label === field) {
         return { ...dataset, label: newName };
       }
       return dataset;
     });
-    
+
     setTable({
       ...updatedTable,
-      datasets: updatedDatasets
+      datasets: updatedDatasets,
     });
   };
 
@@ -209,15 +208,15 @@ export default function ActionsTab() {
   const handleDeleteColumn = (field: string) => {
     // Không cho phép xóa cột đầu tiên (cột 'x')
     if (field === 'x') return;
-    
+
     const updatedTable = { ...table };
-    
+
     // Lọc bỏ dataset tương ứng
-    const updatedDatasets = updatedTable.datasets.filter(dataset => dataset.label !== field);
-    
+    const updatedDatasets = updatedTable.datasets.filter((dataset) => dataset.label !== field);
+
     setTable({
       ...updatedTable,
-      datasets: updatedDatasets
+      datasets: updatedDatasets,
     });
   };
 
@@ -256,15 +255,13 @@ export default function ActionsTab() {
   );
 
   // Tạo phiên bản CustomColumnMenu đã được bọc
-  const CustomColumnMenuWithHandlers = (props: GridColumnMenuProps) => {
-    return (
-      <CustomColumnMenu
-        {...props}
-        onRenameColumn={handleRenameColumn}
-        onDeleteColumn={handleDeleteColumn}
-      />
-    );
-  };
+  const CustomColumnMenuWithHandlers = (props: GridColumnMenuProps) => (
+    <CustomColumnMenu
+      {...props}
+      onRenameColumn={handleRenameColumn}
+      onDeleteColumn={handleDeleteColumn}
+    />
+  );
 
   return (
     <Box ref={containerRef}>
