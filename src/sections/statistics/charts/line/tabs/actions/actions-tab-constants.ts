@@ -8,18 +8,18 @@ export const DEFAULT_DATA: { key: string; label: string; table: LineChartData }[
   { key: 'football', label: 'Football', table: DatasetFootball },
 ];
 
-// Màu sắc mặc định cho các cột mới
-export const COLORS = [
-  '#FF6384',
-  '#36A2EB',
-  '#FFCE56',
-  '#4BC0C0',
-  '#9966FF',
-  '#FF9F40',
-  '#8AC926',
-  '#1982C4',
-  '#6A4C93',
-  '#F15BB5',
-  '#00BBF9',
-  '#00F5D4',
-];
+// Đưa mẫu dữ liệu trống vào constants
+export const EMPTY_TABLE: LineChartData = {
+  title: 'Bảng dữ liệu trống',
+  labels: [''],
+  datasets: [
+    {
+      label: 'Cột 1',
+      data: [0],
+    },
+    {
+      label: 'Cột 2',
+      data: [0],
+    },
+  ],
+};

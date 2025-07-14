@@ -5,7 +5,6 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Box,
   AppBar,
@@ -15,7 +14,6 @@ import {
   Toolbar,
   MenuItem,
   TextField,
-  IconButton,
   InputLabel,
   DialogTitle,
   FormControl,
@@ -26,25 +24,9 @@ import {
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
 import CustomColumnMenu from './custom-column-menu';
-import { DEFAULT_DATA } from './actions-tab-constants';
+import { EMPTY_TABLE, DEFAULT_DATA } from './actions-tab-constants';
 
 import type { LineChartData } from './data/table-types';
-
-// Tạo dữ liệu bảng trống
-const EMPTY_TABLE: LineChartData = {
-  title: 'Bảng dữ liệu trống',
-  labels: [''],
-  datasets: [
-    {
-      label: 'Cột 1',
-      data: [0],
-    },
-    {
-      label: 'Cột 2',
-      data: [0],
-    },
-  ],
-};
 
 export default function ActionsTab() {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -60,7 +42,6 @@ export default function ActionsTab() {
   const [table, setTable] = React.useState<LineChartData>(EMPTY_TABLE);
 
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   React.useEffect(() => {
     if (selectedDatasetKey === 'blank') {
@@ -341,14 +322,13 @@ export default function ActionsTab() {
       >
         <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
+            <Button
+              variant="contained"
+              startIcon={<CloseIcon />}
               onClick={() => setOpenDialog(false)}
-              aria-label="close"
             >
-              <CloseIcon />
-            </IconButton>
+              Đóng
+            </Button>
             <Box sx={{ ml: 2, flex: 1 }}>
               <strong>{table.title}</strong>
             </Box>
