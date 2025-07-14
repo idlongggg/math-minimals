@@ -5,11 +5,13 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   Box,
   AppBar,
   Dialog,
   Select,
+  Divider,
   Toolbar,
   MenuItem,
   TextField,
@@ -28,6 +30,22 @@ import { DEFAULT_DATA } from './actions-tab-constants';
 
 import type { LineChartData } from './data/table-types';
 
+// Tạo dữ liệu bảng trống
+const EMPTY_TABLE: LineChartData = {
+  title: 'Bảng dữ liệu trống',
+  labels: [''],
+  datasets: [
+    {
+      label: 'Cột 1',
+      data: [0],
+    },
+    {
+      label: 'Cột 2',
+      data: [0],
+    },
+  ],
+};
+
 export default function ActionsTab() {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [dataGridHeight, setDataGridHeight] = React.useState(400);
@@ -38,16 +56,22 @@ export default function ActionsTab() {
   const [openAddColumnDialog, setOpenAddColumnDialog] = React.useState(false);
   const [newColumnName, setNewColumnName] = React.useState('');
 
-  const [selectedDatasetKey, setSelectedDatasetKey] = React.useState('gdp');
-  const [table, setTable] = React.useState<LineChartData>(DEFAULT_DATA[0].table);
+  const [selectedDatasetKey, setSelectedDatasetKey] = React.useState('blank');
+  const [table, setTable] = React.useState<LineChartData>(EMPTY_TABLE);
 
   const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   React.useEffect(() => {
-    const found = DEFAULT_DATA.find((d) => d.key === selectedDatasetKey);
-    if (found) {
-      setTable(found.table);
+    if (selectedDatasetKey === 'blank') {
+      setTable(EMPTY_TABLE);
       setSelectedRows([]);
+    } else {
+      const found = DEFAULT_DATA.find((d) => d.key === selectedDatasetKey);
+      if (found) {
+        setTable(found.table);
+        setSelectedRows([]);
+      }
     }
   }, [selectedDatasetKey]);
 
@@ -236,6 +260,12 @@ export default function ActionsTab() {
             label="Mẫu dữ liệu"
             onChange={(e) => setSelectedDatasetKey(e.target.value)}
           >
+            {/* Option bảng trống - in nghiêng */}
+            <MenuItem value="blank" sx={{ fontStyle: 'italic' }}>
+              Bảng dữ liệu trống
+            </MenuItem>
+            <Divider />
+
             {DEFAULT_DATA.map((d) => (
               <MenuItem key={d.key} value={d.key}>
                 {d.table.title}
