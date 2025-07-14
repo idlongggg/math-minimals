@@ -1,42 +1,35 @@
 import type { GridColumnMenuProps } from '@mui/x-data-grid';
 
-import * as React from 'react';
+import React from 'react';
 
+import { GridColumnMenuContainer } from '@mui/x-data-grid';
 import { Button, MenuItem, TextField } from '@mui/material';
-import { GridColumnMenuHideItem, GridColumnMenuContainer } from '@mui/x-data-grid';
 
 import { EditIcon, CloseIcon } from 'src/assets/icons';
 
-export interface CustomColumnMenuProps extends GridColumnMenuProps {
-  onRenameColumn?: (field: string, newHeaderName: string) => void;
-  onHideColumn?: (field: string) => void;
+interface CustomColumnMenuProps extends GridColumnMenuProps {
+  onRenameColumn: (field: string, newName: string) => void;
+  onDeleteColumn: (field: string) => void;
 }
 
 export default function CustomColumnMenu(props: CustomColumnMenuProps) {
-  // Chỉ lấy các props hợp lệ cho GridColumnMenuContainer
-  const { colDef, hideMenu, onRenameColumn, onHideColumn, ...rest } = props;
+  const { hideMenu, colDef, open, onRenameColumn, onDeleteColumn } = props;
   const [newName, setNewName] = React.useState(colDef.headerName || colDef.field);
   const [editing, setEditing] = React.useState(false);
 
   const handleRename = (event?: React.SyntheticEvent) => {
-    if (onRenameColumn) {
-      // Chỉ đổi headerName, giữ nguyên field (key)
-      onRenameColumn(colDef.field, newName);
-    }
     setEditing(false);
+    onRenameColumn(colDef.field, newName);
     if (hideMenu) hideMenu(event || ({} as React.SyntheticEvent));
   };
 
-  const handleHide = (event: React.SyntheticEvent) => {
-    if (onHideColumn) {
-      onHideColumn(colDef.field);
-    }
+  const handleDelete = (event: React.SyntheticEvent) => {
+    onDeleteColumn(colDef.field);
     if (hideMenu) hideMenu(event);
   };
 
-  // Chỉ truyền các props hợp lệ cho GridColumnMenuContainer
   return (
-    <GridColumnMenuContainer colDef={colDef} hideMenu={hideMenu} {...rest}>
+    <GridColumnMenuContainer colDef={colDef} hideMenu={hideMenu} open={open}>
       {editing ? (
         <MenuItem disableRipple>
           <TextField
@@ -70,7 +63,7 @@ export default function CustomColumnMenu(props: CustomColumnMenuProps) {
           </MenuItem>,
           <MenuItem
             key="delete"
-            onClick={handleHide}
+            onClick={handleDelete}
             sx={{
               '&:hover': {
                 bgcolor: (theme) => theme.palette.error.main + '22',
@@ -84,8 +77,6 @@ export default function CustomColumnMenu(props: CustomColumnMenuProps) {
           </MenuItem>,
         ]
       )}
-      <GridColumnMenuHideItem colDef={colDef} onClick={hideMenu} />
-      {/* Bạn có thể thêm các menu khác ở đây nếu muốn */}
     </GridColumnMenuContainer>
   );
 }
