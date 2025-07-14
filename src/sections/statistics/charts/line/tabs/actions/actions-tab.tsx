@@ -40,7 +40,7 @@ export default function ActionsTab() {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [openAddColumnDialog, setOpenAddColumnDialog] = React.useState(false);
   const [newColumnName, setNewColumnName] = React.useState('');
-  const [selectedDatasetKey, setSelectedDatasetKey] = React.useState('blank');
+  const [selectedDatasetKey, setSelectedDatasetKey] = React.useState('election');
   const [table, setTable] = React.useState<LineChartData>(EMPTY_TABLE);
 
   const theme = useTheme();
@@ -217,8 +217,8 @@ export default function ActionsTab() {
   );
 
   // Chuẩn bị dữ liệu cho ApexCharts
-  const chartOptions: ApexOptions = React.useMemo(() => {
-    return {
+  const chartOptions: ApexOptions = React.useMemo(
+    () => ({
       chart: {
         zoom: {
           enabled: true,
@@ -227,19 +227,50 @@ export default function ActionsTab() {
           show: false,
         },
       },
+      stroke: {
+        width: 3,
+        curve: 'smooth',
+      },
       xaxis: {
         categories: table.labels,
         title: {
           text: table.xAxisTitle || 'X Axis',
+          style: {
+            fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+          },
+        },
+        labels: {
+          style: {
+            fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+          },
         },
       },
       yaxis: {
         title: {
           text: table.yAxisTitle || 'Y Axis',
+          style: {
+            fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+          },
+        },
+        labels: {
+          style: {
+            fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+            colors: theme.palette.text.primary, // Sử dụng màu chữ chính của theme
+          },
         },
       },
-    };
-  }, [table]);
+      legend: {
+        fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+      },
+      tooltip: {
+        theme: theme.palette.background.default, // Sử dụng chế độ màu của theme
+        style: {
+            fontFamily: theme.typography.fontFamily, // Áp dụng font hệ thống
+        },
+      },
+    }),
+    [table]
+  );
 
   const chartSeries = React.useMemo(
     () =>
@@ -337,7 +368,7 @@ export default function ActionsTab() {
         onClose={() => setOpenDialog(false)}
         aria-labelledby="chart-dialog-title"
       >
-        <AppBar sx={{ position: 'relative', }}>
+        <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
             <Button
               variant="contained"
@@ -347,7 +378,7 @@ export default function ActionsTab() {
             >
               Đóng
             </Button>
-            <Box sx={{ ml: 2, flex: 1}}>
+            <Box sx={{ ml: 2, flex: 1 }}>
               <strong>{table.title}</strong>
             </Box>
           </Toolbar>
