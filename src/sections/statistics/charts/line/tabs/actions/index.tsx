@@ -32,19 +32,31 @@ const DEFAULT_DATA: { key: string; label: string; table: LineChartData }[] = [
 
 import React from 'react';
 
-// Tạo component CustomColumnMenu ngay trong file index.tsx
-function CustomColumnMenu(props: GridColumnMenuProps) {
-  const { hideMenu, colDef, open } = props;
+// Cập nhật CustomColumnMenu với các props mới
+function CustomColumnMenu(
+  props: GridColumnMenuProps & {
+    onRenameColumn: (field: string, newName: string) => void;
+    onDeleteColumn: (field: string) => void;
+  }
+) {
+  const { hideMenu, colDef, open, onRenameColumn, onDeleteColumn } = props;
   const [newName, setNewName] = React.useState(colDef.headerName || colDef.field);
   const [editing, setEditing] = React.useState(false);
 
   const handleRename = (event?: React.SyntheticEvent) => {
     setEditing(false);
+    // GỌI HÀM XỬ LÝ ĐỔI TÊN
+    onRenameColumn(colDef.field, newName);
     if (hideMenu) hideMenu(event || ({} as React.SyntheticEvent));
   };
 
+  const handleDelete = (event: React.SyntheticEvent) => {
+    // GỌI HÀM XỬ LÝ XÓA CỘT
+    onDeleteColumn(colDef.field);
+    if (hideMenu) hideMenu(event);
+  };
+
   return (
-    // Sửa lỗi: chỉ truyền các props cần thiết, không dùng spread {...props}
     <GridColumnMenuContainer colDef={colDef} hideMenu={hideMenu} open={open}>
       {editing ? (
         <MenuItem disableRipple>
@@ -79,10 +91,7 @@ function CustomColumnMenu(props: GridColumnMenuProps) {
           </MenuItem>,
           <MenuItem
             key="delete"
-            onClick={(e) => {
-              // Xử lý ẩn cột ở đây
-              if (hideMenu) hideMenu(e);
-            }}
+            onClick={handleDelete} // SỬ DỤNG HANDLE DELETE MỚI
             sx={{
               '&:hover': {
                 bgcolor: (theme) => theme.palette.error.main + '22',
@@ -96,7 +105,6 @@ function CustomColumnMenu(props: GridColumnMenuProps) {
           </MenuItem>,
         ]
       )}
-      {/* Đã loại bỏ GridColumnMenuHideItem */}
     </GridColumnMenuContainer>
   );
 }
@@ -179,12 +187,48 @@ export default function ActionsTab() {
     setSelectedRows([]);
   };
 
+  // Hàm xử lý đổi tên cột
+  const handleRenameColumn = (field: string, newName: string) => {
+    const updatedTable = { ...table };
+    
+    // Tìm dataset tương ứng và cập nhật tên
+    const updatedDatasets = updatedTable.datasets.map(dataset => {
+      if (dataset.label === field) {
+        return { ...dataset, label: newName };
+      }
+      return dataset;
+    });
+    
+    setTable({
+      ...updatedTable,
+      datasets: updatedDatasets
+    });
+  };
+
+  // Hàm xử lý xóa cột
+  const handleDeleteColumn = (field: string) => {
+    // Không cho phép xóa cột đầu tiên (cột 'x')
+    if (field === 'x') return;
+    
+    const updatedTable = { ...table };
+    
+    // Lọc bỏ dataset tương ứng
+    const updatedDatasets = updatedTable.datasets.filter(dataset => dataset.label !== field);
+    
+    setTable({
+      ...updatedTable,
+      datasets: updatedDatasets
+    });
+  };
+
   const columns = React.useMemo(() => {
     const cols: any = [
       {
         field: 'x',
         headerName: '   ',
         editable: true,
+        // Ngăn không cho menu xuất hiện trên cột đầu tiên
+        disableColumnMenu: true,
       },
     ];
 
@@ -210,6 +254,17 @@ export default function ActionsTab() {
       }),
     [table]
   );
+
+  // Tạo phiên bản CustomColumnMenu đã được bọc
+  const CustomColumnMenuWithHandlers = (props: GridColumnMenuProps) => {
+    return (
+      <CustomColumnMenu
+        {...props}
+        onRenameColumn={handleRenameColumn}
+        onDeleteColumn={handleDeleteColumn}
+      />
+    );
+  };
 
   return (
     <Box ref={containerRef}>
@@ -273,7 +328,7 @@ export default function ActionsTab() {
             setSelectedRows(newSelection as GridRowId[]);
           }}
           slots={{
-            columnMenu: CustomColumnMenu, // Sử dụng menu cột tùy chỉnh
+            columnMenu: CustomColumnMenuWithHandlers, // SỬ DỤNG PHIÊN BẢN ĐÃ BỌC
           }}
         />
       </Box>
