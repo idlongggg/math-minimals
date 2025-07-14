@@ -40,7 +40,7 @@ export default function OverviewTab() {
       </Typography>
       <Divider sx={{ my: 2 }} />
       <Typography variant="subtitle1" fontWeight={600} mb={1}>
-        {t('pages.statistics.charts.line.featureTitle', 'Đặc điểm nổi bật')}
+        {t('pages.statistics.charts.line.featureTitle')}
       </Typography>
       <ul style={{ margin: 0, paddingLeft: 0 }}>
         {featuresKeys.map((key, idx) => (
@@ -52,10 +52,10 @@ export default function OverviewTab() {
       </ul>
       <Divider sx={{ my: 2 }} />
       <Typography variant="subtitle1" fontWeight={600} mb={1}>
-        {t('pages.statistics.charts.line.applicationTitle', 'Ứng dụng thực tiễn')}
+        {t('pages.statistics.charts.line.applicationTitle')}
       </Typography>
       <Typography variant="body2" color="text.secondary" fontStyle="italic">
-        {t('pages.statistics.charts.line.applicationDesc', 'Biểu đồ đường thường được sử dụng trong phân tích tài chính, thống kê, theo dõi số liệu kinh doanh, khoa học, kỹ thuật và nhiều lĩnh vực khác để minh họa sự thay đổi của dữ liệu theo thời gian. Ngoài ra, nó còn giúp phát hiện các xu hướng, chu kỳ, điểm bất thường hoặc dự báo tương lai dựa trên dữ liệu lịch sử.')}
+        {t('pages.statistics.charts.line.applicationDesc')}
       </Typography>
     </>
   );
