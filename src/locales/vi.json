@@ -231,7 +231,20 @@
       "charts": {
         "line": {
           "title": "Biểu đồ đường",
-          "description": "Trang biểu đồ đường trong mục thống kê, gồm các tab tổng quát, thao tác và lịch sử."
+          "description": "Trang biểu đồ đường trong mục thống kê, gồm các tab tổng quát, thao tác và lịch sử.",
+          "featureTitle": "Đặc điểm nổi bật",
+          "features": {
+            "feature1": "Thể hiện rõ xu hướng, biến động của dữ liệu theo thời gian.",
+            "feature2": "Phù hợp với dữ liệu liên tục, chuỗi thời gian (time series).",
+            "feature3": "Có thể so sánh nhiều tập dữ liệu trên cùng một biểu đồ.",
+            "feature4": "Dễ nhận biết các điểm cực trị, điểm giao nhau giữa các đường."
+          },
+          "applicationTitle": "Ứng dụng thực tiễn",
+          "applicationDesc": "Biểu đồ đường thường được sử dụng trong phân tích tài chính, thống kê, theo dõi số liệu kinh doanh, khoa học, kỹ thuật và nhiều lĩnh vực khác để minh họa sự thay đổi của dữ liệu theo thời gian. Ngoài ra, nó còn giúp phát hiện các xu hướng, chu kỳ, điểm bất thường hoặc dự báo tương lai dựa trên dữ liệu lịch sử.",
+          "tab": {
+            "overview": "Tổng quát",
+            "actions": "Thao tác"
+          }
         }
       }
     }

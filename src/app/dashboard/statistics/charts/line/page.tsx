@@ -4,15 +4,17 @@ import { useState } from 'react';
 
 import { ActionIcon, OverviewIcon } from 'src/assets/icons';
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
+import { useLocales } from 'src/locales';
 
 import { LineChartView } from 'src/sections/statistics/charts/line';
 
 // ----------------------------------------------------------------------
 
 export default function LineChartStatisticsPage() {
+  const { translate: t } = useLocales();
   const tabs = [
-    { value: 'overview', label: 'Tổng quát', icon: OverviewIcon },
-    { value: 'actions', label: 'Thao tác', icon: ActionIcon },
+    { value: 'overview', label: t('pages.statistics.charts.line.tab.overview'), icon: OverviewIcon },
+    { value: 'actions', label: t('pages.statistics.charts.line.tab.actions'), icon: ActionIcon },
   ];
 
   const [currentTab, setCurrentTab] = useState<string>('actions');

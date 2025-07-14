@@ -231,7 +231,20 @@
       "charts": {
         "line": {
           "title": "Line Chart",
-          "description": "Line chart page in statistics, including overview, actions, and history tabs."
+          "description": "Line chart page in statistics, including overview, actions, and history tabs.",
+          "featureTitle": "Key Features",
+          "features": {
+            "feature1": "Clearly shows trends and fluctuations in data over time.",
+            "feature2": "Suitable for continuous data, time series.",
+            "feature3": "Can compare multiple datasets on the same chart.",
+            "feature4": "Easy to identify extrema and intersections between lines."
+          },
+          "applicationTitle": "Practical Applications",
+          "applicationDesc": "Line charts are commonly used in financial analysis, statistics, business tracking, science, engineering, and many other fields to illustrate changes in data over time. They also help detect trends, cycles, anomalies, or forecast the future based on historical data.",
+          "tab": {
+            "overview": "Overview",
+            "actions": "Actions"
+          }
         }
       }
     }
