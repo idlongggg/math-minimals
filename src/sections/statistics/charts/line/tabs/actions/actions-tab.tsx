@@ -1,29 +1,26 @@
-import type { GridRowId, GridRowModel, GridColumnMenuProps } from '@mui/x-data-grid';
-
-import React from 'react';
-
+import {
+    AppBar,
+    Box,
+    FormControl,
+    IconButton,
+    InputLabel,
+    MenuItem,
+    Select,
+    Toolbar
+} from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import { DataGrid } from '@mui/x-data-grid';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import {
-  Box,
-  AppBar,
-  Select,
-  Toolbar,
-  MenuItem,
-  IconButton,
-  InputLabel,
-  FormControl,
-} from '@mui/material';
+import type { GridColumnMenuProps, GridRowId, GridRowModel } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
+import React from 'react';
 
-import { CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
-
-import CustomColumnMenu from './custom-column-menu';
-import { DEFAULT_DATA } from './actions-tab-constants';
+import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
 import type { LineChartData } from '../../data/table-types';
+import { COLORS, DEFAULT_DATA } from './actions-tab-constants';
+import CustomColumnMenu from './custom-column-menu';
 
 export default function ActionsTab() {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -105,30 +102,76 @@ export default function ActionsTab() {
 
   const handleRenameColumn = (field: string, newName: string) => {
     const updatedTable = { ...table };
-
-    const updatedDatasets = updatedTable.datasets.map((dataset) => {
+    
+    const updatedDatasets = updatedTable.datasets.map(dataset => {
       if (dataset.label === field) {
         return { ...dataset, label: newName };
       }
       return dataset;
     });
-
+    
     setTable({
       ...updatedTable,
-      datasets: updatedDatasets,
+      datasets: updatedDatasets
     });
   };
 
   const handleDeleteColumn = (field: string) => {
     if (field === 'x') return;
-
+    
     const updatedTable = { ...table };
-
-    const updatedDatasets = updatedTable.datasets.filter((dataset) => dataset.label !== field);
-
+    
+    const updatedDatasets = updatedTable.datasets.filter(dataset => dataset.label !== field);
+    
     setTable({
       ...updatedTable,
-      datasets: updatedDatasets,
+      datasets: updatedDatasets
+    });
+  };
+
+  // Hàm thêm hàng mới
+  const handleAddRow = () => {
+    const newLabels = [...table.labels, ''];
+    const newDatasets = table.datasets.map(dataset => ({
+      ...dataset,
+      data: [...dataset.data, NaN]
+    }));
+
+    setTable({
+      ...table,
+      labels: newLabels,
+      datasets: newDatasets
+    });
+  };
+
+  // Hàm thêm cột mới
+  const handleAddColumn = () => {
+    // Tạo tên cột mới không trùng
+    const generateUniqueName = () => {
+      const baseName = "Cột mới";
+      let counter = 1;
+      let newName = baseName;
+      
+      while (table.datasets.some(ds => ds.label === newName)) {
+        newName = `${baseName} ${counter++}`;
+      }
+      
+      return newName;
+    };
+
+    const newColumnName = generateUniqueName();
+    const newColor = COLORS[table.datasets.length % COLORS.length];
+    
+    const newDataset = {
+      label: newColumnName,
+      data: Array(table.labels.length).fill(NaN),
+      borderColor: newColor,
+      backgroundColor: `${newColor}80`
+    };
+
+    setTable({
+      ...table,
+      datasets: [...table.datasets, newDataset]
     });
   };
 
@@ -165,13 +208,15 @@ export default function ActionsTab() {
     [table]
   );
 
-  const CustomColumnMenuWithHandlers = (props: GridColumnMenuProps) => (
-    <CustomColumnMenu
-      {...props}
-      onRenameColumn={handleRenameColumn}
-      onDeleteColumn={handleDeleteColumn}
-    />
-  );
+  const CustomColumnMenuWithHandlers = (props: GridColumnMenuProps) => {
+    return (
+      <CustomColumnMenu
+        {...props}
+        onRenameColumn={handleRenameColumn}
+        onDeleteColumn={handleDeleteColumn}
+      />
+    );
+  };
 
   return (
     <Box ref={containerRef}>
@@ -199,6 +244,22 @@ export default function ActionsTab() {
           </Select>
         </FormControl>
         <Box sx={{ display: 'flex', gap: 2 }}>
+          <Button
+          color='success'
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={handleAddRow}
+          >
+            Thêm hàng
+          </Button>
+          <Button
+          color='success'
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={handleAddColumn}
+          >
+            Thêm cột
+          </Button>
           <Button
             variant="contained"
             color="error"
