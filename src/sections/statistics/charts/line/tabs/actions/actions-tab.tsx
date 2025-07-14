@@ -1,7 +1,7 @@
-import type { GridColumnMenuProps, GridRowId, GridRowModel } from '@mui/x-data-grid';
+import type { GridColDef, GridColumnMenuProps, GridRowId, GridRowModel } from '@mui/x-data-grid';
 import type { ApexOptions } from 'apexcharts';
 
-import dynamic from 'next/dynamic'; // Sử dụng dynamic import cho ApexCharts
+import dynamic from 'next/dynamic';
 import React from 'react';
 
 import {
@@ -174,13 +174,14 @@ export default function ActionsTab() {
     });
   };
 
-  const columns = React.useMemo(() => {
-    const cols = [
+  const columns: GridColDef[] = React.useMemo(() => {
+    const cols: GridColDef[] = [
       {
         field: 'x',
         headerName: '   ',
         editable: true,
         disableColumnMenu: true,
+        type: 'string',
       },
     ];
 
@@ -190,7 +191,7 @@ export default function ActionsTab() {
         field: ds.label,
         headerName: ds.label,
         editable: true,
-        type: 'number',
+        type: 'number' as const,
       })),
     ];
   }, [table]);
@@ -217,54 +218,13 @@ export default function ActionsTab() {
 
   // Chuẩn bị dữ liệu cho ApexCharts
   const chartOptions: ApexOptions = React.useMemo(() => {
-    const colors = [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56',
-      '#4BC0C0',
-      '#9966FF',
-      '#FF9F40',
-      '#8AC926',
-      '#1982C4',
-      '#6A4C93',
-      '#F15BB5',
-    ];
-
     return {
       chart: {
-        type: 'line',
-        height: '100%',
         zoom: {
           enabled: true,
         },
         toolbar: {
-          show: true,
-          tools: {
-            download: true,
-            selection: true,
-            zoom: true,
-            zoomin: true,
-            zoomout: true,
-            pan: true,
-            reset: true,
-          },
-        },
-      },
-      colors,
-      stroke: {
-        width: 3,
-        curve: 'smooth',
-      },
-      markers: {
-        size: 5,
-        hover: {
-          size: 8,
-        },
-      },
-      grid: {
-        row: {
-          colors: ['#f3f3f3', 'transparent'],
-          opacity: 0.5,
+          show: false,
         },
       },
       xaxis: {
@@ -277,17 +237,6 @@ export default function ActionsTab() {
         title: {
           text: table.yAxisTitle || 'Y Axis',
         },
-      },
-      legend: {
-        position: 'top',
-        horizontalAlign: 'right',
-        floating: true,
-        offsetY: -25,
-        offsetX: -5,
-      },
-      tooltip: {
-        shared: true,
-        intersect: false,
       },
     };
   }, [table]);
@@ -377,7 +326,7 @@ export default function ActionsTab() {
           processRowUpdate={handleProcessRowUpdate}
           onProcessRowUpdateError={console.error}
           rowSelectionModel={selectedRows}
-          onRowSelectionModelChange={setSelectedRows}
+          onRowSelectionModelChange={(rowSelectionModel) => setSelectedRows([...rowSelectionModel])}
           slots={{ columnMenu: CustomColumnMenuWithHandlers }}
         />
       </Box>
@@ -388,7 +337,7 @@ export default function ActionsTab() {
         onClose={() => setOpenDialog(false)}
         aria-labelledby="chart-dialog-title"
       >
-        <AppBar sx={{ position: 'relative' }}>
+        <AppBar sx={{ position: 'relative', }}>
           <Toolbar>
             <Button
               variant="contained"
@@ -398,18 +347,17 @@ export default function ActionsTab() {
             >
               Đóng
             </Button>
-            <Box sx={{ ml: 2, flex: 1 }}>
+            <Box sx={{ ml: 2, flex: 1}}>
               <strong>{table.title}</strong>
             </Box>
           </Toolbar>
         </AppBar>
-        <Box sx={{ p: 3, height: 'calc(100% - 64px)' }}>
+        <DialogContent sx={{ p: 3 }}>
           <Box
             sx={{
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
-              backgroundColor: theme.palette.background.default,
               borderRadius: 1,
             }}
           >
@@ -431,20 +379,21 @@ export default function ActionsTab() {
                   justifyContent: 'center',
                   textAlign: 'center',
                   p: 3,
+                  color: theme.palette.text.primary,
                 }}
               >
                 <Box>
                   <Box sx={{ fontSize: 18, fontWeight: 'medium', mb: 1 }}>
                     Chưa có dữ liệu để hiển thị
                   </Box>
-                  <Box sx={{ color: 'text.secondary' }}>
+                  <Box sx={{ color: theme.palette.text.secondary }}>
                     Hãy thêm dữ liệu hoặc chọn một dataset khác
                   </Box>
                 </Box>
               </Box>
             )}
           </Box>
-        </Box>
+        </DialogContent>
       </Dialog>
 
       <Dialog
