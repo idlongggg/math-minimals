@@ -2,6 +2,7 @@ import type { SelectChangeEvent } from '@mui/material';
 import type { TransitionProps } from '@mui/material/transitions';
 import type { GridColDef } from '@mui/x-data-grid';
 
+import dynamic from 'next/dynamic'; // Thêm dòng này
 import React from 'react';
 
 import AppBar from '@mui/material/AppBar';
@@ -24,6 +25,8 @@ import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 import { DEFAULT_DATA } from './data-constants';
 
 import type { DataItem } from './data-constants';
+
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -121,6 +124,41 @@ export default function ActionsTab() {
         setOpenDialog(false);
     };
 
+    const chartOptions = React.useMemo(
+        () => ({
+            chart: {
+                type: 'area',
+                zoom: { enabled: false },
+                toolbar: { show: false },
+            },
+            dataLabels: { enabled: false },
+            stroke: { curve: 'smooth' },
+            xaxis: {
+                title: { text: currTable.table.xTitle },
+                type: 'numeric',
+                labels: {
+                    formatter: (val: number) => val.toString(),
+                },
+            },
+            yaxis: {
+                title: { text: currTable.table.yTitle },
+            },
+        }),
+        [currTable]
+    );
+
+    const chartSeries = React.useMemo(
+        () =>
+            currTable.table.data.datasets.map((dataset) => ({
+                name: dataset.label,
+                data: currTable.table.data.labels.map((label, index) => ({
+                    x: label,
+                    y: dataset.data[index],
+                })),
+            })),
+        [currTable]
+    );
+
     return (
         <Box ref={containerRef}>
             <Box
@@ -210,18 +248,25 @@ export default function ActionsTab() {
                         </Button>
                     </Toolbar>
                 </AppBar>
-                <DialogContent>
-                    <Box sx={{ p: 2 }}>
-                        <Box
-                            sx={{
-                                height: '100%',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            Biểu đồ sẽ được hiển thị ở đây (Chart.js coming soon 😎)
-                        </Box>
+                <DialogContent sx={{ height: '100%', p: 0 }}>
+                    <Box
+                        sx={{
+                            height: '100%',
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            p: 3,
+                            boxSizing: 'border-box',
+                        }}
+                    >
+                        {Chart && (
+                            <Chart
+                                options={chartOptions as any}
+                                series={chartSeries}
+                                type="area"
+                                height="100%"
+                            />
+                        )}
                     </Box>
                 </DialogContent>
             </Dialog>
