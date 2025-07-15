@@ -1,12 +1,23 @@
-import type { GridColDef } from '@mui/x-data-grid';
 import type { SelectChangeEvent } from '@mui/material';
+import type { TransitionProps } from '@mui/material/transitions';
+import type { GridColDef } from '@mui/x-data-grid';
 
 import React from 'react';
 
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
-import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Slide from '@mui/material/Slide';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import * as xDataGrid from '@mui/x-data-grid';
 
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
@@ -14,12 +25,23 @@ import { DEFAULT_DATA } from './data-constants';
 
 import type { DataItem } from './data-constants';
 
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & {
+        children: React.ReactElement<unknown>;
+    },
+    ref: React.Ref<unknown>
+) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
 export default function ActionsTab() {
     const containerRef = React.useRef<HTMLDivElement>(null);
 
     const [dataGridHeight, setDataGridHeight] = React.useState(400);
 
     const [currTable, setCurrTable] = React.useState<DataItem>(DEFAULT_DATA[0]);
+
+    const [openDialog, setOpenDialog] = React.useState(false);
 
     const columns: GridColDef[] = [
         {
@@ -70,9 +92,8 @@ export default function ActionsTab() {
         setCurrTable((prev) => {
             const updatedTable = JSON.parse(JSON.stringify(prev)) as DataItem;
             if (changedField === 'label') {
-                const newLabel = parseFloat(newRow.label); // Ép kiểu thành number
+                const newLabel = parseFloat(newRow.label);
                 if (!isNaN(newLabel)) {
-                    // Kiểm tra giá trị hợp lệ
                     updatedTable.table.data.labels[rowIndex] = newLabel;
                 }
             } else {
@@ -80,9 +101,8 @@ export default function ActionsTab() {
                     (ds) => ds.label === changedField
                 );
                 if (datasetIndex !== -1) {
-                    const newValue = parseFloat(newRow[changedField]); // Ép kiểu thành number
+                    const newValue = parseFloat(newRow[changedField]);
                     if (!isNaN(newValue)) {
-                        // Kiểm tra giá trị hợp lệ
                         updatedTable.table.data.datasets[datasetIndex].data[rowIndex] = newValue;
                     }
                 }
@@ -91,6 +111,15 @@ export default function ActionsTab() {
         });
         return newRow;
     }, []);
+
+    const handleOpenDialog = () => {
+        console.log('Open dialog for chart view', currTable);
+        setOpenDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
 
     return (
         <Box ref={containerRef}>
@@ -131,7 +160,7 @@ export default function ActionsTab() {
                         variant="contained"
                         color="primary"
                         startIcon={<SearchSparkleIcon />}
-                        onClick={() => console.table(currTable.table.data)}
+                        onClick={handleOpenDialog}
                     >
                         View chart
                     </Button>
@@ -139,15 +168,63 @@ export default function ActionsTab() {
             </Box>
 
             <Box sx={{ height: dataGridHeight, width: '100%' }}>
-                <DataGrid
+                <xDataGrid.DataGrid
                     rows={rows}
                     columns={columns}
                     hideFooter
                     checkboxSelection
                     disableRowSelectionOnClick
                     processRowUpdate={handleProcessRowUpdate}
+                    onProcessRowUpdateError={(error) => console.error(error)}
                 />
             </Box>
+
+            <Dialog
+                fullScreen
+                open={openDialog}
+                onClose={handleCloseDialog}
+                slots={{
+                    transition: Transition,
+                }}
+            >
+                <AppBar sx={{ position: 'relative' }}>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            onClick={handleCloseDialog}
+                            aria-label="close"
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                            {currTable.table.title}
+                        </Typography>
+                        <Button
+                            autoFocus
+                            variant="contained"
+                            color="error"
+                            onClick={handleCloseDialog}
+                        >
+                            Close
+                        </Button>
+                    </Toolbar>
+                </AppBar>
+                <DialogContent>
+                    <Box sx={{ p: 2 }}>
+                        <Box
+                            sx={{
+                                height: '100%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            Biểu đồ sẽ được hiển thị ở đây (Chart.js coming soon 😎)
+                        </Box>
+                    </Box>
+                </DialogContent>
+            </Dialog>
         </Box>
     );
 }
