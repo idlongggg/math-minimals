@@ -62,36 +62,33 @@ export default function ActionsTab() {
     };
 
     const handleProcessRowUpdate = React.useCallback((newRow: any, oldRow: any) => {
-        // Tìm trường dữ liệu bị thay đổi
         const changedField = Object.keys(newRow).find((key) => newRow[key] !== oldRow[key]);
-
-        if (!changedField) return oldRow;
-
+        if (!changedField) {
+            return oldRow;
+        }
         const rowIndex = oldRow.id;
-
-        // Cập nhật state sử dụng functional update
         setCurrTable((prev) => {
-            // Tạo bản sao sâu của state hiện tại
             const updatedTable = JSON.parse(JSON.stringify(prev)) as DataItem;
-
             if (changedField === 'label') {
-                // Cập nhật nhãn
-                updatedTable.table.data.labels[rowIndex] = newRow.label;
+                const newLabel = parseFloat(newRow.label); // Ép kiểu thành number
+                if (!isNaN(newLabel)) {
+                    // Kiểm tra giá trị hợp lệ
+                    updatedTable.table.data.labels[rowIndex] = newLabel;
+                }
             } else {
-                // Cập nhật dữ liệu dataset
                 const datasetIndex = updatedTable.table.data.datasets.findIndex(
                     (ds) => ds.label === changedField
                 );
-
                 if (datasetIndex !== -1) {
-                    updatedTable.table.data.datasets[datasetIndex].data[rowIndex] =
-                        newRow[changedField];
+                    const newValue = parseFloat(newRow[changedField]); // Ép kiểu thành number
+                    if (!isNaN(newValue)) {
+                        // Kiểm tra giá trị hợp lệ
+                        updatedTable.table.data.datasets[datasetIndex].data[rowIndex] = newValue;
+                    }
                 }
             }
-
             return updatedTable;
         });
-
         return newRow;
     }, []);
 
@@ -130,7 +127,12 @@ export default function ActionsTab() {
                     <Button variant="contained" color="success" startIcon={<AddIcon />}>
                         Add new column
                     </Button>
-                    <Button variant="contained" color="primary" startIcon={<SearchSparkleIcon />}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        startIcon={<SearchSparkleIcon />}
+                        onClick={() => console.table(currTable.table.data)}
+                    >
                         View chart
                     </Button>
                 </Box>
