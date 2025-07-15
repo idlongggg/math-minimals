@@ -1,5 +1,5 @@
-import { FootyWC, GdpTrack, VoteTrend } from './data/_mock';
 import { Empty } from './data/_mock/empty';
+import { FootyWC, GdpTrack, VoteTrend } from './data/_mock';
 
 import type { ChartWrap } from './data/table-types';
 
@@ -7,7 +7,7 @@ export const DEFAULT_DATA: { key: string; table: ChartWrap }[] = [
     {
         key: 'empty',
         table: {
-            title: "Empty Table",
+            title: 'Empty Table',
             xTitle: 'X',
             yTitle: 'Y',
             data: Empty,

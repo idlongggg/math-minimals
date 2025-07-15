@@ -1,4 +1,4 @@
-import { ChartData } from "../table-types";
+import type { ChartData } from '../table-types';
 
 export const Empty: ChartData = {
     labels: [0],
@@ -12,4 +12,4 @@ export const Empty: ChartData = {
             data: [0],
         },
     ],
-}
+};

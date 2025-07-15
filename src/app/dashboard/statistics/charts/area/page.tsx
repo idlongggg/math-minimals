@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 
+import { useLocales } from 'src/locales';
 import { ActionIcon, OverviewIcon } from 'src/assets/icons';
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
-import { useLocales } from 'src/locales';
 
 import { AreaChartView } from 'src/sections/statistics/charts/area';
 

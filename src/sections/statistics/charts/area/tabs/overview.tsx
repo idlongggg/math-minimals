@@ -1,10 +1,10 @@
-import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-import { FlagIcon, SlideTextSparkleIcon } from 'src/assets/icons';
 import { useLocales } from 'src/locales';
+import { FlagIcon, SlideTextSparkleIcon } from 'src/assets/icons';
 
 const FeatureItem = styled('li')(({ theme }) => ({
     display: 'flex',

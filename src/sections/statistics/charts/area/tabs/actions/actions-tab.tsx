@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import Box from '@mui/material/Box';
@@ -10,7 +9,6 @@ export default function ActionsTab() {
     const containerRef = React.useRef<HTMLDivElement>(null);
 
     const [dataGridHeight, setDataGridHeight] = React.useState(400);
-
 
     React.useEffect(() => {
         function updateHeight() {
@@ -38,40 +36,22 @@ export default function ActionsTab() {
             >
                 {/* Form control here */}
                 <Box sx={{ display: 'flex', gap: 2 }}>
-                    <Button
-                        variant="contained"
-                        color="error"
-                        startIcon={<CloseIcon />}
-                    >
+                    <Button variant="contained" color="error" startIcon={<CloseIcon />}>
                         Delete selected
                     </Button>
-                    <Button
-                        variant="contained"
-                        color="success"
-                        startIcon={<AddIcon />}
-                    >
+                    <Button variant="contained" color="success" startIcon={<AddIcon />}>
                         Add new row
                     </Button>
-                    <Button
-                        variant="contained"
-                        color="success"
-                        startIcon={<AddIcon />}
-                    >
+                    <Button variant="contained" color="success" startIcon={<AddIcon />}>
                         Add new column
                     </Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        startIcon={<SearchSparkleIcon />}
-                    >
+                    <Button variant="contained" color="primary" startIcon={<SearchSparkleIcon />}>
                         View chart
                     </Button>
                 </Box>
             </Box>
 
-            <Box sx={{ height: dataGridHeight, width: '100%' }}>
-                {/* DataGrid here */}
-            </Box>
+            <Box sx={{ height: dataGridHeight, width: '100%' }}>{/* DataGrid here */}</Box>
         </Box>
     );
 }
