@@ -24,7 +24,6 @@ export default function ActionsTab() {
     const [dataGridHeight, setDataGridHeight] = React.useState(400);
     const [currTable, setCurrTable] = React.useState<DataItem>(DEFAULT_DATA[1]);
     const [openDialog, setOpenDialog] = React.useState(false);
-    // Thêm state để lưu các hàng được chọn
     const [selectedRows, setSelectedRows] = React.useState<number[]>([]);
 
     const columns: GridColDef[] = [
@@ -65,7 +64,6 @@ export default function ActionsTab() {
     const handleTableChange = (event: SelectChangeEvent) => {
         const key = event.target.value;
         setCurrTable(DEFAULT_DATA.find((item) => item.key === key) || DEFAULT_DATA[0]);
-        // Reset selection khi chuyển bảng
         setSelectedRows([]);
     };
 
@@ -98,25 +96,19 @@ export default function ActionsTab() {
         return newRow;
     }, []);
 
-    // Hàm xử lý xóa các hàng được chọn
     const handleDeleteSelected = React.useCallback(() => {
         if (selectedRows.length === 0) return;
 
         setCurrTable((prev) => {
-            // Tạo bản sao sâu của dữ liệu hiện tại
             const updatedTable = JSON.parse(JSON.stringify(prev)) as DataItem;
-
-            // Lọc ra các chỉ mục không được chọn
             const keptIndices = prev.table.data.labels
                 .map((_, index) => index)
                 .filter((index) => !selectedRows.includes(index));
 
-            // Cập nhật labels - chỉ giữ lại các hàng không bị chọn
             updatedTable.table.data.labels = keptIndices.map(
                 (index) => prev.table.data.labels[index]
             );
 
-            // Cập nhật datasets - chỉ giữ lại dữ liệu từ các hàng không bị chọn
             updatedTable.table.data.datasets = prev.table.data.datasets.map((dataset) => ({
                 ...dataset,
                 data: keptIndices.map((index) => dataset.data[index]),
@@ -125,9 +117,51 @@ export default function ActionsTab() {
             return updatedTable;
         });
 
-        // Reset selection sau khi xóa
         setSelectedRows([]);
     }, [selectedRows]);
+
+    const handleAddNewRow = React.useCallback(() => {
+        setCurrTable((prev) => {
+            const updatedTable = JSON.parse(JSON.stringify(prev)) as DataItem;
+
+            const lastLabel =
+                updatedTable.table.data.labels.length > 0
+                    ? updatedTable.table.data.labels[updatedTable.table.data.labels.length - 1]
+                    : 0;
+            const newLabel = typeof lastLabel === 'number' ? lastLabel + 1 : 0;
+
+            updatedTable.table.data.labels.push(newLabel);
+
+            updatedTable.table.data.datasets.forEach((dataset) => {
+                dataset.data.push(0);
+            });
+
+            return updatedTable;
+        });
+    }, []);
+
+    const handleAddNewColumn = React.useCallback(() => {
+        setCurrTable((prev) => {
+            const updatedTable = JSON.parse(JSON.stringify(prev)) as DataItem;
+
+            const baseName = 'New Column';
+            let newColumnName = baseName;
+            let counter = 1;
+
+            while (updatedTable.table.data.datasets.some((ds) => ds.label === newColumnName)) {
+                newColumnName = `${baseName} ${counter++}`;
+            }
+
+            const newDataset = {
+                label: newColumnName,
+                data: Array(updatedTable.table.data.labels.length).fill(0),
+            };
+
+            updatedTable.table.data.datasets.push(newDataset);
+
+            return updatedTable;
+        });
+    }, []);
 
     const handleOpenDialog = () => {
         console.log('Open dialog for chart view', currTable);
@@ -201,19 +235,31 @@ export default function ActionsTab() {
                     </Select>
                 </FormControl>
                 <Box sx={{ display: 'flex', gap: 2 }}>
+                    {selectedRows.length > 0 && (
+                        <Button
+                            variant="contained"
+                            color="error"
+                            startIcon={<CloseIcon />}
+                            onClick={handleDeleteSelected}
+                            disabled={selectedRows.length === 0}
+                        >
+                            Delete selected
+                        </Button>
+                    )}
                     <Button
                         variant="contained"
-                        color="error"
-                        startIcon={<CloseIcon />}
-                        onClick={handleDeleteSelected}
-                        disabled={selectedRows.length === 0}
+                        color="success"
+                        startIcon={<AddIcon />}
+                        onClick={handleAddNewRow}
                     >
-                        Delete selected
-                    </Button>
-                    <Button variant="contained" color="success" startIcon={<AddIcon />}>
                         Add new row
                     </Button>
-                    <Button variant="contained" color="success" startIcon={<AddIcon />}>
+                    <Button
+                        variant="contained"
+                        color="success"
+                        startIcon={<AddIcon />}
+                        onClick={handleAddNewColumn}
+                    >
                         Add new column
                     </Button>
                     <Button
@@ -236,7 +282,6 @@ export default function ActionsTab() {
                     disableRowSelectionOnClick
                     processRowUpdate={handleProcessRowUpdate}
                     onProcessRowUpdateError={(error) => console.error(error)}
-                    // Thêm xử lý chọn hàng
                     rowSelectionModel={selectedRows}
                     onRowSelectionModelChange={(newSelection) => {
                         setSelectedRows(newSelection as number[]);
