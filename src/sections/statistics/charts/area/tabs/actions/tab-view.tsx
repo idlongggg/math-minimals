@@ -2,9 +2,9 @@ import type { SelectChangeEvent } from '@mui/material';
 
 import React from 'react';
 
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
@@ -17,7 +17,7 @@ export default function ActionsTab() {
 
     const [dataGridHeight, setDataGridHeight] = React.useState(400);
 
-    const [table, setTable] = React.useState<DataItem>(DEFAULT_DATA[0]);
+    const [currTable, setCurrTable] = React.useState<DataItem>(DEFAULT_DATA[0]);
 
     React.useEffect(() => {
         function updateHeight() {
@@ -35,7 +35,7 @@ export default function ActionsTab() {
 
     const handleTableChange = (event: SelectChangeEvent) => {
         const key = event.target.value;
-        setTable(DEFAULT_DATA.find((item) => item.key === key) || DEFAULT_DATA[0]);
+        setCurrTable(DEFAULT_DATA.find((item) => item.key === key) || DEFAULT_DATA[0]);
     };
 
     return (
@@ -52,7 +52,7 @@ export default function ActionsTab() {
                     <InputLabel id="dataset-select-label">Dữ liệu</InputLabel>
                     <Select
                         labelId="dataset-select-label"
-                        value={table.key}
+                        value={currTable.key}
                         label="Dataset"
                         onChange={handleTableChange}
                     >
@@ -79,7 +79,9 @@ export default function ActionsTab() {
                 </Box>
             </Box>
 
-            <Box sx={{ height: dataGridHeight, width: '100%' }}>{/* DataGrid here */}</Box>
+            <Box sx={{ height: dataGridHeight, width: '100%' }}>
+                {/* DataGrid here */}
+            </Box>
         </Box>
     );
 }
