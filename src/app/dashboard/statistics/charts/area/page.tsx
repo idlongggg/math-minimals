@@ -6,10 +6,11 @@ import { useLocales } from 'src/locales';
 import { ActionIcon, OverviewIcon } from 'src/assets/icons';
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
 
-import { AreaChartView } from 'src/sections/statistics/charts/area';
+import AreaChartView from 'src/sections/statistics/charts/area';
 
 export default function AreaChartStatisticsPage() {
     const { translate: t } = useLocales();
+
     const tabs = [
         {
             value: 'overview',
@@ -23,7 +24,7 @@ export default function AreaChartStatisticsPage() {
         },
     ];
 
-    const [currentTab, setCurrentTab] = useState<string>('actions');
+    const [currentTab, setCurrentTab] = useState<string>(tabs[0].value);
 
     return (
         <PageLayout

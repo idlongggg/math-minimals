@@ -3,7 +3,12 @@ import { FootyWC, GdpTrack, VoteTrend } from './data/_mock';
 
 import type { ChartWrap } from './data/table-types';
 
-export const DEFAULT_DATA: { key: string; table: ChartWrap }[] = [
+export type DataItem = {
+    key: string;
+    table: ChartWrap;
+};
+
+export const DEFAULT_DATA: DataItem[] = [
     {
         key: 'empty',
         table: {

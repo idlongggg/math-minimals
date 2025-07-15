@@ -1,1 +1,1 @@
-export { default as AreaChartView } from './area-chart-view';
+export { default } from './area-chart-view';

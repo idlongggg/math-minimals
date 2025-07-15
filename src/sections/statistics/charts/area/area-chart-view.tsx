@@ -3,17 +3,25 @@ import { Card, CardContent } from '@mui/material';
 import ActionsTab from './tabs/actions';
 import OverviewTab from './tabs/overview';
 
-function AreaChartView({ currentTab }: { currentTab: string }) {
-    const tabContent: Record<string, React.ReactNode> = {
-        overview: <OverviewTab />,
-        actions: <ActionsTab />,
+type Props = {
+    currentTab: string;
+};
+
+export default function AreaChartView({ currentTab }: Props) {
+    const renderContent = () => {
+        switch (currentTab) {
+            case 'overview':
+                return <OverviewTab />;
+            case 'actions':
+                return <ActionsTab />;
+            default:
+                return null;
+        }
     };
 
     return (
         <Card>
-            <CardContent>{tabContent[currentTab]}</CardContent>
+            <CardContent>{renderContent()}</CardContent>
         </Card>
     );
 }
-
-export default AreaChartView;

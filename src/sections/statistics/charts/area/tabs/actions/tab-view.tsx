@@ -1,14 +1,23 @@
+import type { SelectChangeEvent } from '@mui/material';
+
 import React from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
+
+import { DEFAULT_DATA } from './data-constants';
+
+import type { DataItem } from './data-constants';
 
 export default function ActionsTab() {
     const containerRef = React.useRef<HTMLDivElement>(null);
 
     const [dataGridHeight, setDataGridHeight] = React.useState(400);
+
+    const [table, setTable] = React.useState<DataItem>(DEFAULT_DATA[0]);
 
     React.useEffect(() => {
         function updateHeight() {
@@ -24,6 +33,11 @@ export default function ActionsTab() {
         return () => window.removeEventListener('resize', updateHeight);
     }, []);
 
+    const handleTableChange = (event: SelectChangeEvent) => {
+        const key = event.target.value;
+        setTable(DEFAULT_DATA.find((item) => item.key === key) || DEFAULT_DATA[0]);
+    };
+
     return (
         <Box ref={containerRef}>
             <Box
@@ -34,7 +48,21 @@ export default function ActionsTab() {
                     mb: 2,
                 }}
             >
-                {/* Form control here */}
+                <FormControl size="small" sx={{ minWidth: 120, width: 320 }}>
+                    <InputLabel id="dataset-select-label">Dữ liệu</InputLabel>
+                    <Select
+                        labelId="dataset-select-label"
+                        value={table.key}
+                        label="Dataset"
+                        onChange={handleTableChange}
+                    >
+                        {DEFAULT_DATA.map((d) => (
+                            <MenuItem key={d.key} value={d.key}>
+                                {d.key === 'empty' ? <em>{d.table.title}</em> : d.table.title}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
                 <Box sx={{ display: 'flex', gap: 2 }}>
                     <Button variant="contained" color="error" startIcon={<CloseIcon />}>
                         Delete selected
