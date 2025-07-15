@@ -1,22 +1,17 @@
-import type { ApexOptions } from 'apexcharts';
+// src/tab-view.tsx
 import type { GridColDef } from '@mui/x-data-grid';
-import type { SelectChangeEvent } from '@mui/material';
-
-import React from 'react';
+import type { ApexOptions } from 'apexcharts';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import * as xDataGrid from '@mui/x-data-grid';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-
-import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
+import React from 'react';
 
 import ChartDialog from './chart-dialog';
+import ActionButtons from './components/action-button';
+import DatasetSelector from './components/dataset-selector';
 import { DEFAULT_DATA } from './data-constants';
 
+import { SelectChangeEvent } from '@mui/material';
 import type { DataItem } from './data-constants';
 
 export default function ActionsTab() {
@@ -219,58 +214,18 @@ export default function ActionsTab() {
                     mb: 2,
                 }}
             >
-                <FormControl size="small" sx={{ minWidth: 120, width: 320 }}>
-                    <InputLabel id="dataset-select-label">Dữ liệu</InputLabel>
-                    <Select
-                        labelId="dataset-select-label"
-                        value={currTable.key}
-                        label="Dataset"
-                        onChange={handleTableChange}
-                    >
-                        {DEFAULT_DATA.map((d) => (
-                            <MenuItem key={d.key} value={d.key}>
-                                {d.key === 'empty' ? <em>{d.table.title}</em> : d.table.title}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-                <Box sx={{ display: 'flex', gap: 2 }}>
-                    {selectedRows.length > 0 && (
-                        <Button
-                            variant="contained"
-                            color="error"
-                            startIcon={<CloseIcon />}
-                            onClick={handleDeleteSelected}
-                            disabled={selectedRows.length === 0}
-                        >
-                            Delete selected
-                        </Button>
-                    )}
-                    <Button
-                        variant="contained"
-                        color="success"
-                        startIcon={<AddIcon />}
-                        onClick={handleAddNewRow}
-                    >
-                        Add new row
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="success"
-                        startIcon={<AddIcon />}
-                        onClick={handleAddNewColumn}
-                    >
-                        Add new column
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        startIcon={<SearchSparkleIcon />}
-                        onClick={handleOpenDialog}
-                    >
-                        View chart
-                    </Button>
-                </Box>
+                <DatasetSelector 
+                    currTable={currTable} 
+                    onTableChange={handleTableChange} 
+                />
+                
+                <ActionButtons
+                    selectedRows={selectedRows}
+                    onDeleteSelected={handleDeleteSelected}
+                    onAddNewRow={handleAddNewRow}
+                    onAddNewColumn={handleAddNewColumn}
+                    onViewChart={handleOpenDialog}
+                />
             </Box>
 
             <Box sx={{ height: dataGridHeight, width: '100%' }}>
