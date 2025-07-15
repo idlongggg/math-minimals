@@ -3,7 +3,6 @@ import type { ApexOptions } from 'apexcharts';
 
 import dynamic from 'next/dynamic';
 import React from 'react';
-import { useLocales } from 'src/locales';
 
 import {
     AppBar,
@@ -26,6 +25,7 @@ import { useTheme } from '@mui/material/styles';
 import { DataGrid } from '@mui/x-data-grid';
 
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
+import { useLocales } from 'src/locales';
 
 import { DEFAULT_DATA, EMPTY_TABLE } from './actions-tab-constants';
 import CustomColumnMenu from './custom-column-menu';

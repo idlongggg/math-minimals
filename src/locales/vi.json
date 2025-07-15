@@ -257,7 +257,22 @@
             "columnName": "Tên cột",
             "cancel": "Hủy",
             "noDataTitle": "Chưa có dữ liệu để hiển thị",
-            "noDataDescription": "Hãy thêm dữ liệu hoặc chọn một dataset khác"
+            "noDataDescription": "Hãy thêm dữ liệu hoặc chọn một dataset khác",
+            "renameColumn": "Đổi tên cột",
+            "deleteColumn": "Xóa cột",
+            "year": "Năm",
+            "gdpValue": "GDP (tỷ USD)",
+            "voteCount": "Số phiếu bầu",
+            "season": "Mùa giải",
+            "goals": "Số bàn thắng",
+            "column1": "Cột 1",
+            "column2": "Cột 2"
+          },
+          "datasets": {
+            "blank": "Bảng dữ liệu trống",
+            "gdp": "Bộ dữ liệu GDP",
+            "election": "Bộ dữ liệu bầu cử",
+            "football": "Bộ dữ liệu bóng đá"
           }
         }
       }

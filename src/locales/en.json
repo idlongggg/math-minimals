@@ -257,7 +257,22 @@
             "columnName": "Column Name",
             "cancel": "Cancel",
             "noDataTitle": "No data to display",
-            "noDataDescription": "Add data or choose another dataset"
+            "noDataDescription": "Add data or choose another dataset",
+             "renameColumn": "Rename Column",
+            "deleteColumn": "Delete Column",
+            "year": "Year",
+            "gdpValue": "GDP (billion USD)",
+            "voteCount": "Vote Count",
+            "season": "Season",
+            "goals": "Goals",
+            "column1": "Column 1",
+            "column2": "Column 2"
+          },
+           "datasets": {
+            "blank": "Blank Data Table",
+            "gdp": "GDP Dataset",
+            "election": "Election Dataset",
+            "football": "Football Dataset"
           }
         }
       }

@@ -257,7 +257,22 @@
             "columnName": "列名",
             "cancel": "取消",
             "noDataTitle": "暂无数据可显示",
-            "noDataDescription": "请添加数据或选择其他数据集"
+            "noDataDescription": "请添加数据或选择其他数据集",
+             "renameColumn": "重命名列",
+            "deleteColumn": "删除列",
+            "year": "年",
+            "gdpValue": "GDP (十亿美元)",
+            "voteCount": "票数",
+            "season": "赛季",
+            "goals": "进球数",
+            "column1": "列 1",
+            "column2": "列 2"
+          },
+          "datasets": {
+            "blank": "空白数据表",
+            "gdp": "GDP数据集",
+            "election": "选举数据集",
+            "football": "足球数据集"
           }
         }
       }

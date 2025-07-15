@@ -1,4 +1,4 @@
-import { DatasetGdp, DatasetElection, DatasetFootball } from './data/_mock';
+import { DatasetElection, DatasetFootball, DatasetGdp } from './data/_mock';
 
 import type { LineChartData } from './data/table-types';
 

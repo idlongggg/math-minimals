@@ -5,6 +5,7 @@ import React from 'react';
 import { GridColumnMenuContainer } from '@mui/x-data-grid';
 import { Button, MenuItem, TextField } from '@mui/material';
 
+import { useLocales } from 'src/locales';
 import { EditIcon, CloseIcon } from 'src/assets/icons';
 
 interface CustomColumnMenuProps extends GridColumnMenuProps {
@@ -13,6 +14,7 @@ interface CustomColumnMenuProps extends GridColumnMenuProps {
 }
 
 export default function CustomColumnMenu(props: CustomColumnMenuProps) {
+  const { translate: t } = useLocales();
   const { hideMenu, colDef, open, onRenameColumn, onDeleteColumn } = props;
   const [newName, setNewName] = React.useState(colDef.headerName || colDef.field);
   const [editing, setEditing] = React.useState(false);
@@ -43,7 +45,7 @@ export default function CustomColumnMenu(props: CustomColumnMenuProps) {
             sx={{ mr: 1 }}
           />
           <Button onClick={handleRename} size="small">
-            OK
+            {t('common.ok')}
           </Button>
         </MenuItem>
       ) : (
@@ -60,7 +62,7 @@ export default function CustomColumnMenu(props: CustomColumnMenuProps) {
             }}
           >
             <EditIcon sx={{ mr: 1, fontSize: 20 }} />
-            Đổi tên cột
+            {t('pages.statistics.charts.line.actionsTab.renameColumn')}
           </MenuItem>,
           <MenuItem
             key="delete"
@@ -74,7 +76,7 @@ export default function CustomColumnMenu(props: CustomColumnMenuProps) {
             }}
           >
             <CloseIcon sx={{ mr: 1, fontSize: 20 }} />
-            Xóa cột
+            {t('pages.statistics.charts.line.actionsTab.deleteColumn')}
           </MenuItem>,
         ]
       )}
