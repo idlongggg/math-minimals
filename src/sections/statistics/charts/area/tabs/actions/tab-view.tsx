@@ -1,50 +1,28 @@
 import type { ApexOptions } from 'apexcharts';
 import type { GridColDef } from '@mui/x-data-grid';
 import type { SelectChangeEvent } from '@mui/material';
-import type { TransitionProps } from '@mui/material/transitions';
 
 import React from 'react';
-import dynamic from 'next/dynamic'; // Thêm dòng này
 
 import Box from '@mui/material/Box';
-import Slide from '@mui/material/Slide';
-import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
 import Select from '@mui/material/Select';
-import Toolbar from '@mui/material/Toolbar';
 import MenuItem from '@mui/material/MenuItem';
 import * as xDataGrid from '@mui/x-data-grid';
-import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
-import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
-import DialogContent from '@mui/material/DialogContent';
 
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
+import ChartDialog from './chart-dialog';
 import { DEFAULT_DATA } from './data-constants';
 
 import type { DataItem } from './data-constants';
 
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
-
-const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & {
-        children: React.ReactElement<unknown>;
-    },
-    ref: React.Ref<unknown>
-) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
-
 export default function ActionsTab() {
     const containerRef = React.useRef<HTMLDivElement>(null);
-
     const [dataGridHeight, setDataGridHeight] = React.useState(400);
-
     const [currTable, setCurrTable] = React.useState<DataItem>(DEFAULT_DATA[1]);
-
     const [openDialog, setOpenDialog] = React.useState(false);
 
     const columns: GridColDef[] = [
@@ -220,59 +198,13 @@ export default function ActionsTab() {
                 />
             </Box>
 
-            <Dialog
-                fullScreen
+            <ChartDialog
                 open={openDialog}
                 onClose={handleCloseDialog}
-                slots={{
-                    transition: Transition,
-                }}
-            >
-                <AppBar sx={{ position: 'relative' }}>
-                    <Toolbar>
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            onClick={handleCloseDialog}
-                            aria-label="close"
-                        >
-                            <CloseIcon />
-                        </IconButton>
-                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            {currTable.table.title}
-                        </Typography>
-                        <Button
-                            autoFocus
-                            variant="contained"
-                            color="error"
-                            onClick={handleCloseDialog}
-                        >
-                            Close
-                        </Button>
-                    </Toolbar>
-                </AppBar>
-                <DialogContent sx={{ height: '100%', p: 0 }}>
-                    <Box
-                        sx={{
-                            height: '100%',
-                            width: '100%',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            p: 3,
-                            boxSizing: 'border-box',
-                        }}
-                    >
-                        {Chart && (
-                            <Chart
-                                options={chartOptions}
-                                series={chartSeries}
-                                type="area"
-                                height="100%"
-                            />
-                        )}
-                    </Box>
-                </DialogContent>
-            </Dialog>
+                currTable={currTable}
+                chartOptions={chartOptions}
+                chartSeries={chartSeries}
+            />
         </Box>
     );
 }
