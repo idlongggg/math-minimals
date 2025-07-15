@@ -1,10 +1,12 @@
 import type { SelectChangeEvent } from '@mui/material';
+import type { GridColDef } from '@mui/x-data-grid';
 
 import React from 'react';
 
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { DataGrid } from '@mui/x-data-grid';
 
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
@@ -18,6 +20,22 @@ export default function ActionsTab() {
     const [dataGridHeight, setDataGridHeight] = React.useState(400);
 
     const [currTable, setCurrTable] = React.useState<DataItem>(DEFAULT_DATA[0]);
+
+    const columns: GridColDef[] = [
+        { field: 'label', headerName: currTable.table.xTitle },
+        ...currTable.table.data.datasets.map((dataset) => ({
+            field: dataset.label,
+            headerName: dataset.label,
+        })),
+    ];
+
+    const rows = currTable.table.data.labels.map((label, index) => {
+        const row: any = { id: index, label };
+        currTable.table.data.datasets.forEach((dataset) => {
+            row[dataset.label] = dataset.data[index] ?? 0;
+        });
+        return row;
+    });
 
     React.useEffect(() => {
         function updateHeight() {
@@ -80,7 +98,13 @@ export default function ActionsTab() {
             </Box>
 
             <Box sx={{ height: dataGridHeight, width: '100%' }}>
-                {/* DataGrid here */}
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    hideFooter
+                    checkboxSelection
+                    disableRowSelectionOnClick
+                />
             </Box>
         </Box>
     );
