@@ -43,7 +43,7 @@ export default function ActionsTab() {
 
     const [dataGridHeight, setDataGridHeight] = React.useState(400);
 
-    const [currTable, setCurrTable] = React.useState<DataItem>(DEFAULT_DATA[0]);
+    const [currTable, setCurrTable] = React.useState<DataItem>(DEFAULT_DATA[1]);
 
     const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -238,7 +238,7 @@ export default function ActionsTab() {
                         >
                             <CloseIcon />
                         </IconButton>
-                        <Typography sx={{ ml: 2, flex: 1 }} variant="h5" component="div">
+                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                             {currTable.table.title}
                         </Typography>
                         <Button

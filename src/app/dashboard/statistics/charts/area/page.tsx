@@ -24,7 +24,7 @@ export default function AreaChartStatisticsPage() {
         },
     ];
 
-    const [currentTab, setCurrentTab] = useState<string>(tabs[0].value);
+    const [currentTab, setCurrentTab] = useState<string>(tabs[1].value); // Default to 'actions' tab
 
     return (
         <PageLayout
