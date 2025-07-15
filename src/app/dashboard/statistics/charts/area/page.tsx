@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 
-import { useLocales } from 'src/locales';
 import { ActionIcon, OverviewIcon } from 'src/assets/icons';
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
+import { useLocales } from 'src/locales';
 
 import { AreaChartView } from 'src/sections/statistics/charts/area';
 
@@ -13,12 +13,12 @@ export default function AreaChartStatisticsPage() {
     const tabs = [
         {
             value: 'overview',
-            label: t('pages.statistics.charts.area.tab.overview'),
+            label: t('pages.statistics.charts.area.tabs.overview'),
             icon: OverviewIcon,
         },
         {
             value: 'actions',
-            label: t('pages.statistics.charts.area.tab.actions'),
+            label: t('pages.statistics.charts.area.tabs.actions'),
             icon: ActionIcon,
         },
     ];

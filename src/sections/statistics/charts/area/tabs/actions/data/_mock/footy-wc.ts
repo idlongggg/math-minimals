@@ -1,7 +1,6 @@
-import type { AreaChartData } from '../table-types';
+import type { ChartData } from '../table-types';
 
-export const DatasetFootball: AreaChartData = {
-    title: 'Bảng thành tích các đội bóng đá quốc gia',
+export const FootyWC: ChartData = {
     labels: [1998, 2002, 2006, 2010, 2014, 2018, 2022],
     datasets: [
         {

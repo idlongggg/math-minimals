@@ -274,6 +274,27 @@
             "election": "Bộ dữ liệu bầu cử",
             "football": "Bộ dữ liệu bóng đá"
           }
+        },
+        "area": {
+          "title": "Biểu đồ miền",
+          "description": "Trang biểu đồ miền trong mục thống kê, gồm các tab tổng quát và thao tác.",
+          "tabs":{
+            "overview": "Tổng quát",
+            "actions": "Thao tác"
+          },
+          "overview": {
+            "title": "Tổng quát",
+            "description": "Biểu đồ miền là một dạng biểu đồ thể hiện dữ liệu theo vùng, giúp trực quan hóa sự phân bố và xu hướng của dữ liệu.",
+            "featuresTitle": "Đặc điểm nổi bật",
+            "features": {
+              "feature1": "Thể hiện rõ sự phân bố và xu hướng của dữ liệu.",
+              "feature2": "Phù hợp với dữ liệu liên tục và có thể so sánh nhiều tập dữ liệu.",
+              "feature3": "Dễ dàng nhận biết các khu vực có giá trị cao hoặc thấp.",
+              "feature4": "Có thể kết hợp với các biểu đồ khác để tăng tính trực quan."
+            },
+            "applicationTitle": "Ứng dụng thực tiễn",
+            "applicationDesc": "Biểu đồ miền thường được sử dụng trong phân tích dữ liệu kinh doanh, tài chính, khoa học và kỹ thuật để minh họa sự phân bố và xu hướng của dữ liệu theo vùng. Nó giúp người dùng dễ dàng nhận biết các khu vực có giá trị cao hoặc thấp, từ đó đưa ra quyết định chính xác hơn."
+          }
         }
       }
     }

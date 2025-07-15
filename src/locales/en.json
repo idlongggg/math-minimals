@@ -274,6 +274,27 @@
             "election": "Election Dataset",
             "football": "Football Dataset"
           }
+        },
+        "area": {
+            "title": "Area Chart",
+            "description": "Area chart page in statistics, including overview and actions tabs.",
+            "tabs": {
+                "overview": "Overview",
+                "actions": "Actions"
+            },
+            "overview": {
+                "title": "Area Chart Overview",
+                "description": "This section provides an overview of the area chart, including its features and applications.",
+                "featuresTitle": "Key Features",
+                "features": {
+                    "feature1": "Visually represents the magnitude of data over time.",
+                    "feature2": "Useful for showing cumulative totals or trends.",
+                    "feature3": "Can compare multiple datasets with overlapping areas.",
+                    "feature4": "Highlights the area between lines, making it easy to see changes."
+                },
+                "applicationTitle": "Practical Applications",
+                "applicationDesc": "Area charts are often used in business reports, financial analysis, and data visualization to show how quantities change over time or across categories. They help in understanding the overall volume of data and comparing different datasets effectively."
+            }
         }
       }
     }

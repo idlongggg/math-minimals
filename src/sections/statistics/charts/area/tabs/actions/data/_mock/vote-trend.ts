@@ -1,7 +1,6 @@
-import type { AreaChartData } from '../table-types';
+import type { ChartData } from '../table-types';
 
-export const DatasetElection: AreaChartData = {
-    title: 'Bảng kết quả bầu cử liên bang Đức',
+export const VoteTrend: ChartData = {
     labels: [
         1949, 1953, 1957, 1961, 1965, 1969, 1972, 1976, 1980, 1983, 1987, 1990, 1994, 1998, 2002,
         2005, 2009,

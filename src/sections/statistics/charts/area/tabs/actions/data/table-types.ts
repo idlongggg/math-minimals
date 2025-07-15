@@ -1,12 +1,14 @@
-export interface AreaChartDataset {
-    label: string;
-    data: number[];
+export interface ChartData {
+    labels: number[];
+    datasets: {
+        label: string;
+        data: number[];
+    }[];
 }
 
-export interface AreaChartData {
+export interface ChartWrap {
     title: string;
-    labels: (string | number)[];
-    datasets: AreaChartDataset[];
-    xAxisTitle?: string; // Thêm trục X
-    yAxisTitle?: string; // Thêm trục Y
+    xTitle: string;
+    yTitle: string;
+    data: ChartData;
 }

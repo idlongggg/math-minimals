@@ -1,50 +1,43 @@
-import { DatasetGdp, DatasetElection, DatasetFootball } from './data/_mock';
+import { FootyWC, GdpTrack, VoteTrend } from './data/_mock';
+import { Empty } from './data/_mock/empty';
 
-import type { AreaChartData } from './data/table-types';
+import type { ChartWrap } from './data/table-types';
 
-export const DEFAULT_DATA: { key: string; label: string; table: AreaChartData }[] = [
+export const DEFAULT_DATA: { key: string; table: ChartWrap }[] = [
+    {
+        key: 'empty',
+        table: {
+            title: "Empty Table",
+            xTitle: 'X',
+            yTitle: 'Y',
+            data: Empty,
+        },
+    },
     {
         key: 'gdp',
-        label: 'GDP',
         table: {
-            ...DatasetGdp,
-            xAxisTitle: 'Năm',
-            yAxisTitle: 'GDP (tỷ USD)',
+            title: 'Bảng GDP các nước (tỷ USD)',
+            xTitle: 'Năm',
+            yTitle: 'GDP (tỷ USD)',
+            data: GdpTrack,
         },
     },
     {
         key: 'election',
-        label: 'Election',
         table: {
-            ...DatasetElection,
-            xAxisTitle: 'Năm',
-            yAxisTitle: 'Số phiếu bầu',
+            title: 'Bảng kết quả bầu cử',
+            xTitle: 'Năm',
+            yTitle: 'Số phiếu bầu',
+            data: VoteTrend,
         },
     },
     {
         key: 'football',
-        label: 'Football',
         table: {
-            ...DatasetFootball,
-            xAxisTitle: 'Mùa giải',
-            yAxisTitle: 'Số bàn thắng',
+            title: 'Bảng thống kê bàn thắng World Cup',
+            xTitle: 'Mùa giải',
+            yTitle: 'Số bàn thắng',
+            data: FootyWC,
         },
     },
 ];
-
-export const EMPTY_TABLE: AreaChartData = {
-    title: 'Bảng dữ liệu trống',
-    labels: [''],
-    datasets: [
-        {
-            label: 'Cột 1',
-            data: [0],
-        },
-        {
-            label: 'Cột 2',
-            data: [0],
-        },
-    ],
-    xAxisTitle: 'Trục X',
-    yAxisTitle: 'Trục Y',
-};

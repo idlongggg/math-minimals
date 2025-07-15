@@ -1,7 +1,6 @@
-import type { AreaChartData } from '../table-types';
+import type { ChartData } from '../table-types';
 
-export const DatasetGdp: AreaChartData = {
-    title: 'Bảng GDP các quốc gia (tỷ USD)',
+export const GdpTrack: ChartData = {
     labels: [2010, 2012, 2014, 2016, 2018, 2020, 2022],
     datasets: [
         {
