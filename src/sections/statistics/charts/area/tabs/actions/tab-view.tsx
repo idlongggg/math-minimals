@@ -1,24 +1,25 @@
+import type { ApexOptions } from 'apexcharts';
+import type { GridColDef } from '@mui/x-data-grid';
 import type { SelectChangeEvent } from '@mui/material';
 import type { TransitionProps } from '@mui/material/transitions';
-import type { GridColDef } from '@mui/x-data-grid';
 
-import dynamic from 'next/dynamic'; // Thêm dòng này
 import React from 'react';
+import dynamic from 'next/dynamic'; // Thêm dòng này
 
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Slide from '@mui/material/Slide';
+import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Toolbar from '@mui/material/Toolbar';
+import MenuItem from '@mui/material/MenuItem';
+import * as xDataGrid from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Slide from '@mui/material/Slide';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import * as xDataGrid from '@mui/x-data-grid';
+import FormControl from '@mui/material/FormControl';
+import DialogContent from '@mui/material/DialogContent';
 
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
@@ -124,12 +125,13 @@ export default function ActionsTab() {
         setOpenDialog(false);
     };
 
-    const chartOptions = React.useMemo(
+    const chartOptions: ApexOptions = React.useMemo(
         () => ({
             chart: {
                 type: 'area',
                 zoom: { enabled: false },
                 toolbar: { show: false },
+                fontFamily: 'inherit',
             },
             dataLabels: { enabled: false },
             stroke: { curve: 'smooth' },
@@ -137,7 +139,8 @@ export default function ActionsTab() {
                 title: { text: currTable.table.xTitle },
                 type: 'numeric',
                 labels: {
-                    formatter: (val: number) => val.toString(),
+                    formatter: (value: string, _timestamp?: number, _opts?: any) =>
+                        value.toString(),
                 },
             },
             yaxis: {
@@ -235,7 +238,7 @@ export default function ActionsTab() {
                         >
                             <CloseIcon />
                         </IconButton>
-                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                        <Typography sx={{ ml: 2, flex: 1 }} variant="h5" component="div">
                             {currTable.table.title}
                         </Typography>
                         <Button
@@ -261,7 +264,7 @@ export default function ActionsTab() {
                     >
                         {Chart && (
                             <Chart
-                                options={chartOptions as any}
+                                options={chartOptions}
                                 series={chartSeries}
                                 type="area"
                                 height="100%"
