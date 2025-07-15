@@ -24,6 +24,8 @@ export default function ActionsTab() {
     const [dataGridHeight, setDataGridHeight] = React.useState(400);
     const [currTable, setCurrTable] = React.useState<DataItem>(DEFAULT_DATA[1]);
     const [openDialog, setOpenDialog] = React.useState(false);
+    // Thêm state để lưu các hàng được chọn
+    const [selectedRows, setSelectedRows] = React.useState<number[]>([]);
 
     const columns: GridColDef[] = [
         {
@@ -63,6 +65,8 @@ export default function ActionsTab() {
     const handleTableChange = (event: SelectChangeEvent) => {
         const key = event.target.value;
         setCurrTable(DEFAULT_DATA.find((item) => item.key === key) || DEFAULT_DATA[0]);
+        // Reset selection khi chuyển bảng
+        setSelectedRows([]);
     };
 
     const handleProcessRowUpdate = React.useCallback((newRow: any, oldRow: any) => {
@@ -93,6 +97,37 @@ export default function ActionsTab() {
         });
         return newRow;
     }, []);
+
+    // Hàm xử lý xóa các hàng được chọn
+    const handleDeleteSelected = React.useCallback(() => {
+        if (selectedRows.length === 0) return;
+
+        setCurrTable((prev) => {
+            // Tạo bản sao sâu của dữ liệu hiện tại
+            const updatedTable = JSON.parse(JSON.stringify(prev)) as DataItem;
+
+            // Lọc ra các chỉ mục không được chọn
+            const keptIndices = prev.table.data.labels
+                .map((_, index) => index)
+                .filter((index) => !selectedRows.includes(index));
+
+            // Cập nhật labels - chỉ giữ lại các hàng không bị chọn
+            updatedTable.table.data.labels = keptIndices.map(
+                (index) => prev.table.data.labels[index]
+            );
+
+            // Cập nhật datasets - chỉ giữ lại dữ liệu từ các hàng không bị chọn
+            updatedTable.table.data.datasets = prev.table.data.datasets.map((dataset) => ({
+                ...dataset,
+                data: keptIndices.map((index) => dataset.data[index]),
+            }));
+
+            return updatedTable;
+        });
+
+        // Reset selection sau khi xóa
+        setSelectedRows([]);
+    }, [selectedRows]);
 
     const handleOpenDialog = () => {
         console.log('Open dialog for chart view', currTable);
@@ -166,7 +201,13 @@ export default function ActionsTab() {
                     </Select>
                 </FormControl>
                 <Box sx={{ display: 'flex', gap: 2 }}>
-                    <Button variant="contained" color="error" startIcon={<CloseIcon />}>
+                    <Button
+                        variant="contained"
+                        color="error"
+                        startIcon={<CloseIcon />}
+                        onClick={handleDeleteSelected}
+                        disabled={selectedRows.length === 0}
+                    >
                         Delete selected
                     </Button>
                     <Button variant="contained" color="success" startIcon={<AddIcon />}>
@@ -195,6 +236,11 @@ export default function ActionsTab() {
                     disableRowSelectionOnClick
                     processRowUpdate={handleProcessRowUpdate}
                     onProcessRowUpdateError={(error) => console.error(error)}
+                    // Thêm xử lý chọn hàng
+                    rowSelectionModel={selectedRows}
+                    onRowSelectionModelChange={(newSelection) => {
+                        setSelectedRows(newSelection as number[]);
+                    }}
                 />
             </Box>
 
