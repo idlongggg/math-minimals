@@ -13,43 +13,43 @@ import { useAuthContext } from '../hooks';
 // ----------------------------------------------------------------------
 
 type GuestGuardProps = {
-  children: React.ReactNode;
+    children: React.ReactNode;
 };
 
 export function GuestGuard({ children }: GuestGuardProps) {
-  const router = useRouter();
-  const { preserveWorkspaceInUrl } = useWorkspaceParam();
+    const router = useRouter();
+    const { preserveWorkspaceInUrl } = useWorkspaceParam();
 
-  const { loading, authenticated } = useAuthContext();
+    const { loading, authenticated } = useAuthContext();
 
-  const searchParams = useSearchParams();
-  const returnTo = searchParams.get('returnTo') || CONFIG.auth.redirectPath;
+    const searchParams = useSearchParams();
+    const returnTo = searchParams.get('returnTo') || CONFIG.auth.redirectPath;
 
-  const [isChecking, setIsChecking] = useState(true);
+    const [isChecking, setIsChecking] = useState(true);
 
-  const checkPermissions = async (): Promise<void> => {
-    if (loading) {
-      return;
+    const checkPermissions = async (): Promise<void> => {
+        if (loading) {
+            return;
+        }
+
+        if (authenticated) {
+            // Preserve workspace parameter when redirecting after authentication
+            const redirectUrl = preserveWorkspaceInUrl(returnTo);
+            router.replace(redirectUrl);
+            return;
+        }
+
+        setIsChecking(false);
+    };
+
+    useEffect(() => {
+        checkPermissions();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [authenticated, loading]);
+
+    if (isChecking) {
+        return <SplashScreen />;
     }
 
-    if (authenticated) {
-      // Preserve workspace parameter when redirecting after authentication
-      const redirectUrl = preserveWorkspaceInUrl(returnTo);
-      router.replace(redirectUrl);
-      return;
-    }
-
-    setIsChecking(false);
-  };
-
-  useEffect(() => {
-    checkPermissions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authenticated, loading]);
-
-  if (isChecking) {
-    return <SplashScreen />;
-  }
-
-  return <>{children}</>;
+    return <>{children}</>;
 }

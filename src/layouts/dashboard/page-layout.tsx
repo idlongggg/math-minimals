@@ -16,87 +16,91 @@ import { DashboardTabs } from 'src/components/custom-tabs/dashboard-tabs';
 import { DashboardContent } from './content';
 
 export type PageLayoutProps = {
-  children: ReactNode;
-  pageKey: string;
-  tabs?: DashboardTabData[];
-  tabValue?: string;
-  onTabChange?: (event: React.SyntheticEvent, newValue: string) => void;
-  tabVariant?: 'standard' | 'scrollable' | 'fullWidth';
-  tabSx?: any;
+    children: ReactNode;
+    pageKey: string;
+    tabs?: DashboardTabData[];
+    tabValue?: string;
+    onTabChange?: (event: React.SyntheticEvent, newValue: string) => void;
+    tabVariant?: 'standard' | 'scrollable' | 'fullWidth';
+    tabSx?: any;
 };
 export function PageLayout({
-  children,
-  pageKey,
-  tabs,
-  tabValue,
-  onTabChange,
-  tabVariant,
-  tabSx,
+    children,
+    pageKey,
+    tabs,
+    tabValue,
+    onTabChange,
+    tabVariant,
+    tabSx,
 }: PageLayoutProps) {
-  const { translate: t } = useLocales();
+    const { translate: t } = useLocales();
 
-  const title = t(`pages.${pageKey}.title`);
-  const description = t(`pages.${pageKey}.description`);
+    const title = t(`pages.${pageKey}.title`);
+    const description = t(`pages.${pageKey}.description`);
 
-  // Responsive: hide title/description if viewport height is too small
-  const [showHeader, setShowHeader] = React.useState(true);
+    // Responsive: hide title/description if viewport height is too small
+    const [showHeader, setShowHeader] = React.useState(true);
 
-  React.useEffect(() => {
-    function handleResize() {
-      setShowHeader(window.innerHeight > 500); // Hide if height <= 500px
-    }
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    React.useEffect(() => {
+        function handleResize() {
+            setShowHeader(window.innerHeight > 500); // Hide if height <= 500px
+        }
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
-  React.useEffect(() => {
-    if (title && typeof title === 'string') {
-      document.title = title;
-    }
-  }, [title]);
+    React.useEffect(() => {
+        if (title && typeof title === 'string') {
+            document.title = title;
+        }
+    }, [title]);
 
-  return (
-    <DashboardContent
-      maxWidth="xl"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height:
-          'calc(100vh - var(--layout-header-desktop-height) - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
-        minHeight: 0,
-        overflow: 'hidden',
-      }}
-    >
-      {showHeader && (
-        <Box sx={{ pb: 1 }}>
-          <Typography variant="h4" component="h1">
-            {title}
-          </Typography>
-          {description && (
-            <Typography
-              variant="body2"
-              sx={{ mt: 1, color: 'text.secondary', fontStyle: 'italic', fontSize: '0.95rem' }}
-            >
-              {description}
-            </Typography>
-          )}
-        </Box>
-      )}
+    return (
+        <DashboardContent
+            maxWidth="xl"
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: 'calc(100vh - var(--layout-header-desktop-height) - var(--layout-dashboard-content-pt) - var(--layout-dashboard-content-pb))',
+                minHeight: 0,
+                overflow: 'hidden',
+            }}
+        >
+            {showHeader && (
+                <Box sx={{ pb: 1 }}>
+                    <Typography variant="h4" component="h1">
+                        {title}
+                    </Typography>
+                    {description && (
+                        <Typography
+                            variant="body2"
+                            sx={{
+                                mt: 1,
+                                color: 'text.secondary',
+                                fontStyle: 'italic',
+                                fontSize: '0.95rem',
+                            }}
+                        >
+                            {description}
+                        </Typography>
+                    )}
+                </Box>
+            )}
 
-      {tabs && tabs.length > 0 && (
-        <Box sx={{ mt: 2 }}>
-          <DashboardTabs
-            tabs={tabs}
-            value={tabValue || tabs[0].value}
-            onChange={onTabChange || (() => {})}
-            variant={tabVariant}
-            sx={tabSx}
-          />
-        </Box>
-      )}
+            {tabs && tabs.length > 0 && (
+                <Box sx={{ mt: 2 }}>
+                    <DashboardTabs
+                        tabs={tabs}
+                        value={tabValue || tabs[0].value}
+                        onChange={onTabChange || (() => {})}
+                        variant={tabVariant}
+                        sx={tabSx}
+                    />
+                </Box>
+            )}
 
-      <Scrollbar sx={{ flex: 1, minHeight: 0, pt: 1, pb: 1, pr: 2 }}>{children}</Scrollbar>
-    </DashboardContent>
-  );
+            <Scrollbar sx={{ flex: 1, minHeight: 0, pt: 1, pb: 1, pr: 2 }}>{children}</Scrollbar>
+        </DashboardContent>
+    );
 }

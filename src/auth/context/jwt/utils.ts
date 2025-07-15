@@ -13,89 +13,89 @@ import type { AuthMethod } from './constant';
 export { createMockUser, generateMockJWT };
 
 export function jwtDecode(token: string) {
-  return mockJwtDecode(token);
+    return mockJwtDecode(token);
 }
 
 // ----------------------------------------------------------------------
 
 export function isValidToken(accessToken: string) {
-  if (!accessToken) {
-    return false;
-  }
-
-  try {
-    const decoded = jwtDecode(accessToken);
-
-    if (!decoded || !('exp' in decoded)) {
-      return false;
+    if (!accessToken) {
+        return false;
     }
 
-    const currentTime = Date.now() / 1000;
+    try {
+        const decoded = jwtDecode(accessToken);
 
-    return decoded.exp > currentTime;
-  } catch (error) {
-    console.error('Error during token validation:', error);
-    return false;
-  }
+        if (!decoded || !('exp' in decoded)) {
+            return false;
+        }
+
+        const currentTime = Date.now() / 1000;
+
+        return decoded.exp > currentTime;
+    } catch (error) {
+        console.error('Error during token validation:', error);
+        return false;
+    }
 }
 
 // ----------------------------------------------------------------------
 
 export function tokenExpired(exp: number) {
-  const currentTime = Date.now();
-  const timeLeft = exp * 1000 - currentTime;
+    const currentTime = Date.now();
+    const timeLeft = exp * 1000 - currentTime;
 
-  setTimeout(() => {
-    try {
-      alert('Token expired!');
-      sessionStorage.removeItem(JWT_STORAGE_KEY);
-      window.location.href = paths.auth.jwt.signIn;
-    } catch (error) {
-      console.error('Error during token expiration:', error);
-      throw error;
-    }
-  }, timeLeft);
+    setTimeout(() => {
+        try {
+            alert('Token expired!');
+            sessionStorage.removeItem(JWT_STORAGE_KEY);
+            window.location.href = paths.auth.jwt.signIn;
+        } catch (error) {
+            console.error('Error during token expiration:', error);
+            throw error;
+        }
+    }, timeLeft);
 }
 
 // ----------------------------------------------------------------------
 
 export async function setSession(accessToken: string | null) {
-  try {
-    if (accessToken) {
-      sessionStorage.setItem(JWT_STORAGE_KEY, accessToken);
+    try {
+        if (accessToken) {
+            sessionStorage.setItem(JWT_STORAGE_KEY, accessToken);
 
-      axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+            axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
-      const decodedToken = jwtDecode(accessToken); // ~3 days by minimals server
+            const decodedToken = jwtDecode(accessToken); // ~3 days by minimals server
 
-      if (decodedToken && 'exp' in decodedToken) {
-        tokenExpired(decodedToken.exp);
-      } else {
-        throw new Error('Invalid access token!');
-      }
-    } else {
-      sessionStorage.removeItem(JWT_STORAGE_KEY);
-      delete axios.defaults.headers.common.Authorization;
+            if (decodedToken && 'exp' in decodedToken) {
+                tokenExpired(decodedToken.exp);
+            } else {
+                throw new Error('Invalid access token!');
+            }
+        } else {
+            sessionStorage.removeItem(JWT_STORAGE_KEY);
+            delete axios.defaults.headers.common.Authorization;
+        }
+    } catch (error) {
+        console.error('Error during set session:', error);
+        throw error;
     }
-  } catch (error) {
-    console.error('Error during set session:', error);
-    throw error;
-  }
 }
 
 // ----------------------------------------------------------------------
 
 export function getCurrentAuthMethod(): AuthMethod {
-  if (typeof window !== 'undefined') {
-    return (sessionStorage.getItem(AUTH_METHOD_STORAGE_KEY) as AuthMethod) || AUTH_METHODS.JWT;
-  }
-  return AUTH_METHODS.JWT;
+    if (typeof window !== 'undefined') {
+        return (sessionStorage.getItem(AUTH_METHOD_STORAGE_KEY) as AuthMethod) || AUTH_METHODS.JWT;
+    }
+    return AUTH_METHODS.JWT;
 }
 
 export function setAuthMethod(method: AuthMethod): void {
-  if (typeof window !== 'undefined') {
-    sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, method);
-  }
+    if (typeof window !== 'undefined') {
+        sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, method);
+    }
 }
 
 // ----------------------------------------------------------------------

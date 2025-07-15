@@ -14,38 +14,38 @@ import { signOut } from 'src/auth/context/jwt/action';
 // ----------------------------------------------------------------------
 
 type Props = ButtonProps & {
-  onClose?: () => void;
+    onClose?: () => void;
 };
 
 export function SignOutButton({ onClose, sx, ...other }: Props) {
-  const router = useRouter();
+    const router = useRouter();
 
-  const { checkUserSession } = useAuthContext();
-  const { translate: t } = useLocales();
+    const { checkUserSession } = useAuthContext();
+    const { translate: t } = useLocales();
 
-  const handleLogout = useCallback(async () => {
-    try {
-      await signOut();
-      await checkUserSession?.();
+    const handleLogout = useCallback(async () => {
+        try {
+            await signOut();
+            await checkUserSession?.();
 
-      onClose?.();
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-    }
-  }, [checkUserSession, onClose, router]);
+            onClose?.();
+            router.refresh();
+        } catch (error) {
+            console.error(error);
+        }
+    }, [checkUserSession, onClose, router]);
 
-  return (
-    <Button
-      fullWidth
-      variant="soft"
-      size="large"
-      color="error"
-      onClick={handleLogout}
-      sx={sx}
-      {...other}
-    >
-      {t('account.logout')}
-    </Button>
-  );
+    return (
+        <Button
+            fullWidth
+            variant="soft"
+            size="large"
+            color="error"
+            onClick={handleLogout}
+            sx={sx}
+            {...other}
+        >
+            {t('account.logout')}
+        </Button>
+    );
 }

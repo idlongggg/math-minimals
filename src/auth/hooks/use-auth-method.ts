@@ -7,19 +7,19 @@ import type { AuthMethod } from '../context/jwt/constant';
 // ----------------------------------------------------------------------
 
 export function useAuthMethod() {
-  const [authMethod, setAuthMethodState] = useState<AuthMethod>(getCurrentAuthMethod());
+    const [authMethod, setAuthMethodState] = useState<AuthMethod>(getCurrentAuthMethod());
 
-  useEffect(() => {
-    setAuthMethodState(getCurrentAuthMethod());
-  }, []);
+    useEffect(() => {
+        setAuthMethodState(getCurrentAuthMethod());
+    }, []);
 
-  const updateAuthMethod = (method: AuthMethod) => {
-    setAuthMethod(method);
-    setAuthMethodState(method);
-  };
+    const updateAuthMethod = (method: AuthMethod) => {
+        setAuthMethod(method);
+        setAuthMethodState(method);
+    };
 
-  return {
-    authMethod,
-    setAuthMethod: updateAuthMethod,
-  };
+    return {
+        authMethod,
+        setAuthMethod: updateAuthMethod,
+    };
 }

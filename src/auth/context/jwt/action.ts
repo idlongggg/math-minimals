@@ -10,59 +10,59 @@ import type { AuthMethod } from './constant';
 // ----------------------------------------------------------------------
 
 export type SignInParams = {
-  email: string;
-  password: string;
-  authMethod?: AuthMethod;
-  mockUserIndex?: number;
+    email: string;
+    password: string;
+    authMethod?: AuthMethod;
+    mockUserIndex?: number;
 };
 
 /** **************************************
  * Sign in
  *************************************** */
 export const signInWithPassword = async ({
-  email,
-  password,
-  authMethod = AUTH_METHODS.JWT,
-  mockUserIndex = 0,
+    email,
+    password,
+    authMethod = AUTH_METHODS.JWT,
+    mockUserIndex = 0,
 }: SignInParams): Promise<void> => {
-  try {
-    // Store auth method
-    sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, authMethod);
-    if (authMethod === AUTH_METHODS.MOCK_JWT) {
-      // Mock JWT sign in with selected user - no validation needed
-      const mockToken = generateMockJWT(mockUserIndex);
-      await setSession(mockToken);
+    try {
+        // Store auth method
+        sessionStorage.setItem(AUTH_METHOD_STORAGE_KEY, authMethod);
+        if (authMethod === AUTH_METHODS.MOCK_JWT) {
+            // Mock JWT sign in with selected user - no validation needed
+            const mockToken = generateMockJWT(mockUserIndex);
+            await setSession(mockToken);
 
-      return;
+            return;
+        }
+
+        // Original JWT sign in
+        const params = { email, password };
+
+        const res = await axios.post(endpoints.auth.signIn, params);
+
+        const { accessToken } = res.data;
+
+        if (!accessToken) {
+            throw new Error('Access token not found in response');
+        }
+
+        setSession(accessToken);
+    } catch (error) {
+        console.error('Error during sign in:', error);
+        throw error;
     }
-
-    // Original JWT sign in
-    const params = { email, password };
-
-    const res = await axios.post(endpoints.auth.signIn, params);
-
-    const { accessToken } = res.data;
-
-    if (!accessToken) {
-      throw new Error('Access token not found in response');
-    }
-
-    setSession(accessToken);
-  } catch (error) {
-    console.error('Error during sign in:', error);
-    throw error;
-  }
 };
 
 /** **************************************
  * Sign out
  *************************************** */
 export const signOut = async (): Promise<void> => {
-  try {
-    await setSession(null);
-    sessionStorage.removeItem(AUTH_METHOD_STORAGE_KEY);
-  } catch (error) {
-    console.error('Error during sign out:', error);
-    throw error;
-  }
+    try {
+        await setSession(null);
+        sessionStorage.removeItem(AUTH_METHOD_STORAGE_KEY);
+    } catch (error) {
+        console.error('Error during sign out:', error);
+        throw error;
+    }
 };

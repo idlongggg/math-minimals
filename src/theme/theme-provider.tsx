@@ -16,21 +16,21 @@ import type { ThemeOptions } from './types';
 // ----------------------------------------------------------------------
 
 export type ThemeProviderProps = Partial<MuiThemeProviderProps> & {
-  themeOverrides?: ThemeOptions;
+    themeOverrides?: ThemeOptions;
 };
 
 export function ThemeProvider({ themeOverrides, children, ...other }: ThemeProviderProps) {
-  const settings = useSettingsContext();
+    const settings = useSettingsContext();
 
-  const theme = createTheme({
-    settingsState: settings.state,
-    themeOverrides,
-  });
+    const theme = createTheme({
+        settingsState: settings.state,
+        themeOverrides,
+    });
 
-  return (
-    <ThemeVarsProvider disableTransitionOnChange theme={theme} {...other}>
-      <CssBaseline />
-      <Rtl direction={settings.state.direction!}>{children}</Rtl>
-    </ThemeVarsProvider>
-  );
+    return (
+        <ThemeVarsProvider disableTransitionOnChange theme={theme} {...other}>
+            <CssBaseline />
+            <Rtl direction={settings.state.direction!}>{children}</Rtl>
+        </ThemeVarsProvider>
+    );
 }

@@ -9,15 +9,15 @@ import { CONFIG } from 'src/global-config';
 // ----------------------------------------------------------------------
 
 export function SignInButton({ sx, ...other }: ButtonProps) {
-  return (
-    <Button
-      component={RouterLink}
-      href={CONFIG.auth.redirectPath}
-      variant="outlined"
-      sx={sx}
-      {...other}
-    >
-      Sign in
-    </Button>
-  );
+    return (
+        <Button
+            component={RouterLink}
+            href={CONFIG.auth.redirectPath}
+            variant="outlined"
+            sx={sx}
+            {...other}
+        >
+            Sign in
+        </Button>
+    );
 }

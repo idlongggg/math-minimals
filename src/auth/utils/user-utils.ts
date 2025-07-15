@@ -11,21 +11,21 @@ import type { UserType } from '../types';
  * @returns User với thông tin đầy đủ
  */
 export function getEnhancedUser(user: UserType): UserType {
-  if (!user) return null;
+    if (!user) return null;
 
-  const authMethod = getCurrentAuthMethod();
+    const authMethod = getCurrentAuthMethod();
 
-  // Đảm bảo user có đủ thông tin cần thiết
-  const enhancedUser = {
-    ...user,
-    // Thêm các thông tin mặc định nếu thiếu
-    role: user.role || 'user',
-    isPublic: user.isPublic ?? true,
-    // Thêm thông tin auth method để debug
-    authMethod,
-  };
+    // Đảm bảo user có đủ thông tin cần thiết
+    const enhancedUser = {
+        ...user,
+        // Thêm các thông tin mặc định nếu thiếu
+        role: user.role || 'user',
+        isPublic: user.isPublic ?? true,
+        // Thêm thông tin auth method để debug
+        authMethod,
+    };
 
-  return enhancedUser;
+    return enhancedUser;
 }
 
 /**
@@ -35,18 +35,18 @@ export function getEnhancedUser(user: UserType): UserType {
  * @returns Boolean
  */
 export function hasAccessToSubject(user: UserType, subject: string): boolean {
-  if (!user) return false;
+    if (!user) return false;
 
-  // Admin có quyền truy cập tất cả
-  if (user.role === 'admin') return true;
+    // Admin có quyền truy cập tất cả
+    if (user.role === 'admin') return true;
 
-  // Kiểm tra access array
-  if (user.access && Array.isArray(user.access)) {
-    return user.access.includes(subject);
-  }
+    // Kiểm tra access array
+    if (user.access && Array.isArray(user.access)) {
+        return user.access.includes(subject);
+    }
 
-  // Fallback: nếu không có access array, cho phép truy cập (backward compatibility)
-  return true;
+    // Fallback: nếu không có access array, cho phép truy cập (backward compatibility)
+    return true;
 }
 
 /**
@@ -55,20 +55,20 @@ export function hasAccessToSubject(user: UserType, subject: string): boolean {
  * @returns Array of subjects
  */
 export function getUserAccessibleSubjects(user: UserType): string[] {
-  if (!user) return [];
+    if (!user) return [];
 
-  // Admin có quyền truy cập tất cả
-  if (user.role === 'admin') {
+    // Admin có quyền truy cập tất cả
+    if (user.role === 'admin') {
+        return ['algebra', 'statistics', 'geometry'];
+    }
+
+    // Trả về access array của user
+    if (user.access && Array.isArray(user.access)) {
+        return user.access;
+    }
+
+    // Fallback: trả về tất cả subjects
     return ['algebra', 'statistics', 'geometry'];
-  }
-
-  // Trả về access array của user
-  if (user.access && Array.isArray(user.access)) {
-    return user.access;
-  }
-
-  // Fallback: trả về tất cả subjects
-  return ['algebra', 'statistics', 'geometry'];
 }
 
 /**
@@ -76,7 +76,7 @@ export function getUserAccessibleSubjects(user: UserType): string[] {
  * @returns Boolean
  */
 export function isUsingMockJWT(): boolean {
-  return getCurrentAuthMethod() === AUTH_METHODS.MOCK_JWT;
+    return getCurrentAuthMethod() === AUTH_METHODS.MOCK_JWT;
 }
 
 /**
@@ -85,14 +85,14 @@ export function isUsingMockJWT(): boolean {
  * @param context - Context string for logging
  */
 export function debugUserInfo(user: UserType, context?: string): void {
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`[${context || 'User Debug'}]:`, {
-      id: user?.id,
-      displayName: user?.displayName,
-      email: user?.email,
-      role: user?.role,
-      access: user?.access,
-      authMethod: getCurrentAuthMethod(),
-    });
-  }
+    if (process.env.NODE_ENV === 'development') {
+        console.log(`[${context || 'User Debug'}]:`, {
+            id: user?.id,
+            displayName: user?.displayName,
+            email: user?.email,
+            role: user?.role,
+            access: user?.access,
+            authMethod: getCurrentAuthMethod(),
+        });
+    }
 }

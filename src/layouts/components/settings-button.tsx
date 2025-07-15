@@ -13,33 +13,33 @@ import { varTap, varHover, transitionTap } from 'src/components/animate';
 // ----------------------------------------------------------------------
 
 export function SettingsButton({ sx, ...other }: IconButtonProps) {
-  const settings = useSettingsContext();
+    const settings = useSettingsContext();
 
-  return (
-    <IconButton
-      component={m.button}
-      whileTap={varTap(0.96)}
-      whileHover={varHover(1.04)}
-      transition={transitionTap()}
-      aria-label="Settings button"
-      onClick={settings.onToggleDrawer}
-      sx={[{ p: 0, width: 40, height: 40 }, ...(Array.isArray(sx) ? sx : [sx])]}
-      {...other}
-    >
-      <Badge color="error" variant="dot" invisible={!settings.canReset}>
-        <m.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 8, ease: 'linear', repeat: Infinity }}
+    return (
+        <IconButton
+            component={m.button}
+            whileTap={varTap(0.96)}
+            whileHover={varHover(1.04)}
+            transition={transitionTap()}
+            aria-label="Settings button"
+            onClick={settings.onToggleDrawer}
+            sx={[{ p: 0, width: 40, height: 40 }, ...(Array.isArray(sx) ? sx : [sx])]}
+            {...other}
         >
-          <SettingsIcon
-            sx={{
-              width: 24,
-              height: 24,
-              display: 'block',
-            }}
-          />
-        </m.div>
-      </Badge>
-    </IconButton>
-  );
+            <Badge color="error" variant="dot" invisible={!settings.canReset}>
+                <m.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 8, ease: 'linear', repeat: Infinity }}
+                >
+                    <SettingsIcon
+                        sx={{
+                            width: 24,
+                            height: 24,
+                            display: 'block',
+                        }}
+                    />
+                </m.div>
+            </Badge>
+        </IconButton>
+    );
 }

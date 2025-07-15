@@ -20,76 +20,80 @@ import { AuthProvider } from 'src/auth/context/jwt';
 // ----------------------------------------------------------------------
 
 export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  themeColor: primary.main,
+    width: 'device-width',
+    initialScale: 1,
+    themeColor: primary.main,
 };
 
 export const metadata: Metadata = {
-  icons: [
-    {
-      rel: 'icon',
-      url: `${CONFIG.assetsDir}/favicon.ico`,
-    },
-  ],
+    icons: [
+        {
+            rel: 'icon',
+            url: `${CONFIG.assetsDir}/favicon.ico`,
+        },
+    ],
 };
 
 // ----------------------------------------------------------------------
 
 type RootLayoutProps = {
-  children: React.ReactNode;
+    children: React.ReactNode;
 };
 
 async function getAppConfig() {
-  if (CONFIG.isStaticExport) {
-    return {
-      cookieSettings: undefined,
-      dir: defaultSettings.direction,
-    };
-  } else {
-    const [settings] = await Promise.all([detectSettings()]);
+    if (CONFIG.isStaticExport) {
+        return {
+            cookieSettings: undefined,
+            dir: defaultSettings.direction,
+        };
+    } else {
+        const [settings] = await Promise.all([detectSettings()]);
 
-    return {
-      cookieSettings: settings,
-      dir: settings.direction,
-    };
-  }
+        return {
+            cookieSettings: settings,
+            dir: settings.direction,
+        };
+    }
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
-  const appConfig = await getAppConfig();
+    const appConfig = await getAppConfig();
 
-  return (
-    <html lang="en" dir={appConfig.dir} suppressHydrationWarning>
-      <body>
-        <InitColorSchemeScript
-          modeStorageKey={themeConfig.modeStorageKey}
-          attribute={themeConfig.cssVariables.colorSchemeSelector}
-          defaultMode={themeConfig.enableSystemMode ? 'system' : themeConfig.defaultMode}
-        />
+    return (
+        <html lang="en" dir={appConfig.dir} suppressHydrationWarning>
+            <body>
+                <InitColorSchemeScript
+                    modeStorageKey={themeConfig.modeStorageKey}
+                    attribute={themeConfig.cssVariables.colorSchemeSelector}
+                    defaultMode={themeConfig.enableSystemMode ? 'system' : themeConfig.defaultMode}
+                />
 
-        <AuthProvider>
-          <LocalizationProvider>
-            <SettingsProvider
-              cookieSettings={appConfig.cookieSettings}
-              defaultSettings={defaultSettings}
-            >
-              <AppRouterCacheProvider options={{ key: 'css' }}>
-                <ThemeProvider
-                  modeStorageKey={themeConfig.modeStorageKey}
-                  defaultMode={themeConfig.enableSystemMode ? 'system' : themeConfig.defaultMode}
-                >
-                  <MotionLazy>
-                    <ProgressBar />
-                    <SettingsDrawer defaultSettings={defaultSettings} />
-                    {children}
-                  </MotionLazy>
-                </ThemeProvider>
-              </AppRouterCacheProvider>
-            </SettingsProvider>
-          </LocalizationProvider>
-        </AuthProvider>
-      </body>
-    </html>
-  );
+                <AuthProvider>
+                    <LocalizationProvider>
+                        <SettingsProvider
+                            cookieSettings={appConfig.cookieSettings}
+                            defaultSettings={defaultSettings}
+                        >
+                            <AppRouterCacheProvider options={{ key: 'css' }}>
+                                <ThemeProvider
+                                    modeStorageKey={themeConfig.modeStorageKey}
+                                    defaultMode={
+                                        themeConfig.enableSystemMode
+                                            ? 'system'
+                                            : themeConfig.defaultMode
+                                    }
+                                >
+                                    <MotionLazy>
+                                        <ProgressBar />
+                                        <SettingsDrawer defaultSettings={defaultSettings} />
+                                        {children}
+                                    </MotionLazy>
+                                </ThemeProvider>
+                            </AppRouterCacheProvider>
+                        </SettingsProvider>
+                    </LocalizationProvider>
+                </AuthProvider>
+            </body>
+        </html>
+    );
 }

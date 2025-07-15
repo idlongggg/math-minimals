@@ -21,78 +21,78 @@ import type { AuthState } from '../../types';
  */
 
 type Props = {
-  children: React.ReactNode;
+    children: React.ReactNode;
 };
 
 export function AuthProvider({ children }: Props) {
-  const { state, setState } = useSetState<AuthState>({ user: null, loading: true });
+    const { state, setState } = useSetState<AuthState>({ user: null, loading: true });
 
-  const checkUserSession = useCallback(async () => {
-    try {
-      const accessToken = sessionStorage.getItem(JWT_STORAGE_KEY);
-      const authMethod = sessionStorage.getItem(AUTH_METHOD_STORAGE_KEY);
+    const checkUserSession = useCallback(async () => {
+        try {
+            const accessToken = sessionStorage.getItem(JWT_STORAGE_KEY);
+            const authMethod = sessionStorage.getItem(AUTH_METHOD_STORAGE_KEY);
 
-      if (accessToken && isValidToken(accessToken)) {
-        setSession(accessToken);
+            if (accessToken && isValidToken(accessToken)) {
+                setSession(accessToken);
 
-        if (authMethod === AUTH_METHODS.MOCK_JWT) {
-          // Sử dụng mock JWT - lấy thông tin user từ token
-          const mockUser = createMockUser(accessToken);
-          const enhancedUser = getEnhancedUser(mockUser);
-          debugUserInfo(enhancedUser, 'Mock JWT User');
-          setState({ user: enhancedUser, loading: false });
-        } else {
-          // Sử dụng real JWT - gọi API để lấy thông tin user
-          try {
-            const res = await axios.get(endpoints.auth.me);
-            const { user } = res.data;
-            const enhancedUser = getEnhancedUser({ ...user, accessToken });
-            debugUserInfo(enhancedUser, 'Real JWT User');
-            setState({ user: enhancedUser, loading: false });
-          } catch (error) {
-            console.error('Error getting user info from API:', error);
-            // Nếu API lỗi, thử decode token để lấy thông tin cơ bản
-            try {
-              const decodedToken = createMockUser(accessToken);
-              const enhancedUser = getEnhancedUser(decodedToken);
-              debugUserInfo(enhancedUser, 'Fallback JWT User');
-              setState({ user: enhancedUser, loading: false });
-            } catch (decodeError) {
-              console.error('Error decoding token:', decodeError);
-              setState({ user: null, loading: false });
+                if (authMethod === AUTH_METHODS.MOCK_JWT) {
+                    // Sử dụng mock JWT - lấy thông tin user từ token
+                    const mockUser = createMockUser(accessToken);
+                    const enhancedUser = getEnhancedUser(mockUser);
+                    debugUserInfo(enhancedUser, 'Mock JWT User');
+                    setState({ user: enhancedUser, loading: false });
+                } else {
+                    // Sử dụng real JWT - gọi API để lấy thông tin user
+                    try {
+                        const res = await axios.get(endpoints.auth.me);
+                        const { user } = res.data;
+                        const enhancedUser = getEnhancedUser({ ...user, accessToken });
+                        debugUserInfo(enhancedUser, 'Real JWT User');
+                        setState({ user: enhancedUser, loading: false });
+                    } catch (error) {
+                        console.error('Error getting user info from API:', error);
+                        // Nếu API lỗi, thử decode token để lấy thông tin cơ bản
+                        try {
+                            const decodedToken = createMockUser(accessToken);
+                            const enhancedUser = getEnhancedUser(decodedToken);
+                            debugUserInfo(enhancedUser, 'Fallback JWT User');
+                            setState({ user: enhancedUser, loading: false });
+                        } catch (decodeError) {
+                            console.error('Error decoding token:', decodeError);
+                            setState({ user: null, loading: false });
+                        }
+                    }
+                }
+            } else {
+                setState({ user: null, loading: false });
             }
-          }
+        } catch (error) {
+            console.error('Error during session check:', error);
+            setState({ user: null, loading: false });
         }
-      } else {
-        setState({ user: null, loading: false });
-      }
-    } catch (error) {
-      console.error('Error during session check:', error);
-      setState({ user: null, loading: false });
-    }
-  }, [setState]);
+    }, [setState]);
 
-  useEffect(() => {
-    checkUserSession();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    useEffect(() => {
+        checkUserSession();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-  // ----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
 
-  const checkAuthenticated = state.user ? 'authenticated' : 'unauthenticated';
+    const checkAuthenticated = state.user ? 'authenticated' : 'unauthenticated';
 
-  const status = state.loading ? 'loading' : checkAuthenticated;
+    const status = state.loading ? 'loading' : checkAuthenticated;
 
-  const memoizedValue = useMemo(
-    () => ({
-      user: state.user ? { ...state.user, role: state.user?.role ?? 'admin' } : null,
-      checkUserSession,
-      loading: status === 'loading',
-      authenticated: status === 'authenticated',
-      unauthenticated: status === 'unauthenticated',
-    }),
-    [checkUserSession, state.user, status]
-  );
+    const memoizedValue = useMemo(
+        () => ({
+            user: state.user ? { ...state.user, role: state.user?.role ?? 'admin' } : null,
+            checkUserSession,
+            loading: status === 'loading',
+            authenticated: status === 'authenticated',
+            unauthenticated: status === 'unauthenticated',
+        }),
+        [checkUserSession, state.user, status]
+    );
 
-  return <AuthContext value={memoizedValue}>{children}</AuthContext>;
+    return <AuthContext value={memoizedValue}>{children}</AuthContext>;
 }

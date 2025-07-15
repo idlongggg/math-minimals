@@ -8,21 +8,21 @@ import { GuestGuard } from 'src/auth/guard';
 // ----------------------------------------------------------------------
 
 type Props = {
-  children: React.ReactNode;
+    children: React.ReactNode;
 };
 
 export default function Layout({ children }: Props) {
-  const { translate } = useLocales();
+    const { translate } = useLocales();
 
-  return (
-    <GuestGuard>
-      <AuthSplitLayout
-        slotProps={{
-          section: { title: translate('auth.welcome') },
-        }}
-      >
-        {children}
-      </AuthSplitLayout>
-    </GuestGuard>
-  );
+    return (
+        <GuestGuard>
+            <AuthSplitLayout
+                slotProps={{
+                    section: { title: translate('auth.welcome') },
+                }}
+            >
+                {children}
+            </AuthSplitLayout>
+        </GuestGuard>
+    );
 }

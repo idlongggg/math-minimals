@@ -7,30 +7,30 @@ import type { AuthMethod } from '../context/jwt/constant';
 // ----------------------------------------------------------------------
 
 export function useCurrentAuthMethod() {
-  const [currentAuthMethod, setCurrentAuthMethod] = useState<AuthMethod>(getCurrentAuthMethod());
+    const [currentAuthMethod, setCurrentAuthMethod] = useState<AuthMethod>(getCurrentAuthMethod());
 
-  useEffect(() => {
-    const checkAuthMethod = () => {
-      const method = getCurrentAuthMethod();
-      setCurrentAuthMethod(method);
-    };
+    useEffect(() => {
+        const checkAuthMethod = () => {
+            const method = getCurrentAuthMethod();
+            setCurrentAuthMethod(method);
+        };
 
-    // Check immediately
-    checkAuthMethod();
-
-    // Listen for storage changes
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === 'auth_method') {
+        // Check immediately
         checkAuthMethod();
-      }
-    };
 
-    window.addEventListener('storage', handleStorageChange);
+        // Listen for storage changes
+        const handleStorageChange = (event: StorageEvent) => {
+            if (event.key === 'auth_method') {
+                checkAuthMethod();
+            }
+        };
 
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
+        window.addEventListener('storage', handleStorageChange);
 
-  return currentAuthMethod;
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
+
+    return currentAuthMethod;
 }

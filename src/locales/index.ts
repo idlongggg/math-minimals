@@ -3,9 +3,9 @@ import vi from './vi.json';
 import zh from './zh.json';
 
 export const locales = {
-  vi,
-  en,
-  zh,
+    vi,
+    en,
+    zh,
 } as const;
 
 export type LocaleKey = keyof typeof locales;

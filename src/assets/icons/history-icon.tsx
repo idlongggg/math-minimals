@@ -3,42 +3,42 @@ import type { SvgIconProps } from '@mui/material/SvgIcon';
 import SvgIcon from '@mui/material/SvgIcon';
 
 export function HistoryIcon({ sx, ...other }: SvgIconProps) {
-  return (
-    <SvgIcon sx={sx} {...other} viewBox="0 0 24 24">
-      <g fill="none">
-        <path
-          fill="url(#fluentColorHistory240)"
-          d="M12 7a1 1 0 0 1 1 1v3h2a1 1 0 1 1 0 2h-3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1"
-        />
-        <path
-          fill="url(#fluentColorHistory241)"
-          d="M12 5a7 7 0 1 1-6.946 6.124a1 1 0 1 0-1.984-.248Q3 11.43 3 12a9 9 0 1 0 4-7.484V4a1 1 0 0 0-2 0v3a1 1 0 0 0 1 1h3a1 1 0 0 0 0-2h-.608A6.97 6.97 0 0 1 12 5"
-        />
-        <defs>
-          <linearGradient
-            id="fluentColorHistory240"
-            x1={10.156}
-            x2={22.094}
-            y1={18.45}
-            y2={13.414}
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#d373fc" />
-            <stop offset={1} stopColor="#6d37cd" />
-          </linearGradient>
-          <linearGradient
-            id="fluentColorHistory241"
-            x1={3}
-            x2={7.831}
-            y1={4.059}
-            y2={24.288}
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#0fafff" />
-            <stop offset={1} stopColor="#0067bf" />
-          </linearGradient>
-        </defs>
-      </g>
-    </SvgIcon>
-  );
+    return (
+        <SvgIcon sx={sx} {...other} viewBox="0 0 24 24">
+            <g fill="none">
+                <path
+                    fill="url(#fluentColorHistory240)"
+                    d="M12 7a1 1 0 0 1 1 1v3h2a1 1 0 1 1 0 2h-3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1"
+                />
+                <path
+                    fill="url(#fluentColorHistory241)"
+                    d="M12 5a7 7 0 1 1-6.946 6.124a1 1 0 1 0-1.984-.248Q3 11.43 3 12a9 9 0 1 0 4-7.484V4a1 1 0 0 0-2 0v3a1 1 0 0 0 1 1h3a1 1 0 0 0 0-2h-.608A6.97 6.97 0 0 1 12 5"
+                />
+                <defs>
+                    <linearGradient
+                        id="fluentColorHistory240"
+                        x1={10.156}
+                        x2={22.094}
+                        y1={18.45}
+                        y2={13.414}
+                        gradientUnits="userSpaceOnUse"
+                    >
+                        <stop stopColor="#d373fc" />
+                        <stop offset={1} stopColor="#6d37cd" />
+                    </linearGradient>
+                    <linearGradient
+                        id="fluentColorHistory241"
+                        x1={3}
+                        x2={7.831}
+                        y1={4.059}
+                        y2={24.288}
+                        gradientUnits="userSpaceOnUse"
+                    >
+                        <stop stopColor="#0fafff" />
+                        <stop offset={1} stopColor="#0067bf" />
+                    </linearGradient>
+                </defs>
+            </g>
+        </SvgIcon>
+    );
 }

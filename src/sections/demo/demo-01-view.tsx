@@ -7,17 +7,17 @@ import Tab2 from './tabs/tab-2';
 import Tab3 from './tabs/tab-3';
 
 export function Demo01View({ currentTab }: { currentTab: string }) {
-  const tabContent: Record<string, React.ReactNode> = {
-    tab1: <Tab1 />,
-    tab2: <Tab2 />,
-    tab3: <Tab3 />,
-  };
+    const tabContent: Record<string, React.ReactNode> = {
+        tab1: <Tab1 />,
+        tab2: <Tab2 />,
+        tab3: <Tab3 />,
+    };
 
-  return (
-    <Card>
-      <CardContent>{tabContent[currentTab]}</CardContent>
-    </Card>
-  );
+    return (
+        <Card>
+            <CardContent>{tabContent[currentTab]}</CardContent>
+        </Card>
+    );
 }
 
 export default Demo01View;
