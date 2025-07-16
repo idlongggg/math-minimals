@@ -231,48 +231,44 @@
             "charts": {
                 "line": {
                     "title": "Biểu đồ đường",
-                    "description": "Trang biểu đồ đường trong mục thống kê, gồm các tab tổng quát, thao tác và lịch sử.",
-                    "featureTitle": "Đặc điểm nổi bật",
-                    "features": {
-                        "feature1": "Thể hiện rõ xu hướng, biến động của dữ liệu theo thời gian.",
-                        "feature2": "Phù hợp với dữ liệu liên tục, chuỗi thời gian (time series).",
-                        "feature3": "Có thể so sánh nhiều tập dữ liệu trên cùng một biểu đồ.",
-                        "feature4": "Dễ nhận biết các điểm cực trị, điểm giao nhau giữa các đường."
-                    },
-                    "applicationTitle": "Ứng dụng thực tiễn",
-                    "applicationDesc": "Biểu đồ đường thường được sử dụng trong phân tích tài chính, thống kê, theo dõi số liệu kinh doanh, khoa học, kỹ thuật và nhiều lĩnh vực khác để minh họa sự thay đổi của dữ liệu theo thời gian. Ngoài ra, nó còn giúp phát hiện các xu hướng, chu kỳ, điểm bất thường hoặc dự báo tương lai dựa trên dữ liệu lịch sử.",
-                    "tab": {
+                    "description": "Trang biểu đồ đường trong mục thống kê, gồm các tab tổng quát và thao tác.",
+                    "tabs": {
                         "overview": "Tổng quát",
                         "actions": "Thao tác"
                     },
-                    "actionsTab": {
-                        "dataset": "Bộ dữ liệu",
-                        "blankTable": "Bảng dữ liệu trống",
-                        "deleteRows": "Xóa hàng",
-                        "addRow": "Thêm hàng",
-                        "addColumn": "Thêm cột",
-                        "viewChart": "Xem biểu đồ",
-                        "close": "Đóng",
-                        "newColumnDialogTitle": "Thêm cột mới",
-                        "columnName": "Tên cột",
-                        "cancel": "Hủy",
-                        "noDataTitle": "Chưa có dữ liệu để hiển thị",
-                        "noDataDescription": "Hãy thêm dữ liệu hoặc chọn một dataset khác",
-                        "renameColumn": "Đổi tên cột",
-                        "deleteColumn": "Xóa cột",
-                        "year": "Năm",
-                        "gdpValue": "GDP (tỷ USD)",
-                        "voteCount": "Số phiếu bầu",
-                        "season": "Mùa giải",
-                        "goals": "Số bàn thắng",
-                        "column1": "Cột 1",
-                        "column2": "Cột 2"
+                    "overview": {
+                        "title": "Tổng quát",
+                        "description": "Biểu đồ đường là một dạng biểu đồ thể hiện dữ liệu theo chuỗi thời gian hoặc thứ tự, giúp trực quan hóa xu hướng và biến động của dữ liệu.",
+                        "featuresTitle": "Đặc điểm nổi bật",
+                        "features": {
+                            "feature1": "Thể hiện rõ xu hướng và biến động của dữ liệu theo thời gian.",
+                            "feature2": "Phù hợp với dữ liệu liên tục và có thể so sánh nhiều tập dữ liệu.",
+                            "feature3": "Dễ dàng nhận biết các điểm cao, thấp và xu hướng chung.",
+                            "feature4": "Có thể kết hợp với các biểu đồ khác để tăng tính trực quan."
+                        },
+                        "applicationTitle": "Ứng dụng thực tiễn",
+                        "applicationDesc": "Biểu đồ đường thường được sử dụng trong phân tích dữ liệu kinh doanh, tài chính, khoa học và kỹ thuật để minh họa xu hướng và biến động của dữ liệu theo thời gian. Nó giúp người dùng dễ dàng nhận biết các điểm cao, thấp và xu hướng chung, từ đó đưa ra quyết định chính xác hơn."
                     },
-                    "datasets": {
-                        "blank": "Bảng dữ liệu trống",
-                        "gdp": "Bộ dữ liệu GDP",
-                        "election": "Bộ dữ liệu bầu cử",
-                        "football": "Bộ dữ liệu bóng đá"
+                    "actions": {
+                        "tab-view": {
+                            "dataset": "Dữ liệu",
+                            "blankTable": "Bảng dữ liệu trống",
+                            "deleteRows": "Xóa các hàng",
+                            "addRow": "Thêm hàng mới",
+                            "addColumn": "Thêm cột mới",
+                            "viewChart": "Xem biểu đồ",
+                            "noDataTitle": "Không có dữ liệu để hiển thị",
+                            "noDataDescription": "Thêm dữ liệu hoặc chọn tập dữ liệu khác"
+                        },
+                        "data-selector": {
+                            "label": "Dữ liệu"
+                        },
+                        "action-button": {
+                            "deleteSelected": "Xóa các mục đã chọn",
+                            "addNewRow": "Thêm hàng mới",
+                            "addNewColumn": "Thêm cột mới",
+                            "viewChart": "Xem biểu đồ"
+                        }
                     }
                 },
                 "area": {

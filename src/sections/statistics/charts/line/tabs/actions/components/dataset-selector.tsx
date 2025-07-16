@@ -22,12 +22,12 @@ export default function DatasetSelector({ currTable, onTableChange }: DatasetSel
     return (
         <FormControl size="small" sx={{ minWidth: 120, width: 320 }}>
             <InputLabel id="dataset-select-label">
-                {t('pages.statistics.charts.area.actions.data-selector.label')}
+                {t('pages.statistics.charts.line.actions.data-selector.label')}
             </InputLabel>
             <Select
                 labelId="dataset-select-label"
                 value={currTable.key}
-                label={t('pages.statistics.charts.area.actions.data-selector.label')}
+                label={t('pages.statistics.charts.line.actions.data-selector.label')}
                 onChange={onTableChange}
             >
                 {DEFAULT_DATA.map((d) => (

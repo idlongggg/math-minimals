@@ -30,7 +30,7 @@ export default function ActionButtons({
                     startIcon={<CloseIcon />}
                     onClick={onDeleteSelected}
                 >
-                    {t('pages.statistics.charts.area.actions.action-button.deleteSelected')}
+                    {t('pages.statistics.charts.line.actions.action-button.deleteSelected')}
                 </Button>
             )}
             <Button
@@ -39,7 +39,7 @@ export default function ActionButtons({
                 startIcon={<AddIcon />}
                 onClick={onAddNewRow}
             >
-                {t('pages.statistics.charts.area.actions.action-button.addNewRow')}
+                {t('pages.statistics.charts.line.actions.action-button.addNewRow')}
             </Button>
             <Button
                 variant="contained"
@@ -47,7 +47,7 @@ export default function ActionButtons({
                 startIcon={<AddIcon />}
                 onClick={onAddNewColumn}
             >
-                {t('pages.statistics.charts.area.actions.action-button.addNewColumn')}
+                {t('pages.statistics.charts.line.actions.action-button.addNewColumn')}
             </Button>
             <Button
                 variant="contained"
@@ -55,7 +55,7 @@ export default function ActionButtons({
                 startIcon={<SearchSparkleIcon />}
                 onClick={onViewChart}
             >
-                {t('pages.statistics.charts.area.actions.action-button.viewChart')}
+                {t('pages.statistics.charts.line.actions.action-button.viewChart')}
             </Button>
         </Box>
     );

@@ -65,7 +65,7 @@ export default function ChartDialog({
                         {currTable.table.title}
                     </Typography>
                     <Button autoFocus variant="contained" color="error" onClick={onClose}>
-                        {t('pages.statistics.charts.area.actions.chart-dialog.close')}
+                        {t('pages.statistics.charts.line.actions.chart-dialog.close')}
                     </Button>
                 </Toolbar>
             </AppBar>
