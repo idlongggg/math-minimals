@@ -1,9 +1,13 @@
 import type { SelectChangeEvent } from '@mui/material';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
+
 import Select from '@mui/material/Select';
-import { DataItem, DEFAULT_DATA } from '../data/data-constants';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+
+import { DEFAULT_DATA } from '../data/data-constants';
+
+import type { DataItem } from '../data/data-constants';
 
 interface DatasetSelectorProps {
     currTable: DataItem;

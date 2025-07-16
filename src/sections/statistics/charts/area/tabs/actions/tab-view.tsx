@@ -1,17 +1,18 @@
-// src/tab-view.tsx
-import type { GridColDef } from '@mui/x-data-grid';
 import type { ApexOptions } from 'apexcharts';
+import type { GridColDef } from '@mui/x-data-grid';
+import type { SelectChangeEvent } from '@mui/material';
+
+import React from 'react';
 
 import Box from '@mui/material/Box';
 import * as xDataGrid from '@mui/x-data-grid';
-import React from 'react';
 
-import ActionButtons from './components/action-button';
 import ChartDialog from './components/chart-dialog';
+import { DEFAULT_DATA } from './data/data-constants';
+import ActionButtons from './components/action-button';
 import DatasetSelector from './components/dataset-selector';
 
-import { SelectChangeEvent } from '@mui/material';
-import { DataItem, DEFAULT_DATA } from './data/data-constants';
+import type { DataItem } from './data/data-constants';
 
 export default function ActionsTab() {
     const containerRef = React.useRef<HTMLDivElement>(null);
@@ -213,11 +214,8 @@ export default function ActionsTab() {
                     mb: 2,
                 }}
             >
-                <DatasetSelector 
-                    currTable={currTable} 
-                    onTableChange={handleTableChange} 
-                />
-                
+                <DatasetSelector currTable={currTable} onTableChange={handleTableChange} />
+
                 <ActionButtons
                     selectedRows={selectedRows}
                     onDeleteSelected={handleDeleteSelected}

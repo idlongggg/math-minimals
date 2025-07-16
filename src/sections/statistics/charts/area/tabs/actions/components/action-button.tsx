@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
 interface ActionButtonsProps {

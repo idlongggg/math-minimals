@@ -1,21 +1,22 @@
-import type { TransitionProps } from '@mui/material/transitions';
 import type { ApexOptions } from 'apexcharts';
+import type { TransitionProps } from '@mui/material/transitions';
 
-import dynamic from 'next/dynamic';
 import React from 'react';
+import dynamic from 'next/dynamic';
 
+import Box from '@mui/material/Box';
 import { Slide } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import DialogContent from '@mui/material/DialogContent';
 
 import { CloseIcon } from 'src/assets/icons';
-import { DataItem } from '../data/data-constants';
+
+import type { DataItem } from '../data/data-constants';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 

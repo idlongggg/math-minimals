@@ -1,6 +1,7 @@
-import { FootyWC, GdpTrack, VoteTrend } from "./_mock";
-import { Empty } from "./_mock/empty";
-import { ChartWrap } from "./table-types";
+import { Empty } from './_mock/empty';
+import { FootyWC, GdpTrack, VoteTrend } from './_mock';
+
+import type { ChartWrap } from './table-types';
 
 export type DataItem = {
     key: string;
