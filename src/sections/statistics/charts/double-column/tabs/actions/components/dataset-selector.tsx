@@ -32,7 +32,7 @@ export default function DatasetSelector({ currTable, onTableChange }: DatasetSel
             >
                 {DEFAULT_DATA.map((d) => (
                     <MenuItem key={d.key} value={d.key}>
-                        {d.key === 'empty' ? <em>{d.table.title}</em> : d.table.title}
+                        {d.key === 'empty' ? <strong>{d.table.title}</strong> : d.table.title}
                     </MenuItem>
                 ))}
             </Select>
