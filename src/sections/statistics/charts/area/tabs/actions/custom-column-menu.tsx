@@ -2,7 +2,6 @@ import type { GridColumnMenuProps } from '@mui/x-data-grid';
 
 import React from 'react';
 
-// custom-column-menu.tsx
 import { Button, MenuItem, TextField } from '@mui/material';
 import { useGridApiContext, GridColumnMenuContainer } from '@mui/x-data-grid';
 
@@ -11,6 +10,7 @@ import { EditIcon, CloseIcon } from 'src/assets/icons';
 
 interface CustomColumnMenuProps extends GridColumnMenuProps {
     onDeleteColumn?: (field: string) => void;
+    onRenameColumn?: (field: string, newName: string) => void;
 }
 
 export default function CustomColumnMenu({
@@ -18,6 +18,7 @@ export default function CustomColumnMenu({
     colDef,
     open,
     onDeleteColumn,
+    onRenameColumn,
 }: CustomColumnMenuProps) {
     const { translate: t } = useLocales();
     const apiRef = useGridApiContext();
@@ -27,6 +28,7 @@ export default function CustomColumnMenu({
     const handleRename = (event?: React.SyntheticEvent) => {
         if (!colDef.field) return;
         apiRef.current.updateColumns([{ field: colDef.field, headerName: newName }]);
+        onRenameColumn?.(colDef.field, newName);
         setEditing(false);
         if (hideMenu) hideMenu(event || ({} as React.SyntheticEvent));
     };
@@ -36,7 +38,7 @@ export default function CustomColumnMenu({
             if (hideMenu) hideMenu(event);
             return;
         }
-        onDeleteColumn?.(colDef.field); // Gọi callback để xóa cột
+        onDeleteColumn?.(colDef.field);
         if (hideMenu) hideMenu(event);
     };
 

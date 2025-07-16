@@ -169,6 +169,19 @@ export default function ActionsTab() {
         });
     }, []);
 
+    const handleRenameColumn = React.useCallback((field: string, newName: string) => {
+        setCurrTable((prev) => {
+            const updatedTable = JSON.parse(JSON.stringify(prev)) as DataItem;
+            const datasetIndex = updatedTable.table.data.datasets.findIndex(
+                (dataset) => dataset.label === field
+            );
+            if (datasetIndex !== -1) {
+                updatedTable.table.data.datasets[datasetIndex].label = newName;
+            }
+            return updatedTable;
+        });
+    }, []);
+
     const handleOpenDialog = () => {
         console.log('Open dialog for chart view', currTable);
         setOpenDialog(true);
@@ -251,7 +264,11 @@ export default function ActionsTab() {
                     }}
                     slots={{
                         columnMenu: (props) => (
-                            <CustomColumnMenu {...props} onDeleteColumn={handleDeleteColumn} />
+                            <CustomColumnMenu
+                                {...props}
+                                onDeleteColumn={handleDeleteColumn}
+                                onRenameColumn={handleRenameColumn}
+                            />
                         ),
                     }}
                 />
