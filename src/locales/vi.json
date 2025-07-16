@@ -462,6 +462,56 @@
                             "close": "Đóng"
                         }
                     }
+                },
+                "stacked-column": {
+                    "title": "Biểu đồ cột chồng",
+                    "description": "Trang biểu đồ cột chồng trong thống kê, bao gồm các tab tổng quan và hành động.",
+                    "tabs": {
+                        "overview": "Tổng quan",
+                        "actions": "Hành động"
+                    },
+                    "overview": {
+                        "title": "Tổng quan về Biểu đồ cột chồng",
+                        "description": "Phần này cung cấp tổng quan về biểu đồ cột chồng, bao gồm các tính năng và ứng dụng của nó.",
+                        "featuresTitle": "Các tính năng chính",
+                        "features": {
+                            "feature1": "Hiển thị dữ liệu dưới dạng cột chồng cho mỗi danh mục.",
+                            "feature2": "Hữu ích để hiển thị tổng và các đóng góp riêng lẻ của các tập dữ liệu khác nhau.",
+                            "feature3": "Có thể đại diện cho cả dữ liệu rời rạc và liên tục.",
+                            "feature4": "Dễ đọc và hiểu ngay lập tức."
+                        },
+                        "applicationTitle": "Các ứng dụng thực tiễn",
+                        "applicationDesc": "Biểu đồ cột chồng thường được sử dụng trong các báo cáo kinh doanh, khảo sát và tài liệu giáo dục để đại diện trực quan cho dữ liệu một cách đơn giản. Chúng giúp so sánh nhanh chóng các giá trị giữa các danh mục hoặc nhóm."
+                    },
+                    "actions": {
+                        "tab-view": {
+                            "dataset": "Tập dữ liệu",
+                            "blankTable": "Bảng dữ liệu trống",
+                            "deleteRows": "Xóa hàng",
+                            "addRow": "Thêm hàng",
+                            "addColumn": "Thêm cột",
+                            "viewChart": "Xem biểu đồ",
+                            "noDataTitle": "Không có dữ liệu để hiển thị",
+                            "noDataDescription": "Thêm dữ liệu hoặc chọn tập dữ liệu khác"
+                        },
+                        "data-selector": {
+                            "label": "Tập dữ liệu"
+                        },
+                        "action-button": {
+                            "deleteSelected": "Xóa mục đã chọn",
+                            "addNewRow": "Thêm hàng mới",
+                            "addNewColumn": "Thêm cột mới",
+                            "viewChart": "Xem biểu đồ"
+                        },
+                        "custom-column-menu": {
+                            "renameColumn": "Đổi tên cột",
+                            "deleteColumn": "Xóa cột",
+                            "ok": "Ok"
+                        },
+                        "chart-dialog": {
+                            "close": "Đóng"
+                        }
+                    }
                 }
             }
         }
