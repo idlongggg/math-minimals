@@ -231,48 +231,52 @@
             "charts": {
                 "line": {
                     "title": "折线图",
-                    "description": "这是统计图表中的折线图页面，包含总览、操作和历史等内容。",
-                    "featureTitle": "主要特点",
-                    "features": {
-                        "feature1": "清晰展示数据随时间的趋势和波动。",
-                        "feature2": "适用于连续数据、时间序列。",
-                        "feature3": "可在同一图表上比较多个数据集。",
-                        "feature4": "易于识别极值和各线之间的交点。"
-                    },
-                    "applicationTitle": "实际应用",
-                    "applicationDesc": "折线图常用于金融分析、统计、业务跟踪、科学、工程等众多领域，说明数据随时间的变化。此外，还能帮助发现趋势、周期、异常或根据历史数据预测未来。",
-                    "tab": {
+                    "description": "这是统计图表中的折线图页面，包含总览和操作等内容。",
+                    "tabs": {
                         "overview": "总览",
                         "actions": "操作"
                     },
-                    "actionsTab": {
-                        "dataset": "数据集",
-                        "blankTable": "空白数据表",
-                        "deleteRows": "删除行",
-                        "addRow": "添加行",
-                        "addColumn": "添加列",
-                        "viewChart": "查看图表",
-                        "close": "关闭",
-                        "newColumnDialogTitle": "添加新列",
-                        "columnName": "列名",
-                        "cancel": "取消",
-                        "noDataTitle": "暂无数据可显示",
-                        "noDataDescription": "请添加数据或选择其他数据集",
-                        "renameColumn": "重命名列",
-                        "deleteColumn": "删除列",
-                        "year": "年",
-                        "gdpValue": "GDP (十亿美元)",
-                        "voteCount": "票数",
-                        "season": "赛季",
-                        "goals": "进球数",
-                        "column1": "列 1",
-                        "column2": "列 2"
+                    "overview": {
+                        "title": "折线图总览",
+                        "description": "折线图用于显示数据随时间的变化，强调趋势和变化。",
+                        "featuresTitle": "主要特点",
+                        "features": {
+                            "feature1": "清晰展示数据随时间的变化和趋势。",
+                            "feature2": "适用于连续数据、时间序列。",
+                            "feature3": "可在同一图表上比较多个数据集。",
+                            "feature4": "易于识别极值和各线之间的交点。"
+                        },
+                        "applicationTitle": "实际应用",
+                        "applicationDesc": "折线图常用于金融分析、统计、业务跟踪、科学、工程等众多领域，说明数据随时间的变化。此外，还能帮助发现趋势、周期、异常或根据历史数据预测未来。"
                     },
-                    "datasets": {
-                        "blank": "空白数据表",
-                        "gdp": "GDP数据集",
-                        "election": "选举数据集",
-                        "football": "足球数据集"
+                    "actions": {
+                        "tab-view": {
+                            "dataset": "数据集",
+                            "blankTable": "空白数据表",
+                            "deleteRows": "删除行",
+                            "addRow": "添加新行",
+                            "addColumn": "添加新列",
+                            "viewChart": "查看图表",
+                            "noDataTitle": "没有数据可显示",
+                            "noDataDescription": "添加数据或选择其他数据集"
+                        },
+                        "data-selector": {
+                            "label": "数据集"
+                        },
+                        "action-button": {
+                            "deleteSelected": "删除选定项",
+                            "addNewRow": "添加新行",
+                            "addNewColumn": "添加新列",
+                            "viewChart": "查看图表"
+                        },
+                        "custom-column-menu": {
+                            "renameColumn": "重命名列",
+                            "deleteColumn": "删除列",
+                            "ok": "确定"
+                        },
+                        "chart-dialog": {
+                            "close": "关闭"
+                        }
                     }
                 },
                 "area": {

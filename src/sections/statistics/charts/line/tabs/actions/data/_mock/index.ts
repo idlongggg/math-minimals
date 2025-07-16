@@ -1,3 +1,3 @@
-export { DatasetGdp } from './dataset-gdp';
-export { DatasetElection } from './dataset-election';
-export { DatasetFootball } from './dataset-football';
+export { FootyWC } from './footy-wc';
+export { GdpTrack } from './gdp-track';
+export { VoteTrend } from './vote-trend';

@@ -1,1 +1,1 @@
-export { default as LineChartView } from './line-chart-view';
+export { default } from './line-chart-view';

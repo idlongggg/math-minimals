@@ -1,14 +1,14 @@
-export interface LineChartDataset {
-    label: string;
-    data: number[];
-    borderColor?: string;
-    backgroundColor?: string;
+export interface ChartData {
+    labels: number[];
+    datasets: {
+        label: string;
+        data: number[];
+    }[];
 }
 
-export interface LineChartData {
+export interface ChartWrap {
     title: string;
-    labels: (string | number)[];
-    datasets: LineChartDataset[];
-    xAxisTitle?: string; // Thêm trục X
-    yAxisTitle?: string; // Thêm trục Y
+    xTitle: string;
+    yTitle: string;
+    data: ChartData;
 }

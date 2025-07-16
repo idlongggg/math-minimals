@@ -194,7 +194,7 @@ export default function ActionsTab() {
     const chartOptions: ApexOptions = React.useMemo(
         () => ({
             chart: {
-                type: 'area',
+                type: 'line',
                 zoom: { enabled: false },
                 toolbar: { show: false },
                 fontFamily: 'inherit',

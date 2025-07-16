@@ -232,47 +232,51 @@
                 "line": {
                     "title": "Line Chart",
                     "description": "Line chart page in statistics, including overview, actions, and history tabs.",
-                    "featureTitle": "Key Features",
-                    "features": {
-                        "feature1": "Clearly shows trends and fluctuations in data over time.",
-                        "feature2": "Suitable for continuous data, time series.",
-                        "feature3": "Can compare multiple datasets on the same chart.",
-                        "feature4": "Easy to identify extrema and intersections between lines."
-                    },
-                    "applicationTitle": "Practical Applications",
-                    "applicationDesc": "Line charts are commonly used in financial analysis, statistics, business tracking, science, engineering, and many other fields to illustrate changes in data over time. They also help detect trends, cycles, anomalies, or forecast the future based on historical data.",
-                    "tab": {
+                    "tabs": {
                         "overview": "Overview",
                         "actions": "Actions"
                     },
-                    "actionsTab": {
-                        "dataset": "Dataset",
-                        "blankTable": "Blank Data Table",
-                        "deleteRows": "Delete Rows",
-                        "addRow": "Add Row",
-                        "addColumn": "Add Column",
-                        "viewChart": "View Chart",
-                        "close": "Close",
-                        "newColumnDialogTitle": "Add New Column",
-                        "columnName": "Column Name",
-                        "cancel": "Cancel",
-                        "noDataTitle": "No data to display",
-                        "noDataDescription": "Add data or choose another dataset",
-                        "renameColumn": "Rename Column",
-                        "deleteColumn": "Delete Column",
-                        "year": "Year",
-                        "gdpValue": "GDP (billion USD)",
-                        "voteCount": "Vote Count",
-                        "season": "Season",
-                        "goals": "Goals",
-                        "column1": "Column 1",
-                        "column2": "Column 2"
+                    "overview": {
+                        "title": "Line Chart Overview",
+                        "description": "This section provides an overview of the line chart, including its features and applications.",
+                        "featuresTitle": "Key Features",
+                        "features": {
+                            "feature1": "Clearly shows trends and fluctuations in data over time.",
+                            "feature2": "Suitable for continuous data, time series.",
+                            "feature3": "Can compare multiple datasets on the same chart.",
+                            "feature4": "Easy to identify extrema and intersections between lines."
+                        },
+                        "applicationTitle": "Practical Applications",
+                        "applicationDesc": "Line charts are commonly used in financial analysis, statistics, business tracking, science, engineering, and many other fields to illustrate changes in data over time. They also help detect trends, cycles, anomalies, or forecast the future based on historical data."
                     },
-                    "datasets": {
-                        "blank": "Blank Data Table",
-                        "gdp": "GDP Dataset",
-                        "election": "Election Dataset",
-                        "football": "Football Dataset"
+                    "actions": {
+                        "tab-view": {
+                            "dataset": "Dataset",
+                            "blankTable": "Blank Data Table",
+                            "deleteRows": "Delete Rows",
+                            "addRow": "Add Row",
+                            "addColumn": "Add Column",
+                            "viewChart": "View Chart",
+                            "noDataTitle": "No data to display",
+                            "noDataDescription": "Add data or choose another dataset"
+                        },
+                        "data-selector": {
+                            "label": "Dataset"
+                        },
+                        "action-button": {
+                            "deleteSelected": "Delete selected",
+                            "addNewRow": "Add new row",
+                            "addNewColumn": "Add new column",
+                            "viewChart": "View Chart"
+                        },
+                        "custom-column-menu": {
+                            "renameColumn": "Rename Column",
+                            "deleteColumn": "Delete Column",
+                            "ok": "Ok"
+                        },
+                        "chart-dialog": {
+                            "close": "Close"
+                        }
                     }
                 },
                 "area": {
