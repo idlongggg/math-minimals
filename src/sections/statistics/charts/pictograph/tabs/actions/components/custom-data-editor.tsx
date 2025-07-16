@@ -1,15 +1,15 @@
-import { Icon } from '@iconify/react';
-
 import Box from '@mui/material/Box';
 import { Card } from '@mui/material';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
-import { alpha, useTheme } from '@mui/material/styles';
+
+import { AddIcon, CloseIcon, ResetIcon } from 'src/assets/icons';
 
 import { AVAILABLE_ICONS, AVAILABLE_COLORS } from '../data/constants';
 
@@ -35,33 +35,11 @@ export function CustomDataEditor({ customData, actions }: CustomDataEditorProps)
                 }}
             >
                 <Typography variant="subtitle2">Dữ liệu tùy chỉnh</Typography>
-                <IconButton
-                    size="small"
-                    onClick={actions.addCustomCategory}
-                    color="primary"
-                    sx={{
-                        transition: 'all 0.2s ease',
-                        '&:hover': {
-                            transform: 'scale(1.1)',
-                            bgcolor: alpha(theme.palette.primary.main, 0.1),
-                        },
-                    }}
-                >
-                    <Icon icon="material-symbols:add" />
+                <IconButton size="small" onClick={actions.addCustomCategory} color="primary">
+                    <AddIcon />
                 </IconButton>
-                <IconButton
-                    size="small"
-                    onClick={actions.resetCustomData}
-                    color="warning"
-                    sx={{
-                        transition: 'all 0.2s ease',
-                        '&:hover': {
-                            transform: 'scale(1.1)',
-                            bgcolor: alpha(theme.palette.warning.main, 0.1),
-                        },
-                    }}
-                >
-                    <Icon icon="material-symbols:refresh" />
+                <IconButton size="small" onClick={actions.resetCustomData} color="warning">
+                    <ResetIcon />
                 </IconButton>
             </Box>
 
@@ -72,7 +50,6 @@ export function CustomDataEditor({ customData, actions }: CustomDataEditorProps)
                     sx={{
                         p: 2,
                         mb: 2,
-                        transition: 'all 0.2s ease',
                         '&:hover': {
                             borderColor: theme.palette.primary.main,
                         },
@@ -100,15 +77,8 @@ export function CustomDataEditor({ customData, actions }: CustomDataEditorProps)
                             onClick={() => actions.removeCustomCategory(index)}
                             color="error"
                             disabled={customData.length <= 1}
-                            sx={{
-                                transition: 'all 0.2s ease',
-                                '&:hover': {
-                                    transform: 'scale(1.1)',
-                                    bgcolor: alpha(theme.palette.error.main, 0.1),
-                                },
-                            }}
                         >
-                            <Icon icon="material-symbols:delete" />
+                            <CloseIcon />
                         </IconButton>
                     </Box>
 
