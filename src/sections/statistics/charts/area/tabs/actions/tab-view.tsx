@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import * as xDataGrid from '@mui/x-data-grid';
 
 import ChartDialog from './components/chart-dialog';
+import CustomColumnMenu from './custom-column-menu';
 import { DEFAULT_DATA } from './data/data-constants';
 import ActionButtons from './components/action-button';
 import DatasetSelector from './components/dataset-selector';
@@ -158,6 +159,16 @@ export default function ActionsTab() {
         });
     }, []);
 
+    const handleDeleteColumn = React.useCallback((field: string) => {
+        setCurrTable((prev) => {
+            const updatedTable = JSON.parse(JSON.stringify(prev)) as DataItem;
+            updatedTable.table.data.datasets = updatedTable.table.data.datasets.filter(
+                (dataset) => dataset.label !== field
+            );
+            return updatedTable;
+        });
+    }, []);
+
     const handleOpenDialog = () => {
         console.log('Open dialog for chart view', currTable);
         setOpenDialog(true);
@@ -237,6 +248,11 @@ export default function ActionsTab() {
                     rowSelectionModel={selectedRows}
                     onRowSelectionModelChange={(newSelection) => {
                         setSelectedRows(newSelection as number[]);
+                    }}
+                    slots={{
+                        columnMenu: (props) => (
+                            <CustomColumnMenu {...props} onDeleteColumn={handleDeleteColumn} />
+                        ),
                     }}
                 />
             </Box>

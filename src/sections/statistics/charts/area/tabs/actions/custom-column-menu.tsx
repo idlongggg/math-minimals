@@ -2,31 +2,41 @@ import type { GridColumnMenuProps } from '@mui/x-data-grid';
 
 import React from 'react';
 
-import { GridColumnMenuContainer } from '@mui/x-data-grid';
+// custom-column-menu.tsx
 import { Button, MenuItem, TextField } from '@mui/material';
+import { useGridApiContext, GridColumnMenuContainer } from '@mui/x-data-grid';
 
 import { useLocales } from 'src/locales';
 import { EditIcon, CloseIcon } from 'src/assets/icons';
 
 interface CustomColumnMenuProps extends GridColumnMenuProps {
-    onRenameColumn: (field: string, newName: string) => void;
-    onDeleteColumn: (field: string) => void;
+    onDeleteColumn?: (field: string) => void;
 }
 
-export default function CustomColumnMenu(props: CustomColumnMenuProps) {
+export default function CustomColumnMenu({
+    hideMenu,
+    colDef,
+    open,
+    onDeleteColumn,
+}: CustomColumnMenuProps) {
     const { translate: t } = useLocales();
-    const { hideMenu, colDef, open, onRenameColumn, onDeleteColumn } = props;
+    const apiRef = useGridApiContext();
     const [newName, setNewName] = React.useState(colDef.headerName || colDef.field);
     const [editing, setEditing] = React.useState(false);
 
     const handleRename = (event?: React.SyntheticEvent) => {
+        if (!colDef.field) return;
+        apiRef.current.updateColumns([{ field: colDef.field, headerName: newName }]);
         setEditing(false);
-        onRenameColumn(colDef.field, newName);
         if (hideMenu) hideMenu(event || ({} as React.SyntheticEvent));
     };
 
     const handleDelete = (event: React.SyntheticEvent) => {
-        onDeleteColumn(colDef.field);
+        if (!colDef.field || colDef.field === 'label') {
+            if (hideMenu) hideMenu(event);
+            return;
+        }
+        onDeleteColumn?.(colDef.field); // Gọi callback để xóa cột
         if (hideMenu) hideMenu(event);
     };
 
@@ -46,7 +56,7 @@ export default function CustomColumnMenu(props: CustomColumnMenuProps) {
                         sx={{ mr: 1 }}
                     />
                     <Button onClick={handleRename} size="small">
-                        {t('common.ok')}
+                        {t('Ok')}
                     </Button>
                 </MenuItem>
             ) : (
@@ -65,11 +75,12 @@ export default function CustomColumnMenu(props: CustomColumnMenuProps) {
                         }}
                     >
                         <EditIcon sx={{ mr: 1, fontSize: 20 }} />
-                        {t('pages.statistics.charts.area.actionsTab.renameColumn')}
+                        {t('Rename Column')}
                     </MenuItem>,
                     <MenuItem
                         key="delete"
                         onClick={handleDelete}
+                        disabled={colDef.field === 'label'}
                         sx={{
                             '&:hover': {
                                 bgcolor: (theme) => theme.palette.error.main + '22',
@@ -81,7 +92,7 @@ export default function CustomColumnMenu(props: CustomColumnMenuProps) {
                         }}
                     >
                         <CloseIcon sx={{ mr: 1, fontSize: 20 }} />
-                        {t('pages.statistics.charts.area.actionsTab.deleteColumn')}
+                        {t('Delete Column')}
                     </MenuItem>,
                 ]
             )}
