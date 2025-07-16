@@ -528,6 +528,56 @@
                             "close": "Close"
                         }
                     }
+                },
+                "pie": {
+                    "title": "Pie Chart",
+                    "description": "Pie chart page in statistics, including overview and actions tabs.",
+                    "tabs": {
+                        "overview": "Overview",
+                        "actions": "Actions"
+                    },
+                    "overview": {
+                        "title": "Pie Chart Overview",
+                        "description": "This section provides an overview of the pie chart, including its features and applications.",
+                        "featuresTitle": "Key Features",
+                        "features": {
+                            "feature1": "Displays data as slices of a pie for each category.",
+                            "feature2": "Useful for showing the total and individual contributions of different datasets.",
+                            "feature3": "Can represent both discrete and continuous data.",
+                            "feature4": "Easy to read and interpret at a glance."
+                        },
+                        "applicationTitle": "Practical Applications",
+                        "applicationDesc": "Pie charts are commonly used in business reports, surveys, and educational materials to visually represent data in a straightforward manner. They help in quickly comparing values across categories or groups."
+                    },
+                    "actions": {
+                        "tab-view": {
+                            "dataset": "Dataset",
+                            "blankTable": "Blank Data Table",
+                            "deleteRows": "Delete Rows",
+                            "addRow": "Add Row",
+                            "addColumn": "Add Column",
+                            "viewChart": "View Chart",
+                            "noDataTitle": "No data to display",
+                            "noDataDescription": "Add data or choose another dataset"
+                        },
+                        "data-selector": {
+                            "label": "Dataset"
+                        },
+                        "action-button": {
+                            "deleteSelected": "Delete selected",
+                            "addNewRow": "Add new row",
+                            "addNewColumn": "Add new column",
+                            "viewChart": "View Chart"
+                        },
+                        "custom-column-menu": {
+                            "renameColumn": "Rename Column",
+                            "deleteColumn": "Delete Column",
+                            "ok": "Ok"
+                        },
+                        "chart-dialog": {
+                            "close": "Close"
+                        }
+                    }
                 }
             }
         }
