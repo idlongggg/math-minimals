@@ -5,7 +5,7 @@ import {
     AVAILABLE_COLORS,
     DEFAULT_SETTINGS,
     SAMPLE_DATA_SETS,
-} from '../constants';
+} from '../data/constants';
 
 import type { PictographData } from '../pictograph-chart';
 import type {
@@ -14,7 +14,7 @@ import type {
     PictographActions,
     PictographSettings,
     UsePictographReturn,
-} from '../types';
+} from '../data/types';
 
 const INITIAL_CUSTOM_DATA: PictographData[] = [
     { category: 'Danh mục A', value: 10, icon: '🔵', color: '#3b82f6' },

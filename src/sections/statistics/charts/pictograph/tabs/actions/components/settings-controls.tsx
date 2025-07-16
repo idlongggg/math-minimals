@@ -2,9 +2,9 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 
-import { SLIDER_CONFIGS } from '../constants';
+import { SLIDER_CONFIGS } from '../data/constants';
 
-import type { PictographActions, PictographSettings } from '../types';
+import type { PictographActions, PictographSettings } from '../data/types';
 
 interface SettingsControlsProps {
     settings: PictographSettings;

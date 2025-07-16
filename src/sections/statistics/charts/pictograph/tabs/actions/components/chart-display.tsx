@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { PictographChart } from '../pictograph-chart';
 
 import type { PictographData } from '../pictograph-chart';
-import type { DataSetKey, PictographState } from '../types';
+import type { DataSetKey, PictographState } from '../data/types';
 
 interface ChartDisplayProps {
     state: PictographState;

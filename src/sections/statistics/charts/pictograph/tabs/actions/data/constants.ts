@@ -1,4 +1,4 @@
-import type { PictographData } from './pictograph-chart';
+import type { PictographData } from '../pictograph-chart';
 
 export const SAMPLE_DATA_SETS = {
     fruits: [

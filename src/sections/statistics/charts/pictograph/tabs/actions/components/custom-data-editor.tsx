@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 
 import Box from '@mui/material/Box';
+import { Card } from '@mui/material';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
@@ -10,10 +11,9 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import { alpha, useTheme } from '@mui/material/styles';
 
-import { CustomCard } from '../components/custom-card';
-import { AVAILABLE_ICONS, AVAILABLE_COLORS } from '../constants';
+import { AVAILABLE_ICONS, AVAILABLE_COLORS } from '../data/constants';
 
-import type { PictographActions } from '../types';
+import type { PictographActions } from '../data/types';
 import type { PictographData } from '../pictograph-chart';
 
 interface CustomDataEditorProps {
@@ -66,7 +66,7 @@ export function CustomDataEditor({ customData, actions }: CustomDataEditorProps)
             </Box>
 
             {customData.map((item, index) => (
-                <CustomCard
+                <Card
                     key={index}
                     variant="outlined"
                     sx={{
@@ -174,7 +174,7 @@ export function CustomDataEditor({ customData, actions }: CustomDataEditorProps)
                             </Select>
                         </FormControl>
                     </Box>
-                </CustomCard>
+                </Card>
             ))}
         </Box>
     );

@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
+import { Card, CardHeader, CardContent } from '@mui/material';
 
 import { DataSetSelector } from './data-set-selector';
 import { SettingsControls } from './settings-controls';
 import { CustomDataEditor } from './custom-data-editor';
-import { CustomCard, CustomCardHeader, CustomCardContent } from '../components/custom-card';
 
-import type { PictographState, PictographActions } from '../types';
+import type { PictographState, PictographActions } from '../data/types';
 
 interface ControlsPanelProps {
     state: PictographState;
@@ -15,9 +15,9 @@ interface ControlsPanelProps {
 export function ControlsPanel({ state, actions }: ControlsPanelProps) {
     return (
         <Box>
-            <CustomCard>
-                <CustomCardHeader title="Điều khiển biểu đồ" />
-                <CustomCardContent>
+            <Card>
+                <CardHeader title="Điều khiển biểu đồ" />
+                <CardContent>
                     <DataSetSelector
                         selectedDataSet={state.selectedDataSet}
                         useCustomData={state.useCustomData}
@@ -33,8 +33,8 @@ export function ControlsPanel({ state, actions }: ControlsPanelProps) {
                         settings={state.settings}
                         onUpdateSettings={actions.updateSettings}
                     />
-                </CustomCardContent>
-            </CustomCard>
+                </CardContent>
+            </Card>
         </Box>
     );
 }

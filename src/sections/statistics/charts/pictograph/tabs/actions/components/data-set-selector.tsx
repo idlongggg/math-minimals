@@ -5,9 +5,9 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 
-import { DATASET_LABELS } from '../constants';
+import { DATASET_LABELS } from '../data/constants';
 
-import type { DataSetKey, PictographActions } from '../types';
+import type { DataSetKey, PictographActions } from '../data/types';
 
 interface DataSetSelectorProps {
     selectedDataSet: DataSetKey;
@@ -40,7 +40,7 @@ export function DataSetSelector({
             </Box>
 
             {!useCustomData && (
-                <FormControl fullWidth sx={{ mb: 3 }}>
+                <FormControl size="small" fullWidth sx={{ mb: 3 }}>
                     <InputLabel>Chọn bộ dữ liệu</InputLabel>
                     <Select
                         value={selectedDataSet}

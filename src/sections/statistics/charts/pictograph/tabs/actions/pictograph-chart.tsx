@@ -100,7 +100,7 @@ export function PictographChart({
                 subheader={`Mỗi biểu tượng đại diện cho ${unitValue} đơn vị`}
             />
             <CardContent>
-                <Box sx={{ mb: 3 }}>
+                <Box>
                     {data.map((category) => (
                         <Box key={category.category} sx={{ mb: 4 }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
