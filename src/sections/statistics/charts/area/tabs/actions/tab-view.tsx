@@ -9,10 +9,9 @@ import React from 'react';
 import ActionButtons from './components/action-button';
 import ChartDialog from './components/chart-dialog';
 import DatasetSelector from './components/dataset-selector';
-import { DEFAULT_DATA } from './data-constants';
 
 import { SelectChangeEvent } from '@mui/material';
-import type { DataItem } from './data-constants';
+import { DataItem, DEFAULT_DATA } from './data/data-constants';
 
 export default function ActionsTab() {
     const containerRef = React.useRef<HTMLDivElement>(null);

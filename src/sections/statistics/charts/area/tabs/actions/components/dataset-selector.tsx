@@ -3,9 +3,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-
-import type { DataItem } from '../data-constants';
-import { DEFAULT_DATA } from '../data-constants';
+import { DataItem, DEFAULT_DATA } from '../data/data-constants';
 
 interface DatasetSelectorProps {
     currTable: DataItem;

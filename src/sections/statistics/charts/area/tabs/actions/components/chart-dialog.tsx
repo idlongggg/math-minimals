@@ -15,8 +15,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 import { CloseIcon } from 'src/assets/icons';
-
-import type { DataItem } from '../data-constants';
+import { DataItem } from '../data/data-constants';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
