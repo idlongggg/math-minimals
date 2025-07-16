@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import DialogContent from '@mui/material/DialogContent';
 
+import { useLocales } from 'src/locales';
 import { CloseIcon } from 'src/assets/icons';
 
 import type { DataItem } from '../data/data-constants';
@@ -44,6 +45,8 @@ export default function ChartDialog({
     chartOptions,
     chartSeries,
 }: ChartDialogProps) {
+    const { translate: t } = useLocales();
+
     return (
         <Dialog
             fullScreen
@@ -62,7 +65,7 @@ export default function ChartDialog({
                         {currTable.table.title}
                     </Typography>
                     <Button autoFocus variant="contained" color="error" onClick={onClose}>
-                        Close
+                        {t('pages.statistics.charts.area.actions.chart-dialog.close')}
                     </Button>
                 </Toolbar>
             </AppBar>

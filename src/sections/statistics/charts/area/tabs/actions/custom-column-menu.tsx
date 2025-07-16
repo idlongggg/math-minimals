@@ -58,7 +58,7 @@ export default function CustomColumnMenu({
                         sx={{ mr: 1 }}
                     />
                     <Button onClick={handleRename} size="small">
-                        {t('Ok')}
+                        {t('pages.statistics.charts.area.actions.custom-column-menu.ok')}
                     </Button>
                 </MenuItem>
             ) : (
@@ -77,7 +77,7 @@ export default function CustomColumnMenu({
                         }}
                     >
                         <EditIcon sx={{ mr: 1, fontSize: 20 }} />
-                        {t('Rename Column')}
+                        {t('pages.statistics.charts.area.actions.custom-column-menu.renameColumn')}
                     </MenuItem>,
                     <MenuItem
                         key="delete"
@@ -94,7 +94,7 @@ export default function CustomColumnMenu({
                         }}
                     >
                         <CloseIcon sx={{ mr: 1, fontSize: 20 }} />
-                        {t('Delete Column')}
+                        {t('pages.statistics.charts.area.actions.custom-column-menu.deleteColumn')}
                     </MenuItem>,
                 ]
             )}

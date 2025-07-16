@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
+import { useLocales } from 'src/locales';
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
 interface ActionButtonsProps {
@@ -18,6 +19,8 @@ export default function ActionButtons({
     onAddNewColumn,
     onViewChart,
 }: ActionButtonsProps) {
+    const { translate: t } = useLocales();
+
     return (
         <Box sx={{ display: 'flex', gap: 2 }}>
             {selectedRows.length > 0 && (
@@ -27,7 +30,7 @@ export default function ActionButtons({
                     startIcon={<CloseIcon />}
                     onClick={onDeleteSelected}
                 >
-                    Delete selected
+                    {t('pages.statistics.charts.area.actions.action-button.deleteSelected')}
                 </Button>
             )}
             <Button
@@ -36,7 +39,7 @@ export default function ActionButtons({
                 startIcon={<AddIcon />}
                 onClick={onAddNewRow}
             >
-                Add new row
+                {t('pages.statistics.charts.area.actions.action-button.addNewRow')}
             </Button>
             <Button
                 variant="contained"
@@ -44,7 +47,7 @@ export default function ActionButtons({
                 startIcon={<AddIcon />}
                 onClick={onAddNewColumn}
             >
-                Add new column
+                {t('pages.statistics.charts.area.actions.action-button.addNewColumn')}
             </Button>
             <Button
                 variant="contained"
@@ -52,7 +55,7 @@ export default function ActionButtons({
                 startIcon={<SearchSparkleIcon />}
                 onClick={onViewChart}
             >
-                View chart
+                {t('pages.statistics.charts.area.actions.action-button.viewChart')}
             </Button>
         </Box>
     );

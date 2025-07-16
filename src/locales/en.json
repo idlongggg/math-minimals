@@ -1,307 +1,336 @@
 {
-  "auth": {
-    "signIn": {
-      "title": "Sign in to your account",
-      "authMethod": "Authentication Method",
-      "selectMockUser": "Select Mock User:",
-      "email": "Email address",
-      "password": "Password",
-      "passwordPlaceholder": "6+ characters",
-      "forgotPassword": "Forgot password?",
-      "signInButton": "Sign in",
-      "signingIn": "Sign in...",
-      "validation": {
-        "emailRequired": "Email is required!",
-        "emailInvalid": "Email must be a valid email address!",
-        "passwordRequired": "Password is required!",
-        "passwordLength": "Password must be at least 6 characters!"
-      }
-    },
-    "welcome": "Hi, Welcome back"
-  },
-  "settings": {
-    "title": "Settings",
-    "resetAll": "Reset all",
-    "close": "Close",
-    "fullscreen": "Fullscreen",
-    "exitFullscreen": "Exit fullscreen",
-    "darkMode": "Dark mode",
-    "contrast": "Contrast",
-    "rightToLeft": "Right to left",
-    "compact": "Compact",
-    "compactTooltip": "Dashboard only and available at large resolutions > 1600px (xl)",
-    "presets": "Presets",
-    "nav": "Nav",
-    "navTooltip": "Dashboard only",
-    "layout": "Layout",
-    "color": "Color",
-    "integrate": "Integrate",
-    "apparent": "Apparent",
-    "font": "Font",
-    "family": "Family",
-    "size": "Size"
-  },
-  "nav": {
-    "home": "Home",
-    "sections": {
-      "basicTools": "Basic Math Tools",
-      "arithmeticAlgebra": "Arithmetic and Basic Algebra",
-      "functionsAdvancedAlgebra": "Functions and Advanced Algebra",
-      "calculus": "Calculus",
-      "geometryTrigonometry": "Geometry and Trigonometry",
-      "statisticsProbability": "Statistics and Probability"
-    },
-    "tools": {
-      "basicCalculator": "Basic Calculator",
-      "calculators": {
-        "root": "Basic Calculator",
-        "basic": "Basic Calculator",
-        "scientific": "Scientific Calculator",
-        "graphing": "Graphing Calculator",
-        "complex": "Complex Numbers"
-      },
-      "converters": {
-        "root": "Conversion Tools",
-        "units": "Unit Conversion"
-      },
-      "generators": {
-        "root": "Generators",
-        "random": "Random Numbers",
-        "fibonacci": "Fibonacci Sequence",
-        "pattern": "Number Patterns"
-      }
-    },
-    "arithmetic": {
-      "root": "Basic Arithmetic",
-      "baseConversion": "Base Conversion",
-      "commonDenominator": "Common Denominator",
-      "divisionRemainder": "Division and Remainder",
-      "primeNumbers": "Prime Numbers",
-      "factorsIrrationals": "Factors and Irrationals",
-      "divisorsMultiples": "Divisors and Multiples",
-      "fractions": "Fractions & Conversion"
-    },
-    "algebra": {
-      "basic": {
-        "root": "Basic Algebra",
-        "expressions": "Algebraic Expressions",
-        "equations": "Equations",
-        "inequalities": "Inequalities",
-        "factoring": "Factoring",
-        "polynomials": "Polynomials"
-      },
-      "functions": {
-        "root": "Functions and Graphs",
-        "linear": "Linear Functions",
-        "quadratic": "Quadratic Functions",
-        "polynomial": "Polynomial Functions",
-        "rational": "Rational Functions",
-        "exponential": "Exponential Functions",
-        "logarithmic": "Logarithmic Functions",
-        "trigonometric": "Trigonometric Functions",
-        "inverse": "Inverse Functions",
-        "composite": "Composite Functions"
-      },
-      "linear": {
-        "root": "Linear Algebra",
-        "matrix": "Matrix Calculator",
-        "system": "System of Equations"
-      }
-    },
-    "calculus": {
-      "root": "Calculus Tools",
-      "derivative": "Derivatives",
-      "integral": "Integrals",
-      "limit": "Limits",
-      "sequence": "Sequences"
-    },
-    "geometry": {
-      "plane": {
-        "root": "Plane Geometry",
-        "pointsSegments": "Points and Segments",
-        "lines": "Lines",
-        "angles": "Angles",
-        "triangles": "Triangles",
-        "quadrilaterals": "Quadrilaterals",
-        "polygons": "Polygons",
-        "circles": "Circles",
-        "conics": "Conic Sections"
-      },
-      "spatial": {
-        "root": "Spatial Geometry",
-        "prisms": "Prisms",
-        "pyramids": "Pyramids",
-        "cylinders": "Cylinders",
-        "cones": "Cones",
-        "spheres": "Spheres",
-        "surfaces": "Curved Surfaces"
-      },
-      "coordinate": {
-        "root": "Coordinate Geometry",
-        "cartesian": "Cartesian Coordinates",
-        "polar": "Polar Coordinates",
-        "parametric": "Parametric Coordinates",
-        "vectors": "Vectors"
-      }
-    },
-    "trigonometry": {
-      "basic": {
-        "root": "Basic Trigonometry",
-        "ratios": "Trigonometric Ratios",
-        "identities": "Identities",
-        "equations": "Trigonometric Equations",
-        "graphs": "Trigonometric Graphs"
-      }
-    },
-    "statistics": {
-      "charts": {
-        "root": "Charts and Data",
-        "pictograph": "Pictograph",
-        "line": "Line Chart",
-        "area": "Area Chart",
-        "singleColumn": "Single Column Chart",
-        "doubleColumn": "Double Column Chart",
-        "stackedColumn": "Stacked Column Chart",
-        "pie": "Pie Chart",
-        "frequencyTable": "Frequency Table",
-        "histogram": "Histogram",
-        "boxplot": "Box Plot",
-        "scatter": "Scatter Plot"
-      },
-      "descriptive": {
-        "root": "Descriptive Statistics",
-        "centralTendency": "Central Tendency",
-        "dispersion": "Dispersion",
-        "distribution": "Data Distribution",
-        "correlation": "Correlation",
-        "regression": "Regression"
-      },
-      "probability": {
-        "root": "Basic Probability",
-        "basic": "Basic Probability",
-        "conditional": "Conditional Probability",
-        "bayes": "Bayes' Theorem"
-      },
-      "distributions": {
-        "root": "Probability Distributions",
-        "discrete": "Discrete Distributions",
-        "continuous": "Continuous Distributions",
-        "normal": "Normal Distribution",
-        "binomial": "Binomial Distribution"
-      }
-    },
-    "solvers": {
-      "root": "Advanced Equation Solving",
-      "differential": "Differential Equations",
-      "optimization": "Optimization"
-    }
-  },
-  "account": {
-    "home": "Home",
-    "dashboard": "Dashboard",
-    "profile": "Profile",
-    "accountSettings": "Account Settings",
-    "logout": "Logout"
-  },
-  "workspace": {
-    "allTools": "All Math Tools",
-    "algebra": "Algebra and Calculus",
-    "statistics": "Probability and Statistics", 
-    "geometry": "Geometry and Measurement",
-    "owned": "Owned",
-    "notOwned": "Not Owned",
-    "free": "Free",
-    "confirmDialog": {
-      "title": "Confirm Workspace Switch",
-      "message": "Do you want to switch to workspace \"{0}\"?",
-      "cancel": "Cancel",
-      "confirm": "Confirm"
-    }
-  },
-  "pages": {
-    "demo01": {
-      "title": "Demo 01",
-      "description": "This is the first demo page with sample content and functionality."
-    },
-    "demo02": {
-      "title": "Demo 02", 
-      "description": "This is the second demo page with sample content and functionality."
-    },
-    "statistics": {
-      "charts": {
-        "line": {
-          "title": "Line Chart",
-          "description": "Line chart page in statistics, including overview, actions, and history tabs.",
-          "featureTitle": "Key Features",
-          "features": {
-            "feature1": "Clearly shows trends and fluctuations in data over time.",
-            "feature2": "Suitable for continuous data, time series.",
-            "feature3": "Can compare multiple datasets on the same chart.",
-            "feature4": "Easy to identify extrema and intersections between lines."
-          },
-          "applicationTitle": "Practical Applications",
-          "applicationDesc": "Line charts are commonly used in financial analysis, statistics, business tracking, science, engineering, and many other fields to illustrate changes in data over time. They also help detect trends, cycles, anomalies, or forecast the future based on historical data.",
-          "tab": {
-            "overview": "Overview",
-            "actions": "Actions"
-          },
-          "actionsTab": {
-            "dataset": "Dataset",
-            "blankTable": "Blank Data Table",
-            "deleteRows": "Delete Rows",
-            "addRow": "Add Row",
-            "addColumn": "Add Column",
-            "viewChart": "View Chart",
-            "close": "Close",
-            "newColumnDialogTitle": "Add New Column",
-            "columnName": "Column Name",
-            "cancel": "Cancel",
-            "noDataTitle": "No data to display",
-            "noDataDescription": "Add data or choose another dataset",
-             "renameColumn": "Rename Column",
-            "deleteColumn": "Delete Column",
-            "year": "Year",
-            "gdpValue": "GDP (billion USD)",
-            "voteCount": "Vote Count",
-            "season": "Season",
-            "goals": "Goals",
-            "column1": "Column 1",
-            "column2": "Column 2"
-          },
-           "datasets": {
-            "blank": "Blank Data Table",
-            "gdp": "GDP Dataset",
-            "election": "Election Dataset",
-            "football": "Football Dataset"
-          }
+    "auth": {
+        "signIn": {
+            "title": "Sign in to your account",
+            "authMethod": "Authentication Method",
+            "selectMockUser": "Select Mock User:",
+            "email": "Email address",
+            "password": "Password",
+            "passwordPlaceholder": "6+ characters",
+            "forgotPassword": "Forgot password?",
+            "signInButton": "Sign in",
+            "signingIn": "Sign in...",
+            "validation": {
+                "emailRequired": "Email is required!",
+                "emailInvalid": "Email must be a valid email address!",
+                "passwordRequired": "Password is required!",
+                "passwordLength": "Password must be at least 6 characters!"
+            }
         },
-        "area": {
-            "title": "Area Chart",
-            "description": "Area chart page in statistics, including overview and actions tabs.",
-            "tabs": {
-                "overview": "Overview",
-                "actions": "Actions"
+        "welcome": "Hi, Welcome back"
+    },
+    "settings": {
+        "title": "Settings",
+        "resetAll": "Reset all",
+        "close": "Close",
+        "fullscreen": "Fullscreen",
+        "exitFullscreen": "Exit fullscreen",
+        "darkMode": "Dark mode",
+        "contrast": "Contrast",
+        "rightToLeft": "Right to left",
+        "compact": "Compact",
+        "compactTooltip": "Dashboard only and available at large resolutions > 1600px (xl)",
+        "presets": "Presets",
+        "nav": "Nav",
+        "navTooltip": "Dashboard only",
+        "layout": "Layout",
+        "color": "Color",
+        "integrate": "Integrate",
+        "apparent": "Apparent",
+        "font": "Font",
+        "family": "Family",
+        "size": "Size"
+    },
+    "nav": {
+        "home": "Home",
+        "sections": {
+            "basicTools": "Basic Math Tools",
+            "arithmeticAlgebra": "Arithmetic and Basic Algebra",
+            "functionsAdvancedAlgebra": "Functions and Advanced Algebra",
+            "calculus": "Calculus",
+            "geometryTrigonometry": "Geometry and Trigonometry",
+            "statisticsProbability": "Statistics and Probability"
+        },
+        "tools": {
+            "basicCalculator": "Basic Calculator",
+            "calculators": {
+                "root": "Basic Calculator",
+                "basic": "Basic Calculator",
+                "scientific": "Scientific Calculator",
+                "graphing": "Graphing Calculator",
+                "complex": "Complex Numbers"
             },
-            "overview": {
-                "title": "Area Chart Overview",
-                "description": "This section provides an overview of the area chart, including its features and applications.",
-                "featuresTitle": "Key Features",
-                "features": {
-                    "feature1": "Visually represents the magnitude of data over time.",
-                    "feature2": "Useful for showing cumulative totals or trends.",
-                    "feature3": "Can compare multiple datasets with overlapping areas.",
-                    "feature4": "Highlights the area between lines, making it easy to see changes."
+            "converters": {
+                "root": "Conversion Tools",
+                "units": "Unit Conversion"
+            },
+            "generators": {
+                "root": "Generators",
+                "random": "Random Numbers",
+                "fibonacci": "Fibonacci Sequence",
+                "pattern": "Number Patterns"
+            }
+        },
+        "arithmetic": {
+            "root": "Basic Arithmetic",
+            "baseConversion": "Base Conversion",
+            "commonDenominator": "Common Denominator",
+            "divisionRemainder": "Division and Remainder",
+            "primeNumbers": "Prime Numbers",
+            "factorsIrrationals": "Factors and Irrationals",
+            "divisorsMultiples": "Divisors and Multiples",
+            "fractions": "Fractions & Conversion"
+        },
+        "algebra": {
+            "basic": {
+                "root": "Basic Algebra",
+                "expressions": "Algebraic Expressions",
+                "equations": "Equations",
+                "inequalities": "Inequalities",
+                "factoring": "Factoring",
+                "polynomials": "Polynomials"
+            },
+            "functions": {
+                "root": "Functions and Graphs",
+                "linear": "Linear Functions",
+                "quadratic": "Quadratic Functions",
+                "polynomial": "Polynomial Functions",
+                "rational": "Rational Functions",
+                "exponential": "Exponential Functions",
+                "logarithmic": "Logarithmic Functions",
+                "trigonometric": "Trigonometric Functions",
+                "inverse": "Inverse Functions",
+                "composite": "Composite Functions"
+            },
+            "linear": {
+                "root": "Linear Algebra",
+                "matrix": "Matrix Calculator",
+                "system": "System of Equations"
+            }
+        },
+        "calculus": {
+            "root": "Calculus Tools",
+            "derivative": "Derivatives",
+            "integral": "Integrals",
+            "limit": "Limits",
+            "sequence": "Sequences"
+        },
+        "geometry": {
+            "plane": {
+                "root": "Plane Geometry",
+                "pointsSegments": "Points and Segments",
+                "lines": "Lines",
+                "angles": "Angles",
+                "triangles": "Triangles",
+                "quadrilaterals": "Quadrilaterals",
+                "polygons": "Polygons",
+                "circles": "Circles",
+                "conics": "Conic Sections"
+            },
+            "spatial": {
+                "root": "Spatial Geometry",
+                "prisms": "Prisms",
+                "pyramids": "Pyramids",
+                "cylinders": "Cylinders",
+                "cones": "Cones",
+                "spheres": "Spheres",
+                "surfaces": "Curved Surfaces"
+            },
+            "coordinate": {
+                "root": "Coordinate Geometry",
+                "cartesian": "Cartesian Coordinates",
+                "polar": "Polar Coordinates",
+                "parametric": "Parametric Coordinates",
+                "vectors": "Vectors"
+            }
+        },
+        "trigonometry": {
+            "basic": {
+                "root": "Basic Trigonometry",
+                "ratios": "Trigonometric Ratios",
+                "identities": "Identities",
+                "equations": "Trigonometric Equations",
+                "graphs": "Trigonometric Graphs"
+            }
+        },
+        "statistics": {
+            "charts": {
+                "root": "Charts and Data",
+                "pictograph": "Pictograph",
+                "line": "Line Chart",
+                "area": "Area Chart",
+                "singleColumn": "Single Column Chart",
+                "doubleColumn": "Double Column Chart",
+                "stackedColumn": "Stacked Column Chart",
+                "pie": "Pie Chart",
+                "frequencyTable": "Frequency Table",
+                "histogram": "Histogram",
+                "boxplot": "Box Plot",
+                "scatter": "Scatter Plot"
+            },
+            "descriptive": {
+                "root": "Descriptive Statistics",
+                "centralTendency": "Central Tendency",
+                "dispersion": "Dispersion",
+                "distribution": "Data Distribution",
+                "correlation": "Correlation",
+                "regression": "Regression"
+            },
+            "probability": {
+                "root": "Basic Probability",
+                "basic": "Basic Probability",
+                "conditional": "Conditional Probability",
+                "bayes": "Bayes' Theorem"
+            },
+            "distributions": {
+                "root": "Probability Distributions",
+                "discrete": "Discrete Distributions",
+                "continuous": "Continuous Distributions",
+                "normal": "Normal Distribution",
+                "binomial": "Binomial Distribution"
+            }
+        },
+        "solvers": {
+            "root": "Advanced Equation Solving",
+            "differential": "Differential Equations",
+            "optimization": "Optimization"
+        }
+    },
+    "account": {
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "profile": "Profile",
+        "accountSettings": "Account Settings",
+        "logout": "Logout"
+    },
+    "workspace": {
+        "allTools": "All Math Tools",
+        "algebra": "Algebra and Calculus",
+        "statistics": "Probability and Statistics",
+        "geometry": "Geometry and Measurement",
+        "owned": "Owned",
+        "notOwned": "Not Owned",
+        "free": "Free",
+        "confirmDialog": {
+            "title": "Confirm Workspace Switch",
+            "message": "Do you want to switch to workspace \"{0}\"?",
+            "cancel": "Cancel",
+            "confirm": "Confirm"
+        }
+    },
+    "pages": {
+        "demo01": {
+            "title": "Demo 01",
+            "description": "This is the first demo page with sample content and functionality."
+        },
+        "demo02": {
+            "title": "Demo 02",
+            "description": "This is the second demo page with sample content and functionality."
+        },
+        "statistics": {
+            "charts": {
+                "line": {
+                    "title": "Line Chart",
+                    "description": "Line chart page in statistics, including overview, actions, and history tabs.",
+                    "featureTitle": "Key Features",
+                    "features": {
+                        "feature1": "Clearly shows trends and fluctuations in data over time.",
+                        "feature2": "Suitable for continuous data, time series.",
+                        "feature3": "Can compare multiple datasets on the same chart.",
+                        "feature4": "Easy to identify extrema and intersections between lines."
+                    },
+                    "applicationTitle": "Practical Applications",
+                    "applicationDesc": "Line charts are commonly used in financial analysis, statistics, business tracking, science, engineering, and many other fields to illustrate changes in data over time. They also help detect trends, cycles, anomalies, or forecast the future based on historical data.",
+                    "tab": {
+                        "overview": "Overview",
+                        "actions": "Actions"
+                    },
+                    "actionsTab": {
+                        "dataset": "Dataset",
+                        "blankTable": "Blank Data Table",
+                        "deleteRows": "Delete Rows",
+                        "addRow": "Add Row",
+                        "addColumn": "Add Column",
+                        "viewChart": "View Chart",
+                        "close": "Close",
+                        "newColumnDialogTitle": "Add New Column",
+                        "columnName": "Column Name",
+                        "cancel": "Cancel",
+                        "noDataTitle": "No data to display",
+                        "noDataDescription": "Add data or choose another dataset",
+                        "renameColumn": "Rename Column",
+                        "deleteColumn": "Delete Column",
+                        "year": "Year",
+                        "gdpValue": "GDP (billion USD)",
+                        "voteCount": "Vote Count",
+                        "season": "Season",
+                        "goals": "Goals",
+                        "column1": "Column 1",
+                        "column2": "Column 2"
+                    },
+                    "datasets": {
+                        "blank": "Blank Data Table",
+                        "gdp": "GDP Dataset",
+                        "election": "Election Dataset",
+                        "football": "Football Dataset"
+                    }
                 },
-                "applicationTitle": "Practical Applications",
-                "applicationDesc": "Area charts are often used in business reports, financial analysis, and data visualization to show how quantities change over time or across categories. They help in understanding the overall volume of data and comparing different datasets effectively."
+                "area": {
+                    "title": "Area Chart",
+                    "description": "Area chart page in statistics, including overview and actions tabs.",
+                    "tabs": {
+                        "overview": "Overview",
+                        "actions": "Actions"
+                    },
+                    "overview": {
+                        "title": "Area Chart Overview",
+                        "description": "This section provides an overview of the area chart, including its features and applications.",
+                        "featuresTitle": "Key Features",
+                        "features": {
+                            "feature1": "Visually represents the magnitude of data over time.",
+                            "feature2": "Useful for showing cumulative totals or trends.",
+                            "feature3": "Can compare multiple datasets with overlapping areas.",
+                            "feature4": "Highlights the area between lines, making it easy to see changes."
+                        },
+                        "applicationTitle": "Practical Applications",
+                        "applicationDesc": "Area charts are often used in business reports, financial analysis, and data visualization to show how quantities change over time or across categories. They help in understanding the overall volume of data and comparing different datasets effectively."
+                    },
+                    "actions": {
+                        "tab-view": {
+                            "dataset": "Dataset",
+                            "blankTable": "Blank Data Table",
+                            "deleteRows": "Delete Rows",
+                            "addRow": "Add Row",
+                            "addColumn": "Add Column",
+                            "viewChart": "View Chart",
+                            "noDataTitle": "No data to display",
+                            "noDataDescription": "Add data or choose another dataset"
+                        },
+                        "data-selector": {
+                            "label": "Dataset"
+                        },
+                        "action-button": {
+                            "deleteSelected": "Delete selected",
+                            "addNewRow": "Add new row",
+                            "addNewColumn": "Add new column",
+                            "viewChart": "View Chart"
+                        },
+                        "custom-column-menu": {
+                            "renameColumn": "Rename Column",
+                            "deleteColumn": "Delete Column",
+                            "ok": "Ok"
+                        },
+                        "chart-dialog": {
+                            "close": "Close"
+                        }
+                    }
+                }
             }
         }
-      }
+    },
+    "notFound": {
+        "title": "Sorry, page not found!",
+        "description": "Sorry, we couldn't find the page you're looking for. Perhaps you've mistyped the URL? Be sure to check your spelling.",
+        "goHome": "Go to home"
     }
-  },
-  "notFound": {
-    "title": "Sorry, page not found!",
-    "description": "Sorry, we couldn't find the page you're looking for. Perhaps you've mistyped the URL? Be sure to check your spelling.",
-    "goHome": "Go to home"
-  }
 }
