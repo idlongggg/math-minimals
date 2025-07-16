@@ -229,6 +229,56 @@
         },
         "statistics": {
             "charts": {
+                "pictograph": {
+                    "title": "Pictograph",
+                    "description": "Pictograph page in statistics, including overview and actions tabs.",
+                    "tabs": {
+                        "overview": "Overview",
+                        "actions": "Actions"
+                    },
+                    "overview": {
+                        "title": "Pictograph Overview",
+                        "description": "This section provides an overview of the pictograph, including its features and applications.",
+                        "featuresTitle": "Key Features",
+                        "features": {
+                            "feature1": "Visually represents data using icons or symbols.",
+                            "feature2": "Useful for comparing quantities across categories.",
+                            "feature3": "Can represent large datasets in a compact form.",
+                            "feature4": "Easy to understand at a glance."
+                        },
+                        "applicationTitle": "Practical Applications",
+                        "applicationDesc": "Pictographs are commonly used in reports, presentations, and educational materials to visually represent data in an engaging way. They help convey information quickly and effectively, making them suitable for audiences of all ages."
+                    },
+                    "actions": {
+                        "tab-view": {
+                            "dataset": "Dataset",
+                            "blankTable": "Blank Data Table",
+                            "deleteRows": "Delete Rows",
+                            "addRow": "Add Row",
+                            "addColumn": "Add Column",
+                            "viewChart": "View Chart",
+                            "noDataTitle": "No data to display",
+                            "noDataDescription": "Add data or choose another dataset"
+                        },
+                        "data-selector": {
+                            "label": "Dataset"
+                        },
+                        "action-button": {
+                            "deleteSelected": "Delete selected",
+                            "addNewRow": "Add new row",
+                            "addNewColumn": "Add new column",
+                            "viewChart": "View Chart"
+                        },
+                        "custom-column-menu": {
+                            "renameColumn": "Rename Column",
+                            "deleteColumn": "Delete Column",
+                            "ok": "Ok"
+                        },
+                        "chart-dialog": {
+                            "close": "Close"
+                        }
+                    }
+                },
                 "line": {
                     "title": "Line Chart",
                     "description": "Line chart page in statistics, including overview, actions, and history tabs.",

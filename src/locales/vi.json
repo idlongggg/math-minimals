@@ -229,6 +229,48 @@
         },
         "statistics": {
             "charts": {
+                "pictograph": {
+                    "title": "Biểu đồ tranh",
+                    "description": "Trang biểu đồ tranh trong mục thống kê, gồm các tab tổng quát và thao tác.",
+                    "tabs": {
+                        "overview": "Tổng quát",
+                        "actions": "Thao tác"
+                    },
+                    "overview": {
+                        "title": "Tổng quát",
+                        "description": "Biểu đồ tranh là một dạng biểu đồ sử dụng hình ảnh để đại diện cho dữ liệu, giúp trực quan hóa thông tin một cách sinh động.",
+                        "featuresTitle": "Đặc điểm nổi bật",
+                        "features": {
+                            "feature1": "Sử dụng hình ảnh để đại diện cho dữ liệu, tạo sự sinh động.",
+                            "feature2": "Dễ dàng nhận biết các xu hướng và biến động của dữ liệu.",
+                            "feature3": "Phù hợp với dữ liệu phân loại và có thể so sánh nhiều tập dữ liệu.",
+                            "feature4": "Có thể kết hợp với các biểu đồ khác để tăng tính trực quan."
+                        },
+                        "applicationTitle": "Ứng dụng thực tiễn",
+                        "applicationDesc": "Biểu đồ tranh thường được sử dụng trong báo cáo, thuyết trình và phân tích dữ liệu để minh họa thông tin một cách sinh động. Nó giúp người dùng dễ dàng nhận biết các xu hướng và biến động của dữ liệu, từ đó đưa ra quyết định chính xác hơn."
+                    },
+                    "actions": {
+                        "tab-view": {
+                            "dataset": "Dữ liệu",
+                            "blankTable": "Bảng dữ liệu trống",
+                            "deleteRows": "Xóa các hàng",
+                            "addRow": "Thêm hàng mới",
+                            "addColumn": "Thêm cột mới",
+                            "viewChart": "Xem biểu đồ",
+                            "noDataTitle": "Không có dữ liệu để hiển thị",
+                            "noDataDescription": "Thêm dữ liệu hoặc chọn tập dữ liệu khác"
+                        },
+                        "data-selector": {
+                            "label": "Dữ liệu"
+                        },
+                        "action-button": {
+                            "deleteSelected": "Xóa các mục đã chọn",
+                            "addNewRow": "Thêm hàng mới",
+                            "addNewColumn": "Thêm cột mới",
+                            "viewChart": "Xem biểu đồ"
+                        }
+                    }
+                },
                 "line": {
                     "title": "Biểu đồ đường",
                     "description": "Trang biểu đồ đường trong mục thống kê, gồm các tab tổng quát và thao tác.",

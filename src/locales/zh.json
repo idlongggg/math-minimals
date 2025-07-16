@@ -229,6 +229,48 @@
         },
         "statistics": {
             "charts": {
+                "pictograph": {
+                    "title": "象形图",
+                    "description": "这是统计图表中的象形图页面，包含总览和操作等内容。",
+                    "tabs": {
+                        "overview": "总览",
+                        "actions": "操作"
+                    },
+                    "overview": {
+                        "title": "象形图总览",
+                        "description": "象形图是一种使用图像或图标来表示数据的图表，能够直观地展示信息。",
+                        "featuresTitle": "主要特点",
+                        "features": {
+                            "feature1": "使用图像或图标来表示数据，增强视觉效果。",
+                            "feature2": "适合展示分类数据，易于理解。",
+                            "feature3": "可以与其他图表结合使用，提供更多信息。",
+                            "feature4": "灵活性高，可以根据需要自定义图像和布局。"
+                        },
+                        "applicationTitle": "实际应用",
+                        "applicationDesc": "象形图常用于商业报告、教育和宣传材料中，帮助观众快速理解数据背后的含义。"
+                    },
+                    "actions": {
+                        "tab-view": {
+                            "dataset": "数据集",
+                            "blankTable": "空白数据表",
+                            "deleteRows": "删除行",
+                            "addRow": "添加新行",
+                            "addColumn": "添加新列",
+                            "viewChart": "查看图表",
+                            "noDataTitle": "没有数据可显示",
+                            "noDataDescription": "添加数据或选择其他数据集"
+                        },
+                        "data-selector": {
+                            "label": "数据集"
+                        },
+                        "action-button": {
+                            "deleteSelected": "删除选定项",
+                            "addNewRow": "添加新行",
+                            "addNewColumn": "添加新列",
+                            "viewChart": "查看图表"
+                        }
+                    }
+                },
                 "line": {
                     "title": "折线图",
                     "description": "这是统计图表中的折线图页面，包含总览和操作等内容。",
