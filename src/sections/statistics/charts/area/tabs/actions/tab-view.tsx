@@ -6,8 +6,8 @@ import Box from '@mui/material/Box';
 import * as xDataGrid from '@mui/x-data-grid';
 import React from 'react';
 
-import ChartDialog from './chart-dialog';
 import ActionButtons from './components/action-button';
+import ChartDialog from './components/chart-dialog';
 import DatasetSelector from './components/dataset-selector';
 import { DEFAULT_DATA } from './data-constants';
 
