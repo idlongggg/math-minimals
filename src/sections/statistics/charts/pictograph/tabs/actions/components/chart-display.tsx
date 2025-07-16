@@ -41,7 +41,6 @@ export function ChartDisplay({ state, currentData }: ChartDisplayProps) {
                     unitValue={state.settings.unitValue}
                     maxIconsPerRow={state.settings.maxIconsPerRow}
                     iconSize={state.settings.iconSize}
-                    showLegend
                     showValues
                 />
             </Box>

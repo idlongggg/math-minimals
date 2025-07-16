@@ -17,7 +17,6 @@ export interface PictographChartProps {
     unitValue?: number;
     maxIconsPerRow?: number;
     iconSize?: number;
-    showLegend?: boolean;
     showValues?: boolean;
 }
 
@@ -27,7 +26,6 @@ export function PictographChart({
     unitValue = 1,
     maxIconsPerRow = 10,
     iconSize = 40,
-    showLegend = true,
     showValues = true,
 }: PictographChartProps) {
     const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
@@ -102,7 +100,7 @@ export function PictographChart({
             <CardContent>
                 <Box>
                     {data.map((category) => (
-                        <Box key={category.category} sx={{ mb: 4 }}>
+                        <Box key={category.category} sx={{ mb: 3 }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                                 <Typography variant="h6" sx={{ color: category.color, mr: 2 }}>
                                     {category.category}
@@ -118,47 +116,6 @@ export function PictographChart({
                         </Box>
                     ))}
                 </Box>
-
-                {showLegend && (
-                    <Card variant="outlined" sx={{ p: 2, bgcolor: 'background.neutral' }}>
-                        <Typography variant="subtitle2" gutterBottom>
-                            Chú giải:
-                        </Typography>
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-                            {data.map((category) => (
-                                <Box
-                                    key={category.category}
-                                    sx={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: 1,
-                                        p: 1,
-                                        borderRadius: 1,
-                                        bgcolor:
-                                            hoveredCategory === category.category
-                                                ? 'action.hover'
-                                                : 'transparent',
-                                        cursor: 'pointer',
-                                    }}
-                                    onMouseEnter={() => setHoveredCategory(category.category)}
-                                    onMouseLeave={() => setHoveredCategory(null)}
-                                >
-                                    <Box
-                                        sx={{
-                                            fontSize: 20,
-                                            color: category.color,
-                                        }}
-                                    >
-                                        {category.icon}
-                                    </Box>
-                                    <Typography variant="body2">
-                                        {category.category}: {category.value}
-                                    </Typography>
-                                </Box>
-                            ))}
-                        </Box>
-                    </Card>
-                )}
             </CardContent>
         </Card>
     );
