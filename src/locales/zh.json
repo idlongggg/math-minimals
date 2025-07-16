@@ -420,6 +420,56 @@
                             "close": "关闭"
                         }
                     }
+                },
+                "double-column": {
+                    "title": "双柱图",
+                    "description": "双柱图页面，包含总览和操作等内容。",
+                    "tabs": {
+                        "overview": "总览",
+                        "actions": "操作"
+                    },
+                    "overview": {
+                        "title": "双柱图总览",
+                        "description": "本节提供双柱图的概述，包括其特点和应用。",
+                        "featuresTitle": "主要特点",
+                        "features": {
+                            "feature1": "将数据以每个类别的双列形式显示。",
+                            "feature2": "适用于比较不同类别之间的数量。",
+                            "feature3": "可以表示离散和连续数据。",
+                            "feature4": "易于快速阅读和理解。"
+                        },
+                        "applicationTitle": "实际应用",
+                        "applicationDesc": "双柱图常用于商业报告、调查和教育材料中，以直观的方式表示数据。它们有助于快速比较不同类别或组之间的值。"
+                    },
+                    "actions": {
+                        "tab-view": {
+                            "dataset": "数据集",
+                            "blankTable": "空白数据表",
+                            "deleteRows": "删除行",
+                            "addRow": "添加新行",
+                            "addColumn": "添加新列",
+                            "viewChart": "查看图表",
+                            "noDataTitle": "没有数据可显示",
+                            "noDataDescription": "添加数据或选择其他数据集"
+                        },
+                        "data-selector": {
+                            "label": "数据集"
+                        },
+                        "action-button": {
+                            "deleteSelected": "删除选定项",
+                            "addNewRow": "添加新行",
+                            "addNewColumn": "添加新列",
+                            "viewChart": "查看图表"
+                        },
+                        "custom-column-menu": {
+                            "renameColumn": "重命名列",
+                            "deleteColumn": "删除列",
+                            "ok": "确定"
+                        },
+                        "chart-dialog": {
+                            "close": "关闭"
+                        }
+                    }
                 }
             }
         }
