@@ -1,12 +1,12 @@
 import type { GridColDef } from '@mui/x-data-grid';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useRef, useMemo, useState, useEffect, useCallback } from 'react';
 
-import { Box, type SelectChangeEvent } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import { Box, type SelectChangeEvent } from '@mui/material';
 
-import { ActionButtons, ChartDialog, CustomColumnMenu, DatasetSelector } from './components';
 import { DATA_INPUT } from './data';
+import { ChartDialog, ActionButtons, DatasetSelector, CustomColumnMenu } from './components';
 
 import type { ChartDataItem } from './data';
 

@@ -1,17 +1,11 @@
 import type { TransitionProps } from '@mui/material/transitions';
 
-import dynamic from 'next/dynamic';
 import React from 'react';
+import dynamic from 'next/dynamic';
 
-import {
-    AppBar,
-    Button,
-    Dialog,
-    DialogContent, Slide,
-    Toolbar,
-    Typography
-} from '@mui/material';
 import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
+import { Slide, AppBar, Button, Dialog, Toolbar, Typography, DialogContent } from '@mui/material';
 
 import { useLocales } from 'src/locales';
 
@@ -35,6 +29,7 @@ interface ChartDialogProps {
 }
 
 export function ChartDialog({ open, onClose, chart }: ChartDialogProps) {
+    const theme = useTheme();
     const { translate: t } = useLocales();
 
     return (
@@ -46,7 +41,7 @@ export function ChartDialog({ open, onClose, chart }: ChartDialogProps) {
                 transition: Transition,
             }}
         >
-            <AppBar position='relative'>
+            <AppBar position="relative">
                 <Toolbar>
                     <Typography sx={{ flex: 1 }} variant="h6" component="div">
                         {chart.chart.title}
@@ -74,7 +69,7 @@ export function ChartDialog({ open, onClose, chart }: ChartDialogProps) {
                                 toolbar: {
                                     show: false,
                                 },
-                                fontFamily: 'inherit',
+                                fontFamily: theme.typography.fontFamily,
                             },
                             dataLabels: {
                                 enabled: false,
@@ -85,15 +80,44 @@ export function ChartDialog({ open, onClose, chart }: ChartDialogProps) {
                             xaxis: {
                                 title: {
                                     text: chart.chart.x,
+                                    style: {
+                                        color: theme.vars.palette.text.primary,
+                                    },
                                 },
                                 type: 'category',
                                 labels: {
+                                    style: {
+                                        colors: theme.vars.palette.text.secondary,
+                                    },
                                     formatter: (value: string) => value,
                                 },
                             },
                             yaxis: {
                                 title: {
                                     text: chart.chart.y,
+                                    style: {
+                                        color: theme.vars.palette.text.primary,
+                                    },
+                                },
+                                labels: {
+                                    style: {
+                                        colors: theme.vars.palette.text.secondary,
+                                    },
+                                },
+                            },
+                            tooltip: {
+                                theme: 'dark',
+                            },
+                            legend: {
+                                labels: {
+                                    colors: theme.vars.palette.text.primary,
+                                },
+                                markers: {
+                                    shape: 'line',
+                                },
+                                itemMargin: {
+                                    horizontal: 10,
+                                    vertical: 5,
                                 },
                             },
                         }}
