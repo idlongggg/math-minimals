@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Tooltip, IconButton } from '@mui/material';
 
 import { useLocales } from 'src/locales';
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
@@ -24,7 +24,8 @@ export function ActionButtons({
         <Box sx={{ display: 'flex', gap: 2 }}>
             {selectedRows.length > 0 && (
                 <Button
-                    variant="contained"
+                    variant="text"
+                    size="medium"
                     color="error"
                     startIcon={<CloseIcon />}
                     onClick={onDeleteSelected}
@@ -32,30 +33,21 @@ export function ActionButtons({
                     {t('pages.statistics.charts.area.actions.action-button.deleteSelected')}
                 </Button>
             )}
-            <Button
-                variant="contained"
-                color="success"
-                startIcon={<AddIcon />}
-                onClick={onAddNewRow}
-            >
-                {t('pages.statistics.charts.area.actions.action-button.addNewRow')}
-            </Button>
-            <Button
-                variant="contained"
-                color="success"
-                startIcon={<AddIcon />}
-                onClick={onAddNewColumn}
-            >
-                {t('pages.statistics.charts.area.actions.action-button.addNewColumn')}
-            </Button>
-            <Button
-                variant="contained"
-                color="primary"
-                startIcon={<SearchSparkleIcon />}
-                onClick={onViewChart}
-            >
-                {t('pages.statistics.charts.area.actions.action-button.viewChart')}
-            </Button>
+            <Tooltip title={t('pages.statistics.charts.area.actions.action-button.addNewRow')}>
+                <IconButton size="medium" color="success" onClick={onAddNewRow}>
+                    <AddIcon />
+                </IconButton>
+            </Tooltip>
+            <Tooltip title={t('pages.statistics.charts.area.actions.action-button.addNewColumn')}>
+                <IconButton size="medium" color="success" onClick={onAddNewColumn}>
+                    <AddIcon />
+                </IconButton>
+            </Tooltip>
+            <Tooltip title={t('pages.statistics.charts.area.actions.action-button.viewChart')}>
+                <IconButton size="medium" color="primary" onClick={onViewChart}>
+                    <SearchSparkleIcon />
+                </IconButton>
+            </Tooltip>
         </Box>
     );
 }
