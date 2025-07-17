@@ -1,21 +1,19 @@
-import type { ApexOptions } from 'apexcharts';
 import type { TransitionProps } from '@mui/material/transitions';
 
-import React from 'react';
 import dynamic from 'next/dynamic';
+import React from 'react';
 
+import {
+    AppBar,
+    Button,
+    Dialog,
+    DialogContent, Slide,
+    Toolbar,
+    Typography
+} from '@mui/material';
 import Box from '@mui/material/Box';
-import { Slide } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import DialogContent from '@mui/material/DialogContent';
 
 import { useLocales } from 'src/locales';
-import { CloseIcon } from 'src/assets/icons';
 
 import type { ChartDataItem } from '../data';
 
@@ -33,18 +31,10 @@ const Transition = React.forwardRef(function Transition(
 interface ChartDialogProps {
     open: boolean;
     onClose: () => void;
-    currTable: ChartDataItem;
-    chartOptions: ApexOptions;
-    chartSeries: { name: string; data: { x: string; y: number }[] }[];
+    chart: ChartDataItem;
 }
 
-export function ChartDialog({
-    open,
-    onClose,
-    currTable,
-    chartOptions,
-    chartSeries,
-}: ChartDialogProps) {
+export function ChartDialog({ open, onClose, chart }: ChartDialogProps) {
     const { translate: t } = useLocales();
 
     return (
@@ -56,13 +46,10 @@ export function ChartDialog({
                 transition: Transition,
             }}
         >
-            <AppBar sx={{ position: 'relative' }}>
+            <AppBar position='relative'>
                 <Toolbar>
-                    <IconButton edge="start" color="inherit" onClick={onClose} aria-label="close">
-                        <CloseIcon />
-                    </IconButton>
-                    <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                        {currTable.chart.title}
+                    <Typography sx={{ flex: 1 }} variant="h6" component="div">
+                        {chart.chart.title}
                     </Typography>
                     <Button autoFocus variant="contained" color="error" onClick={onClose}>
                         {t('pages.statistics.charts.area.actions.chart-dialog.close')}
@@ -77,17 +64,47 @@ export function ChartDialog({
                         display: 'flex',
                         flexDirection: 'column',
                         p: 3,
-                        boxSizing: 'border-box',
                     }}
                 >
-                    {Chart && (
-                        <Chart
-                            options={chartOptions}
-                            series={chartSeries}
-                            type="area"
-                            height="100%"
-                        />
-                    )}
+                    <Chart
+                        type="area"
+                        height="100%"
+                        options={{
+                            chart: {
+                                toolbar: {
+                                    show: false,
+                                },
+                                fontFamily: 'inherit',
+                            },
+                            dataLabels: {
+                                enabled: false,
+                            },
+                            stroke: {
+                                curve: 'straight',
+                            },
+                            xaxis: {
+                                title: {
+                                    text: chart.chart.x,
+                                },
+                                type: 'category',
+                                labels: {
+                                    formatter: (value: string) => value,
+                                },
+                            },
+                            yaxis: {
+                                title: {
+                                    text: chart.chart.y,
+                                },
+                            },
+                        }}
+                        series={chart.chart.table.data.map((dataset) => ({
+                            name: dataset.k,
+                            data: chart.chart.table.labels.map((label, index) => ({
+                                x: label,
+                                y: dataset.v[index],
+                            })),
+                        }))}
+                    />
                 </Box>
             </DialogContent>
         </Dialog>

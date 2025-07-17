@@ -1,13 +1,12 @@
-import type { ApexOptions } from 'apexcharts';
 import type { GridColDef } from '@mui/x-data-grid';
 
-import { useRef, useMemo, useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { DataGrid } from '@mui/x-data-grid';
 import { Box, type SelectChangeEvent } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 
+import { ActionButtons, ChartDialog, CustomColumnMenu, DatasetSelector } from './components';
 import { DATA_INPUT } from './data';
-import { ChartDialog, ActionButtons, DatasetSelector, CustomColumnMenu } from './components';
 
 import type { ChartDataItem } from './data';
 
@@ -161,38 +160,6 @@ export function ActionsTab() {
 
     const toggleDialog = useCallback(() => setOpenDialog((prev) => !prev), []);
 
-    const chartOptions: ApexOptions = useMemo(
-        () => ({
-            chart: {
-                type: 'area',
-                zoom: { enabled: false },
-                toolbar: { show: false },
-                fontFamily: 'inherit',
-            },
-            dataLabels: { enabled: false },
-            stroke: { curve: 'smooth' },
-            xaxis: {
-                title: { text: currTable.chart.x },
-                type: 'numeric',
-                labels: { formatter: (value: string) => value },
-            },
-            yaxis: { title: { text: currTable.chart.y } },
-        }),
-        [currTable]
-    );
-
-    const chartSeries = useMemo(
-        () =>
-            currTable.chart.table.data.map((dataset) => ({
-                name: dataset.k,
-                data: currTable.chart.table.labels.map((label, index) => ({
-                    x: label,
-                    y: dataset.v[index],
-                })),
-            })),
-        [currTable]
-    );
-
     return (
         <Box ref={containerRef}>
             <Box
@@ -242,13 +209,7 @@ export function ActionsTab() {
                     }}
                 />
             </Box>
-            <ChartDialog
-                open={openDialog}
-                onClose={toggleDialog}
-                currTable={currTable}
-                chartOptions={chartOptions}
-                chartSeries={chartSeries}
-            />
+            <ChartDialog open={openDialog} onClose={toggleDialog} chart={currTable} />
         </Box>
     );
 }

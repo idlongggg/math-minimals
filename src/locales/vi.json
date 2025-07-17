@@ -349,8 +349,8 @@
                         },
                         "action-button": {
                             "deleteSelected": "Xóa các mục đã chọn",
-                            "addNewRow": "Thêm hàng mới",
-                            "addNewColumn": "Thêm cột mới",
+                            "addNewRow": "Thêm hàng",
+                            "addNewColumn": "Thêm cột",
                             "viewChart": "Xem biểu đồ"
                         },
                         "custom-column-menu": {
