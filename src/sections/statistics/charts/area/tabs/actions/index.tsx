@@ -15,7 +15,7 @@ export function ActionsTab() {
 
     const [dataGridHeight, setDataGridHeight] = useState(400);
 
-    const [currTable, setCurrTable] = useState<ChartDataItem>(DATA_INPUT[1]);
+    const [table, setTable] = useState<ChartDataItem>(DATA_INPUT[1]);
 
     const [openDialog, setOpenDialog] = useState(false);
 
@@ -25,28 +25,37 @@ export function ActionsTab() {
         () => [
             {
                 field: 'label',
-                headerName: currTable.chart.x,
+                headerName: table.chart.x,
                 editable: true,
+                type: 'string' as const,
             },
-            ...currTable.chart.table.data.map((dataset) => ({
-                field: dataset.k,
-                headerName: dataset.k,
-                editable: true,
-            })),
+            ...table.chart.table.data.map(
+                (dataset) =>
+                    ({
+                        field: dataset.k,
+                        headerName: dataset.k,
+                        editable: true,
+                        type: 'number' as const,
+                        valueParser: (value: any) => {
+                            const parsed = parseFloat(value);
+                            return isNaN(parsed) ? 0 : parsed;
+                        },
+                    }) as GridColDef
+            ),
         ],
-        [currTable]
+        [table]
     );
 
     const rows = useMemo(
         () =>
-            currTable.chart.table.labels.map((label, index) => {
+            table.chart.table.labels.map((label, index) => {
                 const row: any = { id: index, label };
-                currTable.chart.table.data.forEach((dataset) => {
+                table.chart.table.data.forEach((dataset) => {
                     row[dataset.k] = dataset.v[index] ?? 0;
                 });
                 return row;
             }),
-        [currTable]
+        [table]
     );
 
     useEffect(() => {
@@ -62,7 +71,7 @@ export function ActionsTab() {
 
     const handleTableChange = useCallback((event: SelectChangeEvent) => {
         const key = event.target.value;
-        setCurrTable(DATA_INPUT.find((item) => item.key === key) || DATA_INPUT[0]);
+        setTable(DATA_INPUT.find((item) => item.key === key) || DATA_INPUT[0]);
         setSelectedRows([]);
     }, []);
 
@@ -71,11 +80,10 @@ export function ActionsTab() {
         if (!changedField) return oldRow;
 
         const rowIndex = oldRow.id;
-        setCurrTable((prev) => {
+        setTable((prev) => {
             const updatedTable = JSON.parse(JSON.stringify(prev)) as ChartDataItem;
             if (changedField === 'label') {
-                const newLabel = newRow.label;
-                if (!isNaN(newLabel)) updatedTable.chart.table.labels[rowIndex] = newLabel;
+                updatedTable.chart.table.labels[rowIndex] = newRow.label; // Không kiểm tra isNaN cho label
             } else {
                 const datasetIndex = updatedTable.chart.table.data.findIndex(
                     (ds) => ds.k === changedField
@@ -93,7 +101,7 @@ export function ActionsTab() {
 
     const handleDeleteSelected = useCallback(() => {
         if (!selectedRows.length) return;
-        setCurrTable((prev) => {
+        setTable((prev) => {
             const updatedTable = JSON.parse(JSON.stringify(prev)) as ChartDataItem;
             const keptIndices = prev.chart.table.labels
                 .map((_, index) => index)
@@ -111,7 +119,7 @@ export function ActionsTab() {
     }, [selectedRows]);
 
     const handleAddNewRow = useCallback(() => {
-        setCurrTable((prev) => {
+        setTable((prev) => {
             const updatedTable = JSON.parse(JSON.stringify(prev)) as ChartDataItem;
             const lastLabel = updatedTable.chart.table.labels.at(-1) ?? 0;
             const newLabel = typeof lastLabel === 'number' ? lastLabel + 1 : 0;
@@ -122,7 +130,7 @@ export function ActionsTab() {
     }, []);
 
     const handleAddNewColumn = useCallback(() => {
-        setCurrTable((prev) => {
+        setTable((prev) => {
             const updatedTable = JSON.parse(JSON.stringify(prev)) as ChartDataItem;
             let newColumnName = 'New Column';
             let counter = 1;
@@ -138,7 +146,7 @@ export function ActionsTab() {
     }, []);
 
     const handleDeleteColumn = useCallback((field: string) => {
-        setCurrTable((prev) => {
+        setTable((prev) => {
             const updatedTable = JSON.parse(JSON.stringify(prev)) as ChartDataItem;
             updatedTable.chart.table.data = updatedTable.chart.table.data.filter(
                 (dataset) => dataset.k !== field
@@ -148,12 +156,20 @@ export function ActionsTab() {
     }, []);
 
     const handleRenameColumn = useCallback((field: string, newName: string) => {
-        setCurrTable((prev) => {
+        setTable((prev) => {
             const updatedTable = JSON.parse(JSON.stringify(prev)) as ChartDataItem;
-            const datasetIndex = updatedTable.chart.table.data.findIndex(
-                (dataset) => dataset.k === field
-            );
-            if (datasetIndex !== -1) updatedTable.chart.table.data[datasetIndex].k = newName;
+
+            if (field === 'label') {
+                // Cập nhật tên cho cột label (x-axis)
+                updatedTable.chart.x = newName;
+            } else {
+                // Cập nhật tên cho các cột dữ liệu khác
+                const datasetIndex = updatedTable.chart.table.data.findIndex(
+                    (dataset) => dataset.k === field
+                );
+                if (datasetIndex !== -1) updatedTable.chart.table.data[datasetIndex].k = newName;
+            }
+
             return updatedTable;
         });
     }, []);
@@ -170,7 +186,7 @@ export function ActionsTab() {
                     mb: 2,
                 }}
             >
-                <DatasetSelector currTable={currTable} onTableChange={handleTableChange} />
+                <DatasetSelector currTable={table} onTableChange={handleTableChange} />
                 <ActionButtons
                     selectedRows={selectedRows}
                     onDeleteSelected={handleDeleteSelected}
@@ -209,7 +225,7 @@ export function ActionsTab() {
                     }}
                 />
             </Box>
-            <ChartDialog open={openDialog} onClose={toggleDialog} chart={currTable} />
+            <ChartDialog open={openDialog} onClose={toggleDialog} chart={table} />
         </Box>
     );
 }
