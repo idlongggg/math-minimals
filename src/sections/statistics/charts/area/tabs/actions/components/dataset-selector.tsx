@@ -21,9 +21,10 @@ import type { ChartDataItem, SavedChartItem } from '../data';
 interface DatasetSelectorProps {
     currTable: ChartDataItem;
     onTableChange: (event: SelectChangeEvent) => void;
+    refreshTables?: number;
 }
 
-export function DatasetSelector({ currTable, onTableChange }: DatasetSelectorProps) {
+export function DatasetSelector({ currTable, onTableChange, refreshTables }: DatasetSelectorProps) {
     const { translate: t } = useLocales();
     const [savedTables, setSavedTables] = useState<SavedChartItem[]>([]);
     const { user } = useMockedUser();
@@ -47,7 +48,7 @@ export function DatasetSelector({ currTable, onTableChange }: DatasetSelectorPro
         } else {
             setSavedTables([]);
         }
-    }, [user]);
+    }, [user, refreshTables]);
 
     const emptyTable = DATA_INPUT.find((d) => d.key === 'empty');
 

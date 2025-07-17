@@ -144,7 +144,7 @@ export function ActionButtons({
                                     variant="contained"
                                     color="primary"
                                     onClick={() => {
-                                        onSave(saveData, true); // Truyền isUpdate=true
+                                        onSave(saveData, true);
                                         handleClosePopover();
                                     }}
                                 >
@@ -157,7 +157,7 @@ export function ActionButtons({
                                 variant={isSavedTable ? 'outlined' : 'contained'}
                                 color="primary"
                                 onClick={() => {
-                                    onSave(saveData, false); // Truyền isUpdate=false
+                                    onSave(saveData, false);
                                     handleClosePopover();
                                 }}
                             >

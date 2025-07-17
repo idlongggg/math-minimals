@@ -40,6 +40,8 @@ export function ActionsTab() {
 
     const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
+    const [refreshTables, setRefreshTables] = useState(0);
+
     const [snackbar, setSnackbar] = useState({
         open: false,
         message: '',
@@ -289,6 +291,8 @@ export function ActionsTab() {
                     localStorage.setItem(key, JSON.stringify(updatedItems));
                 }
 
+                setRefreshTables((prev) => prev + 1);
+
                 setSnackbar({
                     open: true,
                     message: 'Dữ liệu đã được lưu thành công!',
@@ -325,7 +329,11 @@ export function ActionsTab() {
                     mb: 2,
                 }}
             >
-                <DatasetSelector currTable={table} onTableChange={handleTableChange} />
+                <DatasetSelector
+                    currTable={table}
+                    onTableChange={handleTableChange}
+                    refreshTables={refreshTables}
+                />
                 <ActionButtons
                     selectedRows={selectedRows}
                     onDeleteSelected={handleDeleteSelected}
