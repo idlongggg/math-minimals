@@ -12,7 +12,6 @@ import { useLocales } from 'src/locales/hooks';
 import { Scrollbar } from 'src/components/scrollbar';
 import { DashboardTabs } from 'src/components/custom-tabs/dashboard-tabs';
 
-// ----------------------------------------------------------------------
 import { DashboardContent } from './content';
 
 export type PageLayoutProps = {

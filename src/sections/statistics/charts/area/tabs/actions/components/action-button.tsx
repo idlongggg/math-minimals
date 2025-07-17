@@ -1,5 +1,4 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import { Box, Button } from '@mui/material';
 
 import { useLocales } from 'src/locales';
 import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
@@ -12,7 +11,7 @@ interface ActionButtonsProps {
     onViewChart: () => void;
 }
 
-export default function ActionButtons({
+export function ActionButtons({
     selectedRows,
     onDeleteSelected,
     onAddNewRow,

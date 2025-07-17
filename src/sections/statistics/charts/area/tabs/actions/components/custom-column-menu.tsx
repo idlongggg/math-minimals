@@ -13,7 +13,7 @@ interface CustomColumnMenuProps extends GridColumnMenuProps {
     onRenameColumn?: (field: string, newName: string) => void;
 }
 
-export default function CustomColumnMenu({
+export function CustomColumnMenu({
     hideMenu,
     colDef,
     open,

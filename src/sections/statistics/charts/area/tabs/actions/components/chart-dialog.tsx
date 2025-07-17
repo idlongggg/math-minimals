@@ -17,7 +17,7 @@ import DialogContent from '@mui/material/DialogContent';
 import { useLocales } from 'src/locales';
 import { CloseIcon } from 'src/assets/icons';
 
-import type { DataItem } from '../data/data-constants';
+import type { ChartDataItem } from '../data';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -33,12 +33,12 @@ const Transition = React.forwardRef(function Transition(
 interface ChartDialogProps {
     open: boolean;
     onClose: () => void;
-    currTable: DataItem;
+    currTable: ChartDataItem;
     chartOptions: ApexOptions;
-    chartSeries: { name: string; data: { x: number; y: number }[] }[];
+    chartSeries: { name: string; data: { x: string; y: number }[] }[];
 }
 
-export default function ChartDialog({
+export function ChartDialog({
     open,
     onClose,
     currTable,
@@ -62,7 +62,7 @@ export default function ChartDialog({
                         <CloseIcon />
                     </IconButton>
                     <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                        {currTable.table.title}
+                        {currTable.chart.title}
                     </Typography>
                     <Button autoFocus variant="contained" color="error" onClick={onClose}>
                         {t('pages.statistics.charts.area.actions.chart-dialog.close')}

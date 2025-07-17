@@ -1,14 +1,14 @@
-export interface ChartData {
-    labels: number[];
-    datasets: {
-        label: string;
-        data: number[];
+export type TableData = {
+    labels: string[];
+    data: {
+        k: string;
+        v: number[];
     }[];
-}
+};
 
-export interface ChartWrap {
+export type Chart = {
     title: string;
-    xTitle: string;
-    yTitle: string;
-    data: ChartData;
-}
+    x: string;
+    y: string;
+    table: TableData;
+};

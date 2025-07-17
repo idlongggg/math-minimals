@@ -1,22 +1,17 @@
-import type { SelectChangeEvent } from '@mui/material';
-
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
+import { Select, MenuItem, InputLabel, FormControl, type SelectChangeEvent } from '@mui/material';
 
 import { useLocales } from 'src/locales';
 
-import { DEFAULT_DATA } from '../data/data-constants';
+import { DATA_INPUT } from '../data';
 
-import type { DataItem } from '../data/data-constants';
+import type { ChartDataItem } from '../data';
 
 interface DatasetSelectorProps {
-    currTable: DataItem;
+    currTable: ChartDataItem;
     onTableChange: (event: SelectChangeEvent) => void;
 }
 
-export default function DatasetSelector({ currTable, onTableChange }: DatasetSelectorProps) {
+export function DatasetSelector({ currTable, onTableChange }: DatasetSelectorProps) {
     const { translate: t } = useLocales();
 
     return (
@@ -30,9 +25,9 @@ export default function DatasetSelector({ currTable, onTableChange }: DatasetSel
                 label={t('pages.statistics.charts.area.actions.data-selector.label')}
                 onChange={onTableChange}
             >
-                {DEFAULT_DATA.map((d) => (
+                {DATA_INPUT.map((d) => (
                     <MenuItem key={d.key} value={d.key}>
-                        {d.key === 'empty' ? <strong>{d.table.title}</strong> : d.table.title}
+                        {d.key === 'empty' ? <strong>{d.chart.title}</strong> : d.chart.title}
                     </MenuItem>
                 ))}
             </Select>

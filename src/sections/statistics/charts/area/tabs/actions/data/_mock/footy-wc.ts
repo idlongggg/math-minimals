@@ -1,51 +1,51 @@
-import type { ChartData } from '../table-types';
+import type { TableData } from '../table-types';
 
-export const FootyWC: ChartData = {
-    labels: [1998, 2002, 2006, 2010, 2014, 2018, 2022],
-    datasets: [
+export const FootyWC: TableData = {
+    labels: ['1998', '2002', '2006', '2010', '2014', '2018', '2022'],
+    data: [
         {
-            label: 'Brazil',
-            data: [2, 1, 0, 0, 0, 0, 0],
+            k: 'Brazil',
+            v: [2, 1, 0, 0, 0, 0, 0],
         },
         {
-            label: 'Đức',
-            data: [1, 2, 1, 1, 2, 0, 0],
+            k: 'Đức',
+            v: [1, 2, 1, 1, 2, 0, 0],
         },
         {
-            label: 'Ý',
-            data: [0, 0, 2, 0, 0, 0, 0],
+            k: 'Ý',
+            v: [0, 0, 2, 0, 0, 0, 0],
         },
         {
-            label: 'Argentina',
-            data: [0, 0, 0, 0, 1, 0, 2],
+            k: 'Argentina',
+            v: [0, 0, 0, 0, 1, 0, 2],
         },
         {
-            label: 'Pháp',
-            data: [1, 0, 1, 0, 0, 2, 1],
+            k: 'Pháp',
+            v: [1, 0, 1, 0, 0, 2, 1],
         },
         {
-            label: 'Anh',
-            data: [0, 0, 0, 0, 0, 1, 0],
+            k: 'Anh',
+            v: [0, 0, 0, 0, 0, 1, 0],
         },
         {
-            label: 'Tây Ban Nha',
-            data: [0, 0, 0, 2, 0, 0, 0],
+            k: 'Tây Ban Nha',
+            v: [0, 0, 0, 2, 0, 0, 0],
         },
         {
-            label: 'Hà Lan',
-            data: [0, 0, 0, 1, 1, 0, 0],
+            k: 'Hà Lan',
+            v: [0, 0, 0, 1, 1, 0, 0],
         },
         {
-            label: 'Uruguay',
-            data: [0, 0, 0, 1, 0, 0, 0],
+            k: 'Uruguay',
+            v: [0, 0, 0, 1, 0, 0, 0],
         },
         {
-            label: 'Croatia',
-            data: [0, 0, 0, 0, 0, 1, 1],
+            k: 'Croatia',
+            v: [0, 0, 0, 0, 0, 1, 1],
         },
         {
-            label: 'Khác',
-            data: [0, 0, 0, 0, 0, 0, 0],
+            k: 'Khác',
+            v: [0, 0, 0, 0, 0, 0, 0],
         },
     ],
 };

@@ -1,15 +1,15 @@
-import type { ChartData } from '../table-types';
+import type { TableData } from '../table-types';
 
-export const Empty: ChartData = {
-    labels: [0],
-    datasets: [
+export const Empty: TableData = {
+    labels: ['y1', 'y2'],
+    data: [
         {
-            label: 'Column 1',
-            data: [0],
+            k: 'x1',
+            v: [0],
         },
         {
-            label: 'Column 2',
-            data: [0],
+            k: 'x2',
+            v: [0],
         },
     ],
 };
