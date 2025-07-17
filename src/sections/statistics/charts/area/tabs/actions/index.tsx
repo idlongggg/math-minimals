@@ -10,6 +10,21 @@ import { ChartDialog, ActionButtons, DatasetSelector, CustomColumnMenu } from '.
 
 import type { ChartDataItem } from './data';
 
+const genUniqName = (baseName: string, existingNames: string[], isColumn: boolean = false) => {
+    let newName = baseName;
+    let counter = 1;
+
+    const exists = isColumn
+        ? (name: string) => existingNames.includes(name)
+        : (name: string) => existingNames.includes(name);
+
+    while (exists(newName)) {
+        newName = `${baseName}${counter}`;
+        counter++;
+    }
+    return newName;
+};
+
 export function ActionsTab() {
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -121,9 +136,10 @@ export function ActionsTab() {
     const handleAddNewRow = useCallback(() => {
         setTable((prev) => {
             const updatedTable = JSON.parse(JSON.stringify(prev)) as ChartDataItem;
-            const lastLabel = updatedTable.chart.table.labels.at(-1) ?? 0;
-            const newLabel = typeof lastLabel === 'number' ? lastLabel + 1 : 0;
-            updatedTable.chart.table.labels.push(newLabel.toString());
+
+            const newLabel = genUniqName('y', updatedTable.chart.table.labels);
+
+            updatedTable.chart.table.labels.push(newLabel);
             updatedTable.chart.table.data.forEach((dataset) => dataset.v.push(0));
             return updatedTable;
         });
@@ -132,11 +148,10 @@ export function ActionsTab() {
     const handleAddNewColumn = useCallback(() => {
         setTable((prev) => {
             const updatedTable = JSON.parse(JSON.stringify(prev)) as ChartDataItem;
-            let newColumnName = 'New Column';
-            let counter = 1;
-            while (updatedTable.chart.table.data.some((ds) => ds.k === newColumnName)) {
-                newColumnName = `New Column ${counter++}`;
-            }
+
+            const existingColumnNames = updatedTable.chart.table.data.map((ds) => ds.k);
+            const newColumnName = genUniqName('x', existingColumnNames, true);
+
             updatedTable.chart.table.data.push({
                 k: newColumnName,
                 v: Array(updatedTable.chart.table.labels.length).fill(0),
@@ -160,10 +175,8 @@ export function ActionsTab() {
             const updatedTable = JSON.parse(JSON.stringify(prev)) as ChartDataItem;
 
             if (field === 'label') {
-                // Cập nhật tên cho cột label (x-axis)
                 updatedTable.chart.x = newName;
             } else {
-                // Cập nhật tên cho các cột dữ liệu khác
                 const datasetIndex = updatedTable.chart.table.data.findIndex(
                     (dataset) => dataset.k === field
                 );
