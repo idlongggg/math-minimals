@@ -183,7 +183,6 @@ export default function ActionsTab() {
     }, []);
 
     const handleOpenDialog = () => {
-        console.log('Open dialog for chart view', currTable);
         setOpenDialog(true);
     };
 
@@ -199,33 +198,10 @@ export default function ActionsTab() {
                 toolbar: { show: false },
                 fontFamily: 'inherit',
             },
-            dataLabels: { enabled: false },
+            dataLabels: { enabled: true },
             stroke: { curve: 'smooth' },
-            xaxis: {
-                title: { text: currTable.table.xTitle },
-                type: 'numeric',
-                labels: {
-                    formatter: (value: string, _timestamp?: number, _opts?: any) =>
-                        value.toString(),
-                },
-            },
-            yaxis: {
-                title: { text: currTable.table.yTitle },
-            },
         }),
-        [currTable]
-    );
-
-    const chartSeries = React.useMemo(
-        () =>
-            currTable.table.data.datasets.map((dataset) => ({
-                name: dataset.label,
-                data: currTable.table.data.labels.map((label, index) => ({
-                    x: label,
-                    y: dataset.data[index],
-                })),
-            })),
-        [currTable]
+        []
     );
 
     return (
@@ -239,7 +215,6 @@ export default function ActionsTab() {
                 }}
             >
                 <DatasetSelector currTable={currTable} onTableChange={handleTableChange} />
-
                 <ActionButtons
                     selectedRows={selectedRows}
                     onDeleteSelected={handleDeleteSelected}
@@ -279,7 +254,6 @@ export default function ActionsTab() {
                 onClose={handleCloseDialog}
                 currTable={currTable}
                 chartOptions={chartOptions}
-                chartSeries={chartSeries}
             />
         </Box>
     );
