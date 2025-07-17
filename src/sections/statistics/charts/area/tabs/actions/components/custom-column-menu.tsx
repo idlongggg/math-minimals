@@ -57,7 +57,7 @@ export function CustomColumnMenu({
                         autoFocus
                         sx={{ mr: 1 }}
                     />
-                    <Button onClick={handleRename} size="small">
+                    <Button onClick={handleRename} variant="text" size="small" color="success">
                         {t('pages.statistics.charts.area.actions.custom-column-menu.ok')}
                     </Button>
                 </MenuItem>
