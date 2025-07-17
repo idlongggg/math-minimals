@@ -12,8 +12,6 @@ import {
 
 import { useLocales } from 'src/locales';
 
-import { Scrollbar } from 'src/components/scrollbar';
-
 import { useMockedUser } from 'src/auth/hooks';
 
 import { DATA_INPUT } from '../data';
@@ -60,54 +58,52 @@ export function DatasetSelector({ currTable, onTableChange }: DatasetSelectorPro
             <InputLabel id="dataset-select-label">
                 {t('pages.statistics.charts.area.actions.data-selector.label')}
             </InputLabel>
-            <Scrollbar style={{ maxHeight: '200px' }}>
-                <Select
-                    labelId="dataset-select-label"
-                    value={currTable.key}
-                    label={t('pages.statistics.charts.area.actions.data-selector.label')}
-                    onChange={onTableChange}
-                    MenuProps={{
-                        PaperProps: {
-                            sx: {
-                                maxHeight: 300,
-                            },
+            <Select
+                labelId="dataset-select-label"
+                value={currTable.key}
+                label={t('pages.statistics.charts.area.actions.data-selector.label')}
+                onChange={onTableChange}
+                MenuProps={{
+                    PaperProps: {
+                        sx: {
+                            maxHeight: 300,
                         },
-                    }}
-                >
-                    {emptyTable && (
-                        <MenuItem key={emptyTable.key} value={emptyTable.key}>
-                            <Box component="span" fontStyle="italic">
-                                {emptyTable.chart.title}
+                    },
+                }}
+            >
+                {emptyTable && (
+                    <MenuItem key={emptyTable.key} value={emptyTable.key}>
+                        <Box component="span" fontStyle="italic">
+                            {emptyTable.chart.title}
+                        </Box>
+                    </MenuItem>
+                )}
+
+                <Divider />
+
+                {sampleTables.map((d) => (
+                    <MenuItem key={d.key} value={d.key}>
+                        {d.chart.title}
+                    </MenuItem>
+                ))}
+
+                {savedTables.length > 0 && <Divider />}
+
+                {savedTables.map((savedItem: SavedChartItem) => {
+                    const key = `saved-${savedItem.index}`;
+                    return (
+                        <MenuItem key={key} value={key}>
+                            {savedItem.data.chart.title}
+                            <Box
+                                component="span"
+                                sx={{ ml: 1, color: 'text.secondary', fontSize: '0.75rem' }}
+                            >
+                                ({new Date(savedItem.savedAt).toLocaleDateString()})
                             </Box>
                         </MenuItem>
-                    )}
-
-                    <Divider />
-
-                    {sampleTables.map((d) => (
-                        <MenuItem key={d.key} value={d.key}>
-                            {d.chart.title}
-                        </MenuItem>
-                    ))}
-
-                    {savedTables.length > 0 && <Divider />}
-
-                    {savedTables.map((savedItem: SavedChartItem) => {
-                        const key = `saved-${savedItem.index}`;
-                        return (
-                            <MenuItem key={key} value={key}>
-                                {savedItem.data.chart.title}
-                                <Box
-                                    component="span"
-                                    sx={{ ml: 1, color: 'text.secondary', fontSize: '0.75rem' }}
-                                >
-                                    ({new Date(savedItem.savedAt).toLocaleDateString()})
-                                </Box>
-                            </MenuItem>
-                        );
-                    })}
-                </Select>
-            </Scrollbar>
+                    );
+                })}
+            </Select>
         </FormControl>
     );
 }
