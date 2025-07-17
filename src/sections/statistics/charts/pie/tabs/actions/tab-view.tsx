@@ -230,6 +230,7 @@ export default function ActionsTab() {
                     columns={columns}
                     hideFooter
                     checkboxSelection
+                    disableColumnSorting
                     disableRowSelectionOnClick
                     processRowUpdate={handleProcessRowUpdate}
                     onProcessRowUpdateError={(error) => console.error(error)}

@@ -183,7 +183,6 @@ export default function ActionsTab() {
     }, []);
 
     const handleOpenDialog = () => {
-        console.log('Open dialog for chart view', currTable);
         setOpenDialog(true);
     };
 
@@ -256,6 +255,7 @@ export default function ActionsTab() {
                     columns={columns}
                     hideFooter
                     checkboxSelection
+                    disableColumnSorting
                     disableRowSelectionOnClick
                     processRowUpdate={handleProcessRowUpdate}
                     onProcessRowUpdateError={(error) => console.error(error)}
