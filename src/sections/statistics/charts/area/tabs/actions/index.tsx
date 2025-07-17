@@ -46,6 +46,8 @@ export function ActionsTab() {
         severity: 'success' as 'success' | 'error',
     });
 
+    const isSavedTable = useMemo(() => table.key.startsWith('saved-'), [table.key]);
+
     const handleCloseSnackbar = () => {
         setSnackbar((prev) => ({ ...prev, open: false }));
     };
@@ -235,7 +237,7 @@ export function ActionsTab() {
     const toggleDialog = useCallback(() => setOpenDialog((prev) => !prev), []);
 
     const handleSave = useCallback(
-        (saveData: { title: string; xAxis: string; yAxis: string }) => {
+        (saveData: { title: string; xAxis: string; yAxis: string }, isUpdate: boolean = false) => {
             if (!user) {
                 setSnackbar({
                     open: true,
@@ -259,18 +261,33 @@ export function ActionsTab() {
                 tableToSave.chart.x = saveData.xAxis;
                 tableToSave.chart.y = saveData.yAxis;
 
-                const newItem = {
-                    data: tableToSave,
-                    savedAt: now,
-                    index:
-                        savedItems.length > 0
-                            ? Math.max(...savedItems.map((item) => item.index)) + 1
-                            : 0,
-                };
+                // Xử lý cập nhật hoặc lưu mới
+                if (isUpdate && isSavedTable) {
+                    // Lấy index từ key (dạng 'saved-<index>')
+                    const savedIndex = parseInt(table.key.split('-')[1], 10);
 
-                const updatedItems = [newItem, ...savedItems];
+                    // Cập nhật bản đã lưu
+                    const updatedItems = savedItems.map((item) =>
+                        item.index === savedIndex
+                            ? { ...item, data: tableToSave, savedAt: now }
+                            : item
+                    );
 
-                localStorage.setItem(key, JSON.stringify(updatedItems));
+                    localStorage.setItem(key, JSON.stringify(updatedItems));
+                } else {
+                    // Lưu mới
+                    const newItem = {
+                        data: tableToSave,
+                        savedAt: now,
+                        index:
+                            savedItems.length > 0
+                                ? Math.max(...savedItems.map((item) => item.index)) + 1
+                                : 0,
+                    };
+
+                    const updatedItems = [newItem, ...savedItems];
+                    localStorage.setItem(key, JSON.stringify(updatedItems));
+                }
 
                 setSnackbar({
                     open: true,
@@ -286,7 +303,7 @@ export function ActionsTab() {
                 });
             }
         },
-        [table, user]
+        [table, user, isSavedTable]
     );
 
     const tableFormData = useMemo(
@@ -315,6 +332,7 @@ export function ActionsTab() {
                     onAddNewRow={handleAddNewRow}
                     onAddNewColumn={handleAddNewColumn}
                     onSave={handleSave}
+                    isSavedTable={isSavedTable}
                     tableData={tableFormData}
                     onViewChart={toggleDialog}
                 />

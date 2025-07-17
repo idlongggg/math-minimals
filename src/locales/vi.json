@@ -360,7 +360,9 @@
                             "title": "Tiêu đề biểu đồ",
                             "x-axis": "Nhãn trục X",
                             "y-axis": "Nhãn trục Y",
-                            "save-button": "Lưu"
+                            "save-button": "Lưu",
+                            "update-button": "Cập nhật",
+                            "save-as-new-button": "Lưu dưới dạng mới"
                         },
                         "custom-column-menu": {
                             "renameColumn": "Đổi tên cột",

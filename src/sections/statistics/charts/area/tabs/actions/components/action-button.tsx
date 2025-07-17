@@ -11,7 +11,8 @@ interface ActionButtonsProps {
     onAddNewRow: () => void;
     onAddNewColumn: () => void;
     onViewChart: () => void;
-    onSave: (saveData: { title: string; xAxis: string; yAxis: string }) => void;
+    onSave: (saveData: { title: string; xAxis: string; yAxis: string }, isUpdate: boolean) => void;
+    isSavedTable: boolean;
     tableData: {
         title: string;
         xAxis: string;
@@ -26,6 +27,7 @@ export function ActionButtons({
     onAddNewColumn,
     onViewChart,
     onSave,
+    isSavedTable,
     tableData,
 }: ActionButtonsProps) {
     const { translate: t } = useLocales();
@@ -47,11 +49,6 @@ export function ActionButtons({
 
     const handleClosePopover = () => {
         setAnchorEl(null);
-    };
-
-    const handleSaveClick = () => {
-        onSave(saveData);
-        handleClosePopover();
     };
 
     const open = Boolean(anchorEl);
@@ -135,9 +132,44 @@ export function ActionButtons({
                             onChange={(e) => setSaveData({ ...saveData, yAxis: e.target.value })}
                             fullWidth
                         />
-                        <Button variant="contained" color="primary" onClick={handleSaveClick}>
-                            {t('pages.statistics.charts.area.actions.save-form.save-button')}
-                        </Button>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                gap: 1,
+                                justifyContent: isSavedTable ? 'space-between' : 'flex-end',
+                            }}
+                        >
+                            {isSavedTable && (
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => {
+                                        onSave(saveData, true); // Truyền isUpdate=true
+                                        handleClosePopover();
+                                    }}
+                                >
+                                    {t(
+                                        'pages.statistics.charts.area.actions.save-form.update-button'
+                                    )}
+                                </Button>
+                            )}
+                            <Button
+                                variant={isSavedTable ? 'outlined' : 'contained'}
+                                color="primary"
+                                onClick={() => {
+                                    onSave(saveData, false); // Truyền isUpdate=false
+                                    handleClosePopover();
+                                }}
+                            >
+                                {isSavedTable
+                                    ? t(
+                                          'pages.statistics.charts.area.actions.save-form.save-as-new-button'
+                                      )
+                                    : t(
+                                          'pages.statistics.charts.area.actions.save-form.save-button'
+                                      )}
+                            </Button>
+                        </Box>
                     </Stack>
                 </Box>
             </Popover>
