@@ -11,6 +11,8 @@ import FormControl from '@mui/material/FormControl';
 
 import { AddIcon, CloseIcon, ResetIcon } from 'src/assets/icons';
 
+import { Scrollbar } from 'src/components/scrollbar';
+
 import { AVAILABLE_ICONS, AVAILABLE_COLORS } from '../data/constants';
 
 import type { PictographActions } from '../data/types';
@@ -102,12 +104,27 @@ export function CustomDataEditor({ customData, actions }: CustomDataEditorProps)
                                 onChange={(e) =>
                                     actions.updateCustomCategory(index, 'icon', e.target.value)
                                 }
+                                MenuProps={{
+                                    PaperProps: {
+                                        sx: {
+                                            maxHeight: 200, // Giới hạn chiều cao menu
+                                            overflow: 'hidden', // Ẩn nội dung vượt quá
+                                        },
+                                    },
+                                    MenuListProps: {
+                                        sx: {
+                                            padding: 0, // Xóa padding mặc định để ScrollBar toàn quyền
+                                        },
+                                    },
+                                }}
                             >
-                                {AVAILABLE_ICONS.map((icon) => (
-                                    <MenuItem key={icon} value={icon}>
-                                        {icon} {icon}
-                                    </MenuItem>
-                                ))}
+                                <Scrollbar style={{ maxHeight: '200px' }}>
+                                    {AVAILABLE_ICONS.map((icon) => (
+                                        <MenuItem key={icon} value={icon}>
+                                            {icon} {icon}
+                                        </MenuItem>
+                                    ))}
+                                </Scrollbar>
                             </Select>
                         </FormControl>
 
@@ -119,28 +136,43 @@ export function CustomDataEditor({ customData, actions }: CustomDataEditorProps)
                                 onChange={(e) =>
                                     actions.updateCustomCategory(index, 'color', e.target.value)
                                 }
+                                MenuProps={{
+                                    PaperProps: {
+                                        sx: {
+                                            maxHeight: 200, // Giới hạn chiều cao menu
+                                            overflow: 'hidden',
+                                        },
+                                    },
+                                    MenuListProps: {
+                                        sx: {
+                                            padding: 0,
+                                        },
+                                    },
+                                }}
                             >
-                                {AVAILABLE_COLORS.map((color) => (
-                                    <MenuItem key={color} value={color}>
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: 1,
-                                            }}
-                                        >
+                                <Scrollbar style={{ maxHeight: '200px' }}>
+                                    {AVAILABLE_COLORS.map((color) => (
+                                        <MenuItem key={color} value={color}>
                                             <Box
                                                 sx={{
-                                                    width: 16,
-                                                    height: 16,
-                                                    bgcolor: color,
-                                                    borderRadius: '50%',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: 1,
                                                 }}
-                                            />
-                                            {color}
-                                        </Box>
-                                    </MenuItem>
-                                ))}
+                                            >
+                                                <Box
+                                                    sx={{
+                                                        width: 16,
+                                                        height: 16,
+                                                        bgcolor: color,
+                                                        borderRadius: '50%',
+                                                    }}
+                                                />
+                                                {color}
+                                            </Box>
+                                        </MenuItem>
+                                    ))}
+                                </Scrollbar>
                             </Select>
                         </FormControl>
                     </Box>
