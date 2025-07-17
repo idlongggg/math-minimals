@@ -1,7 +1,5 @@
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
+import { Stack, Divider, Typography } from '@mui/material';
 
 import { useLocales } from 'src/locales';
 import { FlagIcon, SlideTextSparkleIcon } from 'src/assets/icons';
@@ -18,7 +16,7 @@ const FeatureItem = styled('li')(({ theme }) => ({
 
 const featuresKeys = ['feature1', 'feature2', 'feature3', 'feature4'];
 
-export default function OverviewTab() {
+export function OverviewTab() {
     const { translate: t } = useLocales();
     return (
         <>

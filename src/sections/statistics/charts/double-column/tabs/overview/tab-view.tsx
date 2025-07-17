@@ -18,7 +18,7 @@ const FeatureItem = styled('li')(({ theme }) => ({
 
 const featuresKeys = ['feature1', 'feature2', 'feature3', 'feature4'];
 
-export default function OverviewTab() {
+export function OverviewTab() {
     const { translate: t } = useLocales();
     return (
         <>
