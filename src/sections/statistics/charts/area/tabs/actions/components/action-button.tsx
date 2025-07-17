@@ -24,7 +24,7 @@ export function ActionButtons({
         <Box sx={{ display: 'flex', gap: 2 }}>
             {selectedRows.length > 0 && (
                 <Button
-                    variant="text"
+                    variant="outlined"
                     size="medium"
                     color="error"
                     startIcon={<CloseIcon />}
@@ -44,9 +44,14 @@ export function ActionButtons({
                 </IconButton>
             </Tooltip>
             <Tooltip title={t('pages.statistics.charts.area.actions.action-button.viewChart')}>
-                <IconButton size="medium" color="primary" onClick={onViewChart}>
-                    <SearchSparkleIcon />
-                </IconButton>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<SearchSparkleIcon />}
+                    onClick={onViewChart}
+                >
+                    {t('pages.statistics.charts.area.actions.action-button.viewChart')}
+                </Button>
             </Tooltip>
         </Box>
     );
