@@ -12,6 +12,12 @@ export * from '.';
 export * from './_mock';
 export * from './table-types';
 
+export type SavedChartItem = {
+    data: ChartDataItem;
+    savedAt: string;
+    index: number;
+};
+
 export const DATA_INPUT: ChartDataItem[] = [
     {
         key: 'empty',

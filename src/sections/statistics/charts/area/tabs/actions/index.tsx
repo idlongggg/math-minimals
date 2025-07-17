@@ -10,7 +10,7 @@ import { useMockedUser } from 'src/auth/hooks';
 import { DATA_INPUT } from './data';
 import { ChartDialog, ActionButtons, DatasetSelector, CustomColumnMenu } from './components';
 
-import type { ChartDataItem } from './data';
+import type { ChartDataItem, SavedChartItem } from './data';
 
 const genUniqName = (baseName: string, existingNames: string[], isColumn: boolean = false) => {
     let newName = baseName;
@@ -98,11 +98,42 @@ export function ActionsTab() {
         return () => window.removeEventListener('resize', updateHeight);
     }, []);
 
-    const handleTableChange = useCallback((event: SelectChangeEvent) => {
-        const key = event.target.value;
-        setTable(DATA_INPUT.find((item) => item.key === key) || DATA_INPUT[0]);
-        setSelectedRows([]);
-    }, []);
+    const handleTableChange = useCallback(
+        (event: SelectChangeEvent) => {
+            const selectedKey = event.target.value;
+
+            // Nếu chọn dữ liệu mẫu
+            const sampleTable = DATA_INPUT.find((item) => item.key === selectedKey);
+            if (sampleTable) {
+                setTable(sampleTable);
+                setSelectedRows([]);
+                return;
+            }
+
+            // Nếu chọn dữ liệu đã lưu
+            if (selectedKey.startsWith('saved-')) {
+                const savedIndex = parseInt(selectedKey.split('-')[1], 10);
+                if (!user) return;
+
+                const key = `${user.id}_statistics.charts.pie`;
+                const savedData = localStorage.getItem(key);
+                if (savedData) {
+                    const savedItems: SavedChartItem[] = JSON.parse(savedData);
+                    const savedItem = savedItems.find((item) => item.index === savedIndex);
+                    if (savedItem) {
+                        // Tạo bản sao và gán key tạm thời
+                        const savedTable = {
+                            ...savedItem.data,
+                            key: selectedKey, // Gán key tạm thời
+                        };
+                        setTable(savedTable);
+                        setSelectedRows([]);
+                    }
+                }
+            }
+        },
+        [user]
+    );
 
     const handleProcessRowUpdate = useCallback((newRow: any, oldRow: any) => {
         const changedField = Object.keys(newRow).find((key) => newRow[key] !== oldRow[key]);
@@ -219,11 +250,9 @@ export function ActionsTab() {
                 const now = new Date().toISOString();
 
                 const existingData = localStorage.getItem(key);
-                const savedItems: Array<{
-                    data: ChartDataItem;
-                    savedAt: string;
-                    index: number;
-                }> = existingData ? JSON.parse(existingData) : [];
+                const savedItems: Array<SavedChartItem> = existingData
+                    ? JSON.parse(existingData)
+                    : [];
 
                 const tableToSave = JSON.parse(JSON.stringify(table)) as ChartDataItem;
                 tableToSave.chart.title = saveData.title;

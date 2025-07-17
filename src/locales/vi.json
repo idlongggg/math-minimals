@@ -345,7 +345,9 @@
                             "noDataDescription": "Thêm dữ liệu hoặc chọn tập dữ liệu khác"
                         },
                         "data-selector": {
-                            "label": "Dữ liệu"
+                            "label": "Dữ liệu",
+                            "saved-data": "Dữ liệu đã lưu",
+                            "no-saved-data": "Không có dữ liệu đã lưu"
                         },
                         "action-button": {
                             "deleteSelected": "Xóa các mục đã chọn",
@@ -354,12 +356,12 @@
                             "save": "Lưu bảng",
                             "viewChart": "Xem biểu đồ"
                         },
-                         "save-form": {
-              "title": "Tiêu đề biểu đồ",
-              "x-axis": "Nhãn trục X",
-              "y-axis": "Nhãn trục Y",
-              "save-button": "Lưu"
-            },
+                        "save-form": {
+                            "title": "Tiêu đề biểu đồ",
+                            "x-axis": "Nhãn trục X",
+                            "y-axis": "Nhãn trục Y",
+                            "save-button": "Lưu"
+                        },
                         "custom-column-menu": {
                             "renameColumn": "Đổi tên cột",
                             "deleteColumn": "Xóa cột",
