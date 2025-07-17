@@ -3,7 +3,9 @@ import type { GridColDef } from '@mui/x-data-grid';
 import { useRef, useMemo, useState, useEffect, useCallback } from 'react';
 
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, type SelectChangeEvent } from '@mui/material';
+import { Box, Alert, Snackbar, type SelectChangeEvent } from '@mui/material';
+
+import { useMockedUser } from 'src/auth/hooks';
 
 import { DATA_INPUT } from './data';
 import { ChartDialog, ActionButtons, DatasetSelector, CustomColumnMenu } from './components';
@@ -26,6 +28,8 @@ const genUniqName = (baseName: string, existingNames: string[], isColumn: boolea
 };
 
 export function ActionsTab() {
+    const { user } = useMockedUser();
+
     const containerRef = useRef<HTMLDivElement>(null);
 
     const [dataGridHeight, setDataGridHeight] = useState(400);
@@ -35,6 +39,16 @@ export function ActionsTab() {
     const [openDialog, setOpenDialog] = useState(false);
 
     const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
+    const [snackbar, setSnackbar] = useState({
+        open: false,
+        message: '',
+        severity: 'success' as 'success' | 'error',
+    });
+
+    const handleCloseSnackbar = () => {
+        setSnackbar((prev) => ({ ...prev, open: false }));
+    };
 
     const columns: GridColDef[] = useMemo(
         () => [
@@ -189,6 +203,72 @@ export function ActionsTab() {
 
     const toggleDialog = useCallback(() => setOpenDialog((prev) => !prev), []);
 
+    const handleSave = useCallback(
+        (saveData: { title: string; xAxis: string; yAxis: string }) => {
+            if (!user) {
+                setSnackbar({
+                    open: true,
+                    message: 'Lưu thất bại: Người dùng không xác định',
+                    severity: 'error',
+                });
+                return;
+            }
+
+            try {
+                const key = `${user.id}_statistics.charts.pie`;
+                const now = new Date().toISOString();
+
+                const existingData = localStorage.getItem(key);
+                const savedItems: Array<{
+                    data: ChartDataItem;
+                    savedAt: string;
+                    index: number;
+                }> = existingData ? JSON.parse(existingData) : [];
+
+                const tableToSave = JSON.parse(JSON.stringify(table)) as ChartDataItem;
+                tableToSave.chart.title = saveData.title;
+                tableToSave.chart.x = saveData.xAxis;
+                tableToSave.chart.y = saveData.yAxis;
+
+                const newItem = {
+                    data: tableToSave,
+                    savedAt: now,
+                    index:
+                        savedItems.length > 0
+                            ? Math.max(...savedItems.map((item) => item.index)) + 1
+                            : 0,
+                };
+
+                const updatedItems = [newItem, ...savedItems];
+
+                localStorage.setItem(key, JSON.stringify(updatedItems));
+
+                setSnackbar({
+                    open: true,
+                    message: 'Dữ liệu đã được lưu thành công!',
+                    severity: 'success',
+                });
+            } catch (error) {
+                console.error('Lưu thất bại:', error);
+                setSnackbar({
+                    open: true,
+                    message: `Lưu thất bại: ${error instanceof Error ? error.message : 'Lỗi không xác định'}`,
+                    severity: 'error',
+                });
+            }
+        },
+        [table, user]
+    );
+
+    const tableFormData = useMemo(
+        () => ({
+            title: table.chart.title,
+            xAxis: table.chart.x,
+            yAxis: table.chart.y,
+        }),
+        [table]
+    );
+
     return (
         <Box ref={containerRef}>
             <Box
@@ -205,6 +285,8 @@ export function ActionsTab() {
                     onDeleteSelected={handleDeleteSelected}
                     onAddNewRow={handleAddNewRow}
                     onAddNewColumn={handleAddNewColumn}
+                    onSave={handleSave}
+                    tableData={tableFormData}
                     onViewChart={toggleDialog}
                 />
             </Box>
@@ -237,6 +319,21 @@ export function ActionsTab() {
                         ),
                     }}
                 />
+                <Snackbar
+                    open={snackbar.open}
+                    autoHideDuration={6000}
+                    onClose={handleCloseSnackbar}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                >
+                    <Alert
+                        icon={false}
+                        severity={snackbar.severity}
+                        variant="filled"
+                        sx={{ width: '100%' }}
+                    >
+                        {snackbar.message}
+                    </Alert>
+                </Snackbar>
             </Box>
             <ChartDialog open={openDialog} onClose={toggleDialog} chart={table} />
         </Box>

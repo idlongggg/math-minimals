@@ -1,7 +1,9 @@
-import { Box, Button, Tooltip, IconButton } from '@mui/material';
+import { useState } from 'react';
+
+import { Box, Stack, Button, Popover, Tooltip, TextField, IconButton } from '@mui/material';
 
 import { useLocales } from 'src/locales';
-import { AddIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
+import { AddIcon, SaveIcon, CloseIcon, SearchSparkleIcon } from 'src/assets/icons';
 
 interface ActionButtonsProps {
     selectedRows: number[];
@@ -9,6 +11,12 @@ interface ActionButtonsProps {
     onAddNewRow: () => void;
     onAddNewColumn: () => void;
     onViewChart: () => void;
+    onSave: (saveData: { title: string; xAxis: string; yAxis: string }) => void;
+    tableData: {
+        title: string;
+        xAxis: string;
+        yAxis: string;
+    };
 }
 
 export function ActionButtons({
@@ -17,8 +25,37 @@ export function ActionButtons({
     onAddNewRow,
     onAddNewColumn,
     onViewChart,
+    onSave,
+    tableData,
 }: ActionButtonsProps) {
     const { translate: t } = useLocales();
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+    const [saveData, setSaveData] = useState({
+        title: tableData.title,
+        xAxis: tableData.xAxis,
+        yAxis: tableData.yAxis,
+    });
+
+    const handleOpenPopover = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+        setSaveData({
+            title: tableData.title,
+            xAxis: tableData.xAxis,
+            yAxis: tableData.yAxis,
+        });
+    };
+
+    const handleClosePopover = () => {
+        setAnchorEl(null);
+    };
+
+    const handleSaveClick = () => {
+        onSave(saveData);
+        handleClosePopover();
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'save-popover' : undefined;
 
     return (
         <Box sx={{ display: 'flex', gap: 2 }}>
@@ -43,6 +80,16 @@ export function ActionButtons({
                     <AddIcon />
                 </IconButton>
             </Tooltip>
+            <Tooltip title={t('pages.statistics.charts.area.actions.action-button.save')}>
+                <IconButton
+                    size="medium"
+                    color="info"
+                    onClick={handleOpenPopover}
+                    aria-describedby={id}
+                >
+                    <SaveIcon />
+                </IconButton>
+            </Tooltip>
             <Tooltip title={t('pages.statistics.charts.area.actions.action-button.viewChart')}>
                 <Button
                     variant="contained"
@@ -53,6 +100,47 @@ export function ActionButtons({
                     {t('pages.statistics.charts.area.actions.action-button.viewChart')}
                 </Button>
             </Tooltip>
+
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClosePopover}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+            >
+                <Box sx={{ p: 3, minWidth: 300 }}>
+                    <Stack spacing={2}>
+                        <TextField
+                            label={t('pages.statistics.charts.area.actions.save-form.title')}
+                            value={saveData.title}
+                            onChange={(e) => setSaveData({ ...saveData, title: e.target.value })}
+                            fullWidth
+                        />
+                        <TextField
+                            label={t('pages.statistics.charts.area.actions.save-form.x-axis')}
+                            value={saveData.xAxis}
+                            onChange={(e) => setSaveData({ ...saveData, xAxis: e.target.value })}
+                            fullWidth
+                        />
+                        <TextField
+                            label={t('pages.statistics.charts.area.actions.save-form.y-axis')}
+                            value={saveData.yAxis}
+                            onChange={(e) => setSaveData({ ...saveData, yAxis: e.target.value })}
+                            fullWidth
+                        />
+                        <Button variant="contained" color="primary" onClick={handleSaveClick}>
+                            {t('pages.statistics.charts.area.actions.save-form.save-button')}
+                        </Button>
+                    </Stack>
+                </Box>
+            </Popover>
         </Box>
     );
 }

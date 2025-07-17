@@ -7,8 +7,8 @@ import { useState } from 'react';
 import { Card, CardContent } from '@mui/material';
 
 import { useLocales } from 'src/locales';
-import { ActionIcon, OverviewIcon } from 'src/assets/icons';
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
+import { ActionIcon, HistoryIcon, OverviewIcon } from 'src/assets/icons';
 
 import { ActionsTab, OverviewTab } from 'src/sections/statistics/charts/area';
 
@@ -27,6 +27,12 @@ export default function AreaChartStatisticsPage() {
             label: t('pages.statistics.charts.area.tabs.actions'),
             icon: ActionIcon,
             content: <ActionsTab />,
+        },
+        {
+            value: 't3',
+            label: t('Lịch sử'),
+            icon: HistoryIcon,
+            content: <div>{t('ds')}</div>,
         },
     ];
 
