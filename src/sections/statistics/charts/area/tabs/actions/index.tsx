@@ -1,16 +1,16 @@
 import type { GridColDef } from '@mui/x-data-grid';
 
-import { useRef, useMemo, useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { Alert, Box, Snackbar, type SelectChangeEvent } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Alert, Snackbar, type SelectChangeEvent } from '@mui/material';
 
 import { useMockedUser } from 'src/auth/hooks';
 
-import { DATA_INPUT } from './data';
-import { ChartDialog, ActionButtons, DatasetSelector, CustomColumnMenu } from './components';
+import { DATA_INPUT } from '../../data';
+import { ActionButtons, ChartDialog, CustomColumnMenu, DatasetSelector } from './components';
 
-import type { ChartDataItem, SavedChartItem } from './data';
+import type { ChartDataItem, SavedChartItem } from '../../data';
 
 const genUniqName = (baseName: string, existingNames: string[], isColumn: boolean = false) => {
     let newName = baseName;

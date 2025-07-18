@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
     Box,
-    Select,
     Divider,
-    MenuItem,
-    InputLabel,
-    Typography,
     FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    Typography,
     type SelectChangeEvent,
 } from '@mui/material';
 
@@ -15,9 +15,9 @@ import { useLocales } from 'src/locales';
 
 import { useMockedUser } from 'src/auth/hooks';
 
-import { DATA_INPUT } from '../data';
+import { DATA_INPUT } from '../../../data';
 
-import type { ChartDataItem, SavedChartItem } from '../data';
+import type { ChartDataItem, SavedChartItem } from '../../../data';
 
 interface DatasetSelectorProps {
     currTable: ChartDataItem;

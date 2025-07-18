@@ -1,15 +1,15 @@
 import type { TransitionProps } from '@mui/material/transitions';
 
-import React from 'react';
 import dynamic from 'next/dynamic';
+import React from 'react';
 
+import { AppBar, Button, Dialog, DialogContent, Slide, Toolbar, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import { Slide, AppBar, Button, Dialog, Toolbar, Typography, DialogContent } from '@mui/material';
 
 import { useLocales } from 'src/locales';
 
-import type { ChartDataItem } from '../data';
+import type { ChartDataItem } from '../../../data';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
