@@ -506,8 +506,8 @@ export function getNavData(
                             path: paths.dashboard.statistics.charts.pie,
                         },
                         {
-                            title: t('nav.statistics.charts.frequencyTable'),
-                            path: paths.dashboard.statistics.charts.frequencyTable,
+                            title: t('nav.statistics.charts.histogram'),
+                            path: paths.dashboard.statistics.charts.histogram,
                         },
                         {
                             title: t('nav.statistics.charts.boxplot'),
