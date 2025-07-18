@@ -1,14 +1,14 @@
 import type { GridColDef } from '@mui/x-data-grid';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useRef, useMemo, useState, useEffect, useCallback } from 'react';
 
-import { Alert, Box, Snackbar, type SelectChangeEvent } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import { Box, Alert, Snackbar, type SelectChangeEvent } from '@mui/material';
 
 import { useMockedUser } from 'src/auth/hooks';
 
 import { DATA_INPUT } from '../../data';
-import { ActionButtons, ChartDialog, CustomColumnMenu, DatasetSelector } from './components';
+import { ChartDialog, ActionButtons, DatasetSelector, CustomColumnMenu } from './components';
 
 import type { ChartDataItem, SavedChartItem } from '../../data';
 
@@ -119,7 +119,7 @@ export function ActionsTab() {
                 const savedIndex = parseInt(selectedKey.split('-')[1], 10);
                 if (!user) return;
 
-                const key = `${user.id}_statistics.charts.pie`;
+                const key = `${user.id}_statistics.charts.area`;
                 const savedData = localStorage.getItem(key);
                 if (savedData) {
                     const savedItems: SavedChartItem[] = JSON.parse(savedData);
@@ -250,7 +250,7 @@ export function ActionsTab() {
             }
 
             try {
-                const key = `${user.id}_statistics.charts.pie`;
+                const key = `${user.id}_statistics.charts.area`;
                 const now = new Date().toISOString();
 
                 const existingData = localStorage.getItem(key);

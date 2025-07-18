@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import {
     Box,
-    Divider,
-    FormControl,
-    InputLabel,
-    MenuItem,
     Select,
+    Divider,
+    MenuItem,
+    InputLabel,
     Typography,
+    FormControl,
     type SelectChangeEvent,
 } from '@mui/material';
 
@@ -36,7 +36,7 @@ export function DatasetSelector({ currTable, onTableChange, refreshTables }: Dat
             return;
         }
 
-        const key = `${user.id}_statistics.charts.pie`;
+        const key = `${user.id}_statistics.charts.area`;
         const savedData = localStorage.getItem(key);
 
         if (savedData) {
