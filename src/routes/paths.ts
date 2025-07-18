@@ -141,7 +141,6 @@ export const paths = {
                 stackedColumn: `${ROOTS.DASHBOARD}/statistics/charts/stacked-column`,
                 pie: `${ROOTS.DASHBOARD}/statistics/charts/pie`,
                 frequencyTable: `${ROOTS.DASHBOARD}/statistics/charts/frequency-table`,
-                histogram: `${ROOTS.DASHBOARD}/statistics/charts/histogram`,
                 boxplot: `${ROOTS.DASHBOARD}/statistics/charts/boxplot`,
                 scatter: `${ROOTS.DASHBOARD}/statistics/charts/scatter`,
             },

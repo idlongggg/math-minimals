@@ -510,10 +510,6 @@ export function getNavData(
                             path: paths.dashboard.statistics.charts.frequencyTable,
                         },
                         {
-                            title: t('nav.statistics.charts.histogram'),
-                            path: paths.dashboard.statistics.charts.histogram,
-                        },
-                        {
                             title: t('nav.statistics.charts.boxplot'),
                             path: paths.dashboard.statistics.charts.boxplot,
                         },
