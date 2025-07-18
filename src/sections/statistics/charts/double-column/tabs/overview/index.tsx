@@ -1,1 +1,1 @@
-export { default } from './tab-view';
+export * from './tab-view';

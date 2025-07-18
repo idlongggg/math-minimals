@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@mui/material';
 
 import ActionsTab from './tabs/actions';
-import OverviewTab from './tabs/overview';
+import { OverviewTab } from './tabs/overview/tab-view';
 
 type Props = {
     currentTab: string;

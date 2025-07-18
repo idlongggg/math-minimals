@@ -15,7 +15,7 @@ import CustomColumnMenu from './components/custom-column-menu';
 
 import type { DataItem } from './data/data-constants';
 
-export default function ActionsTab() {
+export function ActionsTab() {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const [dataGridHeight, setDataGridHeight] = React.useState(400);
     const [currTable, setCurrTable] = React.useState<DataItem>(DEFAULT_DATA[1]);
