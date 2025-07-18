@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
     Box,
-    Select,
     Divider,
-    MenuItem,
-    InputLabel,
     FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    Typography,
     type SelectChangeEvent,
 } from '@mui/material';
 
@@ -80,7 +81,11 @@ export function DatasetSelector({ currTable, onTableChange, refreshTables }: Dat
                     </MenuItem>
                 )}
 
-                <Divider />
+                <Divider>
+                    <Typography variant="caption" color="textSecondary">
+                        Các bảng mẫu có sẵn
+                    </Typography>
+                </Divider>
 
                 {sampleTables.map((d) => (
                     <MenuItem key={d.key} value={d.key}>
@@ -88,7 +93,11 @@ export function DatasetSelector({ currTable, onTableChange, refreshTables }: Dat
                     </MenuItem>
                 ))}
 
-                {savedTables.length > 0 && <Divider />}
+                {savedTables.length > 0 && <Divider>
+                    <Typography variant="caption" color="textSecondary">
+                        Các bảng đã lưu
+                    </Typography>
+                </Divider>}
 
                 {savedTables.map((savedItem: SavedChartItem) => {
                     const key = `saved-${savedItem.index}`;

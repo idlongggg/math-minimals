@@ -263,6 +263,16 @@ export function ActionsTab() {
                 tableToSave.chart.x = saveData.xAxis;
                 tableToSave.chart.y = saveData.yAxis;
 
+                const updatedTable = {
+                    ...table,
+                    chart: {
+                        ...table.chart,
+                        title: saveData.title,
+                        x: saveData.xAxis,
+                        y: saveData.yAxis,
+                    },
+                };
+
                 // Xử lý cập nhật hoặc lưu mới
                 if (isUpdate && isSavedTable) {
                     // Lấy index từ key (dạng 'saved-<index>')
@@ -276,6 +286,8 @@ export function ActionsTab() {
                     );
 
                     localStorage.setItem(key, JSON.stringify(updatedItems));
+
+                    setTable(updatedTable);
                 } else {
                     // Lưu mới
                     const newItem = {
@@ -289,6 +301,11 @@ export function ActionsTab() {
 
                     const updatedItems = [newItem, ...savedItems];
                     localStorage.setItem(key, JSON.stringify(updatedItems));
+
+                    setTable({
+                        ...updatedTable,
+                        key: `saved-${newItem.index}`,
+                    });
                 }
 
                 setRefreshTables((prev) => prev + 1);
