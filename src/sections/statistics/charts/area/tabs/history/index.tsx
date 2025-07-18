@@ -135,10 +135,10 @@ export function HistoryTab() {
     return (
         <Box sx={{ p: 2 }}>
             <Typography variant="h6" sx={{ mb: 2 }}>
-                {t('pages.statistics.charts.area.history.title')}
+                {t('Lịch sử biểu đồ')}
             </Typography>
             {savedCharts.length === 0 ? (
-                <Typography>{t('pages.statistics.charts.area.history.empty')}</Typography>
+                <Typography>{t('Không có biểu đồ nào được lưu')}</Typography>
             ) : (
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     {savedCharts.map((chart) => (
@@ -162,24 +162,18 @@ export function HistoryTab() {
                                 <CardContent sx={{ flex: 1 }}>
                                     <Typography variant="h6">{chart.data.chart.title}</Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        {t('pages.statistics.charts.area.actions.save-form.x-axis')}
-                                        : {chart.data.chart.x}
+                                        {t('Nhãn trục X')}: : {chart.data.chart.x}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        {t('pages.statistics.charts.area.actions.save-form.y-axis')}
-                                        : {chart.data.chart.y}
+                                        {t('Nhãn trục Y')}: : {chart.data.chart.y}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        {t('pages.statistics.charts.area.history.createdAt')}:{' '}
+                                        {t('Thời gian lưux')}:{' '}
                                         {new Date(chart.savedAt).toLocaleString()}
                                     </Typography>
                                 </CardContent>
                                 <CardActions sx={{ p: 2 }}>
-                                    <Tooltip
-                                        title={t(
-                                            'pages.statistics.charts.area.actions.action-button.edit'
-                                        )}
-                                    >
+                                    <Tooltip title={t('Chỉnh sửa')}>
                                         <IconButton
                                             size="small"
                                             onClick={(e) => handleOpenPopover(e, chart)}
@@ -188,11 +182,7 @@ export function HistoryTab() {
                                             <EditIcon />
                                         </IconButton>
                                     </Tooltip>
-                                    <Tooltip
-                                        title={t(
-                                            'pages.statistics.charts.area.actions.action-button.delete'
-                                        )}
-                                    >
+                                    <Tooltip title={t('Xóa biểu đồ')}>
                                         <IconButton
                                             size="small"
                                             color="error"
