@@ -164,7 +164,7 @@
                 "stackedColumn": "Biểu đồ cột chồng",
                 "pie": "Biểu đồ quạt",
                 "histogram": "Biểu đồ tần số",
-                "boxplot": "Box plot",
+                "boxplot": "Biểu đồ hộp",
                 "scatter": "Biểu đồ phân tán"
             },
             "descriptive": {
@@ -617,6 +617,67 @@
                             "renameColumn": "Đổi tên cột",
                             "deleteColumn": "Xóa cột",
                             "ok": "Ok"
+                        },
+                        "chart-dialog": {
+                            "close": "Đóng"
+                        }
+                    }
+                },
+                "scatter": {
+                    "title": "Biểu đồ phân tán",
+                    "description": "Trang biểu đồ phân tán trong mục thống kê, gồm các tab tổng quát và thao tác.",
+                    "tabs": {
+                        "overview": "Tổng quát",
+                        "actions": "Thao tác"
+                    },
+                    "overview": {
+                        "title": "Tổng quát",
+                        "description": "Biểu đồ phân tán là một dạng biểu đồ thể hiện mối quan hệ giữa hai biến số, giúp trực quan hóa sự phân bố và tương quan của dữ liệu.",
+                        "featuresTitle": "Đặc điểm nổi bật",
+                        "features": {
+                            "feature1": "Thể hiện mối quan hệ giữa hai biến số thông qua các điểm dữ liệu.",
+                            "feature2": "Dễ dàng nhận biết các xu hướng, mẫu và ngoại lệ trong dữ liệu.",
+                            "feature3": "Phù hợp với dữ liệu liên tục và có thể so sánh nhiều tập dữ liệu.",
+                            "feature4": "Có thể kết hợp với các biểu đồ khác để tăng tính trực quan."
+                        },
+                        "applicationTitle": "Ứng dụng thực tiễn",
+                        "applicationDesc": "Biểu đồ miền thường được sử dụng trong phân tích dữ liệu kinh doanh, tài chính, khoa học và kỹ thuật để minh họa sự phân bố và xu hướng của dữ liệu theo vùng. Nó giúp người dùng dễ dàng nhận biết các khu vực có giá trị cao hoặc thấp, từ đó đưa ra quyết định chính xác hơn."
+                    },
+                    "actions": {
+                        "tab-view": {
+                            "dataset": "Dữ liệu",
+                            "blankTable": "Bảng dữ liệu trống",
+                            "deleteRows": "Xóa các hàng",
+                            "addRow": "Thêm hàng mới",
+                            "addColumn": "Thêm cột mới",
+                            "viewChart": "Xem biểu đồ",
+                            "noDataTitle": "Không có dữ liệu để hiển thị",
+                            "noDataDescription": "Thêm dữ liệu hoặc chọn tập dữ liệu khác"
+                        },
+                        "data-selector": {
+                            "label": "Dữ liệu",
+                            "saved-data": "Dữ liệu đã lưu",
+                            "no-saved-data": "Không có dữ liệu đã lưu"
+                        },
+                        "action-button": {
+                            "deleteSelected": "Xóa các mục đã chọn",
+                            "addNewRow": "Thêm hàng",
+                            "addNewColumn": "Thêm cột",
+                            "save": "Lưu bảng",
+                            "viewChart": "Xem biểu đồ"
+                        },
+                        "save-form": {
+                            "title": "Tiêu đề biểu đồ",
+                            "x-axis": "Nhãn trục X",
+                            "y-axis": "Nhãn trục Y",
+                            "save-button": "Lưu",
+                            "update-button": "Cập nhật",
+                            "save-as-new-button": "Lưu dưới dạng mới"
+                        },
+                        "custom-column-menu": {
+                            "renameColumn": "Đổi tên cột",
+                            "deleteColumn": "Xóa cột",
+                            "ok": "Đồng ý"
                         },
                         "chart-dialog": {
                             "close": "Đóng"
