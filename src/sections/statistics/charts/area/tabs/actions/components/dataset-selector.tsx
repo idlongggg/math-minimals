@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import {
     Box,
-    Divider,
-    FormControl,
-    InputLabel,
-    MenuItem,
     Select,
+    Divider,
+    MenuItem,
+    InputLabel,
     Typography,
+    FormControl,
     type SelectChangeEvent,
 } from '@mui/material';
 
@@ -82,22 +82,26 @@ export function DatasetSelector({ currTable, onTableChange, refreshTables }: Dat
                 )}
 
                 <Divider>
-                    <Typography variant="caption" color="textSecondary">
+                    <Typography variant="caption" fontStyle="italic">
                         Các bảng mẫu có sẵn
                     </Typography>
                 </Divider>
 
                 {sampleTables.map((d) => (
                     <MenuItem key={d.key} value={d.key}>
-                        {d.chart.title}
+                        <Typography variant="body2" fontStyle="italic">
+                            {d.chart.title}
+                        </Typography>
                     </MenuItem>
                 ))}
 
-                {savedTables.length > 0 && <Divider>
-                    <Typography variant="caption" color="textSecondary">
-                        Các bảng đã lưu
-                    </Typography>
-                </Divider>}
+                {savedTables.length > 0 && (
+                    <Divider>
+                        <Typography variant="caption" fontStyle="italic">
+                            Các bảng đã lưu
+                        </Typography>
+                    </Divider>
+                )}
 
                 {savedTables.map((savedItem: SavedChartItem) => {
                     const key = `saved-${savedItem.index}`;
@@ -106,9 +110,14 @@ export function DatasetSelector({ currTable, onTableChange, refreshTables }: Dat
                             {savedItem.data.chart.title}
                             <Box
                                 component="span"
-                                sx={{ ml: 1, color: 'text.secondary', fontSize: '0.75rem' }}
+                                sx={{
+                                    ml: 1,
+                                    color: 'text.secondary',
+                                    fontSize: '0.75rem',
+                                    fontStyle: 'italic',
+                                }}
                             >
-                                ({new Date(savedItem.savedAt).toLocaleDateString()})
+                                ({new Date(savedItem.savedAt).toLocaleString()})
                             </Box>
                         </MenuItem>
                     );
