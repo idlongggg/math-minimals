@@ -10,7 +10,7 @@ import { useLocales } from 'src/locales';
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
 import { ActionIcon, HistoryIcon, OverviewIcon } from 'src/assets/icons';
 
-import { ActionsTab, OverviewTab } from 'src/sections/statistics/charts/area';
+import { ActionsTab, HistoryTab, OverviewTab } from 'src/sections/statistics/charts/area';
 
 export default function AreaChartStatisticsPage() {
     const { translate: t } = useLocales();
@@ -32,7 +32,7 @@ export default function AreaChartStatisticsPage() {
             value: 't3',
             label: t('Lịch sử'),
             icon: HistoryIcon,
-            content: <div>{t('ds')}</div>,
+            content: <HistoryTab />,
         },
     ];
 
