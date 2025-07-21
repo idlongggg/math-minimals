@@ -1,11 +1,12 @@
 'use client';
 
+import JXG from 'jsxgraph';
+import { useRef, useEffect } from 'react';
+
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import JXG from 'jsxgraph';
-import { useEffect, useRef } from 'react';
+import CardContent from '@mui/material/CardContent';
 
 export function Demo02View() {
     const parallelogramBoardRef = useRef<HTMLDivElement>(null);
@@ -100,7 +101,6 @@ export function Demo02View() {
                 axis: true,
                 showNavigation: true,
                 showCopyright: false,
-                keepAspectRatio: true, // Thêm dòng này để giữ tỷ lệ
             });
             createParallelogram(board);
         }
@@ -112,7 +112,6 @@ export function Demo02View() {
                 axis: true,
                 showNavigation: true,
                 showCopyright: false,
-                keepAspectRatio: true, // Thêm dòng này để giữ tỷ lệ
             });
             createSquare(board);
         }
@@ -124,7 +123,6 @@ export function Demo02View() {
                 axis: true,
                 showNavigation: true,
                 showCopyright: false,
-                keepAspectRatio: true, // Thêm dòng này để giữ tỷ lệ
             });
             createTriangle(board);
         }
@@ -140,7 +138,7 @@ export function Demo02View() {
                     <div
                         id="triangle-container"
                         ref={triangleBoardRef}
-                        style={{ width: '100%', height: '400px' }}
+                        style={{ width: '400px', height: '400px' }}
                     />
                 </CardContent>
             </Card>
@@ -157,7 +155,7 @@ export function Demo02View() {
                     <div
                         id="parallelogram-container"
                         ref={parallelogramBoardRef}
-                        style={{ width: '100%', height: '400px' }}
+                        style={{ width: '400px', height: '400px' }}
                     />
                 </CardContent>
             </Card>
@@ -174,7 +172,7 @@ export function Demo02View() {
                     <div
                         id="square-container"
                         ref={squareBoardRef}
-                        style={{ width: '100%', height: '400px' }}
+                        style={{ width: '400px', height: '400px' }}
                     />
                 </CardContent>
             </Card>
