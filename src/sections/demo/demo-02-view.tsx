@@ -138,7 +138,10 @@ export function Demo02View() {
                     <div
                         id="triangle-container"
                         ref={triangleBoardRef}
-                        style={{ width: '400px', height: '400px' }}
+                        style={{
+                            width: '400px',
+                            height: '400px',
+                        }}
                     />
                 </CardContent>
             </Card>
@@ -155,7 +158,10 @@ export function Demo02View() {
                     <div
                         id="parallelogram-container"
                         ref={parallelogramBoardRef}
-                        style={{ width: '400px', height: '400px' }}
+                        style={{
+                            width: '400px',
+                            height: '400px',
+                        }}
                     />
                 </CardContent>
             </Card>
@@ -172,7 +178,10 @@ export function Demo02View() {
                     <div
                         id="square-container"
                         ref={squareBoardRef}
-                        style={{ width: '400px', height: '400px' }}
+                        style={{
+                            width: '400px',
+                            height: '400px',
+                        }}
                     />
                 </CardContent>
             </Card>
