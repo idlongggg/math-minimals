@@ -124,53 +124,105 @@ export function PointsSegmentsPlaneGeometryView() {
                                 <ListItemText primary="Điểm có thể được biểu diễn bằng các ký hiệu như A, B, C." />
                             </ListItem>
                         </List>
-                        <Typography variant="body2" color="text.secondary" gutterBottom>
-                            Ví dụ trong hình trên, các điểm A, B, C được xác định bởi tọa độ của chúng trên mặt phẳng.
-                        </Typography>
-                        <math-field read-only>A=(x_A, y_A)=(-3, 1)</math-field>&nbsp;
-                        <math-field read-only>B=(x_B, y_B)=(2, 4)</math-field>&nbsp;
-                        <math-field read-only>C=(x_C, y_C)=(0, -2)</math-field>
                     </CardContent>
                 </Card>
             </Box>
 
-            <Card>
-                <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                        Đoạn thẳng
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
-                        Di chuyển các điểm để thay đổi đoạn thẳng (màu xanh dương)
-                    </Typography>
-                    <div
-                        id="segment-container"
-                        ref={segmentBoardRef}
-                        style={{
-                            width: '400px',
-                            height: '400px',
-                        }}
-                    />
-                </CardContent>
-            </Card>
+            <Box
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: { xs: '1fr', md: '1fr 2fr' },
+                    gap: 3,
+                }}
+            >
+                <Card>
+                    <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                            Đoạn thẳng
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" gutterBottom>
+                            Di chuyển các điểm để thay đổi đoạn thẳng (màu xanh dương)
+                        </Typography>
+                        <div
+                            id="segment-container"
+                            ref={segmentBoardRef}
+                            style={{
+                                width: '400px',
+                                height: '400px',
+                            }}
+                        />
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                            Tính chất của đoạn thẳng
+                        </Typography>
+                        <List dense>
+                            <ListItem>
+                                <ListItemText primary="Đoạn thẳng là phần đường thẳng nối hai điểm." />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Đoạn thẳng có độ dài xác định và có thể đo được." />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Đoạn thẳng là tập hợp tất cả các điểm nằm giữa hai điểm đầu mút." />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Đoạn thẳng có thể được ký hiệu bằng tên hai điểm đầu mút, ví dụ: đoạn thẳng AB." />
+                            </ListItem>
+                        </List>
+                    </CardContent>
+                </Card>
+            </Box>
 
-            <Card>
-                <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                        Đường thẳng
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
-                        Di chuyển các điểm để thay đổi đường thẳng (màu cam)
-                    </Typography>
-                    <div
-                        id="line-container"
-                        ref={lineBoardRef}
-                        style={{
-                            width: '400px',
-                            height: '400px',
-                        }}
-                    />
-                </CardContent>
-            </Card>
+            <Box
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: { xs: '1fr', md: '1fr 2fr' },
+                    gap: 3,
+                }}
+            >
+                <Card>
+                    <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                            Đường thẳng
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" gutterBottom>
+                            Di chuyển các điểm để thay đổi đường thẳng (màu cam)
+                        </Typography>
+                        <div
+                            id="line-container"
+                            ref={lineBoardRef}
+                            style={{
+                                width: '400px',
+                                height: '400px',
+                            }}
+                        />
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                            Tính chất của đường thẳng
+                        </Typography>
+                        <List dense>
+                            <ListItem>
+                                <ListItemText primary="Đường thẳng là tập hợp vô hạn các điểm kéo dài vô tận về hai phía." />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Đường thẳng không có điểm bắt đầu và kết thúc." />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Qua hai điểm phân biệt chỉ có duy nhất một đường thẳng." />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Đường thẳng có thể được xác định bởi hai điểm bất kỳ thuộc nó." />
+                            </ListItem>
+                        </List>
+                    </CardContent>
+                </Card>
+            </Box>
         </Box>
     );
 }
