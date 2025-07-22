@@ -53,6 +53,7 @@
     "framer-motion": "^12.6.1",
     "jsxgraph": "^1.11.1",
     "katex": "^0.16.22",
+    "mathlive": "^0.106.0",
     "minimal-shared": "^1.0.7",
     "next": "^15.2.4",
     "nprogress": "^0.2.0",
