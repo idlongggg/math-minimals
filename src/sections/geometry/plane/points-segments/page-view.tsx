@@ -1,12 +1,26 @@
 'use client';
 
 import JXG from 'jsxgraph';
-import { useRef, useEffect } from 'react';
+import 'mathlive';
+import { useEffect, useRef } from 'react';
+
+declare global {
+    interface MathfieldElement extends HTMLElement {}
+}
+
+declare module 'react' {
+    namespace JSX {
+        interface IntrinsicElements {
+            'math-field': React.DetailedHTMLProps<React.HTMLAttributes<MathfieldElement>, MathfieldElement>;
+        }
+    }
+}
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import { MathfieldElement } from 'mathlive';
 
 export function PointsSegmentsPlaneGeometryView() {
     const pointsBoardRef = useRef<HTMLDivElement>(null);
@@ -134,6 +148,9 @@ export function PointsSegmentsPlaneGeometryView() {
                     <Typography variant="body2" color="text.secondary" gutterBottom>
                         Di chuyển các điểm để thay đổi đường thẳng (màu cam)
                     </Typography>
+                    <math-field id="mathfield">
+                        {'x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'}
+                    </math-field>
                     <div
                         id="line-container"
                         ref={lineBoardRef}
