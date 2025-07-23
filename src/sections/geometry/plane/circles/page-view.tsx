@@ -122,31 +122,18 @@ export function CircleGeometryView() {
                 { fontSize: 12, color: '#8c564b' }
             );
 
-            // Tạo dây cung
-            const chordPoint = board.create(
-                'point',
-                [
-                    () => center.X() + 0.5 * (pointOnCircle.X() - center.X()),
-                    () => center.Y() - 0.8 * (pointOnCircle.Y() - center.Y()),
-                ],
-                { name: 'C', size: 3, color: '#e377c2' }
-            );
+            // Tạo dây cung: điểm C nằm trên đường tròn
+            const chordPoint = board.create('glider', [0, 3, circle], {
+                name: 'C',
+                size: 3,
+                color: '#e377c2',
+            });
 
+            // Dây cung nối A và C
             const chord = board.create('segment', [pointOnCircle, chordPoint], {
                 strokeColor: '#e377c2',
                 strokeWidth: 2,
             });
-
-            // Hiển thị độ dài dây cung
-            board.create(
-                'text',
-                [
-                    () => (pointOnCircle.X() + chordPoint.X()) / 2,
-                    () => (pointOnCircle.Y() + chordPoint.Y()) / 2 + 0.3,
-                    () => `Dây cung: ${chord.L().toFixed(2)}`,
-                ],
-                { fontSize: 12, color: '#e377c2' }
-            );
         }
     }, []);
 
@@ -166,6 +153,8 @@ export function CircleGeometryView() {
                         </Typography>
                         <Typography variant="body2" color="text.secondary" gutterBottom>
                             Di chuyển tâm O hoặc điểm A để thay đổi vị trí và kích thước.
+                            <br />
+                            Di chuyển điểm C (màu hồng) để thay đổi dây cung.
                             <br />
                             Các thông số được cập nhật tự động.
                         </Typography>
