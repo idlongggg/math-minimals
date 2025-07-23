@@ -1,4 +1,4 @@
-export { };
+export {};
 
 declare global {
     interface MathfieldElement extends HTMLElement {}
@@ -7,7 +7,10 @@ declare global {
 declare module 'react' {
     namespace JSX {
         interface IntrinsicElements {
-            'math-field': React.DetailedHTMLProps<React.HTMLAttributes<MathfieldElement>, MathfieldElement>;
+            'math-field': React.DetailedHTMLProps<
+                React.HTMLAttributes<MathfieldElement>,
+                MathfieldElement
+            >;
         }
     }
 }

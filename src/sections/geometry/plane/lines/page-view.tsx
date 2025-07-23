@@ -1,14 +1,15 @@
 'use client';
 
-import JXG from 'jsxgraph';
 import 'mathlive';
-import { useEffect, useRef } from 'react';
 
-import { List, ListItem, ListItemText } from '@mui/material';
+import JXG from 'jsxgraph';
+import { useRef, useEffect } from 'react';
+
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import { List, ListItem, ListItemText } from '@mui/material';
 
 export function LinesPlaneGeometryView() {
     const lineBoardRef = useRef<HTMLDivElement>(null);

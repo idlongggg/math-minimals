@@ -3,8 +3,8 @@
 import { Card, CardContent } from '@mui/material';
 
 import { PageLayout } from 'src/layouts/dashboard/page-layout';
-import { LinesPlaneGeometryView } from 'src/sections/geometry/plane/lines';
 
+import { LinesPlaneGeometryView } from 'src/sections/geometry/plane/lines';
 
 export default function LinesPlaneGeometryPage() {
     return (
