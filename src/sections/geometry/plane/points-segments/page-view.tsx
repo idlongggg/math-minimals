@@ -3,16 +3,16 @@
 import 'mathlive';
 
 import JXG from 'jsxgraph';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
-import { List, ListItem, ListItemText } from '@mui/material';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import { List, ListItem, ListItemText } from '@mui/material';
 
 export function PointsSegmentsPlaneGeometryView() {
     const pointsBoardRef = useRef<HTMLDivElement>(null);
@@ -21,14 +21,30 @@ export function PointsSegmentsPlaneGeometryView() {
     const [selectedPoint, setSelectedPoint] = useState<JXG.Point | null>(null);
     const [pointCoords, setPointCoords] = useState({ x: 0, y: 0 });
 
-    const snapToGrid = (coord: number) => {
-        return Math.round(coord / 0.25) * 0.25;
-    };
+    const snapToGrid = (coord: number) => Math.round(coord / 0.25) * 0.25;
 
     const createPoints = (board: JXG.Board) => {
-        board.create('point', [-3, -1], { name: 'A', size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
-        board.create('point', [1, -1], { name: 'B', size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
-        board.create('point', [0, 2], { name: 'C', size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
+        board.create('point', [-3, -1], {
+            name: 'A',
+            size: 3,
+            snapToGrid: true,
+            snapSizeX: 0.25,
+            snapSizeY: 0.25,
+        });
+        board.create('point', [1, -1], {
+            name: 'B',
+            size: 3,
+            snapToGrid: true,
+            snapSizeX: 0.25,
+            snapSizeY: 0.25,
+        });
+        board.create('point', [0, 2], {
+            name: 'C',
+            size: 3,
+            snapToGrid: true,
+            snapSizeX: 0.25,
+            snapSizeY: 0.25,
+        });
 
         let pointCount = 3;
         board.on('down', (e: any) => {
@@ -37,7 +53,13 @@ export function PointsSegmentsPlaneGeometryView() {
             const snappedY = snapToGrid(coords[1]);
             const pointName = String.fromCharCode(65 + pointCount);
             if (!board.getAllObjectsUnderMouse(e).length) {
-                board.create('point', [snappedX, snappedY], { name: pointName, size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
+                board.create('point', [snappedX, snappedY], {
+                    name: pointName,
+                    size: 3,
+                    snapToGrid: true,
+                    snapSizeX: 0.25,
+                    snapSizeY: 0.25,
+                });
                 pointCount++;
             }
         });
@@ -54,8 +76,20 @@ export function PointsSegmentsPlaneGeometryView() {
     };
 
     const createSegment = (board: JXG.Board) => {
-        const P1 = board.create('point', [-3, -1], { name: 'P1', size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
-        const P2 = board.create('point', [2, 1], { name: 'P2', size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
+        const P1 = board.create('point', [-3, -1], {
+            name: 'P1',
+            size: 3,
+            snapToGrid: true,
+            snapSizeX: 0.25,
+            snapSizeY: 0.25,
+        });
+        const P2 = board.create('point', [2, 1], {
+            name: 'P2',
+            size: 3,
+            snapToGrid: true,
+            snapSizeX: 0.25,
+            snapSizeY: 0.25,
+        });
 
         board.create('segment', [P1, P2], {
             name: 'Đoạn thẳng',
@@ -79,6 +113,20 @@ export function PointsSegmentsPlaneGeometryView() {
             selectedPoint.board.update();
         }
         handleClose();
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            handleUpdateCoords();
+        }
+    };
+
+    const handleCoordChange = (key: 'x' | 'y', value: string) => {
+        const parsedValue = parseFloat(value);
+        setPointCoords({
+            ...pointCoords,
+            [key]: isNaN(parsedValue) ? 0 : parsedValue,
+        });
     };
 
     useEffect(() => {
@@ -119,7 +167,8 @@ export function PointsSegmentsPlaneGeometryView() {
                             Các điểm
                         </Typography>
                         <Typography variant="body2" color="text.secondary" gutterBottom>
-                            Di chuyển các điểm tự do trên mặt phẳng hoặc click để tạo điểm mới (snap 0.25 đơn vị)
+                            Di chuyển các điểm tự do trên mặt phẳng hoặc click để tạo điểm mới (snap
+                            0.25 đơn vị)
                         </Typography>
                         <div
                             id="points-container"
@@ -164,7 +213,8 @@ export function PointsSegmentsPlaneGeometryView() {
                             Đoạn thẳng
                         </Typography>
                         <Typography variant="body2" color="text.secondary" gutterBottom>
-                            Di chuyển các điểm để thay đổi đoạn thẳng (màu xanh dương, snap 0.25 đơn vị)
+                            Di chuyển các điểm để thay đổi đoạn thẳng (màu xanh dương, snap 0.25 đơn
+                            vị)
                         </Typography>
                         <div
                             id="segment-container"
@@ -213,18 +263,16 @@ export function PointsSegmentsPlaneGeometryView() {
                     <TextField
                         label="Tọa độ X"
                         type="number"
-                        value={pointCoords.x}
-                        onChange={(e) =>
-                            setPointCoords({ ...pointCoords, x: parseFloat(e.target.value) })
-                        }
+                        value={pointCoords.x.toString()}
+                        onChange={(e) => handleCoordChange('x', e.target.value)}
+                        onKeyDown={handleKeyDown}
                     />
                     <TextField
                         label="Tọa độ Y"
                         type="number"
-                        value={pointCoords.y}
-                        onChange={(e) =>
-                            setPointCoords({ ...pointCoords, y: parseFloat(e.target.value) })
-                        }
+                        value={pointCoords.y.toString()}
+                        onChange={(e) => handleCoordChange('y', e.target.value)}
+                        onKeyDown={handleKeyDown}
                     />
                     <Button variant="contained" onClick={handleUpdateCoords}>
                         Cập nhật
