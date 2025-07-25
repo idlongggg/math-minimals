@@ -3,10 +3,13 @@
 import 'mathlive';
 
 import JXG from 'jsxgraph';
-import { useRef, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import Button from '@mui/material/Button';
+import Popover from '@mui/material/Popover';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 import { List, ListItem, ListItemText } from '@mui/material';
@@ -14,11 +17,36 @@ import { List, ListItem, ListItemText } from '@mui/material';
 export function PointsSegmentsPlaneGeometryView() {
     const pointsBoardRef = useRef<HTMLDivElement>(null);
     const segmentBoardRef = useRef<HTMLDivElement>(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+    const [selectedPoint, setSelectedPoint] = useState<JXG.Point | null>(null);
+    const [pointCoords, setPointCoords] = useState({ x: 0, y: 0 });
 
     const createPoints = (board: JXG.Board) => {
         board.create('point', [-3, -1], { name: 'A', size: 3 });
         board.create('point', [1, -1], { name: 'B', size: 3 });
         board.create('point', [0, 2], { name: 'C', size: 3 });
+
+        // Thêm sự kiện click để tạo điểm mới
+        let pointCount = 3;
+        board.on('down', (e: any) => {
+            const coords = board.getUsrCoordsOfMouse(e);
+            const pointName = String.fromCharCode(65 + pointCount);
+            if (!board.getAllObjectsUnderMouse(e).length) {
+                board.create('point', [coords[0], coords[1]], { name: pointName, size: 3 });
+                pointCount++;
+            }
+        });
+
+        // Thêm sự kiện double click để mở popover
+        board.on('dblclick', (e: any) => {
+            const targets = board.getAllObjectsUnderMouse(e);
+            const point = targets.find((obj: any) => obj.elType === 'point') as JXG.Point;
+            if (point) {
+                setSelectedPoint(point);
+                setPointCoords({ x: point.X(), y: point.Y() });
+                setAnchorEl(e.target as HTMLElement);
+            }
+        });
     };
 
     const createSegment = (board: JXG.Board) => {
@@ -32,6 +60,19 @@ export function PointsSegmentsPlaneGeometryView() {
             highlightStrokeColor: '#1f77b4',
             highlightStrokeWidth: 3,
         });
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+        setSelectedPoint(null);
+    };
+
+    const handleUpdateCoords = () => {
+        if (selectedPoint) {
+            selectedPoint.setPosition(JXG.COORDS_BY_USER, [pointCoords.x, pointCoords.y]);
+            selectedPoint.board.update();
+        }
+        handleClose();
     };
 
     useEffect(() => {
@@ -72,7 +113,7 @@ export function PointsSegmentsPlaneGeometryView() {
                             Các điểm
                         </Typography>
                         <Typography variant="body2" color="text.secondary" gutterBottom>
-                            Di chuyển các điểm tự do trên mặt phẳng
+                            Di chuyển các điểm tự do trên mặt phẳng hoặc click để tạo điểm mới
                         </Typography>
                         <div
                             id="points-container"
@@ -151,6 +192,39 @@ export function PointsSegmentsPlaneGeometryView() {
                     </CardContent>
                 </Card>
             </Box>
+
+            <Popover
+                open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+            >
+                <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    <Typography variant="h6">Chỉnh tọa độ điểm</Typography>
+                    <TextField
+                        label="Tọa độ X"
+                        type="number"
+                        value={pointCoords.x}
+                        onChange={(e) =>
+                            setPointCoords({ ...pointCoords, x: parseFloat(e.target.value) })
+                        }
+                    />
+                    <TextField
+                        label="Tọa độ Y"
+                        type="number"
+                        value={pointCoords.y}
+                        onChange={(e) =>
+                            setPointCoords({ ...pointCoords, y: parseFloat(e.target.value) })
+                        }
+                    />
+                    <Button variant="contained" onClick={handleUpdateCoords}>
+                        Cập nhật
+                    </Button>
+                </Box>
+            </Popover>
         </Box>
     );
 }
