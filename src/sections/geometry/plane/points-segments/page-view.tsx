@@ -3,16 +3,16 @@
 import 'mathlive';
 
 import JXG from 'jsxgraph';
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
+import { List, ListItem, ListItemText } from '@mui/material';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import Popover from '@mui/material/Popover';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import CardContent from '@mui/material/CardContent';
-import { List, ListItem, ListItemText } from '@mui/material';
 
 export function PointsSegmentsPlaneGeometryView() {
     const pointsBoardRef = useRef<HTMLDivElement>(null);
@@ -21,23 +21,27 @@ export function PointsSegmentsPlaneGeometryView() {
     const [selectedPoint, setSelectedPoint] = useState<JXG.Point | null>(null);
     const [pointCoords, setPointCoords] = useState({ x: 0, y: 0 });
 
-    const createPoints = (board: JXG.Board) => {
-        board.create('point', [-3, -1], { name: 'A', size: 3 });
-        board.create('point', [1, -1], { name: 'B', size: 3 });
-        board.create('point', [0, 2], { name: 'C', size: 3 });
+    const snapToGrid = (coord: number) => {
+        return Math.round(coord / 0.25) * 0.25;
+    };
 
-        // Thêm sự kiện click để tạo điểm mới
+    const createPoints = (board: JXG.Board) => {
+        board.create('point', [-3, -1], { name: 'A', size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
+        board.create('point', [1, -1], { name: 'B', size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
+        board.create('point', [0, 2], { name: 'C', size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
+
         let pointCount = 3;
         board.on('down', (e: any) => {
             const coords = board.getUsrCoordsOfMouse(e);
+            const snappedX = snapToGrid(coords[0]);
+            const snappedY = snapToGrid(coords[1]);
             const pointName = String.fromCharCode(65 + pointCount);
             if (!board.getAllObjectsUnderMouse(e).length) {
-                board.create('point', [coords[0], coords[1]], { name: pointName, size: 3 });
+                board.create('point', [snappedX, snappedY], { name: pointName, size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
                 pointCount++;
             }
         });
 
-        // Thêm sự kiện double click để mở popover
         board.on('dblclick', (e: any) => {
             const targets = board.getAllObjectsUnderMouse(e);
             const point = targets.find((obj: any) => obj.elType === 'point') as JXG.Point;
@@ -50,8 +54,8 @@ export function PointsSegmentsPlaneGeometryView() {
     };
 
     const createSegment = (board: JXG.Board) => {
-        const P1 = board.create('point', [-3, -1], { name: 'P1', size: 3 });
-        const P2 = board.create('point', [2, 1], { name: 'P2', size: 3 });
+        const P1 = board.create('point', [-3, -1], { name: 'P1', size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
+        const P2 = board.create('point', [2, 1], { name: 'P2', size: 3, snapToGrid: true, snapSizeX: 0.25, snapSizeY: 0.25 });
 
         board.create('segment', [P1, P2], {
             name: 'Đoạn thẳng',
@@ -69,7 +73,9 @@ export function PointsSegmentsPlaneGeometryView() {
 
     const handleUpdateCoords = () => {
         if (selectedPoint) {
-            selectedPoint.setPosition(JXG.COORDS_BY_USER, [pointCoords.x, pointCoords.y]);
+            const snappedX = snapToGrid(pointCoords.x);
+            const snappedY = snapToGrid(pointCoords.y);
+            selectedPoint.setPosition(JXG.COORDS_BY_USER, [snappedX, snappedY]);
             selectedPoint.board.update();
         }
         handleClose();
@@ -113,7 +119,7 @@ export function PointsSegmentsPlaneGeometryView() {
                             Các điểm
                         </Typography>
                         <Typography variant="body2" color="text.secondary" gutterBottom>
-                            Di chuyển các điểm tự do trên mặt phẳng hoặc click để tạo điểm mới
+                            Di chuyển các điểm tự do trên mặt phẳng hoặc click để tạo điểm mới (snap 0.25 đơn vị)
                         </Typography>
                         <div
                             id="points-container"
@@ -158,7 +164,7 @@ export function PointsSegmentsPlaneGeometryView() {
                             Đoạn thẳng
                         </Typography>
                         <Typography variant="body2" color="text.secondary" gutterBottom>
-                            Di chuyển các điểm để thay đổi đoạn thẳng (màu xanh dương)
+                            Di chuyển các điểm để thay đổi đoạn thẳng (màu xanh dương, snap 0.25 đơn vị)
                         </Typography>
                         <div
                             id="segment-container"
